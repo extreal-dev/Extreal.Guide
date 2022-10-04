@@ -18,7 +18,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            Quickstart - 30min ⏱️
           </Link>
         </div>
       </div>
@@ -35,6 +35,22 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <section className={styles.block}>
+          <div className="container">
+            <div className="row">
+              <div className={clsx('col')}>
+                <div className="text--center padding-horiz--md">
+                  <h3>こんなアプリが作れます！</h3>
+                  <p>
+                    <div className={styles.youtube}>
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/_An9EsKPhp0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   );
