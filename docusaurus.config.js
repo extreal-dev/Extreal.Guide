@@ -61,13 +61,13 @@ const config = {
             label: 'Guide',
           },
           {
-            href: 'https://github.com/extreal-dev',
-            label: 'GitHub',
+            href: 'https://fintan.jp/',
+            label: 'Fintan',
             position: 'right',
           },
           {
-            href: 'https://fintan.jp/',
-            label: 'Fintan',
+            href: 'https://github.com/extreal-dev',
+            label: 'GitHub',
             position: 'right',
           },
         ],

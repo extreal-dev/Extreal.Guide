@@ -10,14 +10,13 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Lively virtual spaces',
+    title: 'Bustling virtual spaces',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Extrealは賑やかなバーチャル空間を作り出すことを目指したフレームワークです。
-        ボイスチャット、テキストチャット、マルチプレイといったコミュニケーションやインタラクションのベースとなる機能をExtrealが提供するので、
-        あなたはそれらの機能を使ってアイデアの作成に集中できます。
-        友人と遊園地へ出かけるようなアクティビティ体験など、賑やかなバーチャル空間をあなたはすぐに作成できます。
+        Extrealはあなたが賑やかなバーチャル空間を作ることをサポートします。
+        ボイスチャット、テキストチャット、マルチプレイといったコミュニケーションやインタラクションのベースとなる機能をExtrealが提供するので、あなたはそれらの機能を使ったアイデアの作成に集中できます。
+        友人と遊園地へ出かけるようなアクティビティ体験など、Extrealを使って賑やかなバーチャル空間を沢山作ってください。
       </>
     ),
   },
@@ -32,12 +31,14 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Highly maintainable applications',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Extrealはあなたが高いメンテナンス性を持つアプリケーションを作ることをサポートします。
+        私たちがプロダクト開発で利用実績のあるアプリケーションアーキテクチャを想定してExtrealを開発しています。
+        このアプリケーションアーキテクチャを使用するには学習コストがかかりますが十分な見返りがあると私たちは信じています。
+        Extrealが想定するアプリケーションアーキテクチャを学習し使いこなして高いメンテナンス性を持つアプリケーションを手に入れましょう。
       </>
     ),
   },
@@ -46,7 +47,7 @@ const FeatureList: FeatureItem[] = [
 function Feature({title, Svg, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md">
+      <div className="text--left padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
