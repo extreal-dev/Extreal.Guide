@@ -12,6 +12,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -48,6 +49,10 @@ const config = {
     ({
       navbar: {
         title: 'Extreal',
+        logo: {
+          alt: 'Extreal',
+          src: 'img/logo.png',
+        },
         items: [
           {
             type: 'doc',
@@ -58,6 +63,11 @@ const config = {
           {
             href: 'https://github.com/extreal-dev',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            href: 'https://fintan.jp/',
+            label: 'Fintan',
             position: 'right',
           },
         ],

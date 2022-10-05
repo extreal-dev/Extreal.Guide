@@ -10,17 +10,19 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Lively virtual spaces',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Extrealは賑やかなバーチャル空間を作り出すことを目指したフレームワークです。
+        ボイスチャット、テキストチャット、マルチプレイといったコミュニケーションやインタラクションのベースとなる機能をExtrealが提供するので、
+        あなたはそれらの機能を使ってアイデアの作成に集中できます。
+        友人と遊園地へ出かけるようなアクティビティ体験など、賑やかなバーチャル空間をあなたはすぐに作成できます。
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Quality',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
