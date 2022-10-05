@@ -21,16 +21,6 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Quality',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
-  },
-  {
     title: 'Highly maintainable applications',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
@@ -39,6 +29,17 @@ const FeatureList: FeatureItem[] = [
         私たちがプロダクト開発で利用実績のあるアプリケーションアーキテクチャを想定してExtrealを開発しています。
         このアプリケーションアーキテクチャを使用するには学習コストがかかりますが十分な見返りがあると私たちは信じています。
         Extrealが想定するアプリケーションアーキテクチャを学習し使いこなして高いメンテナンス性を持つアプリケーションを手に入れましょう。
+      </>
+    ),
+  },
+  {
+    title: 'Production ready',
+    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    description: (
+      <>
+        Extrealはあなたがリリース可能なアプリケーションを作ることをサポートします。
+        Extrealはアプリケーションの機能要件だけでなく非機能要件に対応する機能も順次提供していきます。
+        例えばアセットを切り替える機能、アプリケーションの利用状況を可視化する機能などです。
       </>
     ),
   },
