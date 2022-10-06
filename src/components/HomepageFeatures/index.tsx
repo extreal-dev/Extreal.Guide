@@ -21,7 +21,7 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Highly maintainable applications',
+    title: 'Highly maintainable',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
