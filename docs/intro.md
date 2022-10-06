@@ -9,23 +9,41 @@ sidebar_position: 1
 
 TODO: このページに何を書いているか伝える
 
-## コンテンツ構成
+## Contents
 
 TODO: コンテンツの種類と説明を伝える
 
-## ライセンス
+- Core
+- Integration
+- Sample Application
+- Learning
+
+## Architecture
+
+フレームワークと想定するアプリケーションのアーキテクチャを伝える。
+各機能やサンプルアプリはこのアーキテクチャを前提に書く。
+
+### Extreal
+
+TODO: モジュールの構造、依存関係、機能を伝える
+
+### Application
+
+TODO: モジュールの構造、依存関係、FWとの関係を伝える
+
+## License
 
 TODO: ライセンス、利用制限がないことを伝える
 
-## バージョン体系
+## Versioning
 
 TODO: モジュールとフレームワーク全体のバージョン体系、その関係、確認方法を伝える
 
-## 後方互換
+## Backward compatibility
 
 TODO: 後方互換の考え方、公開APIを伝える
 
-## フィードバック、コントリビュート
+## Feedback or Contribute
 
 TODO: フィードバック、コントリビュートの方法を伝える
 
