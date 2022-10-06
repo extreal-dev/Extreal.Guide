@@ -56,9 +56,9 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'introduction',
             position: 'left',
-            label: 'Guide',
+            label: 'Docs',
           },
           {
             href: 'https://fintan.jp/',
@@ -108,6 +108,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['csharp']
       },
     }),
 };
