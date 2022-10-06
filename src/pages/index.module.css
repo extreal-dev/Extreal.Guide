@@ -25,7 +25,7 @@
 .block {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding-bottom: 2rem;
   width: 100%;
 }
 

@@ -4,14 +4,12 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Bustling virtual spaces',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
         Extrealはあなたが賑やかなバーチャル空間を作ることをサポートします。
@@ -22,7 +20,6 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Highly maintainable',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
         Extrealはあなたが高いメンテナンス性を持つアプリケーションを作ることをサポートします。
@@ -34,7 +31,6 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Production ready',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
         Extrealはあなたがリリース可能なアプリケーションを作ることをサポートします。
@@ -45,7 +41,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--left padding-horiz--md">
