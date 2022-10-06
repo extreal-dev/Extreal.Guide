@@ -38,9 +38,16 @@ export default function Home(): JSX.Element {
         <section className={styles.block}>
           <div className="container">
             <div className="row">
+              <div className={clsx('col col--12')}>
+                <div className="text--center padding--md">
+                  <h3>Extrealを使ってこのようなアプリケーションをあなたにも開発できます！</h3>
+                </div>
+              </div>
+            </div>
+            <div className="row">
               <div className={clsx('col col--6')}>
                 <div className="text--center padding-horiz--md">
-                  <h3>ヴィーナスフォート最後のイルミネーションをバーチャル体験</h3>
+                  <h4>ヴィーナスフォート最後のイルミネーションをバーチャル体験</h4>
                   <p>
                     <div className={styles.youtube}>
                       <iframe width="560" height="315" src="https://www.youtube.com/embed/5OxtfxyWdA8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -50,7 +57,7 @@ export default function Home(): JSX.Element {
               </div>
               <div className={clsx('col col--6')}>
                 <div className="text--center padding-horiz--md">
-                  <h3>全国各地をバーチャルで観光＆体験</h3>
+                  <h4>全国各地をバーチャルで観光＆体験</h4>
                   <p>
                     <div className={styles.youtube}>
                       <iframe width="560" height="315" src="https://www.youtube.com/embed/O8wFOeL-IkQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
