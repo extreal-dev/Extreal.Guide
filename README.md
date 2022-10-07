@@ -43,8 +43,9 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 
 ### メンテナーへ
 
-- ファビコン、ロゴのファイルは次のサイトで作成しました。
-  - https://favicon.io/
+- ファビコン、ロゴのファイルは[favicon.io](https://favicon.io/)で作成しています。
+- クラス図は[Mermaid](http://mermaid-js.github.io/mermaid/)で作成しています。
+  - [mdx-mermaid](https://github.com/sjwall/mdx-mermaid)を導入しています。
 
 ### コントリビュータへ
 

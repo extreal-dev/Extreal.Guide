@@ -44,18 +44,73 @@ Loggingの仕様は次の通りです。
 
 - ログレベルとログカテゴリを関連付けてログを出力します。
 - デフォルトのログ出力判定はログレベルのみで判定します。
-- デフォルトのログレベルはINFOです。
 - デフォルトではINFO以上のログを出力します。
 - デフォルトのログ出力はUnity標準のDebugクラスで行います。
 - ログレベルを変更できます。
 - ログ出力判定を変更できます。
 - ログ出力（フォーマットや出力先）を変更できます。
 
+## Architecture
+
+```mermaid
+classDiagram
+
+    LoggingManager *-- Logger
+    Logger ..> ILogOutputChecker
+    Logger ..> ILogWriter
+    ILogOutputChecker <|.. LogLevelLogOutputChecker
+    ILogWriter <|.. UnityDebugLogWriter
+
+    class LogLevel {
+        <<enumeration>>
+        ERROR
+        WARN
+        INFO
+        DEBUG
+    }
+
+    class Logger {
+        +IsXxx() bool
+        +LogXxx(string) void
+        +LogXxx(string, Exception) void
+    }
+
+    class LoggingManager {
+        +GetLogger(string)$ Logger
+        +SetLogLevel(LogLevel)$ void
+        +SetLogOutputChecker(ILogOutputChecker)$ void
+        +SetLogWriter(ILogWriter)$ void
+    }
+
+    class ILogOutputChecker {
+        <<interface>>
+        +IsXxx(Logger) bool
+    }
+
+    class ILogWriter {
+        <<interface>>
+        +LogXxx(Logger, string) void
+        +LogXxx(Logger, string, Exception) void
+    }
+
+    class LogLevelLogOutputChecker {
+    }
+
+    class UnityDebugLogWriter {
+    }
+```
+
+:::note
+`Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
+:::
+
 ## Installation
 
-UnityのPackage Managerでアプリケーションに読み込んでください。
+UnityのPackage Managerを使ってGit URLからアプリケーションに読み込んでください。
+使用するバージョンは[Release](../release.md)を確認してください。
 
-TODO: URL
+https://github.com/extreal-dev/Extreal.Core.Logging.git
+
 
 デフォルトのまま使う場合は以降の作業は不要です。
 

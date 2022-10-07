@@ -35,6 +35,7 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
+          remarkPlugins: [require('mdx-mermaid')],
         },
         blog: false,
         theme: {
