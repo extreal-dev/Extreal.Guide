@@ -43,6 +43,10 @@ TODO: モジュールとフレームワーク全体のバージョン体系、�
 
 TODO: 後方互換の考え方、公開APIを伝える
 
+## Installation
+
+TODO: インストール方法を伝える。Package ManagerのGit URL指定など
+
 ## Feedback or Contribute
 
 TODO: フィードバック、コントリビュートの方法を伝える
