@@ -106,11 +106,15 @@ classDiagram
 
 ## Installation
 
-UnityのPackage Managerを使ってGit URLからアプリケーションに読み込んでください。
-使用するバージョンは[Release](../release.md)を確認してください。
+### Package
 
-https://github.com/extreal-dev/Extreal.Core.Logging.git
+`https://github.com/extreal-dev/Extreal.Core.Logging.git`
 
+### Dependencies
+
+依存するものがないため作業は不要です。
+
+### Settings
 
 デフォルトのまま使う場合は以降の作業は不要です。
 

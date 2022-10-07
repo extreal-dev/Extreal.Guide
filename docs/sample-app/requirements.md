@@ -6,8 +6,8 @@ sidebar_position: 2
 
 ## Functional requirements
 
-TODO: 書く
+Comming Soon...
 
 ## Non-functional requirements
 
-TODO: 書く
+Comming Soon...

@@ -46,6 +46,41 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 - ファビコン、ロゴのファイルは[favicon.io](https://favicon.io/)で作成しています。
 - クラス図は[Mermaid](http://mermaid-js.github.io/mermaid/)で作成しています。
   - [mdx-mermaid](https://github.com/sjwall/mdx-mermaid)を導入しています。
+- 機能ページは下記のテンプレートを使ってください。
+
+#### 機能ページのテンプレート
+
+```
+## What for?
+
+TODO: 何のために提供した機能なのかを伝えます。
+
+##Specification
+
+TODO: スペックを伝えます。スペックの理解に必要な概念なども伝えます。
+
+## Architecture
+
+TODO: 以降の説明イメージが湧くようにクラス構成を伝えます。
+
+## Installation
+
+### Package
+
+TODO: この機能のGit URLを伝えます。
+
+### Dependencies
+
+TODO: 他に用意する必要がある依存パッケージを伝えます。
+
+### Settings
+
+TODO: 設定方法を伝えます。
+
+## Usage
+
+TODO: スペックを網羅するように使い方を伝えます。利用シーンを表す「XXXする」という見出しを付けて目次から探しやすくします。
+```
 
 ### コントリビュータへ
 
