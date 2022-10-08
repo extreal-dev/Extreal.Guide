@@ -235,9 +235,9 @@ public class AppLogOutputChecker : ILogOutputChecker {
 LoggerManager.SetLogOutputChecker(new AppLogOutputChecker());
 ```
 
-### ログ出力を変更する
+### ログ書き込みを変更する
 
-ILogWriterインタフェースがログを出力します。
+ILogWriterインタフェースがログを書き込みます。
 ILogWriterインタフェースを実装したクラスを作成しLoggerManagerクラスに設定します。
 
 ```csharp
