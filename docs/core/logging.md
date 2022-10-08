@@ -18,7 +18,7 @@ sidebar_position: 1
 
 ## Specification
 
-Loggingではログ出力を制御しやすいようにログレベルとログカテゴリという概念を使います。
+Loggingではログ出力を制御しやすいようにログレベルとログカテゴリを関連付けてログを出力します。
 
 ログレベルは高い方から順にERROR、WARN、INFO、DEBUGの4つです。
 
@@ -32,13 +32,15 @@ Loggingではログ出力を制御しやすいようにログレベルとログ�
   - 開発時にデバッグ情報を出力したい場合
 
 ログレベルは次のような使い方を想定しています。
-- 開発時はDEBUG以上、本番運用時はINFO以上のログを出力する
-- ERROR以上のログを監視して通知する
+- 開発時はDEBUG以上、本番運用時はINFO以上のログを出力する。
+- ERROR以上のログを監視して通知する。
 
-ログカテゴリはログを分類する名前で次のような使い方を想定しています。
-- ログ出力を行うクラス名をログカテゴリにしてログを見てどのクラスから出力されたのか分かるようにする
-- 特定の名前をログカテゴリにして複数クラスに渡って出力しているログを後からトレースできるようにする
-- 障害の再現待ちなどで特定の名前のログカテゴリのみログレベルの設定に関係なくDEBUGレベルのログを出力できるようにする
+ログカテゴリはログを分類する名前です。
+次のような使い方を想定しています。
+
+- ログ出力を行うクラス名をログカテゴリにしてログを見てどのクラスから出力されたのか分かるようにする。
+- 特定の名前をログカテゴリにして複数クラスで出力しているログを後から追跡できるようにする。
+- 障害の再現待ちなどで特定の名前のログカテゴリのみログレベルの設定に関係なくDEBUGレベルのログを出力できるようにする。
 
 Loggingの仕様は次の通りです。
 
@@ -48,18 +50,23 @@ Loggingの仕様は次の通りです。
 - デフォルトのログ出力はUnity標準のDebugクラスで行います。
 - ログレベルを変更できます。
 - ログ出力判定を変更できます。
-- ログ出力（フォーマットや出力先）を変更できます。
+- ログ書き込み（フォーマットや出力先）を変更できます。
 
 ## Architecture
 
 ```mermaid
 classDiagram
 
+    LoggingManager <.. Applicaiton
+    Logger <.. Applicaiton
     LoggingManager *-- Logger
     Logger ..> ILogOutputChecker
     Logger ..> ILogWriter
     ILogOutputChecker <|.. LogLevelLogOutputChecker
     ILogWriter <|.. UnityDebugLogWriter
+
+    class Applicaiton {
+    }
 
     class LogLevel {
         <<enumeration>>
@@ -69,7 +76,13 @@ classDiagram
         DEBUG
     }
 
+    class LogContext {
+        +LogLevel LogLevel
+        +LogCategory string
+    }
+
     class Logger {
+        -logContext LogContext
         +IsXxx() bool
         +LogXxx(string) void
         +LogXxx(string, Exception) void
@@ -84,13 +97,13 @@ classDiagram
 
     class ILogOutputChecker {
         <<interface>>
-        +IsXxx(Logger) bool
+        +IsXxx(LogContext) bool
     }
 
     class ILogWriter {
         <<interface>>
-        +LogXxx(Logger, string) void
-        +LogXxx(Logger, string, Exception) void
+        +LogXxx(LogContext, string) void
+        +LogXxx(LogContext, string, Exception) void
     }
 
     class LogLevelLogOutputChecker {
@@ -103,6 +116,23 @@ classDiagram
 :::note
 `Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
 :::
+
+アプリケーションでログ出力する場合のシーケンスは次の通りです。
+
+```mermaid
+sequenceDiagram
+    actor Application
+    Application->>LoggingManager: GetLogger(string)
+    LoggingManager-->>Logger: new
+    Logger-->>LogContext: new
+    LoggingManager-->>Application: Logger
+    Application->>Logger: IsXxx()
+    Logger->>ILogOutputChecker: IsXxx(LogContext)
+    Logger-->>Application: bool
+    Application->>Logger: LogXxx(LogContext, string)
+    Logger->>ILogOutputChecker: IsXxx(LogContext)
+    Logger->>ILogWriter: LogXxx(LogContext, string)
+```
 
 ## Installation
 
