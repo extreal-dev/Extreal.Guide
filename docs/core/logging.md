@@ -76,34 +76,30 @@ classDiagram
         DEBUG
     }
 
-    class LogContext {
-        +LogLevel LogLevel
-        +LogCategory string
-    }
-
     class Logger {
-        -logContext LogContext
+        -logCategory string
         +IsXxx() bool
-        +LogXxx(string) void
-        +LogXxx(string, Exception) void
+        +LogXxx(message) void
+        +LogXxx(message, exception) void
     }
 
     class LoggingManager {
-        +GetLogger(string)$ Logger
-        +SetLogLevel(LogLevel)$ void
-        +SetLogOutputChecker(ILogOutputChecker)$ void
-        +SetLogWriter(ILogWriter)$ void
+        +GetLogger(logCategory)$ Logger
+        +SetLogLevel(logLevel)$ void
+        +SetLogOutputChecker(logOutputChecker)$ void
+        +SetLogWriter(logWriter)$ void
     }
 
     class ILogOutputChecker {
         <<interface>>
-        +IsXxx(LogContext) bool
+        +SetLogLevel(logLevel) void
+        +IsXxx(logCategory) bool
     }
 
     class ILogWriter {
         <<interface>>
-        +LogXxx(LogContext, string) void
-        +LogXxx(LogContext, string, Exception) void
+        +LogXxx(logCategory, message) void
+        +LogXxx(logCategory, message, exception) void
     }
 
     class LogLevelLogOutputChecker {
