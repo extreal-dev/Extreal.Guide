@@ -70,10 +70,10 @@ classDiagram
 
     class LogLevel {
         <<enumeration>>
-        ERROR
-        WARN
-        INFO
-        DEBUG
+        Error
+        Warn
+        Info
+        Debug
     }
 
     class Logger {
@@ -118,16 +118,15 @@ classDiagram
 ```mermaid
 sequenceDiagram
     actor Application
-    Application->>LoggingManager: GetLogger(string)
+    Application->>LoggingManager: GetLogger(logCategory)
     LoggingManager-->>Logger: new
-    Logger-->>LogContext: new
     LoggingManager-->>Application: Logger
     Application->>Logger: IsXxx()
-    Logger->>ILogOutputChecker: IsXxx(LogContext)
+    Logger->>ILogOutputChecker: IsXxx(logCategory)
     Logger-->>Application: bool
-    Application->>Logger: LogXxx(LogContext, string)
-    Logger->>ILogOutputChecker: IsXxx(LogContext)
-    Logger->>ILogWriter: LogXxx(LogContext, string)
+    Application->>Logger: LogXxx(logCategory, message)
+    Logger->>ILogOutputChecker: IsXxx(logCategory)
+    Logger->>ILogWriter: LogXxx(logCategory, message)
 ```
 
 ## Installation
@@ -180,7 +179,7 @@ LoggerクラスはLoggingManagerクラスから取得します。
 ```csharp
 public class SomethingService {
 
-    private static readonly LOGGER = LoggingManager.Get(typeof(SomethingService).Name);
+    private static readonly LOGGER = LoggingManager.Get(nameof(SomethingService));
 
     public void Something() {
 
