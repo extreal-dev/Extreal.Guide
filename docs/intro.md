@@ -31,7 +31,7 @@ Extrealは次のコンテンツを提供します。
 
 ## Architecture
 
-Frameworkと想定するアプリケーションアーキテクチャを説明します。
+FrameworkのアーキテクチャとExtrealが想定するアプリケーションアーキテクチャを説明します。
 FrameworkやSample Applicationはこのアーキテクチャを前提に作成しています。
 
 ### Framework architecture
