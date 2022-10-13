@@ -17,22 +17,36 @@ Extrealの全コンテンツはこのグランドデザインをベースに作�
 Extrealは次のコンテンツを提供します。
 
 - Framework
-  - 賑やかなバーチャル空間の作成に必要な機能を提供するフレームワーク。
+  - UnityベースのXRフレームワーク。
   - Unityパッケージで提供します。
 - Sample Application
   - Frameworkを使ったサンプルアプリケーション。
   - Unityプロジェクトで提供します。
 - Learning
   - Frameworkの使い方を学習する教材。
-  - このガイドで提供します。
+  - このガイドに含まれています。
 - Guide
-  - Extrealを活用するためのガイド。
+  - Extrealの活用方法を案内するガイド。
   - このドキュメントがガイドです。
 
 ## Architecture
 
-想定するアプリケーションとFrameworkのアーキテクチャを説明します。
-FrameworkやSample Applicationはこのアーキテクチャをベースに作成しています。
+Frameworkと想定するアプリケーションのアーキテクチャを説明します。
+FrameworkやSample Applicationはこのアーキテクチャを前提に作成しています。
+
+### Framework architecture
+
+![Framework architecture](/img/fw-arch.png)
+
+FrameworkはUnityやサードパーティのパッケージを使って機能を実現します。
+Frameworkは機能を次のカテゴリに分類しています。
+
+- Core
+  - アプリケーションのベースとなるコア機能を提供します。
+  - ロギング、シーン遷移、ライフサイクルといった機能です。
+- Integration
+  - アプリケーションの要件に合わせてアプリケーションに統合する機能を提供します。
+  - ボイスチャット、テキストチャット、マルチプレイといった機能です。
 
 ### Application architecture
 
@@ -40,21 +54,6 @@ FrameworkやSample Applicationはこのアーキテクチャをベースに作�
 機能を組み合わせるために私たちはマルチシーンを使います。
 
 TODO: マルチシーンとアプリ実現イメージが分かる図を書く
-
-### Framework architecture
-
-FrameworkはUnityをベースにしています。
-
-Frameworkは機能を次のカテゴリに分類しています。
-
-- Core
-  - アプリケーションのベースとなるコア機能を提供します。
-  - ロギング、シーン遷移、オブジェクトのライフサイクルといった機能です。
-- Integration
-  - アプリケーションの要件に合わせて統合する機能を提供します。
-  - ボイスチャット、テキストチャット、マルチプレイといった機能です。
-
-TODO: 全体構造、依存関係が分かる図を書く
 
 ## License
 
