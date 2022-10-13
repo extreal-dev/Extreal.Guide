@@ -31,7 +31,7 @@ Extrealは次のコンテンツを提供します。
 
 ## Architecture
 
-Frameworkと想定するアプリケーションのアーキテクチャを説明します。
+Frameworkと想定するアプリケーションアーキテクチャを説明します。
 FrameworkやSample Applicationはこのアーキテクチャを前提に作成しています。
 
 ### Framework architecture
@@ -50,10 +50,7 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 ### Application architecture
 
-賑やかなバーチャル空間は様々な機能を組み合わせて実現します。
-機能を組み合わせるために私たちはマルチシーンを使います。
-
-TODO: マルチシーンとアプリ実現イメージが分かる図を書く
+TODO: MVP、マルチシーン、FW機能などアプリ実現イメージが分かる図を書く
 
 ## License
 
