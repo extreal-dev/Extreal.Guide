@@ -38,7 +38,7 @@ FrameworkやSample Applicationはこのアーキテクチャを前提に作成�
 
 ![Framework architecture](/img/fw-arch.png)
 
-FrameworkはUnityやサードパーティのパッケージを使って機能を実現します。
+FrameworkはUnityやサードパーティのパッケージを活用して機能を実現します。
 Frameworkは機能を次のカテゴリに分類しています。
 
 - Core
@@ -50,7 +50,13 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 ### Application architecture
 
-TODO: MVP、マルチシーン、FW機能などアプリ実現イメージが分かる図を書く
+TODO: 説明を入れる
+
+![Multiple scenes](/img/multi-scenes.png)
+
+![MVP pattern](/img/mvp-pattern.png)
+
+![MVP example](/img/mvp-example.png)
 
 ## License
 
@@ -60,8 +66,6 @@ Extrealが提供しているコンテンツは無償でご利用いただけま�
 外部のプロダクト、サービス、OSS等は提供元のライセンスに従ってください。
 
 ## Versioning
-
-
 
 TODO: モジュールとフレームワーク全体のバージョン体系、その関係、確認方法を伝える
 
