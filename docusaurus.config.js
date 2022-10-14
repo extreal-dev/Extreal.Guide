@@ -111,7 +111,19 @@ const config = {
         darkTheme: darkCodeTheme,
         additionalLanguages: ['csharp']
       },
+      zoom: {
+        selector: '.markdown :not(em) > img',
+        config: {
+          background: {
+            light: 'rgb(255, 255, 255)',
+            dark: 'rgb(50, 50, 50)'
+          }
+        }
+      },
     }),
+    plugins: [
+      require.resolve("docusaurus-plugin-image-zoom")
+    ],
 };
 
 module.exports = config;
