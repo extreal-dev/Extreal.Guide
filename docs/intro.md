@@ -93,6 +93,8 @@ Extrealが提供しているコンテンツは無償でご利用いただけま�
 ExtrealはFrameworkに含まれるモジュールの特定バージョンの組み合わせに対してバージョンが決まります。
 各モジュールはモジュール毎にバージョンが決まります。
 
+Extrealバージョンとモジュールバージョンの例を示します。
+
 - Extreal 1.0 `Initial release`
   - Extreal.Core.Logging 1.0.0
   - Extreal.Core.SceneTransition 1.0.0
@@ -106,13 +108,13 @@ ExtrealはFrameworkに含まれるモジュールの特定バージョンの組�
   - Extreal.Core.SceneTransition 1.1.0
   - Extreal.Core.Lifecycle 1.1.0
 
-Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
-
 Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
 メジャーバージョンは大規模な変更をした場合に更新します。
 アップデート回数は機能追加・変更、不具合対応をした場合に更新します。
 
 モジュールバージョンには[Semantic Versioning 2.0.0](https://semver.org/)を使います。
+
+Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
 
 ## Backward compatibility
 
