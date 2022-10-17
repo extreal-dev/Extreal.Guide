@@ -65,7 +65,7 @@ Frameworkはモジュールの集まりです。
 
 ![Multiple scenes](/img/multi-scenes.png)
 
-複数のUnityのSceneを組み合わせた場面の作成や場面の切り替えにはFrameworkが提供する[SceneTransition](core/scene-transition)を使います。
+複数のUnityのSceneを組み合わせた場面の作成や場面の切り替えにはFrameworkが提供する[SceneTransition](/core/scene-transition)を使います。
 
 UnityのSceneで作る機能はMV(R)Pパターンを使って作ります。
 MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)を参照ください。
@@ -106,7 +106,7 @@ ExtrealはFrameworkに含まれるモジュールの特定バージョンの組�
   - Extreal.Core.SceneTransition 1.1.0
   - Extreal.Core.Lifecycle 1.1.0
 
-Extrealバージョンとモジュールバージョンの対応は[Release](category/release)を参照ください。
+Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
 
 Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
 メジャーバージョンは大規模な変更をした場合に更新します。
@@ -119,7 +119,7 @@ Extrealバージョンは<メジャーバージョン>.<アップデート回数
 ExtrealはUnityやサードパーティのパッケージを活用して機能を実現しています。
 私たちがコントロールできない要素がExtrealには多いため後方互換の維持を約束できません。
 できるだけExtrealの後方互換を維持するように努めますが後方互換を維持できないケースが発生する可能性があります。
-後方互換を維持できない場合は[Release](category/release)でアップグレード方法をガイドします。
+後方互換を維持できない場合は[Release](/category/release)でアップグレード方法をガイドします。
 
 TODO: 公開APIを伝える。
 
@@ -137,8 +137,8 @@ Package Managerを使いGit URLからインストールしてください。
 
 Git URLは各機能のページを参照ください。
 
-- [Core](category/core)
-- [Integration](category/integration)
+- [Core](/category/core)
+- [Integration](/category/integration)
 
 ## Feedback or Contribution
 
