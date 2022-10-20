@@ -79,12 +79,12 @@ classDiagram
 
     class ELogger {
         -logCategory string
-        +IsOutput(logLevel) bool
-        +Log(logLevel, message, exception = null) void
+        +IsXxx() bool
+        +LogXxx(message, exception = null) void
     }
 
     class LoggingManager {
-        +GetLogger(logCategory)$ Logger
+        +GetLogger(logCategory)$ ELogger
         +Initialize(logLevel = LogLevel.Info, checker = null, writer = null)$ void
     }
 
@@ -106,6 +106,10 @@ classDiagram
     }
 ```
 
+:::note
+`Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
+:::
+
 :::info
 UnityのLoggerとLoggingのLoggerが重複し参照が曖昧になるのを防ぐため、LoggingのLoggerにはExtrealの頭文字の`E`を付けています。
 :::
@@ -116,14 +120,14 @@ UnityのLoggerとLoggingのLoggerが重複し参照が曖昧になるのを防�
 sequenceDiagram
     actor Application
     Application->>LoggingManager: GetLogger(logCategory)
-    LoggingManager-->>Logger: new
-    LoggingManager-->>Application: Logger
-    Application->>Logger: IsOutput(logLevel)
-    Logger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
-    Logger-->>Application: bool
-    Application->>Logger: Log(logLevel, logCategory, message)
-    Logger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
-    Logger->>ILogWriter: Log(logLevel, logCategory, message)
+    LoggingManager-->>ELogger: new
+    LoggingManager-->>Application: ELogger
+    Application->>ELogger: IsXxx()
+    ELogger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
+    ELogger-->>Application: bool
+    Application->>ELogger: LogXxx(logCategory, message)
+    ELogger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
+    ELogger->>ILogWriter: Log(logLevel, logCategory, message)
 ```
 
 ## Installation
@@ -175,15 +179,15 @@ LoggerクラスはLoggingManagerクラスから取得します。
 ```csharp
 public class SomethingService {
 
-    private static readonly ELogger LOGGER = LoggingManager.Get(nameof(SomethingService));
+    private static readonly ELogger LOGGER = LoggingManager.GetLogger(nameof(SomethingService));
 
     public void Something() {
 
-      LOGGER.Log(LogLevel.Info, "Here we go!");
+      LOGGER.LogInfo("Here we go!");
 
       // something
 
-      LOGGER.Log(LogLevel.Info, "It's over!!!");
+      LOGGER.LogInfo("It's over!!!");
     }
 }
 ```
@@ -191,8 +195,8 @@ public class SomethingService {
 ログに出力する文字列作成は出力場所によってはアプリケーションの性能劣化に繋がるので事前にログ出力判定を行ってからログ出力します。
 
 ```csharp
-if (LOGGER.IsOutput(LogLevel.Debug)) {
-    LOGGER.Log(LogLevel.Debug, $"Hello {name}!");
+if (LOGGER.IsDebug()) {
+    LOGGER.LogDebug($"Hello {name}!");
 }
 ```
 
