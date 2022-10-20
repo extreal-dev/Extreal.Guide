@@ -134,7 +134,9 @@ sequenceDiagram
 
 ### Package
 
-`https://github.com/extreal-dev/Extreal.Core.Logging.git`
+```
+https://github.com/extreal-dev/Extreal.Core.Logging.git
+```
 
 ### Dependencies
 
