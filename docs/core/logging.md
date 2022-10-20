@@ -57,11 +57,12 @@ Loggingの仕様は次の通りです。
 ```mermaid
 classDiagram
 
+    LogLevel <.. Applicaiton
     LoggingManager <.. Applicaiton
-    Logger <.. Applicaiton
-    LoggingManager *-- Logger
-    Logger ..> ILogOutputChecker
-    Logger ..> ILogWriter
+    ELogger <.. Applicaiton
+    LoggingManager *-- ELogger
+    ELogger ..> ILogOutputChecker
+    ELogger ..> ILogWriter
     ILogOutputChecker <|.. LogLevelLogOutputChecker
     ILogWriter <|.. UnityDebugLogWriter
 
@@ -70,36 +71,32 @@ classDiagram
 
     class LogLevel {
         <<enumeration>>
-        Error
-        Warn
-        Info
         Debug
+        Info
+        Warn
+        Error
     }
 
-    class Logger {
+    class ELogger {
         -logCategory string
-        +IsXxx() bool
-        +LogXxx(message) void
-        +LogXxx(message, exception) void
+        +IsOutput(logLevel) bool
+        +Log(logLevel, message, exception = null) void
     }
 
     class LoggingManager {
         +GetLogger(logCategory)$ Logger
-        +SetLogLevel(logLevel)$ void
-        +SetLogOutputChecker(logOutputChecker)$ void
-        +SetLogWriter(logWriter)$ void
+        +Initialize(logLevel = LogLevel.Info, checker = null, writer = null)$ void
     }
 
     class ILogOutputChecker {
         <<interface>>
-        +SetLogLevel(logLevel) void
-        +IsXxx(logCategory) bool
+        +Initialize(logLevel) void
+        +IsOutput(logLevel, logCategory) bool
     }
 
     class ILogWriter {
         <<interface>>
-        +LogXxx(logCategory, message) void
-        +LogXxx(logCategory, message, exception) void
+        +Log(logCategory, message, exception = null) void
     }
 
     class LogLevelLogOutputChecker {
@@ -109,8 +106,8 @@ classDiagram
     }
 ```
 
-:::note
-`Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
+:::info
+UnityのLoggerとLoggingのLoggerが重複し参照が曖昧になるのを防ぐため、LoggingのLoggerにはExtrealの頭文字の`E`を付けています。
 :::
 
 アプリケーションでログ出力する場合のシーケンスは次の通りです。
@@ -121,12 +118,12 @@ sequenceDiagram
     Application->>LoggingManager: GetLogger(logCategory)
     LoggingManager-->>Logger: new
     LoggingManager-->>Application: Logger
-    Application->>Logger: IsXxx()
-    Logger->>ILogOutputChecker: IsXxx(logCategory)
+    Application->>Logger: IsOutput(logLevel)
+    Logger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
     Logger-->>Application: bool
-    Application->>Logger: LogXxx(logCategory, message)
-    Logger->>ILogOutputChecker: IsXxx(logCategory)
-    Logger->>ILogWriter: LogXxx(logCategory, message)
+    Application->>Logger: Log(logLevel, logCategory, message)
+    Logger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
+    Logger->>ILogWriter: Log(logLevel, logCategory, message)
 ```
 
 ## Installation
@@ -148,14 +145,13 @@ sequenceDiagram
 LoggingManagerクラスを使ってログ出力を初期化します。
 
 ```csharp
-// ログレベルを変更する場合
-LoggingManager.SetLogLevel(LogLevel.DEBUG);
-
-// ログ出力判定を変更する場合
-LoggingManager.SetLogOutputChecker(new AppLogOutputChecker());
-
-// ログ出力（フォーマットや出力先）を変更する場合
-LoggingManager.SetLogWriter(new AppLogWriter());
+[InitializeOnLoad]
+public class Startup {
+    static Startup()
+    {
+        LoggingManager.Initialize(LogLevel.Debug);
+    }
+}
 ```
 
 開発時や本番運用時の設定切り替えにはシンボルを使います。
@@ -166,7 +162,7 @@ LogLevel level = LogLevel.DEBUG;
 #elif PROD
 LogLevel level = LogLevel.INFO;
 #endif
-LoggingManager.SetLogLevel(level);
+LoggingManager.Initialize(level);
 ```
 
 ## Usage
@@ -179,15 +175,15 @@ LoggerクラスはLoggingManagerクラスから取得します。
 ```csharp
 public class SomethingService {
 
-    private static readonly LOGGER = LoggingManager.Get(nameof(SomethingService));
+    private static readonly ELogger LOGGER = LoggingManager.Get(nameof(SomethingService));
 
     public void Something() {
 
-      LOGGER.LogInfo("Here we go!");
+      LOGGER.Log(LogLevel.Info, "Here we go!");
 
       // something
 
-      LOGGER.LogInfo("It's over!!!");
+      LOGGER.Log(LogLevel.Info, "It's over!!!");
     }
 }
 ```
@@ -195,8 +191,8 @@ public class SomethingService {
 ログに出力する文字列作成は出力場所によってはアプリケーションの性能劣化に繋がるので事前にログ出力判定を行ってからログ出力します。
 
 ```csharp
-if (LOGGER.IsDebug()) {
-    LOGGER.LogDebug($"Hello {name}!");
+if (LOGGER.IsOutput(LogLevel.Debug)) {
+    LOGGER.Log(LogLevel.Debug, $"Hello {name}!");
 }
 ```
 
@@ -210,7 +206,7 @@ LoggingManagerクラスを使ってログレベルを変更します。
 
 ```csharp
 // ログ出力の初期化スクリプト
-LoggingManager.SetLogLevel(LogLevel.DEBUG);
+LoggingManager.Initialize(LogLevel.Debug);
 ```
 
 ### ログ出力判定を変更する
@@ -220,14 +216,27 @@ ILogOutputCheckerインタフェースを実装したクラスを作成しLoggin
 
 ```csharp
 // ILogOutputCheckerインタフェースを実装したクラス
-public class AppLogOutputChecker : ILogOutputChecker {
-    // something
+// ログ出力判定に特別な条件を追加しています。
+public class AppLogOutputChecker : ILogOutputChecker
+{
+    private LogLevel _logLevel;
+
+    public void Initialize(LogLevel logLevel)
+    {
+        _logLevel = logLevel;
+    }
+
+    public bool IsOutput(LogLevel logLevel, string logCategory)
+    {
+        return _logLevel <= logLevel
+                || (logLevel == LogLevel.Debug && logCategory == "Debugger");
+    }
 }
 ```
 
 ```csharp
 // ログ出力の初期化スクリプト
-LoggingManager.SetLogOutputChecker(new AppLogOutputChecker());
+LoggingManager.Initialize(checker: new AppLogOutputChecker());
 ```
 
 ### ログ書き込みを変更する
@@ -237,12 +246,54 @@ ILogWriterインタフェースを実装したクラスを作成しLoggingManage
 
 ```csharp
 // ILogWriterインタフェースを実装したクラス
-public class AppLogWriter : ILogWriter {
-    // something
+// ログのフォーマットを変更しています。
+public class AppLogWriter : ILogWriter
+{
+    public void Log(LogLevel logLevel, string logCategory, string message, Exception exception = null)
+    {
+        switch (logLevel)
+        {
+            case LogLevel.Debug:
+                Debug.Log(LogFormat("o-o", logCategory, message, exception));
+                break;
+
+            case LogLevel.Info:
+                Debug.Log(LogFormat("(^_^)", logCategory, message, exception));
+                break;
+
+            case LogLevel.Warn:
+                Debug.LogWarning(LogFormat("(--;", logCategory, message, exception));
+                break;
+
+            case LogLevel.Error:
+                Debug.LogError(LogFormat("(*A*;", logCategory, message, exception));
+                break;
+
+            default:
+                Debug.LogException(new Exception("Unexpected Case"));
+                break;
+        }
+    }
+
+    private string LogFormat(string logLevel, string logCategory, string message, Exception exception = null)
+    {
+        var stringBuilder = new StringBuilder();
+        stringBuilder
+            .Append(logLevel)
+            .Append(" ")
+            .Append(logCategory)
+            .Append(": ")
+            .Append(message);
+        if (exception != null)
+        {
+            stringBuilder.Append("\n---- Exception ----\n").Append(exception).Append("\n-------------------\n");
+        }
+        return stringBuilder.ToString();
+    }
 }
 ```
 
 ```csharp
 // ログ出力の初期化スクリプト
-LoggingManager.SetLogWriter(new AppLogWriter());
+LoggingManager.Initialize(writer: new AppLogWriter());
 ```
