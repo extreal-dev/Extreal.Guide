@@ -276,8 +276,7 @@ public class AppLogWriter : ILogWriter
                 break;
 
             default:
-                Debug.LogException(new Exception("Unexpected Case"));
-                break;
+                throw new ArgumentOutOfRangeException(nameof(logLevel), "Undefined LogLevel was input");
         }
     }
 
