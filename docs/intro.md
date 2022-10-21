@@ -43,13 +43,21 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 - Core
   - アプリケーションのベースとなるコア機能を提供します。
-  - Logging、SceneTransitionといった機能です。
+  - LoggingやSceneTransitionのようにどのようなアプリケーションでも使用する機能がCoreに含まれます。
 - Integration
   - アプリケーションの要件に合わせてアプリケーションに統合する機能を提供します。
-  - Chat、Multiplayといった機能です。
+  - ChatやMultiplayのようにアプリケーションの要件に応じて使用する機能がIntegrationに含まれます。
 
-CoreとIntegrationはさらに機能毎に分かれモジュールに分割しています。
+CoreとIntegrationはさらに機能単位でモジュールに分割しています。
 Frameworkはモジュールの集まりです。
+
+- Core
+  - [Logging](/core/logging)
+  - [SceneTransition](/core/scene-transition)
+  - [ResourceProvider](/core/resource-provider)
+- Integration
+  - [Chat](/integration/chat)
+  - [Multiplay](/integration/multiplay)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 モジュールはLogging以外のモジュールに依存しないように作成しているのでLoggingと併せれば単体で使用できます。
