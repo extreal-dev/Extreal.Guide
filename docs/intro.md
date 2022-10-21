@@ -56,8 +56,8 @@ Frameworkはモジュールの集まりです。
   - [SceneTransition](/core/scene-transition)
   - [ResourceProvider](/core/resource-provider)
 - Integration
-  - [Chat](/integration/chat)
-  - [Multiplay](/integration/multiplay)
+  - [Chat using Vivox](/integration/chat.vivox)
+  - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 モジュールはLogging以外のモジュールに依存しないように作成しているのでLoggingと併せれば単体で使用できます。
