@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Extreal',
   tagline: 'UnityベースのXRフレームワーク',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://github.com/extreal-dev',
   baseUrl: '/Extreal.Guide/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
