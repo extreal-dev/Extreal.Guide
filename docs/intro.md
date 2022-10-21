@@ -123,7 +123,9 @@ ExtrealはUnityやサードパーティのパッケージを活用して機能�
 できるだけExtrealの後方互換を維持するように努めますが後方互換を維持できないケースが発生する可能性があります。
 後方互換を維持できない場合は[Release](/category/release)でアップグレード方法をガイドします。
 
-TODO: 公開APIを伝える。
+:::note
+TODO: 公開APIの確認方法を追記する。
+:::
 
 ## Unity version
 
