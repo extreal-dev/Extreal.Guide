@@ -43,7 +43,7 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 - Core
   - アプリケーションのベースとなるコア機能を提供します。
-  - Logging、SceneTransition、Lifecycleといった機能です。
+  - Logging、SceneTransitionといった機能です。
 - Integration
   - アプリケーションの要件に合わせてアプリケーションに統合する機能を提供します。
   - Chat、Multiplayといった機能です。
@@ -98,15 +98,15 @@ Extrealバージョンとモジュールバージョンの例を示します。
 - Extreal 1.0 `Initial release`
   - Extreal.Core.Logging 1.0.0
   - Extreal.Core.SceneTransition 1.0.0
-  - Extreal.Core.Lifecycle 1.0.0
+  - Extreal.Core.ResourceProvider 1.0.0
 - Extreal 1.1 `Bug fixed only`
   - Extreal.Core.Logging 1.0.0
   - Extreal.Core.SceneTransition 1.0.1
-  - Extreal.Core.Lifecycle 1.0.0
+  - Extreal.Core.ResourceProvider 1.0.0
 - Extreal 1.2 `Added feature`
   - Extreal.Core.Logging 1.0.1
   - Extreal.Core.SceneTransition 1.1.0
-  - Extreal.Core.Lifecycle 1.1.0
+  - Extreal.Core.ResourceProvider 1.1.0
 
 Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
 メジャーバージョンは大規模な変更をした場合に更新します。
