@@ -106,7 +106,7 @@ classDiagram
     }
 ```
 
-:::note
+:::info
 `Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
 :::
 
