@@ -20,9 +20,8 @@ Scene Transitionの仕様は次の通りです。
 - 複数のUnityシーンを組み合わせてシーンを設定できます。
 - 全てのシーンに共通するUnityシーンをまとめて一箇所で設定できます。
 - 指定したシーンに遷移できます。
-- 遷移履歴に基づき遷移元のシーンに戻れます。
-  - 複数の遷移元や遷移先があり元のシーンに戻りたい場合に使用します。
-- シーン遷移をトリガーにアプリケーションで処理を追加できます。
+- 遷移履歴に従って遷移元に戻れます。
+- シーン遷移をトリガーに処理を追加できます。
 
 ## Architecture
 
@@ -32,29 +31,29 @@ classDiagram
     ISceneTransitioner <.. Applicaiton
     ISceneTransitioner <|.. SceneTransitioner
     ISceneConfiguration <.. SceneTransitioner
-    ISceneConfiguration <|.. AppSceneConfiguration
+    ISceneConfiguration <|.. SceneConfiguration
     ISceneConfiguration *-- Scene
     ISceneConfiguration o-- AppUnitySceneName
-    Scene --> AppSceneName
-    Scene o-- AppUnitySceneName
+    Scene --> SceneName
+    Scene o-- UnitySceneName
 
     class Applicaiton {
     }
 
-    class AppSceneName {
+    class SceneName {
         <<enumeration>>
     }
 
-    class AppUnitySceneName {
+    class UnitySceneName {
         <<enumeration>>
     }
 
-    class AppSceneConfiguration {
+    class SceneConfiguration {
     }
 
     class ISceneTransitioner {
         <<interface>>
-        +OnSceneChanged Action
+        +OnSceneTransitioned Action
         +ReplaceAsync(scene) UniTask
         +PushAsync(scene) UniTask
         +PopAsync() UniTask
@@ -75,10 +74,10 @@ classDiagram
 ```
 
 :::info
-後述しますが次のタイプはアプリケーションで作成します。
-- AppSceneName
-- AppUnitySceneName
-- AppSceneConfiguration
+次のタイプはアプリケーションで作成します。
+- SceneName：シーン名を表すEnum
+- UnitySceneName：Unityシーン名を表すEnum
+- SceneConfiguration：シーン設定を保持するクラス
 :::
 
 アプリケーションでシーン遷移する場合のシーケンスは次の通りです。
@@ -105,4 +104,147 @@ https://github.com/extreal-dev/Extreal.Core.SceneTransition.git
 
 ### Settings
 
-TODO: ここから
+アプリケーションで使用するシーンを設定します。
+次の3つのタイプを作成します。
+
+- シーン名を表すEnum
+- Unityシーン名を表すEnum
+- シーン設定を保持するクラス
+
+```csharp
+// Enum for the scene name
+public enum SceneName
+{
+    TitlePage,
+    AvatarSelectionPage,
+    EventSelectionPage,
+    EventRoom,
+}
+```
+
+```csharp
+// Enum for the UUnity scene name
+public enum UnitySceneName
+{
+    Main,
+
+    // Control
+    CameraControl,
+    InputControl,
+    NetworkControl,
+    PlayerControl,
+    LobbyControl,
+    TextChatControl,
+    VoiceChatControl,
+    ReactionControl,
+    
+    // Stage
+    TitleStage,
+    AvatarSelectionStage,
+    EventSelectionStage,
+    EventStage,
+}
+```
+
+ISceneConfigurationインタフェースがシーン設定を保持します。
+シーン設定を保持するクラスはISceneConfigurationインタフェースを実装してください。
+
+```csharp
+// Class that holds the scene settings
+[CreateAssetMenu(
+    menuName = "Configuration/" + nameof(SceneConfiguration),
+    fileName = nameof(SceneConfiguration))]
+public class SceneConfiguration : ScriptableObject, ISceneConfiguration<SceneName, UnitySceneName>
+{
+    [SerializeField] private List<PageName> _commonUnityScenes;
+    [SerializeField] private List<Scene<SceneName, UnitySceneName>> _scenes;
+
+    public List<PageName> CommonUnityScenes => _commonUnityScenes;
+    public List<Scene<SceneName, UnitySceneName>> Scenes => _scenes;
+}
+```
+
+シーン設定をUnityエディタのインスペクタで編集できるようにSceneConfigurationはScriptableObjectにしています。
+Unityエディタのインスペクタで全てのシーンに共通するUnityシーン、シーンとUnityシーンの組み合わせを指定してシーン設定を行います。
+
+:::note
+TODO: 設定した状態のUnityエディタのインスペクタの図
+:::
+
+SceneTransitionerとSceneConfigurationの初期化はVContainerを使います。
+
+```csharp
+    public class MainLifetimeScope : LifetimeScope
+    {
+        [SerializeField]
+        SceneConfiguration _sceneConfiguration;
+
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.Register<SceneTransitioner>(Lifetime.Singleton).AsImplementedInterfaces();
+        }
+    }
+```
+
+## Usage
+
+### 指定したシーンに遷移する
+
+ISceneTransitionerのReplaceAsyncを使って指定したシーンに遷移します。
+
+```csharp
+// Transition to the title page
+_sceneTransitioner.ReplaceAsync(SceneName.TitlePage);
+
+// Transition to the avatar selection page
+_sceneTransitioner.ReplaceAsync(SceneName.AvatarSelectionPage);
+
+// Transition to the event selection page
+_sceneTransitioner.ReplaceAsync(SceneName.EventSelectionPage);
+```
+
+ReplaceAsyncは遷移履歴を保持しないのでシーン遷移が固定されたアプリケーションでReplaceAsyncを使います。
+
+### 遷移履歴に従って遷移元に戻る
+
+ISceneTransitionerのPushAsync/PopAsyncを使うと遷移履歴に従って遷移元に戻れます。
+
+```csharp
+// Transition to the title page
+_sceneTransitioner.PushAsync(SceneName.TitlePage);
+
+// Transition to the avatar selection page
+_sceneTransitioner.PushAsync(SceneName.AvatarSelectionPage);
+
+// Transition to the event selection page
+_sceneTransitioner.PushAsync(SceneName.EventSelectionPage);
+
+// Transition to the avatar selection page
+_sceneTransitioner.PopAsync();
+
+// Transition to the title page
+_sceneTransitioner.PopAsync();
+```
+
+### シーン遷移をトリガーに処理を追加する
+
+ISceneTransitionerは次のイベント通知を設けています。
+
+- OnSceneTransitioned
+  - タイミング：シーン遷移した直後
+  - タイプ：Action
+  - パラメータ：現在のシーンの名前
+
+```csharp
+// Event handler
+private void LogSceneTransition(SceneName sceneName)
+{
+    LOGGER.logInfo(sceneName);
+}
+
+// Initialize
+_sceneTransitioner.OnSceneTransitioned += LogSceneTransition;
+
+// Dispose
+_sceneTransitioner.OnSceneTransitioned -= LogSceneTransition;
+```
