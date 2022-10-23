@@ -211,7 +211,7 @@ if (LOGGER.IsDebug()) {
 LoggingManagerクラスを使ってログレベルを変更します。
 
 ```csharp
-// ログ出力の初期化スクリプト
+// Initialization script for Logging
 LoggingManager.Initialize(LogLevel.Debug);
 ```
 
@@ -221,8 +221,8 @@ ILogOutputCheckerインタフェースがログ出力を判定します。
 ILogOutputCheckerインタフェースを実装したクラスを作成しLoggingManagerクラスに設定します。
 
 ```csharp
-// ILogOutputCheckerインタフェースを実装したクラス
-// ログ出力判定に特別な条件を追加しています。
+// Class that implements the ILogOutputChecker interface.
+// Adds special conditions to log output checks.
 public class AppLogOutputChecker : ILogOutputChecker
 {
     private LogLevel _logLevel;
@@ -241,7 +241,7 @@ public class AppLogOutputChecker : ILogOutputChecker
 ```
 
 ```csharp
-// ログ出力の初期化スクリプト
+// Initialization script for Logging
 LoggingManager.Initialize(checker: new AppLogOutputChecker());
 ```
 
@@ -251,8 +251,8 @@ ILogWriterインタフェースがログを書き込みます。
 ILogWriterインタフェースを実装したクラスを作成しLoggingManagerクラスに設定します。
 
 ```csharp
-// ILogWriterインタフェースを実装したクラス
-// ログのフォーマットを変更しています。
+// Class that implements the ILogWriter interface.
+// Changes the format of the log.
 public class AppLogWriter : ILogWriter
 {
     public void Log(LogLevel logLevel, string logCategory, string message, Exception exception = null)
@@ -299,6 +299,6 @@ public class AppLogWriter : ILogWriter
 ```
 
 ```csharp
-// ログ出力の初期化スクリプト
+// Initialization script for Logging
 LoggingManager.Initialize(writer: new AppLogWriter());
 ```
