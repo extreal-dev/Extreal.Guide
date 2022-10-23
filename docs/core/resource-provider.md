@@ -131,27 +131,60 @@ public class ResourceConfig : ScriptableObject, IResourceConfig<ResourceName>
 TODO: 設定した状態のUnityエディタのインスペクタの図
 :::
 
-ResourceProviderとResourceConfigの初期化はVContainerを使います。
+IResourceProviderとResourceConfigの初期化はVContainerを使います。
 
 ```csharp
-    public class MainLifetimeScope : LifetimeScope
-    {
-        [SerializeField]
-        ResourceConfig _resourceConfig;
+public class MainLifetimeScope : LifetimeScope
+{
+    [SerializeField]
+    ResourceConfig _resourceConfig;
 
-        protected override void Configure(IContainerBuilder builder)
-        {
-            builder.Register<ResourceProvider>(Lifetime.Singleton).AsImplementedInterfaces();
-        }
+    protected override void Configure(IContainerBuilder builder)
+    {
+        builder.Register<UnityResourcesResourceProvider>(Lifetime.Singleton).AsImplementedInterfaces();
     }
+}
 ```
 
 ## Usage
 
 ### リソースをロード/アンロードする
 
-TODO
+IResourceProviderを使ってリソースをロード/アンロードします。
+
+```csharp
+// Load a resource
+var playerAvatar = await _resourceProvider.LoadResourceAsync<GameObject>(ResourceName.PlayerAvatar);
+
+// Unload a resource
+_resourceProvider.UnloadResource(ResourceName.PlayerAvatar);
+```
 
 ### リソース管理方法を変更する
 
-TODO
+IResourceProviderインタフェースがリソースを管理します。
+IResourceProviderインタフェースを実装したクラスを作成し、使用するIResourceProviderの実装クラスをVContainerで変更します。
+
+```csharp
+// Class that implements IResourceProvider
+// Omit implementation
+public class AppResourceProvider : IResourceProvider {
+    public AppResouceProvider(IResourceConfig config) {
+        // do something
+    }
+}
+```
+
+```csharp
+// Change the implementation class of IResourceProvider to be used with VContainer
+public class MainLifetimeScope : LifetimeScope
+{
+    [SerializeField]
+    ResourceConfig _resourceConfig;
+
+    protected override void Configure(IContainerBuilder builder)
+    {
+        builder.Register<AppResourceProvider>(Lifetime.Singleton).AsImplementedInterfaces();
+    }
+}
+```
