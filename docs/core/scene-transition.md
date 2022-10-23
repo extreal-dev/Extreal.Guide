@@ -33,7 +33,7 @@ classDiagram
     ISceneConfiguration <.. SceneTransitioner
     ISceneConfiguration <|.. SceneConfiguration
     ISceneConfiguration *-- Scene
-    ISceneConfiguration o-- AppUnitySceneName
+    ISceneConfiguration o-- UnitySceneName
     Scene --> SceneName
     Scene o-- UnitySceneName
 
