@@ -30,10 +30,10 @@ classDiagram
 
     ISceneTransitioner <.. Applicaiton
     ISceneTransitioner <|.. SceneTransitioner
-    ISceneConfiguration <.. SceneTransitioner
-    ISceneConfiguration <|.. SceneConfiguration
-    ISceneConfiguration *-- Scene
-    ISceneConfiguration o-- UnitySceneName
+    ISceneConfig <.. SceneTransitioner
+    ISceneConfig <|.. SceneConfig
+    ISceneConfig *-- Scene
+    ISceneConfig o-- UnitySceneName
     Scene --> SceneName
     Scene o-- UnitySceneName
 
@@ -48,7 +48,7 @@ classDiagram
         <<enumeration>>
     }
 
-    class SceneConfiguration {
+    class SceneConfig {
     }
 
     class ISceneTransitioner {
@@ -60,7 +60,7 @@ classDiagram
         +Reset() void
     }
 
-    class ISceneConfiguration {
+    class ISceneConfig {
         +CommonUnityScenes List
         +Scenes List
     }
@@ -69,7 +69,7 @@ classDiagram
     }
 
     class SceneTransitioner {
-        +SceneTransitioner(configuration)
+        +SceneTransitioner(config)
     }
 ```
 
@@ -77,7 +77,7 @@ classDiagram
 次のタイプはアプリケーションで作成します。
 - SceneName：シーン名を表すEnum
 - UnitySceneName：Unityシーン名を表すEnum
-- SceneConfiguration：シーン設定を保持するクラス
+- SceneConfig：シーン設定を保持するクラス
 :::
 
 アプリケーションでシーン遷移する場合のシーケンスは次の通りです。
@@ -146,38 +146,38 @@ public enum UnitySceneName
 }
 ```
 
-ISceneConfigurationインタフェースがシーン設定を保持します。
-シーン設定を保持するクラスはISceneConfigurationインタフェースを実装してください。
+ISceneConfigインタフェースがシーン設定を保持します。
+シーン設定を保持するクラスはISceneConfigインタフェースを実装してください。
 
 ```csharp
-// Class that holds the scene settings
+// Class that holds the scene config
 [CreateAssetMenu(
-    menuName = "Configuration/" + nameof(SceneConfiguration),
-    fileName = nameof(SceneConfiguration))]
-public class SceneConfiguration : ScriptableObject, ISceneConfiguration<SceneName, UnitySceneName>
+    menuName = "Config/" + nameof(SceneConfig),
+    fileName = nameof(SceneConfig))]
+public class SceneConfig : ScriptableObject, ISceneConfig<SceneName, UnitySceneName>
 {
-    [SerializeField] private List<PageName> _commonUnityScenes;
+    [SerializeField] private List<UnitySceneName> _commonUnityScenes;
     [SerializeField] private List<Scene<SceneName, UnitySceneName>> _scenes;
 
-    public List<PageName> CommonUnityScenes => _commonUnityScenes;
+    public List<UnitySceneName> CommonUnityScenes => _commonUnityScenes;
     public List<Scene<SceneName, UnitySceneName>> Scenes => _scenes;
 }
 ```
 
-シーン設定をUnityエディタのインスペクタで編集できるようにSceneConfigurationはScriptableObjectにしています。
+シーン設定をUnityエディタのインスペクタで編集できるようにSceneConfigはScriptableObjectにしています。
 Unityエディタのインスペクタで全てのシーンに共通するUnityシーン、シーンとUnityシーンの組み合わせを指定してシーン設定を行います。
 
 :::note
 TODO: 設定した状態のUnityエディタのインスペクタの図
 :::
 
-SceneTransitionerとSceneConfigurationの初期化はVContainerを使います。
+SceneTransitionerとSceneConfigの初期化はVContainerを使います。
 
 ```csharp
     public class MainLifetimeScope : LifetimeScope
     {
         [SerializeField]
-        SceneConfiguration _sceneConfiguration;
+        SceneConfig _sceneConfig;
 
         protected override void Configure(IContainerBuilder builder)
         {
