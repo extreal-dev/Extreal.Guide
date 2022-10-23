@@ -61,7 +61,7 @@ classDiagram
     }
 
     class ISceneConfig {
-        +CommonUnityScenes List
+        +CommonUnitySceneNames List
         +Scenes List
     }
 
@@ -156,7 +156,7 @@ ISceneConfigインタフェースがシーン設定を保持します。
     fileName = nameof(SceneConfig))]
 public class SceneConfig : ScriptableObject, ISceneConfig<SceneName, UnitySceneName>
 {
-    [SerializeField] private List<UnitySceneName> _commonUnityScenes;
+    [SerializeField] private List<UnitySceneName> _commonUnitySceneNames;
     [SerializeField] private List<Scene<SceneName, UnitySceneName>> _scenes;
 
     public List<UnitySceneName> CommonUnityScenes => _commonUnityScenes;
