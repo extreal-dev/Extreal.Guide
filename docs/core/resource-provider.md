@@ -175,8 +175,10 @@ IResourceProviderインタフェースを実装したクラスを作成し、使
 ```csharp
 // Class that implements IResourceProvider
 // Omit implementation
-public class AppResourceProvider : IResourceProvider {
-    public AppResouceProvider(IResourceConfig config) {
+public class AppResourceProvider : IResourceProvider
+{
+    public AppResouceProvider(IResourceConfig config)
+    {
         // do something
     }
 }
