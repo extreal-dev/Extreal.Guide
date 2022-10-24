@@ -126,7 +126,7 @@ IResourceConfigインタフェースがリソース設定を保持します。
 public class ResourceConfig : ScriptableObject, IResourceConfig<ResourceName>
 {
     [SerializeField] private List<Resource<ResourceName>> _resources;
-    public List<Resource<ResourceName>> _Resources => _resources;
+    public List<Resource<ResourceName>> Resources => _resources;
 }
 ```
 
