@@ -147,6 +147,7 @@ public class MainLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
+        builder.ResisterInstance(_resourceConfig).AsImplementedInterfaces();
         builder.Register<UnityResourcesResourceProvider>(Lifetime.Singleton).AsImplementedInterfaces();
     }
 }
