@@ -57,6 +57,7 @@ classDiagram
     }
 
     class Resource {
+        +Name ResourceName
         +Path string
     }
 
