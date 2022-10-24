@@ -100,7 +100,12 @@ https://github.com/extreal-dev/Extreal.Core.SceneTransition.git
 
 ### Dependencies
 
-依存するものがないため作業は不要です。
+Scene Transitionは次のパッケージを使います。
+
+- [Extreal.Core.Logging](/core/logging)
+- [UniTask](https://github.com/Cysharp/UniTask)
+
+モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
 
 ### Settings
 

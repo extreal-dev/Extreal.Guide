@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2022-10-21
+2022-10-24
 
 ## Unity version
 
@@ -13,6 +13,11 @@ sidebar_position: 1
 ## Modules
 
 - Extreal.Core.Logging 0.1.0
+- Extreal.Core.SceneTransition 0.1.0
+
+## Dependencies
+
+- UniTask 2.3.1
 
 ## Changes
 
@@ -21,6 +26,12 @@ sidebar_position: 1
 #### Added
 
 - ログ出力機能を追加しました。([#2](https://github.com/extreal-dev/Extreal.Core.Logging/pull/2))
+
+### Extreal.Core.SceneTransition
+
+#### Added
+
+- シーン遷移機能を追加しました。([#3](https://github.com/extreal-dev/Extreal.Core.SceneTransition/pull3))
 
 ## Backward compatible
 
