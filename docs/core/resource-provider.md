@@ -121,7 +121,7 @@ IResourceConfigインタフェースがリソース設定を保持します。
 ```csharp
 // Class that holds the resource config
 [CreateAssetMenu(
-    menuName = "Configuration/" + nameof(ResourceConfig),
+    menuName = "Config/" + nameof(ResourceConfig),
     fileName = nameof(ResourceConfig))]
 public class ResourceConfig : ScriptableObject, IResourceConfig<ResourceName>
 {
