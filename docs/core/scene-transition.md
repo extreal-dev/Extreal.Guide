@@ -186,6 +186,7 @@ SceneTransitionerとSceneConfigの初期化はVContainerを使います。
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.ResisterInstance(_sceneConfig).AsImplementedInterfaces();
             builder.Register<SceneTransitioner>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
