@@ -62,7 +62,7 @@ classDiagram
     }
 
     class UnityResourcesResourceProvider {
-        +UnityResourcesResourceProvider(configuraiton)
+        +UnityResourcesResourceProvider(config)
     }
 ```
 
