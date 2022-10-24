@@ -245,7 +245,7 @@ ISceneTransitionerは次のイベント通知を設けています。
 // Event handler
 private void LogSceneTransition(SceneName sceneName)
 {
-    LOGGER.logInfo(sceneName);
+    LOGGER.LogInfo(sceneName);
 }
 
 // Initialize
