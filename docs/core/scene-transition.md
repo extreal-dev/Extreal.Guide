@@ -232,6 +232,14 @@ _sceneTransitioner.PopAsync();
 _sceneTransitioner.PopAsync();
 ```
 
+この戻れるシーン遷移をアプリケーションの一部のシーン遷移に使用したい場合は、戻れるシーン遷移が中途半端な状態にならないように遷移履歴をリセットしたい場合が出てきます。
+ISceneTransitionerのResetを使うと遷移履歴をリセットします。
+
+```csharp
+// Reset the scene history
+_sceneTransitioner.Reset();
+```
+
 ### シーン遷移をトリガーに処理を追加する
 
 ISceneTransitionerは次のイベント通知を設けています。
