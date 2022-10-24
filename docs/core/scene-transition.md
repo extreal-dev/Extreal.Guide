@@ -128,7 +128,7 @@ public enum SceneName
 ```
 
 ```csharp
-// Enum for the UUnity scene name
+// Enum for the Unity scene name
 public enum UnitySceneName
 {
     Main,
