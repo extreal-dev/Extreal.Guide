@@ -172,10 +172,6 @@ public class SceneConfig : ScriptableObject, ISceneConfig<SceneName, UnitySceneN
 シーン設定をUnityエディタのインスペクタで編集できるようにSceneConfigはScriptableObjectにしています。
 Unityエディタのインスペクタで全てのシーンに共通するUnityシーン、シーンとUnityシーンの組み合わせを指定してシーン設定を行います。
 
-:::note
-TODO: 設定した状態のUnityエディタのインスペクタの図
-:::
-
 SceneTransitionerとSceneConfigの初期化はVContainerを使います。
 
 ```csharp
