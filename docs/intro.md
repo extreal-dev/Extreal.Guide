@@ -53,8 +53,8 @@ Frameworkはモジュールの集まりです。
 
 - Core
   - [Logging](/core/logging)
-  - [SceneTransition](/core/scene-transition)
-  - [ResourceProvider](/core/resource-provider)
+  - [Scene Transition](/core/scene-transition)
+  - [Resource Provider](/core/resource-provider)
 - Integration
   - [Chat using Vivox](/integration/chat.vivox)
   - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
