@@ -133,10 +133,6 @@ public class ResourceConfig : ScriptableObject, IResourceConfig<ResourceName>
 リソース設定をUnityエディタのインスペクタで編集できるようにResourceConfigはScriptableObjectにしています。
 リソース名と使用するリソース管理方法に依存する物理パスを指定してリソース設定を行います。
 
-:::note
-TODO: 設定した状態のUnityエディタのインスペクタの図
-:::
-
 IResourceProviderとResourceConfigの初期化はVContainerを使います。
 
 ```csharp
