@@ -44,11 +44,11 @@ Loggingではログ出力を制御しやすいようにログレベルとログ�
 
 Loggingの仕様は次の通りです。
 
-- ログレベルとログカテゴリを関連付けてログを出力します。
-- デフォルトのログ出力判定はログレベルのみで判定します。
-- デフォルトではINFO以上のログを出力します。
-- デフォルトのログ出力はUnity標準のDebugクラスで行います。
-- ログレベルを変更できます。
+- ログレベルとログカテゴリを関連付けてログを出力できます。
+  - デフォルトのログ出力判定はログレベルのみで判定します。
+  - デフォルトではINFO以上のログを出力します。
+  - デフォルトのログ出力はUnity標準のDebugクラスで行います。
+- ログ出力判定に使うログレベルを変更できます。
 - ログ出力判定を変更できます。
 - ログ書き込み（フォーマットや出力先）を変更できます。
 
@@ -106,7 +106,7 @@ classDiagram
     }
 ```
 
-:::note
+:::info
 `Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
 :::
 
@@ -211,7 +211,7 @@ if (LOGGER.IsDebug()) {
 LoggingManagerクラスを使ってログレベルを変更します。
 
 ```csharp
-// ログ出力の初期化スクリプト
+// Initialization script for Logging
 LoggingManager.Initialize(LogLevel.Debug);
 ```
 
@@ -221,8 +221,8 @@ ILogOutputCheckerインタフェースがログ出力を判定します。
 ILogOutputCheckerインタフェースを実装したクラスを作成しLoggingManagerクラスに設定します。
 
 ```csharp
-// ILogOutputCheckerインタフェースを実装したクラス
-// ログ出力判定に特別な条件を追加しています。
+// Class that implements the ILogOutputChecker interface.
+// Adds special conditions to log output checks.
 public class AppLogOutputChecker : ILogOutputChecker
 {
     private LogLevel _logLevel;
@@ -241,7 +241,7 @@ public class AppLogOutputChecker : ILogOutputChecker
 ```
 
 ```csharp
-// ログ出力の初期化スクリプト
+// Initialization script for Logging
 LoggingManager.Initialize(checker: new AppLogOutputChecker());
 ```
 
@@ -251,8 +251,8 @@ ILogWriterインタフェースがログを書き込みます。
 ILogWriterインタフェースを実装したクラスを作成しLoggingManagerクラスに設定します。
 
 ```csharp
-// ILogWriterインタフェースを実装したクラス
-// ログのフォーマットを変更しています。
+// Class that implements the ILogWriter interface.
+// Changes the format of the log.
 public class AppLogWriter : ILogWriter
 {
     public void Log(LogLevel logLevel, string logCategory, string message, Exception exception = null)
@@ -299,6 +299,6 @@ public class AppLogWriter : ILogWriter
 ```
 
 ```csharp
-// ログ出力の初期化スクリプト
+// Initialization script for Logging
 LoggingManager.Initialize(writer: new AppLogWriter());
 ```
