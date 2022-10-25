@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2022-10-24
+2022-10-25
 
 ## Unity version
 
@@ -14,6 +14,7 @@ sidebar_position: 1
 
 - Extreal.Core.Logging 0.1.0
 - Extreal.Core.SceneTransition 0.1.0
+- Extreal.Core.ResourceProvider 0.1.0
 
 ## Dependencies
 
@@ -31,7 +32,13 @@ sidebar_position: 1
 
 #### Added
 
-- シーン遷移機能を追加しました。([#3](https://github.com/extreal-dev/Extreal.Core.SceneTransition/pull3))
+- シーン遷移機能を追加しました。([#3](https://github.com/extreal-dev/Extreal.Core.SceneTransition/pull/3))
+
+### Extreal.Core.SceneTransition
+
+#### Added
+
+- リソースプロバイダ機能を追加しました。([#5](https://github.com/extreal-dev/Extreal.Core.ResourceProvider/pull/5))
 
 ## Backward compatible
 
