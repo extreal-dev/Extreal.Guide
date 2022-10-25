@@ -34,7 +34,7 @@ sidebar_position: 1
 
 - シーン遷移機能を追加しました。([#3](https://github.com/extreal-dev/Extreal.Core.SceneTransition/pull/3))
 
-### Extreal.Core.SceneTransition
+### Extreal.Core.ResourceProvider
 
 #### Added
 
