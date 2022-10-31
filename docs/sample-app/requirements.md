@@ -19,10 +19,7 @@ TODO: 完成したらシーン遷移を入れる
   - アバターを選択できる
     - [Unity-Chan! Model](https://assetstore.unity.com/packages/3d/characters/unity-chan-model-18705)
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526)
-- ロビー
-  - ボイスチャットができる
-  - テキストチャットができる
-  - マルチプレイができる（他のアバター、リアクション表示など）
+- ルーム選択ページ
   - ルームに入室できる
 - ルーム
   - ボイスチャットができる
@@ -35,9 +32,9 @@ TODO: 完成したらシーン遷移を入れる
 - 開催時間
   - 1回2時間
 - 利用人数
-  - タイトルページ、アバター選択ページ
+  - タイトルページ、アバター選択ページ、ルーム選択ページ
     - 制限なし
-  - ロビー、ルーム
+  - ルーム
     - テキストチャット
       - 制限なし
     - ボイスチャット
