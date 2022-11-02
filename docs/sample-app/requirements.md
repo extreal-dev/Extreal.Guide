@@ -12,16 +12,16 @@ Holidayは友人や家族で集まって休日のひと時を過ごしてもら�
 TODO: 完成したらシーン遷移を入れる
 :::
 
-- タイトルページ
+- タイトル画面
   - ライセンスが確認できる
-- アバター選択ページ
+- アバター選択画面
   - 名前を入力できる
   - アバターを選択できる
     - [Unity-Chan! Model](https://assetstore.unity.com/packages/3d/characters/unity-chan-model-18705)
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526)
-- ルーム選択ページ
+- ルーム選択画面
   - ルームに入室できる
-- ルーム
+- バーチャルルーム
   - ボイスチャットができる
   - テキストチャットができる
   - マルチプレイができる（他のアバター、リアクション表示など）
@@ -45,9 +45,6 @@ TODO: 完成したらシーン遷移を入れる
         - 21人目以降はマルチプレイに参加できない（自分が非表示、マルチプレイの様子は見える）
         - 誰かが抜けて20人に含まれればマルチプレイに参加できる
 - 利用環境
-  - PC
-    - Windows 10 64bit
-    - Mac XX
   - モバイル
     - iOS 14
     - Android 11

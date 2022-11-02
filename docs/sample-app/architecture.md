@@ -15,7 +15,7 @@ sidebar_position: 3
 ## Application Structure
 
 HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](/intro#application)を採用します。
-HolidayのシーンとUnityシーンは次の通りです。
+Holidayのステージとシーンは次の通りです。
 
 ![application structure](/img/holiday-app-structure.png)
 
