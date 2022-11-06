@@ -157,14 +157,14 @@ Git URLは各機能のページを参照ください。
 
 ## Feedback or Contribution
 
-フィードバックはGitHubのIssue、コントリビューションはGitHubのPRにお願いします。
+フィードバックはGitHubのIssue、コントリビューションはGitHubのPull Requestにお願いします。
 
 - [GitHub](https://github.com/extreal-dev)
 
-### コントリビュータへ
+### How to Contribute
 
-- READMEに開発方法を記載しています。
+- リポジトリのREADMEに開発方法を記載しています。
 - mainブランチはリリースしたもの、developブランチが開発の最新です。
-- developブランチの最新からブランチを作成してPRを出してください。
-- PRテンプレートを設定しているので中身を埋めてPRの状況を私たちに伝えてください。
+- developブランチの最新からブランチを作成してPull Requestを出してください。
+- Pull Requestのテンプレートを設定しているので中身を埋めてPull Requestの状況を私たちに伝えてください。
 - 作業が完了したら私たちにレビュー依頼してください。
