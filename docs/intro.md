@@ -43,17 +43,17 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 - Core
   - アプリケーションのベースとなるコア機能を提供します。
-  - LoggingやSceneTransitionのようにどのようなアプリケーションでも使用する機能がCoreに含まれます。
+  - ログ出力や画面遷移のようにどのようなアプリケーションでも使用する機能がCoreに含まれます。
 - Integration
   - アプリケーションの要件に合わせてアプリケーションに統合する機能を提供します。
-  - ChatやMultiplayのようにアプリケーションの要件に応じて使用する機能がIntegrationに含まれます。
+  - チャットやマルチプレイのようにアプリケーションの要件に応じて使用する機能がIntegrationに含まれます。
 
 CoreとIntegrationはさらに機能単位でモジュールに分割しています。
 Frameworkはモジュールの集まりです。
 
 - Core
   - [Logging](/core/logging)
-  - [Scene Transition](/core/scene-transition)
+  - [Stage Navigation](/core/stage-navigation)
   - [Resource Provider](/core/resource-provider)
 - Integration
   - [Chat using Vivox](/integration/chat.vivox)
@@ -65,17 +65,18 @@ Frameworkはモジュールの集まりです。
 ### Application
 
 ゲームやXRのアプリケーションはGUIだけでなく走り回る空間なども含まれるため画面と空間で構成します。
-例えば、イベントルームに集まって何かするようなアプリケーションであれば、タイトル画面→アバター選択画面→イベント選択画面→イベントルームといった複数のシーンで構成します。
-入力制御のように複数のシーンに共通する機能やボイスチャットのように特定のシーンでのみ使う機能が存在します。
-こういった機能を自由に組み合わせてシーンを作れると機能の再利用性が高まりメンテナンスしやすくなります。
+Extrealではこれら画面と空間をステージと呼ぶことにします。
+例えば、イベントルームに集まって何かするようなアプリケーションであれば、タイトル画面→アバター選択画面→イベント選択画面→イベントルームといったステージ構成になります。
+入力制御のように複数のステージに共通する機能やボイスチャットのように特定のステージでのみ使う機能が存在します。
+こういった機能を自由に組み合わせてステージを作れると機能の再利用性が高まりメンテナンスしやすくなります。
 
-これを実現するため、1つのUnityシーンで1つの機能やステージを作成し、複数のUnityシーンを組み合わせてシーンを作ります。
+Unityでは画面や空間を作成する単位としてシーンを提供しています。1つのシーンで1つの画面や空間を作成することが多いのですが、Extrealでは機能を自由に組み合わせてステージを作れるようにするため、1つのシーンで1つの機能や画面を作成し複数のシーンを組み合わせてステージを作ります。
 
 ![Multiple scenes](/img/multi-scenes.png)
 
-複数のUnityシーンを組み合わせたシーンの作成やシーンの切り替えにはFrameworkが提供する[Scene Transition](/core/scene-transition)を使います。
+複数のシーンを組み合わせたステージの作成やステージの切り替えにはFrameworkが提供する[Stage Navigation](/core/stage-navigation)を使います。
 
-Unityシーンで作る機能やステージはMV(R)Pパターンを使って作ります。
+シーンで作る機能や画面はMV(R)Pパターンを使って作ります。
 MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)を参照ください。
 
 ![MVP pattern](/img/mvp-pattern.png)
@@ -105,15 +106,15 @@ Extrealバージョンとモジュールバージョンの例を示します。
 
 - Extreal 1.0 `Initial release`
   - Extreal.Core.Logging 1.0.0
-  - Extreal.Core.SceneTransition 1.0.0
+  - Extreal.Core.StageNavigation 1.0.0
   - Extreal.Core.ResourceProvider 1.0.0
 - Extreal 1.1 `Bug fixed only`
   - Extreal.Core.Logging 1.0.0
-  - Extreal.Core.SceneTransition 1.0.1
+  - Extreal.Core.StageNavigation 1.0.1
   - Extreal.Core.ResourceProvider 1.0.0
 - Extreal 1.2 `Added feature`
   - Extreal.Core.Logging 1.0.1
-  - Extreal.Core.SceneTransition 1.1.0
+  - Extreal.Core.StageNavigation 1.1.0
   - Extreal.Core.ResourceProvider 1.1.0
 
 Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
