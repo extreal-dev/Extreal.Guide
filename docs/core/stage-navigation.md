@@ -123,8 +123,8 @@ public enum StageName
 {
     TitleScreen,
     AvatarSelectionScreen,
-    EventSelectionScreen,
-    EventRoom,
+    SpaceSelectionScreen,
+    VirtualSpace,
 }
 ```
 
@@ -147,10 +147,10 @@ public enum SceneName
     // Screen
     TitleScreen,
     AvatarSelectionScreen,
-    EventSelectionScreen,
+    SpaceSelectionScreen,
 
-    // Room
-    EventRoom,
+    // Space
+    VirtualSpace,
 }
 ```
 
@@ -203,8 +203,8 @@ stageNavigator.ReplaceAsync(StageName.TitleScreen);
 // Transition to the avatar selection screen
 stageNavigator.ReplaceAsync(StageName.AvatarSelectionScreen);
 
-// Transition to the event selection screen
-stageNavigator.ReplaceAsync(StageName.EventSelectionScreen);
+// Transition to the space selection screen
+stageNavigator.ReplaceAsync(StageName.SpaceSelectionScreen);
 ```
 
 ReplaceAsyncは遷移履歴を保持しないのでステージ遷移が固定されたアプリケーションでReplaceAsyncを使います。
@@ -220,8 +220,8 @@ stageNavigator.PushAsync(SceneName.TitleScreen);
 // Transition to the avatar selection screen
 stageNavigator.PushAsync(SceneName.AvatarSelectionScreen);
 
-// Transition to the event selection screen
-stageNavigator.PushAsync(SceneName.EventSelectionScreen);
+// Transition to the space selection screen
+stageNavigator.PushAsync(SceneName.SpaceSelectionScreen);
 
 // Transition to the avatar selection screen
 stageNavigator.PopAsync();
