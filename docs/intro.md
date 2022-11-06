@@ -85,7 +85,7 @@ MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパ�
 MV(R)Pパターンに必要なイベント通知にはサードパーティの[UniRx](https://github.com/neuecc/UniRx)を使います。
 MVPの各オブジェクトの生成や参照関係の構築、各オブジェクトのライフサイクルイベントの実行制御にはサードパーティの[VContainer](https://vcontainer.hadashikick.jp/)を使います。
 
-テキストチャット機能の実現イメージは次の通りです。
+例えば、テキストチャット機能の実現イメージは次の通りです。
 
 ![MVP example](/img/mvp-example.png)
 
