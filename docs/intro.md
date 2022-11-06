@@ -168,3 +168,19 @@ Git URLは各機能のページを参照ください。
 - developブランチの最新からブランチを作成してPull Requestを出してください。
 - Pull Requestのテンプレートを設定しているので中身を埋めてPull Requestの状況を私たちに伝えてください。
 - 作業が完了したら私たちにレビュー依頼してください。
+
+## About Extreal
+
+Extrealという名前は元々「仮想から現実へ（XR to Real）」というフレーズから名付けています。
+
+```
+XR to Real　→　XRtoReal　→　XtoReal
+```
+
+さらに「Xto」を「拡げる」という意味の接頭辞「Ext」に変形して今のExtrealとなりました。
+
+```
+XtoReal →　Extreal
+```
+
+誰もが仮想を活用して現実の課題を解決する、そんな未来を私たちはExtrealで目指しています。
