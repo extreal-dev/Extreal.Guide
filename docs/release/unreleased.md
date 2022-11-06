@@ -8,6 +8,8 @@ sidebar_position: 1
 
 ## Unity version
 
+次のUnityバージョンで動作確認しています。
+
 2021.3.11f1
 
 ## Modules
