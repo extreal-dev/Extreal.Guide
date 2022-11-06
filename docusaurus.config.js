@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Extreal',
   tagline: 'UnityベースのXRフレームワーク',
-  url: 'https://github.com/extreal-dev',
+  url: 'https://extreal-dev.github.io',
   baseUrl: '/Extreal.Guide/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
