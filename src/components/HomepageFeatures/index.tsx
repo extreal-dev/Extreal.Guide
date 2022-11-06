@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import Link from '@docusaurus/Link';
 
 type FeatureItem = {
   title: string;
@@ -15,6 +16,9 @@ const FeatureList: FeatureItem[] = [
         Extrealはあなたが賑やかなバーチャル体験を作ることをサポートします。
         ボイスチャット、テキストチャット、マルチプレイといったコミュニケーションやインタラクションのベースとなる機能をExtrealが提供するので、あなたはそれらの機能を使ったアイデアの作成に集中できます。
         友人と遊園地へ出かけるようなアクティビティ体験など、Extrealを使って賑やかなバーチャル体験を沢山作ってください。
+        <div>
+          <b><Link to="/intro#framework">Learn more</Link></b>
+        </div>
       </>
     ),
   },
@@ -26,6 +30,9 @@ const FeatureList: FeatureItem[] = [
         私たちがプロダクト開発で利用実績のあるアプリケーションアーキテクチャの構築に必要な機能をExtrealが提供します。
         このアプリケーションアーキテクチャを使用するには学習コストがかかりますが十分な見返りがあると私たちは信じています。
         Extrealを使って構築したアプリケーションアーキテクチャを使いこなして高いメンテナンス性を持つアプリケーションを手に入れてください。
+        <div>
+          <b><Link to="/intro#application">Learn more</Link></b>
+        </div>
       </>
     ),
   },
@@ -35,8 +42,11 @@ const FeatureList: FeatureItem[] = [
       <>
         Extrealはあなたがプロダクションレベルのアプリケーションを作ることをサポートします。
         Extrealはアプリケーションの機能要件だけでなく非機能要件に対応する機能も順次提供していきます。
-        例えばアセットを切り替える機能、アプリケーションの利用状況を可視化する機能などです。
+        例えばアプリケーションの利用状況を可視化する機能などです。
         これらプロダクションに向けたExtrealの機能を活用し、アプリケーションの魅力を高めてユーザーを幸せにしてください。
+        <div>
+          <b>Available from June 2023</b>
+        </div>
       </>
     ),
   },

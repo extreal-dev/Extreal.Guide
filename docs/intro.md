@@ -50,6 +50,7 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 CoreとIntegrationはさらに機能単位でモジュールに分割しています。
 Frameworkはモジュールの集まりです。
+Frameworkは次の機能を提供しています。
 
 - Core
   - [Logging](/core/logging)
