@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Extreal',
   tagline: 'UnityベースのXRフレームワーク',
-  url: 'https://github.com/extreal-dev',
+  url: 'https://extreal-dev.github.io',
   baseUrl: '/Extreal.Guide/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
@@ -49,12 +49,18 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Extreal',
+        title: '',
         logo: {
-          alt: 'Extreal',
-          src: 'img/logo.png',
+          alt: 'Fintan',
+          src: 'img/fintan-logo.jpg',
+          href: 'https://fintan.jp',
         },
         items: [
+          {
+            href: '/',
+            label: 'Extreal',
+            position: 'left',
+          },
           {
             type: 'doc',
             docId: 'intro',
@@ -62,8 +68,8 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://fintan.jp/',
-            label: 'Fintan',
+            href: 'https://fintan.jp/blog-category/xr/',
+            label: 'Fintan - XR',
             position: 'right',
           },
           {

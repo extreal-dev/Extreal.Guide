@@ -43,17 +43,18 @@ Frameworkは機能を次のカテゴリに分類しています。
 
 - Core
   - アプリケーションのベースとなるコア機能を提供します。
-  - LoggingやSceneTransitionのようにどのようなアプリケーションでも使用する機能がCoreに含まれます。
+  - ログ出力や画面遷移のようにどのようなアプリケーションでも使用する機能がCoreに含まれます。
 - Integration
   - アプリケーションの要件に合わせてアプリケーションに統合する機能を提供します。
-  - ChatやMultiplayのようにアプリケーションの要件に応じて使用する機能がIntegrationに含まれます。
+  - チャットやマルチプレイのようにアプリケーションの要件に応じて使用する機能がIntegrationに含まれます。
 
 CoreとIntegrationはさらに機能単位でモジュールに分割しています。
 Frameworkはモジュールの集まりです。
+Frameworkは次の機能を提供しています。
 
 - Core
   - [Logging](/core/logging)
-  - [Scene Transition](/core/scene-transition)
+  - [Stage Navigation](/core/stage-navigation)
   - [Resource Provider](/core/resource-provider)
 - Integration
   - [Chat using Vivox](/integration/chat.vivox)
@@ -64,18 +65,19 @@ Frameworkはモジュールの集まりです。
 
 ### Application
 
-ゲームやXRのアプリケーションはGUIだけでなく走り回る空間なども含まれるため画面やページではなくシーンで構成します。
-例えば、イベントルームに集まって何かするようなアプリケーションであれば、タイトルページ→アバター選択ページ→イベント選択ページ→イベントルームといった複数のシーンで構成します。
-入力制御のように複数のシーンに共通する機能やボイスチャットのように特定のシーンでのみ使う機能が存在します。
-こういった機能を自由に組み合わせてシーンを作れると機能の再利用性が高まりメンテナンスしやすくなります。
+ゲームやXRのアプリケーションはGUIだけでなく走り回る空間なども含まれるため画面と空間で構成します。
+Extrealではこれら画面と空間をステージと呼ぶことにします。
+例えば、バーチャル空間に集まって何かするようなアプリケーションであれば、タイトル画面→アバター選択画面→空間選択画面→バーチャル空間といったステージ構成になります。
+入力制御のように複数のステージに共通する機能やボイスチャットのように特定のステージでのみ使う機能が存在します。
+こういった機能を自由に組み合わせてステージを作れると機能の再利用性が高まりメンテナンスしやすくなります。
 
-これを実現するため、1つのUnityシーンで1つの機能やステージを作成し、複数のUnityシーンを組み合わせてシーンを作ります。
+Unityでは画面や空間を作成する単位としてシーンを提供しています。1つのシーンで1つの画面や空間を作成することが多いのですが、Extrealでは機能を自由に組み合わせてステージを作れるようにするため、1つのシーンで1つの機能や画面を作成し複数のシーンを組み合わせてステージを作ります。
 
 ![Multiple scenes](/img/multi-scenes.png)
 
-複数のUnityシーンを組み合わせたシーンの作成やシーンの切り替えにはFrameworkが提供する[Scene Transition](/core/scene-transition)を使います。
+複数のシーンを組み合わせたステージの作成やステージの切り替えにはFrameworkが提供する[Stage Navigation](/core/stage-navigation)を使います。
 
-Unityシーンで作る機能やステージはMV(R)Pパターンを使って作ります。
+シーンで作る機能や画面はMV(R)Pパターンを使って作ります。
 MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)を参照ください。
 
 ![MVP pattern](/img/mvp-pattern.png)
@@ -83,7 +85,7 @@ MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパ�
 MV(R)Pパターンに必要なイベント通知にはサードパーティの[UniRx](https://github.com/neuecc/UniRx)を使います。
 MVPの各オブジェクトの生成や参照関係の構築、各オブジェクトのライフサイクルイベントの実行制御にはサードパーティの[VContainer](https://vcontainer.hadashikick.jp/)を使います。
 
-テキストチャット機能の実現イメージは次の通りです。
+例えば、テキストチャット機能の実現イメージは次の通りです。
 
 ![MVP example](/img/mvp-example.png)
 
@@ -105,15 +107,15 @@ Extrealバージョンとモジュールバージョンの例を示します。
 
 - Extreal 1.0 `Initial release`
   - Extreal.Core.Logging 1.0.0
-  - Extreal.Core.SceneTransition 1.0.0
+  - Extreal.Core.StageNavigation 1.0.0
   - Extreal.Core.ResourceProvider 1.0.0
 - Extreal 1.1 `Bug fixed only`
   - Extreal.Core.Logging 1.0.0
-  - Extreal.Core.SceneTransition 1.0.1
+  - Extreal.Core.StageNavigation 1.0.1
   - Extreal.Core.ResourceProvider 1.0.0
 - Extreal 1.2 `Added feature`
   - Extreal.Core.Logging 1.0.1
-  - Extreal.Core.SceneTransition 1.1.0
+  - Extreal.Core.StageNavigation 1.1.0
   - Extreal.Core.ResourceProvider 1.1.0
 
 Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
@@ -137,6 +139,7 @@ TODO: 公開APIの確認方法を追記する。
 
 ## Unity version
 
+ここではExtrealがUnityのバージョンにどのように追随していくのかについて説明します。
 Extrealの開発やテストで使用するUnityはLTS([Long Term Support](https://unity3d.com/unity/qa/lts-releases))ストリームの最新バージョンを使う方針です。
 Extrealが使っているサードパーティのライブラリの対応状況等を確認し、Unityバージョンを上げるタイミングを私たちで判断します。
 
@@ -154,14 +157,30 @@ Git URLは各機能のページを参照ください。
 
 ## Feedback or Contribution
 
-フィードバックはGitHubのIssue、コントリビューションはGitHubのPRにお願いします。
+フィードバックはGitHubのIssue、コントリビューションはGitHubのPull Requestにお願いします。
 
 - [GitHub](https://github.com/extreal-dev)
 
-### コントリビュータへ
+### How to Contribute
 
-- READMEに開発方法を記載しています。
+- リポジトリのREADMEに開発方法を記載しています。
 - mainブランチはリリースしたもの、developブランチが開発の最新です。
-- developブランチの最新からブランチを作成してPRを出してください。
-- PRテンプレートを設定しているので中身を埋めてPRの状況を私たちに伝えてください。
+- developブランチの最新からブランチを作成してPull Requestを出してください。
+- Pull Requestのテンプレートを設定しているので中身を埋めてPull Requestの状況を私たちに伝えてください。
 - 作業が完了したら私たちにレビュー依頼してください。
+
+## About Extreal
+
+Extrealという名前は元々「仮想から現実へ（XR to Real）」というフレーズから名付けています。
+
+```
+XR to Real　→　XRtoReal　→　XtoReal
+```
+
+さらに「Xto」を「拡げる」という意味の接頭辞「Ext」に変形して今のExtrealとなりました。
+
+```
+XtoReal →　Extreal
+```
+
+誰もが仮想を活用して現実の課題を解決する、そんな未来を私たちはExtrealで目指しています。

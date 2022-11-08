@@ -151,11 +151,13 @@ https://github.com/extreal-dev/Extreal.Core.Logging.git
 LoggingManagerクラスを使ってログ出力を初期化します。
 
 ```csharp
-[InitializeOnLoad]
-public class Startup {
-    static Startup()
+public static class AppInitializer
+{
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void Initialize()
     {
-        LoggingManager.Initialize(LogLevel.Debug);
+        const LogLevel logLevel = LogLevel.Debug;
+        LoggingManager.Initialize(logLevel: logLevel);
     }
 }
 ```
@@ -164,11 +166,11 @@ public class Startup {
 
 ```csharp
 #if DEV
-LogLevel level = LogLevel.DEBUG;
+const LogLevel logLevel = LogLevel.Debug;
 #elif PROD
-LogLevel level = LogLevel.INFO;
+const LogLevel logLevel = LogLevel.Info;
 #endif
-LoggingManager.Initialize(level);
+LoggingManager.Initialize(logLevel: logLevel);
 ```
 
 ## Usage
@@ -181,15 +183,15 @@ LoggerクラスはLoggingManagerクラスから取得します。
 ```csharp
 public class SomethingService {
 
-    private static readonly ELogger LOGGER = LoggingManager.GetLogger(nameof(SomethingService));
+    private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(SomethingService));
 
     public void Something() {
 
-      LOGGER.LogInfo("Here we go!");
+      Logger.LogInfo("Here we go!");
 
       // something
 
-      LOGGER.LogInfo("It's over!!!");
+      Logger.LogInfo("It's over!!!");
     }
 }
 ```
@@ -197,8 +199,8 @@ public class SomethingService {
 ログに出力する文字列作成は出力場所によってはアプリケーションの性能劣化に繋がるので事前にログ出力判定を行ってからログ出力します。
 
 ```csharp
-if (LOGGER.IsDebug()) {
-    LOGGER.LogDebug($"Hello {name}!");
+if (Logger.IsDebug()) {
+    Logger.LogDebug($"Hello {name}!");
 }
 ```
 
@@ -225,16 +227,16 @@ ILogOutputCheckerインタフェースを実装したクラスを作成しLoggin
 // Adds special conditions to log output checks.
 public class AppLogOutputChecker : ILogOutputChecker
 {
-    private LogLevel _logLevel;
+    private LogLevel logLevel;
 
     public void Initialize(LogLevel logLevel)
     {
-        _logLevel = logLevel;
+        this.logLevel = logLevel;
     }
 
     public bool IsOutput(LogLevel logLevel, string logCategory)
     {
-        return _logLevel <= logLevel
+        return this.logLevel <= logLevel
                 || (logLevel == LogLevel.Debug && logCategory == "Debugger");
     }
 }
