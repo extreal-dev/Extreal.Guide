@@ -257,7 +257,7 @@ OnStageTransitionedのタイミングでログを出力する例は次の通り�
 // Event handler
 private void LogStageTransition(StageName stage)
 {
-    LOGGER.LogInfo(stage);
+    Logger.LogInfo(stage);
 }
 
 // Initialize
