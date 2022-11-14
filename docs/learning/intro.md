@@ -19,7 +19,7 @@ Extrealは私たちのプロダクト開発で培ったノウハウをベース�
   - Unityの概念
     - Scene、GameObject、Prefab
   - Unityの機能
-    - Package Manager、Addressables
+    - Package Manager、Assembly Definition
   - Unityのスクリプト
     - イベント関数、MonoBehaviour
 - C#
