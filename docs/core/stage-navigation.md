@@ -184,7 +184,7 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(stageConfig).AsImplementedInterfaces();
+            builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
             builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
