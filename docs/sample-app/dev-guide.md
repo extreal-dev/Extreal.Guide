@@ -4,9 +4,9 @@ sidebar_position: 5
 
 # Development Guide
 
-## ディレクトリ構成
+## Directory structure
 
-### 全体
+### Overview
 
 - Assets
   - AddressableAssetsData
@@ -57,9 +57,9 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 
 ![application structure](/img/holiday-app-structure.png)
 
-## アプリケーション
+## Application
 
-### エントリーポイント
+### Entry point
 
 アプリケーションのエントリーポイントは次のシーンです。
 
@@ -67,7 +67,7 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 Assets/Holiday/App/App
 ```
 
-### アプリケーションの初期化処理
+### Initialization
 
 アプリケーションの初期化処理はUnityのRuntimeInitializeOnLoadMethodを使用します。
 次のスクリプトで実施しています。
@@ -78,7 +78,7 @@ Assets/Holiday/App/AppInitializer
 
 フレームレートの設定や[Loggingの設定](/core/logging#settings)を行っています。
 
-### ステージ構成
+### Stage configuration
 
 ステージ構成は[Stage Navigationの設定](/core/stage-navigation#settings)にある通り、3つのタイプを作成しています。
 ステージやシーンの作成時に変更してください。
@@ -129,7 +129,7 @@ public enum SceneName
 }
 ```
 
-## オブジェクトのスコープ
+## Scope of objects
 
 各シーンで使うオブジェクトの管理には[VContainer](https://vcontainer.hadashikick.jp/)を使います。
 
@@ -150,9 +150,9 @@ Modelsシーン
 
 ![オブジェクトスコープの親](/img/object-scope-parent.png)
 
-## シーン
+## Scene
 
-### 基本構造
+### Basic structure
 
 各シーンはMV(R)Pパターンで作成します。
 各シーンでは次のアセットを作ります。
@@ -267,7 +267,7 @@ public class AvatarSelectionScreenView : MonoBehaviour
 
 Viewはアバタープルダウンの初期化、入力項目の初期値設定、入力項目のイベント通知を行っています。
 
-### シーンの初期化処理
+### Initialization
 
 ステージ遷移で同じシーンが続く場合、シーンはアンロードされず再利用されます。
 そのため再利用されるシーンのPresenterのStartは、ロードされたステージ遷移のタイミングでのみ呼ばれ、再利用されたステージ遷移のタイミングでは呼ばれません。
@@ -275,18 +275,18 @@ Viewはアバタープルダウンの初期化、入力項目の初期値設定�
 
 ## UI
 
-### フォント
+### Font
 
 [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)を取り込みTextMesh Proのデフォルトに設定済みです。
 フォントはNoto Sans Japaneseを使ってください。
 
-### 解像度
+### Resolution
 
 解像度は汎用的なサイズの1920x1080を基準にします。
 PCは1920x1080、モバイルはポートレートモードの1080x1920で使う想定です。
 GameViewの解像度に1080x1920を追加し、Unityエディタ上では2つのサイズで確認してください。
 
-### UIの共通化
+### Modularization
 
 画面やボタンなどデザインが共通するUIはメンテナンスしやすいように共通化します。
 UIの共通化にはUnityのPrefabを使います。
@@ -318,7 +318,7 @@ Assets/Holiday/Stages/Common
   - 空間用のボタン
   - フォント、文字の設定が入っています。
 
-## アセット管理
+## Asset management
 
 現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
 
@@ -338,7 +338,7 @@ AvatarAmy
 AvatarMichelle
 ```
 
-## 静的解析
+## Static analysis
 
 ルート直下にある`.editorconfig`でAnalyzerの設定をしています。
 [EditorConfig](https://editorconfig.org/)に対応したエディタを使ってスクリプトを編集し、Analyzerの問題がないことを確認してからプッシュしてください。
