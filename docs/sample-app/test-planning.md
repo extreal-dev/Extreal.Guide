@@ -6,7 +6,7 @@ sidebar_position: 4
 
 [テスト種別＆テスト観点カタログ](https://fintan.jp/page/1456/)のテスト種別ごとにテスト方法、合格基準を決めています。
 
-## 共通
+## Common
 
 - テスト方法
   - 全成果物のピアレビュー
@@ -14,14 +14,14 @@ sidebar_position: 4
 - 合格基準
   - 全FB対応済み
 
-## 構文チェック
+## Syntax check
 
 - テスト方法
   - [Roslyn Analyzers](https://github.com/dotnet/roslyn-analyzers)、[Code Cracker](https://github.com/code-cracker/code-cracker)による静的解析
 - 合格基準
   - 問題なし
 
-## 機能テスト
+## Functional test
 
 - テスト方法
   - 自動テスト、自動テストが難しいものは手動テスト（ボイスチャットや人数制限など）
@@ -32,29 +32,29 @@ sidebar_position: 4
 TODO: 手動テストのテストケースを実施時に追記する。
 :::
 
-## データ互換性テスト
+## Data compatibility test
 
 - 対象なし
 
-## 業務シナリオテスト
+## Business scenario test
 
 - 機能テストと合わせて実施
 
-## 構成テスト
+## Configuration test
 
 - テスト方法
   - Android、iOS、Winでの自動テスト、自動テストが難しいものは手動テスト（ボイスチャットや人数制限など）
 - 合格基準
   - 全件合格、テストカバレッジ100%
 
-## セキュリティテスト
+## Security test
 
 - テスト方法
   - [セキュリティ関連リンク](https://fintan-contents.github.io/mobile-app-crib-notes/reference/security/awesome-sites)のセルフチェック
 - 合格基準
   - 問題なし
 
-## 性能テスト
+## Performance test
 
 - テスト方法
   - バーチャル空間に120人アクセス状態で1.5時間実行
@@ -65,19 +65,19 @@ TODO: 手動テストのテストケースを実施時に追記する。
   - アプリケーションのフレーム落ち、フレーム飛び、停止が発生しないこと
   - MultiplayサーバのCPU/メモリ使用状況が60%以内であること
 
-## ストレステスト
+## Stress test
 
 - 性能テストと合わせて実施
 
-## ボリュームテスト
+## Volume test
 
 - 対象なし
 
-## ロングランテスト
+## Long run test
 
 - 性能テストと合わせて実施
 
-## 障害テスト
+## Failure test
 
 - テスト方法
   - 手動テスト（障害事象を手動で発生させる）
@@ -93,18 +93,18 @@ TODO: 手動テストのテストケースを実施時に追記する。
 - 合格基準
   - 全件合格
 
-## 運用シナリオテスト
+## Operational scenario test
 
 - 対象なし
 
-## 移行テスト
+## Migration test
 
 - 対象なし
 
-## 現新比較テスト
+## Current vs. new comparison test
 
 - 対象なし
 
-## ユーザビリティテスト
+## Usability test
 
 - 今後改善予定のため未実施
