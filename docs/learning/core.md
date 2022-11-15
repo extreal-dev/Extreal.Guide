@@ -392,5 +392,5 @@ Appシーンを実行します。タイトル画面からアバター選択画�
 
 このハンズオンを通じて[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に必要な機能を構築済みです。
 次のステップとしてハンズオンで構築したアーキテクチャがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。
