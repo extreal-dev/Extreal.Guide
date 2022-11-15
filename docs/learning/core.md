@@ -380,6 +380,9 @@ TitleScreenScopeのインスペクタでParentにAppScopeを指定するとこ�
 
 ![AppScope](/img/learning-core-mvp-parent.png)
 
+このようにスコープは階層を意識して作成します。
+共通利用されるスコープをより親となるように全体のスコープを設計します。
+
 Appシーンを実行します。タイトル画面からアバター選択画面に遷移できれば成功です。
 
 ## Next Step
