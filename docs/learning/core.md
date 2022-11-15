@@ -11,9 +11,7 @@ sidebar_position: 2
 - Unityバージョン
   - 2021.3.11f1
 
-TODO:作るアプリの説明を入れる。
-
-TODO:作るステップを入れる。
+プロジェクトの作成からCoreの機能を導入していき、VContainerやUniRxも導入しExtrealが想定するアプリケーションアーキテクチャを構築します。
 
 ## Create project
 
@@ -169,10 +167,10 @@ public enum SceneName
 - Assetsメニューから`StageConfig`オブジェクトをAppディレクトリに作成します。
 - StageConfigオブジェクトにタイトル画面のステージを設定します。
 
-これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させるスクリプトをAppシーンに作成します。
+これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる`StageTest`スクリプトをAppシーンに作成します。
 
-- 下に掲載したスクリプトをAppディレクトリに作成します。
-- 作成したスクリプトをアタッチしたGameObjectをAppシーンに配置します。
+- StageTestスクリプトをAppディレクトリに作成します。
+- StageTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
 - インスペクタでStageConfigオブジェクトを指定します。
 
 ```csharp
@@ -201,7 +199,7 @@ Appシーンを実行します。
 
 ## Apply MV(R)P pattern
 
-Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)と[UniRx](https://github.com/neuecc/UniRx)を追加してExtrealが想定するアプリケーションアーキテクチャに近づけていきたいと思います。
+Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)と[UniRx](https://github.com/neuecc/UniRx)を追加して[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に近づけていきたいと思います。
 
 ### Avatar selection screen
 
@@ -222,6 +220,8 @@ Extrealが提供するCoreの機能は以上となりますが、[VContainer](ht
 
 - StageNameとSceneNameに`AvatarSelectionScreen`を追加します。
 - StageConfigオブジェクトのインスペクタで`AvatarSelectionScreen`を追加します。
+
+Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加します。
 
 UIとステージ設定の準備が整いました。
 
@@ -245,11 +245,13 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
 
 これでVContainerとUniRxが使える状態になりました。
 
-### AppPresenter
+### VContainer
 
 VContainerを使って先ほど確認用に作ったStageTestを作り変えます。
 
-まずAppディレクトリにエントリーポイントとなる`AppPresenter`スクリプトを作成します。
+#### AppPresenter
+
+まずAppディレクトリにエントリーポイントとなるPresenterスクリプトを作成します。
 
 ```csharp
 public class AppPresenter : IAsyncStartable
@@ -265,9 +267,9 @@ public class AppPresenter : IAsyncStartable
 
 Appシーンが開始するとタイトル画面に遷移させます。
 
-### AppScope
+#### AppScope
 
-次にAppディレクトリにVContainerのLifetimeScopeとして`AppScope`スクリプトを作成します。
+次にVContainerのLifetimeScopeとしてScopeスクリプトをAppディレクトリに作成します。
 
 ```csharp
 public class AppScope : LifetimeScope
@@ -283,20 +285,109 @@ public class AppScope : LifetimeScope
     }
 }
 ```
-StageConfig、StageNavigator、エントリーポイントとしてAppPresenterを登録しています。
-この登録によりAppPresenterの処理が実行できるようになります。
 
-作成したAppScopeをAppシーンに設定します。
+StageConfigとStageNavigator、エントリーポイントとしてAppPresenterを登録しています。
+この登録により、StageConfigがStageNavigatorに設定され、StageNavigatorがAppPresenterに設定されます。
+このようにVContainerが提供するDIコンテナを使ってオブジェクトの構造を作り上げ、各オブジェクトが処理を実行できるようにします。
+
+ScopeスクリプトをAppシーンに設定します。
 
 ![AppScope](/img/learning-core-mvp-appscope.png)
 
-- Appシーンに`Scope`という名前でAppScopeスクリプトをアタッチしたGameObjectを配置します。
+- Appシーンに`Scope`という名前でAppScopeスクリプトをアタッチしたGameObjectを作成します。
 - StageConfigオブジェクトをインスペクタで設定します。
 - 不要になったのでAppシーンからStageTestオブジェクトとStageTestスクリプトを削除します。
 
 Appシーンを実行します。先ほどと同様にタイトル画面とConsoleのログ出力が出ていれば成功です。
 
-### TitleScreenView
+### UniRx
 
 UniRxを使ってタイトル画面のGoボタンを実装します。
 
+#### TitleScreenView
+
+タイトル画面に対応するViewスクリプトをTitleScreenディレクトリに作成します。
+
+```csharp
+public class TitleScreenView : MonoBehaviour
+{
+    [SerializeField] private Button goButton;
+
+    public IObservable<Unit> OnGoButtonClicked
+        => goButton.OnClickAsObservable().TakeUntilDestroy(this);
+}
+```
+
+UniRxを使ってGoボタンが押された場合にイベントを通知する`OnGoButtonClicked`を定義しています。
+
+#### TitleScreenProvider
+
+次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
+
+```csharp
+public class TitleScreenPresenter : IStartable
+{
+    [Inject] private IStageNavigator<StageName> stageNavigator;
+
+    [Inject] private TitleScreenView titleScreenView;
+
+    public void Start() =>
+        titleScreenView.OnGoButtonClicked.Subscribe(_ =>
+        {
+            stageNavigator.ReplaceAsync(StageName.AvatarSelectionScreen).Forget();
+        });
+}
+```
+
+Goボタンのイベント通知とアバター選択画面への遷移をマッピングしています。
+
+#### TitleScreenScope
+
+最後にViewやPresenterを紐づけるScopeスクリプトをTitleScreenディレクトリに作成します。
+
+```csharp
+public class TitleScreenScope : LifetimeScope
+{
+    [SerializeField] private TitleScreenView titleScreenView;
+
+    protected override void Configure(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(titleScreenView);
+
+        builder.RegisterEntryPoint<TitleScreenPresenter>();
+    }
+}
+```
+
+ViewスクリプトとScopeスクリプトをTitleScreenシーンに設定します。
+
+![AppScope](/img/learning-core-mvp-titlescreenobject.png)
+
+- TitleScreenシーンに`View`という名前でTitleScreenViewスクリプトをアタッチしたGameObjectを作成します。
+- Buttonオブジェクトをインスペクタで設定します。
+- TitleScreenシーンに`Scope`という名前でTitleScreenScopeスクリプトをアタッチしたGameObjectを作成します。
+- Viewオブジェクトをインスペクタで設定します。
+
+この状態でAppシーンを実行すると次のエラーになります。
+
+![AppScope](/img/learning-core-mvp-error.png)
+
+TitleScreenPresenterにStageNavigatorを設定していますがスコープに登録されていないためエラーとなっています。
+StageNavigatorはAppScope、TitleScreenPresenterはTitleScreenScopeと異なるスコープのためこのエラーが発生しています。
+
+VContainerではスコープの親を指定してオブジェクトの検索範囲を親まで広げることができます。
+TitleScreenScopeのインスペクタでParentにAppScopeを指定するとこのエラーが解消します。
+
+![AppScope](/img/learning-core-mvp-parent.png)
+
+Appシーンを実行します。タイトル画面からアバター選択画面に遷移できれば成功です。
+
+## Next Step
+
+これでCoreのハンズオンは終了です。
+お疲れさまでした。
+
+このハンズオンを通じて[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に必要な機能を構築済みです。
+次のステップとしてハンズオンで構築したアーキテクチャがより本格的なアプリケーションでどのように使われるのか関心があると思います。
+その期待に応えるため、より本格的な実装例として[Sample Application](/sample-application)を提供しています。
+ぜひSample Applicationをご覧ください。
