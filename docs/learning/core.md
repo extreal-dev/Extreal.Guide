@@ -98,9 +98,18 @@ UniTaskは[OpenUPM](https://openupm.com/)で提供されているためOpenUPM�
 
 ![Unitask追加](/img/learning-core-stagenavigation-unitask.png)
 
-- Name: `OpenUPM`
-- URL: `https://package.openupm.com`
-- Scope(s): `com.cysharp`
+- Name:
+  ```
+  OpenUPM
+  ```
+- URL:
+  ```
+  https://package.openupm.com
+  ```
+- Scope(s):
+  ```
+  com.cysharp
+  ```
 
 Scope(s)に指定した`com.cysharp`がUniTaskのための設定です。
 
@@ -233,8 +242,14 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
 
 ![VContainerとUniRx追加](/img/learning-core-mvp-thirdparty.png)
 
-- VContainer: `jp.hadashikick`
-- UniRx: `com.neuecc`
+- VContainer:
+  ```
+  jp.hadashikick
+  ```
+- UniRx:
+  ```
+  com.neuecc
+  ```
 
 続けてPackage ManagerとAssembly DefinitionにVContainerとUniRxを追加します。
 
