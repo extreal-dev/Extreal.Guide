@@ -335,7 +335,7 @@ public class TitleScreenView : MonoBehaviour
 
 UniRxを使ってGoボタンが押された場合にイベントを通知する`OnGoButtonClicked`を定義しています。
 
-#### TitleScreenProvider
+#### TitleScreenPresenter
 
 次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
 
