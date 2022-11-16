@@ -169,7 +169,7 @@ public enum SceneName
 }
 ```
 
-3つのタイプが作成できたら`StageConfig`オブジェクト作ります。
+3つのタイプが作成できたら`StageConfig`オブジェクトを作ります。
 
 ![Stage設定](/img/learning-core-stagenavigation-config.png)
 
