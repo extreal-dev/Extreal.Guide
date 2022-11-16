@@ -255,7 +255,7 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
 
 ![VContainerとUniRx設定](/img/learning-core-mvp-pmandad.png)
 
-- Package ManagerでPackages: `My Registry`を選択しVContainerとUniRxをインストールします。
+- Package ManagerでPackages: `My Registries`を選択しVContainerとUniRxをインストールします。
 - アプリケーションのAssembly DefinitionにVContainerとUniRxを設定します。
 
 これでVContainerとUniRxが使える状態になりました。
