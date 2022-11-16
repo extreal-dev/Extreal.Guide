@@ -69,8 +69,8 @@ LoggingのデフォルトのログレベルはInfoです。開発用にDebugレ�
 - Appディレクトリに`AppInitializer`スクリプトを作ります。
 - [LoggingのSettings](/core/logging#settings)を参照してAppInitializerスクリプトを作成します。
 
-作成したAppInitializerスクリプトではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するようにAppInitializerスクリプトに処理を追加します。
-次のコードをAppInitializerスクリプトに追加してください。
+作成したAppInitializerスクリプトではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
+AppInitializerスクリプトの初期化メソッドの中に次のコードを追加してください。
 
 ```csharp
 ELogger logger = LoggingManager.GetLogger(nameof(AppInitializer));
