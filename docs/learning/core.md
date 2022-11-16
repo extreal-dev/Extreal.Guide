@@ -137,8 +137,9 @@ Assembly DefinitionにUniTaskも設定します。
   ![タイトル画面Image](/img/learning-core-stagenavigation-image.png)
   - Rect Transform
     - Anchor Presets
-      - stretch x stretch
-    - LeftからButtomまで全て0（Zero）
+      - X: `stretch`
+      - Y: `stretch`
+    - LeftからButtomまで全て`0（Zero）`
   - Image
     - Color
       - Hexadecimal: `FF6F61`
