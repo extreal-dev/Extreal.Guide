@@ -4,23 +4,25 @@ sidebar_position: 1
 
 # Unreleased
 
-2022-10-25
+2022-11-24
 
 ## Unity version
 
 次のUnityバージョンで動作確認しています。
 
-2021.3.11f1
+2021.3.13f1
 
 ## Modules
 
 - Extreal.Core.Logging 0.1.0
-- Extreal.Core.SceneTransition 0.1.0
-- Extreal.Core.ResourceProvider 0.1.0
+- Extreal.Core.StageNavigation 0.2.0
+- Extreal.Integration.Multiplay.NGO 0.1.0
 
 ## Dependencies
 
 - UniTask 2.3.1
+- UniRx 7.1.0
+- Netcode for GameObjects 1.1.0
 
 ## Changes
 
@@ -28,19 +30,19 @@ sidebar_position: 1
 
 #### Added
 
-- ログ出力機能を追加しました。([#2](https://github.com/extreal-dev/Extreal.Core.Logging/pull/2))
+- モジュールを追加しました。
 
-### Extreal.Core.SceneTransition
-
-#### Added
-
-- シーン遷移機能を追加しました。([#3](https://github.com/extreal-dev/Extreal.Core.SceneTransition/pull/3))
-
-### Extreal.Core.ResourceProvider
+### Extreal.Core.StageNavigation
 
 #### Added
 
-- リソースプロバイダ機能を追加しました。([#5](https://github.com/extreal-dev/Extreal.Core.ResourceProvider/pull/5))
+- モジュールを追加しました。
+
+### Extreal.Integration.Multiplay.NGO
+
+#### Added
+
+- モジュールを追加しました。
 
 ## Backward compatible
 
