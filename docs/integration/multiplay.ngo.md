@@ -274,7 +274,7 @@ ngoServer.OnServerStopping.Subscribe(_ =>
 
 NGOのクライアント向けの機能はNgoClientが提供します。
 ここではNgoClientの基本的な使い方をいくつか紹介します。
-NgoClientはマルチプレイの処理をNetworkManagerに移譲しているの各機能の詳細はNGOのドキュメントを参照してください。
+NgoClientはマルチプレイの処理をNetworkManagerに移譲しているので各機能の詳細はNGOのドキュメントを参照してください。
 
 サーバーへの接続はConnectAsyncを使います。
 接続情報はNgoConfigで指定します。
