@@ -218,7 +218,7 @@ ngoServer.OnServerStopping.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-プレイヤーのスポーンはSpawnAsPlayerObjectを使います。
+任意のタイミングでプレイヤーをスポーンしたい場合やプレイヤーのPrefabを動的に切り替えたい場合はSpawnAsPlayerObjectを使います。
 次のコードは上記のRegisterMessageHandlerで登録しているクライアントからのメッセージに対応する処理です。
 クライアントからのメッセージに対応してプレイヤーをスポーンしています。
 
