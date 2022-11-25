@@ -55,7 +55,6 @@ Frameworkは次の機能を提供しています。
 - Core
   - [Logging](/core/logging)
   - [Stage Navigation](/core/stage-navigation)
-  - [Resource Provider](/core/resource-provider)
 - Integration
   - [Chat using Vivox](/integration/chat.vivox)
   - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
@@ -105,18 +104,19 @@ ExtrealはFrameworkに含まれるモジュールの特定バージョンの組�
 
 Extrealバージョンとモジュールバージョンの例を示します。
 
-- Extreal 1.0 `Initial release`
-  - Extreal.Core.Logging 1.0.0
-  - Extreal.Core.StageNavigation 1.0.0
-  - Extreal.Core.ResourceProvider 1.0.0
-- Extreal 1.1 `Bug fixed only`
-  - Extreal.Core.Logging 1.0.0
-  - Extreal.Core.StageNavigation 1.0.1
-  - Extreal.Core.ResourceProvider 1.0.0
-- Extreal 1.2 `Added feature`
-  - Extreal.Core.Logging 1.0.1
-  - Extreal.Core.StageNavigation 1.1.0
-  - Extreal.Core.ResourceProvider 1.1.0
+```
+Extreal 1.0 `Initial release`
+- Extreal.Core.Logging 1.0.0
+- Extreal.Core.StageNavigation 1.0.0
+
+Extreal 1.1 `Bug fixed only`
+- Extreal.Core.Logging 1.0.0
+- Extreal.Core.StageNavigation 1.0.1
+
+Extreal 1.2 `Added feature`
+- Extreal.Core.Logging 1.0.1
+- Extreal.Core.StageNavigation 1.1.0
+```
 
 Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
 メジャーバージョンは大規模な変更をした場合に更新します。
