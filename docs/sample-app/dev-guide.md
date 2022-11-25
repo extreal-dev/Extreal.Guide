@@ -4,9 +4,11 @@ sidebar_position: 5
 
 # Development Guide
 
-## Directory structure
+## Project
 
-### Overview
+### Directory structure
+
+#### Overview
 
 - Assets
   - AddressableAssetsData
@@ -33,7 +35,7 @@ sidebar_position: 5
 Assets/Holiday以外のディレクトリはサードパーティやUnityの機能利用時に作成された設定になります。
 アプリケーション用にAssets/Holidayディレクトリを設けたのでそれ以外のディレクトリは作成された状態、またはサードバーティと分かる名前を付けて配置しています。
 
-### Holiday
+#### Holiday
 
 - App
   - アプリケーションのエントリーポイント
@@ -56,6 +58,23 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 ディレクトリとシーンの対応が分かるようにアプリケーション構成を再掲します。
 
 ![application structure](/img/holiday-app-structure.png)
+
+### Static analysis
+
+ルート直下にある`.editorconfig`でAnalyzerの設定をしています。
+[EditorConfig](https://editorconfig.org/)に対応したエディタを使ってスクリプトを編集し、Analyzerの問題がないことを確認してからプッシュしてください。
+
+### Assembly Definition(AD)
+
+アプリケーション単位でADを1つ作成します。
+
+- アプリケーションで使用するサードパーティのパッケージを制限するため
+- [Code Cracker](https://github.com/code-cracker/code-cracker)を適用するため
+  - Code Crackerを適用するにはチェック対象のADにCode Crackerを含める必要があります。
+
+### File encoding
+
+意図しない変更差分が出ないようにスクリプトや設定ファイルのエンコーディングは`UTF-8`に統一してください。
 
 ## Application
 
@@ -330,8 +349,3 @@ Addressablesは次の目的で使用します。
 AvatarAmy
 AvatarMichelle
 ```
-
-## Static analysis
-
-ルート直下にある`.editorconfig`でAnalyzerの設定をしています。
-[EditorConfig](https://editorconfig.org/)に対応したエディタを使ってスクリプトを編集し、Analyzerの問題がないことを確認してからプッシュしてください。
