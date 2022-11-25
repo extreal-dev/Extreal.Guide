@@ -121,10 +121,10 @@ Stage Navigationは次のパッケージを使います。
 // Enum for the stage name
 public enum StageName
 {
-    TitleScreen,
-    AvatarSelectionScreen,
-    SpaceSelectionScreen,
-    VirtualSpace,
+    TitleStage,
+    AvatarSelectionStage,
+    SpaceSelectionStage,
+    VirtualStage,
 }
 ```
 
@@ -197,14 +197,14 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
 IStageNavigatorのReplaceAsyncを使って指定したステージに遷移します。
 
 ```csharp
-// Transition to the title screen
-stageNavigator.ReplaceAsync(StageName.TitleScreen);
+// Transition to the title stage
+stageNavigator.ReplaceAsync(StageName.TitleStage);
 
-// Transition to the avatar selection screen
-stageNavigator.ReplaceAsync(StageName.AvatarSelectionScreen);
+// Transition to the avatar selection stage
+stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage);
 
-// Transition to the space selection screen
-stageNavigator.ReplaceAsync(StageName.SpaceSelectionScreen);
+// Transition to the space selection stage
+stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 ```
 
 ReplaceAsyncは遷移履歴を保持しないのでステージ遷移が固定されたアプリケーションでReplaceAsyncを使います。
@@ -214,19 +214,19 @@ ReplaceAsyncは遷移履歴を保持しないのでステージ遷移が固定�
 IStageNavigatorのPushAsync/PopAsyncを使うと遷移履歴に従って遷移元に戻れます。
 
 ```csharp
-// Transition to the title screen
-stageNavigator.PushAsync(SceneName.TitleScreen);
+// Transition to the title stage
+stageNavigator.PushAsync(SceneName.TitleStage);
 
-// Transition to the avatar selection screen
-stageNavigator.PushAsync(SceneName.AvatarSelectionScreen);
+// Transition to the avatar selection stage
+stageNavigator.PushAsync(SceneName.AvatarSelectionStage);
 
-// Transition to the space selection screen
-stageNavigator.PushAsync(SceneName.SpaceSelectionScreen);
+// Transition to the space selection stage
+stageNavigator.PushAsync(SceneName.SpaceSelectionStage);
 
-// Transition to the avatar selection screen
+// Transition to the avatar selection stage
 stageNavigator.PopAsync();
 
-// Transition to the title screen
+// Transition to the title stage
 stageNavigator.PopAsync();
 ```
 

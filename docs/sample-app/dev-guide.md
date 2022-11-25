@@ -100,31 +100,24 @@ Enumの定義テキストの値を固定するためStageNameとSceneNameでは�
 ```csharp
 public enum StageName
 {
-    // Screen
-    TitleScreen = 100,
-    AvatarSelectionScreen = 101,
-
-    // Room
-    VirtualSpace = 200,
+    TitleStage = 100,
+    AvatarSelectionStage = 101,
+    VirtualStage = 200,
 }
 public enum SceneName
 {
-    // Models
     Models = 0,
 
-    // Control
     CameraControl = 100,
     LightControl = 103,
     InputControl = 101,
     PlayerControl = 102,
 
-    // Screen
     BackgroundScreen = 204,
     LoadingScreen = 203,
     TitleScreen = 200,
     AvatarSelectionScreen = 201,
 
-    // Space
     VirtualSpace = 300,
 }
 ```
@@ -222,7 +215,7 @@ public class AvatarSelectionScreenPresenter : IStartable
 
         avatarSelectionScreenView.OnGoButtonClicked.Subscribe(_ =>
         {
-            stageNavigator.ReplaceAsync(StageName.VirtualSpace).Forget();
+            stageNavigator.ReplaceAsync(StageName.VirtualStage).Forget();
         });
     }
 }

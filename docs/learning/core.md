@@ -162,7 +162,7 @@ Enumが変更された際に値が変わらないようにステージ名とシ�
 ```csharp
 public enum StageName
 {
-    TitleScreen = 0,
+    TitleStage = 0,
 }
 public enum SceneName
 {
@@ -191,7 +191,7 @@ public class StageTest : MonoBehaviour
     private void Start()
     {
         IStageNavigator<StageName> stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
-        stageNavigator.ReplaceAsync(StageName.TitleScreen);
+        stageNavigator.ReplaceAsync(StageName.TitleStage);
     }
 }
 ```
@@ -203,7 +203,7 @@ public class StageTest : MonoBehaviour
 Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
 
 Appシーンを実行します。
-タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Replace: TitleScreen`と出ていれば成功です。
+タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Replace: TitleStage`と出ていれば成功です。
 
 ![Stage遷移成功](/img/learning-core-stagenavigation-success.png)
 
@@ -228,8 +228,8 @@ Extrealが提供するCoreの機能は以上となりますが、[VContainer](ht
 
 ![アバター選択のステージ設定](/img/learning-core-mvp-stageconfig.png)
 
-- StageNameとSceneNameに`AvatarSelectionScreen`を追加します。
-- StageConfigオブジェクトのインスペクタで`AvatarSelectionScreen`を追加します。
+- StageNameに`AvatarSelectionStage`、SceneNameに`AvatarSelectionScreen`を追加します。
+- StageConfigオブジェクトのインスペクタで`AvatarSelectionStage`を追加します。
 
 Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加します。
 
@@ -276,7 +276,7 @@ public class AppPresenter : IAsyncStartable
     
     public async UniTask StartAsync(CancellationToken cancellation)
     {
-        await stageNavigator.ReplaceAsync(StageName.TitleScreen);
+        await stageNavigator.ReplaceAsync(StageName.TitleStage);
     }
 }
 ```
@@ -350,7 +350,7 @@ public class TitleScreenPresenter : IStartable
     public void Start() =>
         titleScreenView.OnGoButtonClicked.Subscribe(_ =>
         {
-            stageNavigator.ReplaceAsync(StageName.AvatarSelectionScreen).Forget();
+            stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage).Forget();
         });
 }
 ```
