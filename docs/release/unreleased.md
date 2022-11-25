@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2022-11-24
+2022-11-28
 
 ## Unity version
 
@@ -17,12 +17,17 @@ sidebar_position: 1
 - Extreal.Core.Logging 0.1.0
 - Extreal.Core.StageNavigation 0.2.0
 - Extreal.Integration.Multiplay.NGO 0.1.0
+- Extreal.Integration.Chat.Vivox 0.1.0
 
 ## Dependencies
 
-- UniTask 2.3.1
-- UniRx 7.1.0
-- Netcode for GameObjects 1.1.0
+- Common
+  - UniTask 2.3.1
+  - UniRx 7.1.0
+- Extreal.Integration.Multiplay.NGO
+  - Netcode for GameObjects 1.1.0
+- Extreal.Integration.Chat.Vivox
+  - Vivox Unity SDK 15.1.190000
 
 ## Changes
 
@@ -39,6 +44,12 @@ sidebar_position: 1
 - モジュールを追加しました。
 
 ### Extreal.Integration.Multiplay.NGO
+
+#### Added
+
+- モジュールを追加しました。
+
+### Extreal.Integration.Chat.Vivox
 
 #### Added
 
