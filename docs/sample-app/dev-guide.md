@@ -69,11 +69,11 @@ Assets/Holiday/App/App
 
 ### Initialization
 
-アプリケーションの初期化処理はUnityのRuntimeInitializeOnLoadMethodを使用します。
-次のスクリプトで実施しています。
+アプリケーションの初期化処理は次のスクリプトのInitializeAppで実施しています。
+Awakeの先頭でInitializeAppを呼び出しています。
 
 ```
-Assets/Holiday/App/AppInitializer
+Assets/Holiday/App/AppScope
 ```
 
 フレームレートの設定や[Loggingの設定](/core/logging#settings)を行っています。

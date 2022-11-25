@@ -146,18 +146,23 @@ https://github.com/extreal-dev/Extreal.Core.Logging.git
 
 デフォルトのまま使う場合は以降の作業は不要です。
 
-フレームワークやアプリケーションの初期化処理でログ出力が必要になるケースがあるため、フレームワークやアプリケーションのどの機能よりも先にログ出力を初期化して利用できる状態にする必要があります。ログ出力の初期化を行うスクリプトを作成し、アプリケーションの初期化処理の先頭に追加してください。
+フレームワークやアプリケーションの初期化処理でログ出力が必要になるケースがあるため、フレームワークやアプリケーションのどの機能よりも先にログ出力を初期化して利用できる状態にする必要があります。
+ログ出力の初期化はエントリーポイントとなるGameObjectのAwakeで行うのがベストなタイミングです。
 
 LoggingManagerクラスを使ってログ出力を初期化します。
 
 ```csharp
-public static class AppInitializer
+public class App : MonoBehaviour
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void Initialize()
+    private static void InitializeApp()
     {
         const LogLevel logLevel = LogLevel.Debug;
         LoggingManager.Initialize(logLevel: logLevel);
+    }
+
+    private void Awake()
+    {
+        InitializeApp();
     }
 }
 ```

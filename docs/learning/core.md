@@ -64,19 +64,49 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 
 ### Settings
 
-LoggingのデフォルトのログレベルはInfoです。開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
+LoggingのデフォルトのログレベルはInfoです。
+開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
 
-- Appディレクトリに`AppInitializer`スクリプトを作ります。
-- [LoggingのSettings](/core/logging#settings)を参照してAppInitializerスクリプトを作成します。
+[LoggingのSettings](/core/logging#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
 
-作成したAppInitializerスクリプトではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
-AppInitializerスクリプトの初期化メソッドの中に次のコードを追加してください。
+- AppTestスクリプトをAppディレクトリに作成します。
+- AppTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
 
 ```csharp
-ELogger logger = LoggingManager.GetLogger(nameof(AppInitializer));
-if (logger.IsDebug())
+using Extreal.Core.Logging;
+using UnityEngine;
+
+namespace ExtrealCoreLearning.App
 {
-    logger.LogDebug("Hello, world!");
+    public class AppTest : MonoBehaviour
+    {
+        private static void InitializeApp()
+        {
+            const LogLevel logLevel = LogLevel.Debug;
+            LoggingManager.Initialize(logLevel: logLevel);
+        }
+
+        private void Awake()
+        {
+            InitializeApp();
+        }
+    }
+}
+```
+
+このままではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
+
+```csharp
+private static void InitializeApp()
+{
+    const LogLevel logLevel = LogLevel.Debug;
+    LoggingManager.Initialize(logLevel: logLevel);
+
+    var logger = LoggingManager.GetLogger(nameof(AppTest));
+    if (logger.IsDebug())
+    {
+        logger.LogDebug("Hello, world!");
+    }
 }
 ```
 
@@ -177,21 +207,37 @@ public enum SceneName
 - Assetsメニューから`StageConfig`オブジェクトをAppディレクトリに作成します。
 - StageConfigオブジェクトにタイトル画面のステージを設定します。
 
-これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる`StageTest`スクリプトをAppシーンに作成します。
+これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる処理を`AppTest`スクリプトに追加します。
 
-- StageTestスクリプトをAppディレクトリに作成します。
-- StageTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
+- AppTestスクリプトにSerializeFieldとStartメソッドを追加します。
 - インスペクタでStageConfigオブジェクトを指定します。
 
 ```csharp
-public class StageTest : MonoBehaviour
-{
-    [SerializeField] private StageConfig stageConfig;
+using Extreal.Core.Logging;
+using Extreal.Core.StageNavigation;
+using UnityEngine;
 
-    private void Start()
+namespace ExtrealCoreLearning.App
+{
+    public class AppTest : MonoBehaviour
     {
-        IStageNavigator<StageName> stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
-        stageNavigator.ReplaceAsync(StageName.TitleStage);
+        private static void InitializeApp()
+        {
+            // Omitted due to no changes
+        }
+
+        private void Awake()
+        {
+            // Omitted due to no changes
+        }
+
+        [SerializeField] private StageConfig stageConfig;
+
+        private void Start()
+        {
+            IStageNavigator<StageName> stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
+            stageNavigator.ReplaceAsync(StageName.TitleStage);
+        }
     }
 }
 ```
@@ -263,11 +309,12 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
 
 ### VContainer
 
-VContainerを使って先ほど確認用に作ったStageTestを作り変えます。
+VContainerを使って確認用に作成したAppTestを作り変えます。
 
 #### AppPresenter
 
 まずAppディレクトリにエントリーポイントとなるPresenterスクリプトを作成します。
+Appシーンが開始するとタイトル画面に遷移させます。
 
 ```csharp
 public class AppPresenter : IAsyncStartable
@@ -281,23 +328,49 @@ public class AppPresenter : IAsyncStartable
 }
 ```
 
-Appシーンが開始するとタイトル画面に遷移させます。
-
 #### AppScope
 
 次にVContainerのLifetimeScopeとしてScopeスクリプトをAppディレクトリに作成します。
+ScopeスクリプトのAwakeをオーバーライドしてVContainerの処理よりも先にLoggingの設定を行います。
 
 ```csharp
-public class AppScope : LifetimeScope
+using Extreal.Core.Logging;
+using Extreal.Core.StageNavigation;
+using UnityEngine;
+using VContainer;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.App
 {
-    [SerializeField] private StageConfig stageConfig;
-
-    protected override void Configure(IContainerBuilder builder)
+    public class AppScope : LifetimeScope
     {
-        builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
-        builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton).AsImplementedInterfaces();
+        [SerializeField] private StageConfig stageConfig;
 
-        builder.RegisterEntryPoint<AppPresenter>();
+        private static void InitializeApp()
+        {
+            const LogLevel logLevel = LogLevel.Debug;
+            LoggingManager.Initialize(logLevel: logLevel);
+
+            var logger = LoggingManager.GetLogger(nameof(AppTest));
+            if (logger.IsDebug())
+            {
+                logger.LogDebug("Hello, world!");
+            }
+        }
+
+        protected override void Awake()
+        {
+            InitializeApp();
+            base.Awake();
+        }
+
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
+            builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.RegisterEntryPoint<AppPresenter>();
+        }
     }
 }
 ```
