@@ -141,9 +141,23 @@ public enum SceneName
 }
 ```
 
-## Scope of objects
+## Object
 
 各シーンで使うオブジェクトの管理には[VContainer](https://vcontainer.hadashikick.jp/)を使います。
+
+### DI
+
+DIについては[What is DI ?](https://vcontainer.hadashikick.jp/about/what-is-di)を参照してください。
+
+DIにはいくつかやり方があります。
+VContainerが推奨するDIコンテナに依存せずオブジェクトを設定できる方法を採用します。
+
+- C# Type: [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
+- MonoBehaviour: [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
+
+VContainerの推奨理由については[Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)のRECOMMENDATIONを参照してください。
+
+### Scope
 
 [VContainer](https://vcontainer.hadashikick.jp/)ではLifetimeScopeを継承したクラスをアタッチしたオブジェクトをシーンに置き、これが1つのスコープ（1つのコンテナ）を表現します。
 スコープに親のスコープを指定することでオブジェクトの検索を親まで広げることができます。
@@ -161,6 +175,26 @@ Modelsシーン
 各シーンのスコープの親にはModelsシーンのスコープを指定してください。
 
 ![オブジェクトスコープの親](/img/object-scope-parent.png)
+
+## Asset
+
+現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
+
+Holidayではアセット管理にUnityのAddressablesを使用します。
+Addressablesは次の目的で使用します。
+
+- 使用するアセットに名前を付け物理的なパスに依存せずアプリケーションでアセットを取得する
+- アプリケーションのソースコードを変更せずにアセットの取得先をローカルからリモートに切り替える
+
+アセット名のルールは下記とします。
+
+```
+タイプ＋名前
+
+（例）
+AvatarAmy
+AvatarMichelle
+```
 
 ## Scene
 
@@ -210,11 +244,19 @@ public class AvatarSelectionScreenPresenter : IStartable
 {
     private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(AvatarSelectionScreenPresenter));
 
-    [Inject] private StageNavigator stageNavigator;
+    private readonly IStageNavigator<StageName> stageNavigator;
 
-    [Inject] private AvatarSelectionScreenView avatarSelectionScreenView;
+    private readonly AvatarSelectionScreenView avatarSelectionScreenView;
 
-    [Inject] private Player player;
+    private readonly Player player;
+
+    public AvatarSelectionScreenPresenter(IStageNavigator<StageName> stageNavigator,
+        AvatarSelectionScreenView avatarSelectionScreenView, Player player)
+    {
+        this.stageNavigator = stageNavigator;
+        this.avatarSelectionScreenView = avatarSelectionScreenView;
+        this.player = player;
+    }
 
     public void Start()
     {
@@ -234,7 +276,7 @@ public class AvatarSelectionScreenPresenter : IStartable
 
         avatarSelectionScreenView.OnGoButtonClicked.Subscribe(_ =>
         {
-            stageNavigator.ReplaceAsync(StageName.VirtualStage).Forget();
+            stageNavigator.ReplaceAsync(StageName.VirtualSpace).Forget();
         });
     }
 }
@@ -329,23 +371,3 @@ Assets/Holiday/Stages/Common
 - SpaceButton
   - 空間用のボタン
   - フォント、文字の設定が入っています。
-
-## Asset management
-
-現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
-
-Holidayではアセット管理にUnityのAddressablesを使用します。
-Addressablesは次の目的で使用します。
-
-- 使用するアセットに名前を付け物理的なパスに依存せずアプリケーションでアセットを取得する
-- アプリケーションのソースコードを変更せずにアセットの取得先をローカルからリモートに切り替える
-
-アセット名のルールは下記とします。
-
-```
-タイプ＋名前
-
-（例）
-AvatarAmy
-AvatarMichelle
-```

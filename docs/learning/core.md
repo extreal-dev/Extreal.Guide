@@ -317,13 +317,26 @@ VContainerを使って確認用に作成したAppTestを作り変えます。
 Appシーンが開始するとタイトル画面に遷移させます。
 
 ```csharp
-public class AppPresenter : IAsyncStartable
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Extreal.Core.StageNavigation;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.App
 {
-    [Inject] private IStageNavigator<StageName> stageNavigator;
-    
-    public async UniTask StartAsync(CancellationToken cancellation)
+    public class AppPresenter : IAsyncStartable
     {
-        await stageNavigator.ReplaceAsync(StageName.TitleStage);
+        private IStageNavigator<StageName> stageNavigator;
+
+        public AppPresenter(IStageNavigator<StageName> stageNavigator)
+        {
+            this.stageNavigator = stageNavigator;
+        }
+
+        public async UniTask StartAsync(CancellationToken cancellation)
+        {
+            await stageNavigator.ReplaceAsync(StageName.TitleStage);
+        }
     }
 }
 ```
@@ -414,17 +427,32 @@ UniRxを使ってGoボタンが押された場合にイベントを通知する`
 次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
-public class TitleScreenPresenter : IStartable
+using Cysharp.Threading.Tasks;
+using Extreal.Core.StageNavigation;
+using ExtrealCoreLearning.App;
+using UniRx;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.TitleScreen
 {
-    [Inject] private IStageNavigator<StageName> stageNavigator;
+    public class TitleScreenPresenter : IStartable
+    {
+        private IStageNavigator<StageName> stageNavigator;
 
-    [Inject] private TitleScreenView titleScreenView;
+        private TitleScreenView titleScreenView;
 
-    public void Start() =>
-        titleScreenView.OnGoButtonClicked.Subscribe(_ =>
+        public TitleScreenPresenter(IStageNavigator<StageName> stageNavigator, TitleScreenView titleScreenView)
         {
-            stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage).Forget();
-        });
+            this.stageNavigator = stageNavigator;
+            this.titleScreenView = titleScreenView;
+        }
+
+        public void Start() =>
+            titleScreenView.OnGoButtonClicked.Subscribe(_ =>
+            {
+                stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage).Forget();
+            });
+    }
 }
 ```
 
