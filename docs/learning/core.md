@@ -102,11 +102,13 @@ private static void InitializeApp()
     const LogLevel logLevel = LogLevel.Debug;
     LoggingManager.Initialize(logLevel: logLevel);
 
+    // highlight-start
     var logger = LoggingManager.GetLogger(nameof(AppTest));
     if (logger.IsDebug())
     {
         logger.LogDebug("Hello, world!");
     }
+    // highlight-end
 }
 ```
 
@@ -214,7 +216,9 @@ public enum SceneName
 
 ```csharp
 using Extreal.Core.Logging;
+// highlight-start
 using Extreal.Core.StageNavigation;
+// highlight-end
 using UnityEngine;
 
 namespace ExtrealCoreLearning.App
@@ -230,7 +234,8 @@ namespace ExtrealCoreLearning.App
         {
             // Omitted due to no changes
         }
-
+        
+        // highlight-start
         [SerializeField] private StageConfig stageConfig;
 
         private void Start()
@@ -238,6 +243,7 @@ namespace ExtrealCoreLearning.App
             IStageNavigator<StageName> stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
             stageNavigator.ReplaceAsync(StageName.TitleStage);
         }
+        // highlight-end
     }
 }
 ```
@@ -411,12 +417,20 @@ UniRxを使ってタイトル画面のGoボタンを実装します。
 タイトル画面に対応するViewスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
-public class TitleScreenView : MonoBehaviour
-{
-    [SerializeField] private Button goButton;
+using System;
+using UniRx;
+using UnityEngine;
+using UnityEngine.UI;
 
-    public IObservable<Unit> OnGoButtonClicked
-        => goButton.OnClickAsObservable().TakeUntilDestroy(this);
+namespace ExtrealCoreLearning.TitleScreen
+{
+    public class TitleScreenView : MonoBehaviour
+    {
+        [SerializeField] private Button goButton;
+
+        public IObservable<Unit> OnGoButtonClicked
+            => goButton.OnClickAsObservable().TakeUntilDestroy(this);
+    }
 }
 ```
 
@@ -463,15 +477,22 @@ Goボタンのイベント通知とアバター選択画面への遷移をマッ
 最後にViewやPresenterを紐づけるScopeスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
-public class TitleScreenScope : LifetimeScope
+using UnityEngine;
+using VContainer;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.TitleScreen
 {
-    [SerializeField] private TitleScreenView titleScreenView;
-
-    protected override void Configure(IContainerBuilder builder)
+    public class TitleScreenScope : LifetimeScope
     {
-        builder.RegisterComponent(titleScreenView);
+        [SerializeField] private TitleScreenView titleScreenView;
 
-        builder.RegisterEntryPoint<TitleScreenPresenter>();
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(titleScreenView);
+
+            builder.RegisterEntryPoint<TitleScreenPresenter>();
+        }
     }
 }
 ```
