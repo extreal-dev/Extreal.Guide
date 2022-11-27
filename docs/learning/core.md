@@ -370,7 +370,7 @@ namespace ExtrealCoreLearning.App
             const LogLevel logLevel = LogLevel.Debug;
             LoggingManager.Initialize(logLevel: logLevel);
 
-            var logger = LoggingManager.GetLogger(nameof(AppTest));
+            var logger = LoggingManager.GetLogger(nameof(AppScope));
             if (logger.IsDebug())
             {
                 logger.LogDebug("Hello, world!");
