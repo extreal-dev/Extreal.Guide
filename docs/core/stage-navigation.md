@@ -55,7 +55,7 @@ classDiagram
         +OnStageTransitioning IObservable
         +OnStageTransitioned IObservable
         +StageNavigator(config)
-        +ReplaceAsync(stage) UniTask
+        +ReplaceAsync(stage) void
     }
 
     class IStageConfig {
