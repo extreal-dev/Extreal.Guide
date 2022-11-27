@@ -27,9 +27,8 @@ Stage Navigationの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    IStageNavigator <.. Applicaiton
-    IStageNavigator <|.. StageNavigator
-    IStageConfig <.. StageNavigator
+    StageNavigator <.. Applicaiton
+    StageNavigator ..> IStageConfig
     IStageConfig <|.. StageConfig
     IStageConfig *-- Stage
     IStageConfig o-- SceneName
@@ -50,10 +49,10 @@ classDiagram
     class StageConfig {
     }
 
-    class IStageNavigator {
-        <<interface>>
+    class StageNavigator {
         +OnStageTransitioning Action
         +OnStageTransitioned Action
+        +StageNavigator(config)
         +ReplaceAsync(stage) UniTask
     }
 
@@ -63,10 +62,6 @@ classDiagram
     }
 
     class Stage {
-    }
-
-    class StageNavigator {
-        +StageNavigator(config)
     }
 ```
 
@@ -82,7 +77,7 @@ classDiagram
 ```mermaid
 sequenceDiagram
     actor Application
-    Application->>IStageNavigator: ReplaceAsync(stage)
+    Application->>StageNavigator: ReplaceAsync(stage)
 ```
 
 ## Installation
@@ -179,7 +174,7 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
-            builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton);
         }
     }
 ```
@@ -188,7 +183,7 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
 
 ### 指定したステージに遷移する
 
-IStageNavigatorのReplaceAsyncを使って指定したステージに遷移します。
+StageNavigatorのReplaceAsyncを使って指定したステージに遷移します。
 
 ```csharp
 // Transition to the title stage
@@ -203,7 +198,7 @@ stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 
 ### ステージ遷移をトリガーに処理を追加する
 
-IStageNavigatorは次のイベント通知を設けています。
+StageNavigatorは次のイベント通知を設けています。
 
 - OnStageTransitioning
   - タイミング：ステージ遷移する直前
