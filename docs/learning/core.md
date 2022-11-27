@@ -188,8 +188,6 @@ Assembly DefinitionにUniTaskも設定します。
 タイトル画面を追加できたので[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
 
 ステージ設定で作成する3つのタイプはAppディレクトリに配置します。
-Enumが変更された際に値が変わらないようにステージ名とシーン名のEnumは定数値を指定してください。
-定数値は識別以外に意味はないので各Enumで重複しなければどんな数でも大丈夫です。
 
 ```csharp
 public enum StageName

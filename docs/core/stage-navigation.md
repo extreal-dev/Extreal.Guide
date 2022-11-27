@@ -120,10 +120,10 @@ Stage Navigationは次のパッケージを使います。
 // Enum for the stage name
 public enum StageName
 {
-    TitleStage,
-    AvatarSelectionStage,
-    SpaceSelectionStage,
-    VirtualStage,
+    TitleStage = 0,
+    AvatarSelectionStage = 1,
+    SpaceSelectionStage = 2,
+    VirtualStage = 3,
 }
 ```
 
@@ -131,27 +131,29 @@ public enum StageName
 // Enum for the scene name
 public enum SceneName
 {
-    App,
-
     // Control
-    CameraControl,
-    InputControl,
-    NetworkControl,
-    PlayerControl,
-    LobbyControl,
-    TextChatControl,
-    VoiceChatControl,
-    ReactionControl,
+    CameraControl = 100,
+    InputControl = 101,
+    NetworkControl = 102,
+    PlayerControl = 103,
+    LobbyControl = 104,
+    TextChatControl = 105,
+    VoiceChatControl = 106,
+    ReactionControl = 107,
     
     // Screen
-    TitleScreen,
-    AvatarSelectionScreen,
-    SpaceSelectionScreen,
+    TitleScreen = 200,
+    AvatarSelectionScreen = 201,
+    SpaceSelectionScreen = 202,
 
     // Space
-    VirtualSpace,
+    VirtualSpace = 300,
 }
 ```
+
+C#の仕様でEnumは定義した順に上から自動で値が振られます。
+Enumが変更された際に値が変わらないようにステージ名とシーン名のEnumは定数値を指定してください。
+定数値は識別以外に意味はないので各Enumで重複しなければどんな数でも大丈夫です。
 
 IStageConfigインタフェースがステージ設定を保持します。
 ステージ設定をUnityエディタのインスペクタで編集できるようにScriptableObjectを継承したBaseクラスを提供しています。
@@ -209,7 +211,26 @@ stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage);
 stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 ```
 
-### ステージ遷移をトリガーに処理を追加する
+ステージ遷移で同じシーンが続く場合、StageNavigatorは処理時間を短縮するためそのシーンを再ロードせず再利用します。
+
+```
+TitleStage
+  PlayerControl -> Loaded
+  TitleScreen -> Loaded
+
+AvatarSelectionStage
+  PlayerControl -> Not loading
+  AvatarSelectionScreen -> Loaded
+
+SpaceSelectionStage
+  PlayerControl -> Not loading
+  AvatarSelectionScreen -> Loaded
+```
+
+再利用されたシーンのGameObjectのAwakeやStartはロードされたタイミングでのみ実行され、再利用されたタイミングでは実行されません。
+ステージ遷移のタイミングで処理を実行したい場合は、StageNavigatorが発行する[イベント通知](/core/stage-navigation#core-sn-event)を使用してくだい。
+
+### ステージ遷移をトリガーに処理を追加する {#core-sn-event}
 
 StageNavigatorは次のイベント通知を設けています。
 
