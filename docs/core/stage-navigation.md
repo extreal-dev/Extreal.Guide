@@ -52,8 +52,8 @@ classDiagram
     }
 
     class StageNavigator {
-        +OnStageTransitioning Action
-        +OnStageTransitioned Action
+        +OnStageTransitioning IObservable
+        +OnStageTransitioned IObservable
         +StageNavigator(config)
         +ReplaceAsync(stage) UniTask
     }
@@ -207,25 +207,18 @@ StageNavigatorは次のイベント通知を設けています。
 
 - OnStageTransitioning
   - タイミング：ステージ遷移する直前
-  - タイプ：Action
+  - タイプ：IObservable
   - パラメータ：遷移するステージの名前
 - OnStageTransitioned
   - タイミング：ステージ遷移した直後
-  - タイプ：Action
+  - タイプ：IObservable
   - パラメータ：遷移したステージの名前
 
 OnStageTransitionedのタイミングでログを出力する例は次の通りです。
 
 ```csharp
-// Event handler
-private void LogStageTransition(StageName stage)
+stageNavigator.OnStageTransitioned.Subscribe(stageName =>
 {
-    Logger.LogInfo(stage);
-}
-
-// Initialize
-stageNavigator.OnStageTransitioned += LogStageTransition;
-
-// Dispose
-stageNavigator.OnStageTransitioned -= LogStageTransition;
+    Logger.LogInfo(stageName);
+}).AddTo(compositeDisposable);
 ```
