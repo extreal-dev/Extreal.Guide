@@ -27,9 +27,11 @@ Stage Navigationの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    StageNavigator <.. Applicaiton
+    Applicaiton ..> StageNavigator
     StageNavigator ..> IStageConfig
-    IStageConfig <|.. StageConfig
+    IStageConfig <|.. StageConfigBase
+    StageConfigBase <|-- StageConfig
+    ScriptableObject <|-- StageConfigBase
     IStageConfig *-- Stage
     IStageConfig o-- SceneName
     Stage --> StageName
@@ -59,6 +61,14 @@ classDiagram
     class IStageConfig {
         +CommonScenes List
         +Stages List
+    }
+
+    class StageConfigBase {
+        
+    }
+
+    class ScriptableObject {
+        <<unity>>
     }
 
     class Stage {
@@ -144,24 +154,19 @@ public enum SceneName
 ```
 
 IStageConfigインタフェースがステージ設定を保持します。
-ステージ設定を保持するクラスはIStageConfigインタフェースを実装してください。
+ステージ設定をUnityエディタのインスペクタで編集できるようにScriptableObjectを継承したBaseクラスを提供しています。
+ステージ設定を保持するクラスはStageConfigBaseクラスを継承してください。
 
 ```csharp
 // Class that holds the stage config
 [CreateAssetMenu(
     menuName = "Config/" + nameof(StageConfig),
     fileName = nameof(StageConfig))]
-public class StageConfig : ScriptableObject, IStageConfig<StageName, SceneName>
+public class StageConfig : StageConfigBase<StageName, SceneName>
 {
-    [SerializeField] private List<SceneName> commonScenes;
-    [SerializeField] private List<Stage<StageName, SceneName>> stages;
-
-    public List<SceneName> CommonScenes => commonScenes;
-    public List<Stage<StageName, SceneName>> Stages => stages;
 }
 ```
 
-ステージ設定をUnityエディタのインスペクタで編集できるようにStageConfigはScriptableObjectにしています。
 Unityエディタのインスペクタで全てのステージに共通するシーン、ステージとシーンの組み合わせを指定してステージ設定を行います。
 
 StageNavigatorとStageConfigの初期化はVContainerを使います。
