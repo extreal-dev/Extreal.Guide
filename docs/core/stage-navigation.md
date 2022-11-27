@@ -167,7 +167,15 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 }
 ```
 
-Unityエディタのインスペクタで全てのステージに共通するシーン、ステージとシーンの組み合わせを指定してステージ設定を行います。
+Unityエディタのインスペクタでステージ設定を行います。
+設定例は次の通りです
+
+![Stage config](/img/core-stagenavigation-stageconfig.png)
+
+- CommonScenesプロパティ
+  - 全てのステージに共通するシーンを指定します。
+- Stagesプロパティ
+  - ステージ毎のシーン構成を指定します。
 
 StageNavigatorとStageConfigの初期化はVContainerを使います。
 
