@@ -20,7 +20,6 @@ Stage Navigationの仕様は次の通りです。
 - 複数のシーンを組み合わせてステージを設定できます。
 - 全てのステージに共通するシーンをまとめて一箇所で設定できます。
 - 指定したステージに遷移できます。
-- 遷移履歴に従って遷移元に戻れます。
 - ステージ遷移をトリガーに処理を追加できます。
 
 ## Architecture
@@ -56,9 +55,6 @@ classDiagram
         +OnStageTransitioning Action
         +OnStageTransitioned Action
         +ReplaceAsync(stage) UniTask
-        +PushAsync(stage) UniTask
-        +PopAsync() UniTask
-        +Reset() void
     }
 
     class IStageConfig {
@@ -87,8 +83,6 @@ classDiagram
 sequenceDiagram
     actor Application
     Application->>IStageNavigator: ReplaceAsync(stage)
-    Application->>IStageNavigator: PushAsync(stage)
-    Application->>IStageNavigator: PopAsync()
 ```
 
 ## Installation
@@ -205,37 +199,6 @@ stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage);
 
 // Transition to the space selection stage
 stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
-```
-
-ReplaceAsyncは遷移履歴を保持しないのでステージ遷移が固定されたアプリケーションでReplaceAsyncを使います。
-
-### 遷移履歴に従って遷移元に戻る
-
-IStageNavigatorのPushAsync/PopAsyncを使うと遷移履歴に従って遷移元に戻れます。
-
-```csharp
-// Transition to the title stage
-stageNavigator.PushAsync(SceneName.TitleStage);
-
-// Transition to the avatar selection stage
-stageNavigator.PushAsync(SceneName.AvatarSelectionStage);
-
-// Transition to the space selection stage
-stageNavigator.PushAsync(SceneName.SpaceSelectionStage);
-
-// Transition to the avatar selection stage
-stageNavigator.PopAsync();
-
-// Transition to the title stage
-stageNavigator.PopAsync();
-```
-
-この戻れるステージ遷移をアプリケーションの一部のステージ遷移に使用したい場合は、戻れるステージ遷移が中途半端な状態にならないように遷移履歴をリセットしたい場合が出てきます。
-IStageNavigatorのResetを使うと遷移履歴をリセットします。
-
-```csharp
-// Reset the transtion history
-stageNavigator.Reset();
 ```
 
 ### ステージ遷移をトリガーに処理を追加する
