@@ -69,6 +69,7 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 アプリケーション単位でADを1つ作成します。
 
 - アプリケーションで使用するサードパーティのパッケージを制限するため
+- 自動テストの導入をしやすくするため
 - [Code Cracker](https://github.com/code-cracker/code-cracker)を適用するため
   - Code Crackerを適用するにはチェック対象のADにCode Crackerを含める必要があります。
 
