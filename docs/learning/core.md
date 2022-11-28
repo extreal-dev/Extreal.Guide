@@ -439,6 +439,7 @@ UniRxを使ってGoボタンが押された場合にイベントを通知する`
 次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
+using System;
 using Cysharp.Threading.Tasks;
 using Extreal.Core.StageNavigation;
 using ExtrealCoreLearning.App;
@@ -447,23 +448,32 @@ using VContainer.Unity;
 
 namespace ExtrealCoreLearning.TitleScreen
 {
-    public class TitleScreenPresenter : IStartable
+    public class TitleScreenPresenter : IInitializable, IDisposable
     {
-        private StageNavigatorr<StageName> stageNavigator;
+        private StageNavigator<StageName> stageNavigator;
 
         private TitleScreenView titleScreenView;
 
-        public TitleScreenPresenter(StageNavigatorr<StageName> stageNavigator, TitleScreenView titleScreenView)
+        private CompositeDisposable compositeDisposable = new CompositeDisposable();
+        
+        public TitleScreenPresenter(StageNavigator<StageName> stageNavigator, TitleScreenView titleScreenView)
         {
             this.stageNavigator = stageNavigator;
             this.titleScreenView = titleScreenView;
         }
 
-        public void Start() =>
+        public void Initialize()
+        {
             titleScreenView.OnGoButtonClicked.Subscribe(_ =>
             {
                 stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage).Forget();
-            });
+            }).AddTo(compositeDisposable);
+        }
+
+        public void Dispose()
+        {
+            compositeDisposable?.Dispose();
+        }
     }
 }
 ```
