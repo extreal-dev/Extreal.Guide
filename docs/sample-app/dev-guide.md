@@ -73,9 +73,12 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 - [Code Cracker](https://github.com/code-cracker/code-cracker)を適用するため
   - Code Crackerを適用するにはチェック対象のADにCode Crackerを含める必要があります。
 
-### File encoding
+### File settings
 
-意図しない変更差分が出ないようにスクリプトや設定ファイルのエンコーディングは`UTF-8`に統一してください。
+意図しない変更差分が出ないようにスクリプトや設定ファイルは次の設定にしてください。
+
+- エンコーディング: `UTF-8`
+- 改行コード: `LF`
 
 ## Application
 
