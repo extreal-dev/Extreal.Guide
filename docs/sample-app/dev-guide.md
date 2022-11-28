@@ -137,7 +137,7 @@ public enum SceneName
 }
 ```
 
-## Object
+## Objects
 
 各シーンで使うオブジェクトの管理には[VContainer](https://vcontainer.hadashikick.jp/)を使います。
 
@@ -172,7 +172,7 @@ Modelsシーン
 
 ![オブジェクトスコープの親](/img/object-scope-parent.png)
 
-## Asset
+## Assets
 
 現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
 
@@ -192,7 +192,7 @@ AvatarAmy
 AvatarMichelle
 ```
 
-## Scene
+## Scenes
 
 ### Basic structure
 
