@@ -238,7 +238,7 @@ namespace ExtrealCoreLearning.App
 
         private void Start()
         {
-            IStageNavigator<StageName> stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
+            var stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
             stageNavigator.ReplaceAsync(StageName.TitleStage);
         }
         // highlight-end
@@ -330,9 +330,9 @@ namespace ExtrealCoreLearning.App
 {
     public class AppPresenter : IAsyncStartable
     {
-        private IStageNavigator<StageName> stageNavigator;
+        private StageNavigatorr<StageName> stageNavigator;
 
-        public AppPresenter(IStageNavigator<StageName> stageNavigator)
+        public AppPresenter(StageNavigatorr<StageName> stageNavigator)
         {
             this.stageNavigator = stageNavigator;
         }
@@ -449,11 +449,11 @@ namespace ExtrealCoreLearning.TitleScreen
 {
     public class TitleScreenPresenter : IStartable
     {
-        private IStageNavigator<StageName> stageNavigator;
+        private StageNavigatorr<StageName> stageNavigator;
 
         private TitleScreenView titleScreenView;
 
-        public TitleScreenPresenter(IStageNavigator<StageName> stageNavigator, TitleScreenView titleScreenView)
+        public TitleScreenPresenter(StageNavigatorr<StageName> stageNavigator, TitleScreenView titleScreenView)
         {
             this.stageNavigator = stageNavigator;
             this.titleScreenView = titleScreenView;
