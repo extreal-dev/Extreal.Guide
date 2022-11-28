@@ -240,13 +240,13 @@ public class AvatarSelectionScreenPresenter : IStartable
 {
     private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(AvatarSelectionScreenPresenter));
 
-    private readonly IStageNavigator<StageName> stageNavigator;
+    private readonly StageNavigator<StageName> stageNavigator;
 
     private readonly AvatarSelectionScreenView avatarSelectionScreenView;
 
     private readonly Player player;
 
-    public AvatarSelectionScreenPresenter(IStageNavigator<StageName> stageNavigator,
+    public AvatarSelectionScreenPresenter(StageNavigator<StageName> stageNavigator,
         AvatarSelectionScreenView avatarSelectionScreenView, Player player)
     {
         this.stageNavigator = stageNavigator;
