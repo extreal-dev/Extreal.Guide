@@ -40,11 +40,10 @@ Vivoxラッパーの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    VivoxClient <.. Application
+    Application ..> VivoxClient
     VivoxClient --> VivoxAppConfig
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
-    VivoxClient ..> VivoxReceivedValue
     VivoxChannelConfig --> ChatType
     ScriptableObject <|-- VivoxAppConfig
 
@@ -74,7 +73,9 @@ classDiagram
         +SendTextMessage(message, channelId, language, applicationStanzaNamespace, applicationStanzaBody) bool
         +SetTransmissionMode(transmissionMode, channelId) void
         +RefreshAudioDevicesAsync() void
+        +GetAudioInputDevicesAsync() IAudioInputDevices
         +SetAudioInputDeviceAsync(device) void
+        +GetAudioOutputDevicesAsync() IAudioOutputDevices
         +SetAudioOutputDeviceAsync(device) void
         +Update3DPosition(speakerPosition, listenerPosition, listenerForwardDirection, listenerUpDirection) void
     }
@@ -89,7 +90,7 @@ classDiagram
     class VivoxAuthConfig {
         +DisplayName string
         +AccountName string
-        +TokenExpirationDuration byte
+        +TokenExpirationDuration TimeSpan
         +VivoxAuthConfig(displayName, accountName,  tokenExpirationDuration)
     }
 
@@ -106,15 +107,8 @@ classDiagram
         +ChannelType ChannelType
         +Channel3DProperties Properties
         +TransmissionSwitch bool
-        +TokenExpirationDuration byte
+        +TokenExpirationDuration TimeSpan
         VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch,tokenExpirationDuration)
-    }
-
-    class VivoxReceivedValue {
-        +UserId string
-        +ChannelName string
-        +ReceivedValue T
-        +VivoxReceivedValue(userId, channelName, receivedValue)
     }
 
     class ScriptableObject {
@@ -276,8 +270,10 @@ VivoxClientは次のイベント通知を設けています。
   - タイミング：チャンネルにメッセージが着信した直後
   - タイプ：IObservable
   - パラメータ：着信したメッセージ
+    - [IChannelTextMessage](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33)
 - OnAudioEnergyChanged
   - タイミング：参加者の音声の大きさに変化があった直後
   - タイプ：IObservable
-  - パラメータ：音声の大きさ
+  - パラメータ：参加者と音声の大きさ（タプル）
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
