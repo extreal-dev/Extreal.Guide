@@ -7,7 +7,7 @@ sidebar_position: 3
 ## System Structure
 
 ユーザは各ストアやAWS S3からダウンロードしてアプリケーションを使用します。
-アプリケーションに3DモデルなどのアセットやVivoxなどの接続情報を含めて配布します。
+アプリケーションに3Dモデルなどのアセットやサーバーへの接続情報を含めて配布します。
 アプリケーションから直接処理に必要なSaaSやサーバに接続します。
 
 ![system structure](/img/holiday-sys-structure.png)
