@@ -140,7 +140,7 @@ ExtrealはUnityやサードパーティのパッケージを活用して機能�
 
 ここではExtrealがUnityのバージョンにどのように追随していくのかについて説明します。
 Extrealの開発やテストで使用するUnityはLTS([Long Term Support](https://unity3d.com/unity/qa/lts-releases))ストリームの最新バージョンを使う方針です。
-Extrealが使っているサードパーティのライブラリの対応状況等を確認し、Unityバージョンを上げるタイミングを私たちで判断します。
+Extrealが使っているサードパーティのライブラリの対応状況等を確認し、Unityバージョンを上げるタイミングをExtrealチームで判断します。
 
 ## Installation
 
