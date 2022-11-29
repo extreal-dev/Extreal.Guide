@@ -22,6 +22,10 @@ Learningをやってみて分からないことが多い場合はここで紹介
 
 ## Required skills
 
+### Basic skills
+
+Extrealを活用したアプリケーション開発を行うためには次のスキルが必要です。
+
 - Unity
   - エディタの基本操作
   - Unityの概念
@@ -36,20 +40,29 @@ Learningをやってみて分からないことが多い場合はここで紹介
   - デリゲート、イベント
 - ライブラリ
   - VContainer
-    - DIコンテナの基本的な使い方
+    - DIの基本的な使い方
   - UniTask
     - 非同期処理の基本的な使い方
   - UniRx
     - イベント処理の基本的な使い方
-  - Netcode for GameObjects
-    - マルチプレイの基本的な使い方
-  - Vivox Unity SDK
-    - ボイス/テキストチャットの基本的な使い方
 - 設計原則
   - Observerパターン
   - MV(R)Pパターン
 
+### Optional skills
+
+アプリケーションの要件によって必要となるスキルは次の通りです。
+
+- マルチプレイ
+  - Netcode for GameObjects
+    - マルチプレイの基本的な使い方
+- チャット
+  - Vivox Unity SDK
+    - ボイス/テキストチャットの基本的な使い方
+
 ## How to learn
+
+### Basic skills
 
 - Unity
   - [XR 開発を始めたい方への個人的 Unity Learning Roadmap 2020](https://qiita.com/xrdnk/items/12f3f04f1238bb362d51)
@@ -67,14 +80,19 @@ Learningをやってみて分からないことが多い場合はここで紹介
     - [ObserverパターンからはじめるUniRx](https://learning.unity3d.jp/1324/)
     - [ゼロからしっかり覚える UniRx HandsOn](https://www.slideshare.net/oshimashoji1/unirxhandsonvol1)
       - [HandsOnプロジェクト](https://github.com/sansuu/UniRxHandsOnVol1)
-  - Netcode for GameObjects
-    - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
-    - [Unity Netcode for GameObjectsでオンラインマルチプレイゲームを作る](https://qiita.com/pakiln/items/e2a971260479385cd928)
-  - Vivox Unity SDK
-    - Comming soon...
 - 設計原則
   - Observerパターン
     - [ObserverパターンからはじめるUniRx](https://learning.unity3d.jp/1324/)
   - MV(R)Pパターン
     - [三種の神器とMVRPパターン](https://speakerdeck.com/xrdnk/xrdnk-three-sacred-treasures-and-mvrp-pattern)
     - [【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)
+
+### Optional skills
+
+- マルチプレイ
+  - Netcode for GameObjects
+    - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
+    - [Unity Netcode for GameObjectsでオンラインマルチプレイゲームを作る](https://qiita.com/pakiln/items/e2a971260479385cd928)
+- チャット
+  - Vivox Unity SDK
+    - [Vivox Developer Portal](https://developer.vivox.com/)

@@ -20,7 +20,6 @@ Stage Navigationの仕様は次の通りです。
 - 複数のシーンを組み合わせてステージを設定できます。
 - 全てのステージに共通するシーンをまとめて一箇所で設定できます。
 - 指定したステージに遷移できます。
-- 遷移履歴に従って遷移元に戻れます。
 - ステージ遷移をトリガーに処理を追加できます。
 
 ## Architecture
@@ -28,10 +27,11 @@ Stage Navigationの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    IStageNavigator <.. Applicaiton
-    IStageNavigator <|.. StageNavigator
-    IStageConfig <.. StageNavigator
-    IStageConfig <|.. StageConfig
+    Applicaiton ..> StageNavigator
+    StageNavigator ..> IStageConfig
+    IStageConfig <|.. StageConfigBase
+    StageConfigBase <|-- StageConfig
+    ScriptableObject <|-- StageConfigBase
     IStageConfig *-- Stage
     IStageConfig o-- SceneName
     Stage --> StageName
@@ -51,14 +51,11 @@ classDiagram
     class StageConfig {
     }
 
-    class IStageNavigator {
-        <<interface>>
-        +OnStageTransitioning Action
-        +OnStageTransitioned Action
-        +ReplaceAsync(stage) UniTask
-        +PushAsync(stage) UniTask
-        +PopAsync() UniTask
-        +Reset() void
+    class StageNavigator {
+        +OnStageTransitioning IObservable
+        +OnStageTransitioned IObservable
+        +StageNavigator(config)
+        +ReplaceAsync(stage) void
     }
 
     class IStageConfig {
@@ -66,11 +63,15 @@ classDiagram
         +Stages List
     }
 
-    class Stage {
+    class StageConfigBase {
+        
     }
 
-    class StageNavigator {
-        +StageNavigator(config)
+    class ScriptableObject {
+        <<unity>>
+    }
+
+    class Stage {
     }
 ```
 
@@ -86,9 +87,7 @@ classDiagram
 ```mermaid
 sequenceDiagram
     actor Application
-    Application->>IStageNavigator: ReplaceAsync(stage)
-    Application->>IStageNavigator: PushAsync(stage)
-    Application->>IStageNavigator: PopAsync()
+    Application->>StageNavigator: ReplaceAsync(stage)
 ```
 
 ## Installation
@@ -121,10 +120,10 @@ Stage Navigationは次のパッケージを使います。
 // Enum for the stage name
 public enum StageName
 {
-    TitleScreen,
-    AvatarSelectionScreen,
-    SpaceSelectionScreen,
-    VirtualSpace,
+    TitleStage = 0,
+    AvatarSelectionStage = 1,
+    SpaceSelectionStage = 2,
+    VirtualStage = 3,
 }
 ```
 
@@ -132,48 +131,53 @@ public enum StageName
 // Enum for the scene name
 public enum SceneName
 {
-    App,
-
     // Control
-    CameraControl,
-    InputControl,
-    NetworkControl,
-    PlayerControl,
-    LobbyControl,
-    TextChatControl,
-    VoiceChatControl,
-    ReactionControl,
+    CameraControl = 100,
+    InputControl = 101,
+    NetworkControl = 102,
+    PlayerControl = 103,
+    LobbyControl = 104,
+    TextChatControl = 105,
+    VoiceChatControl = 106,
+    ReactionControl = 107,
     
     // Screen
-    TitleScreen,
-    AvatarSelectionScreen,
-    SpaceSelectionScreen,
+    TitleScreen = 200,
+    AvatarSelectionScreen = 201,
+    SpaceSelectionScreen = 202,
 
     // Space
-    VirtualSpace,
+    VirtualSpace = 300,
 }
 ```
 
+C#の仕様でEnumは定義した順に上から自動で値が振られます。
+Enumが変更された際に値が変わらないようにステージ名とシーン名のEnumは定数値を指定してください。
+定数値は識別以外に意味はないので各Enumで重複しなければどんな数でも大丈夫です。
+
 IStageConfigインタフェースがステージ設定を保持します。
-ステージ設定を保持するクラスはIStageConfigインタフェースを実装してください。
+ステージ設定をUnityエディタのインスペクタで編集できるようにScriptableObjectを継承したBaseクラスを提供しています。
+ステージ設定を保持するクラスはStageConfigBaseクラスを継承してください。
 
 ```csharp
 // Class that holds the stage config
 [CreateAssetMenu(
     menuName = "Config/" + nameof(StageConfig),
     fileName = nameof(StageConfig))]
-public class StageConfig : ScriptableObject, IStageConfig<StageName, SceneName>
+public class StageConfig : StageConfigBase<StageName, SceneName>
 {
-    [SerializeField] private List<SceneName> commonScenes;
-    [SerializeField] private List<Stage<StageName, SceneName>> stages;
-
-    public List<SceneName> CommonScenes => commonScenes;
-    public List<Stage<StageName, SceneName>> Stages => stages;
 }
 ```
 
-ステージ設定をUnityエディタのインスペクタで編集できるようにStageConfigはScriptableObjectにしています。
-Unityエディタのインスペクタで全てのステージに共通するシーン、ステージとシーンの組み合わせを指定してステージ設定を行います。
+Unityエディタのインスペクタでステージ設定を行います。
+設定例は次の通りです
+
+![Stage config](/img/core-stagenavigation-stageconfig.png)
+
+- CommonScenesプロパティ
+  - 全てのステージに共通するシーンを指定します。
+- Stagesプロパティ
+  - ステージ毎のシーン構成を指定します。
 
 StageNavigatorとStageConfigの初期化はVContainerを使います。
 
@@ -185,7 +189,7 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
-            builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton);
         }
     }
 ```
@@ -194,75 +198,56 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
 
 ### 指定したステージに遷移する
 
-IStageNavigatorのReplaceAsyncを使って指定したステージに遷移します。
+StageNavigatorのReplaceAsyncを使って指定したステージに遷移します。
 
 ```csharp
-// Transition to the title screen
-stageNavigator.ReplaceAsync(StageName.TitleScreen);
+// Transition to the title stage
+stageNavigator.ReplaceAsync(StageName.TitleStage);
 
-// Transition to the avatar selection screen
-stageNavigator.ReplaceAsync(StageName.AvatarSelectionScreen);
+// Transition to the avatar selection stage
+stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage);
 
-// Transition to the space selection screen
-stageNavigator.ReplaceAsync(StageName.SpaceSelectionScreen);
+// Transition to the space selection stage
+stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 ```
 
-ReplaceAsyncは遷移履歴を保持しないのでステージ遷移が固定されたアプリケーションでReplaceAsyncを使います。
+ステージ遷移で同じシーンが続く場合、StageNavigatorは処理時間を短縮するためそのシーンを再ロードせず再利用します。
 
-### 遷移履歴に従って遷移元に戻る
+```
+TitleStage
+  PlayerControl -> Loaded
+  TitleScreen -> Loaded
 
-IStageNavigatorのPushAsync/PopAsyncを使うと遷移履歴に従って遷移元に戻れます。
+AvatarSelectionStage
+  PlayerControl -> Not loading
+  AvatarSelectionScreen -> Loaded
 
-```csharp
-// Transition to the title screen
-stageNavigator.PushAsync(SceneName.TitleScreen);
-
-// Transition to the avatar selection screen
-stageNavigator.PushAsync(SceneName.AvatarSelectionScreen);
-
-// Transition to the space selection screen
-stageNavigator.PushAsync(SceneName.SpaceSelectionScreen);
-
-// Transition to the avatar selection screen
-stageNavigator.PopAsync();
-
-// Transition to the title screen
-stageNavigator.PopAsync();
+SpaceSelectionStage
+  PlayerControl -> Not loading
+  AvatarSelectionScreen -> Loaded
 ```
 
-この戻れるステージ遷移をアプリケーションの一部のステージ遷移に使用したい場合は、戻れるステージ遷移が中途半端な状態にならないように遷移履歴をリセットしたい場合が出てきます。
-IStageNavigatorのResetを使うと遷移履歴をリセットします。
+再利用されたシーンのGameObjectのAwakeやStartはロードされたタイミングでのみ実行され、再利用されたタイミングでは実行されません。
+ステージ遷移のタイミングで処理を実行したい場合は、StageNavigatorが発行する[イベント通知](/core/stage-navigation#core-sn-event)を使用してくだい。
 
-```csharp
-// Reset the transtion history
-stageNavigator.Reset();
-```
+### ステージ遷移をトリガーに処理を追加する {#core-sn-event}
 
-### ステージ遷移をトリガーに処理を追加する
-
-IStageNavigatorは次のイベント通知を設けています。
+StageNavigatorは次のイベント通知を設けています。
 
 - OnStageTransitioning
   - タイミング：ステージ遷移する直前
-  - タイプ：Action
+  - タイプ：IObservable
   - パラメータ：遷移するステージの名前
 - OnStageTransitioned
   - タイミング：ステージ遷移した直後
-  - タイプ：Action
+  - タイプ：IObservable
   - パラメータ：遷移したステージの名前
 
 OnStageTransitionedのタイミングでログを出力する例は次の通りです。
 
 ```csharp
-// Event handler
-private void LogStageTransition(StageName stage)
+stageNavigator.OnStageTransitioned.Subscribe(stageName =>
 {
-    Logger.LogInfo(stage);
-}
-
-// Initialize
-stageNavigator.OnStageTransitioned += LogStageTransition;
-
-// Dispose
-stageNavigator.OnStageTransitioned -= LogStageTransition;
+    Logger.LogInfo(stageName);
+}).AddTo(compositeDisposable);
 ```

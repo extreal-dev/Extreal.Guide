@@ -64,19 +64,51 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 
 ### Settings
 
-LoggingのデフォルトのログレベルはInfoです。開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
+LoggingのデフォルトのログレベルはInfoです。
+開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
 
-- Appディレクトリに`AppInitializer`スクリプトを作ります。
-- [LoggingのSettings](/core/logging#settings)を参照してAppInitializerスクリプトを作成します。
+[LoggingのSettings](/core/logging#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
 
-作成したAppInitializerスクリプトではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
-AppInitializerスクリプトの初期化メソッドの中に次のコードを追加してください。
+- AppTestスクリプトをAppディレクトリに作成します。
+- AppTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
 
 ```csharp
-ELogger logger = LoggingManager.GetLogger(nameof(AppInitializer));
-if (logger.IsDebug())
+using Extreal.Core.Logging;
+using UnityEngine;
+
+namespace ExtrealCoreLearning.App
 {
-    logger.LogDebug("Hello, world!");
+    public class AppTest : MonoBehaviour
+    {
+        private static void InitializeApp()
+        {
+            const LogLevel logLevel = LogLevel.Debug;
+            LoggingManager.Initialize(logLevel: logLevel);
+        }
+
+        private void Awake()
+        {
+            InitializeApp();
+        }
+    }
+}
+```
+
+このままではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
+
+```csharp
+private static void InitializeApp()
+{
+    const LogLevel logLevel = LogLevel.Debug;
+    LoggingManager.Initialize(logLevel: logLevel);
+
+    // highlight-start
+    var logger = LoggingManager.GetLogger(nameof(AppTest));
+    if (logger.IsDebug())
+    {
+        logger.LogDebug("Hello, world!");
+    }
+    // highlight-end
 }
 ```
 
@@ -156,13 +188,11 @@ Assembly DefinitionにUniTaskも設定します。
 タイトル画面を追加できたので[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
 
 ステージ設定で作成する3つのタイプはAppディレクトリに配置します。
-Enumが変更された際に値が変わらないようにステージ名とシーン名のEnumは定数値を指定してください。
-定数値は識別以外に意味はないので各Enumで重複しなければどんな数でも大丈夫です。
 
 ```csharp
 public enum StageName
 {
-    TitleScreen = 0,
+    TitleStage = 0,
 }
 public enum SceneName
 {
@@ -177,21 +207,41 @@ public enum SceneName
 - Assetsメニューから`StageConfig`オブジェクトをAppディレクトリに作成します。
 - StageConfigオブジェクトにタイトル画面のステージを設定します。
 
-これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる`StageTest`スクリプトをAppシーンに作成します。
+これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる処理を`AppTest`スクリプトに追加します。
 
-- StageTestスクリプトをAppディレクトリに作成します。
-- StageTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
+- AppTestスクリプトにSerializeFieldとStartメソッドを追加します。
 - インスペクタでStageConfigオブジェクトを指定します。
 
 ```csharp
-public class StageTest : MonoBehaviour
-{
-    [SerializeField] private StageConfig stageConfig;
+using Extreal.Core.Logging;
+// highlight-start
+using Extreal.Core.StageNavigation;
+// highlight-end
+using UnityEngine;
 
-    private void Start()
+namespace ExtrealCoreLearning.App
+{
+    public class AppTest : MonoBehaviour
     {
-        IStageNavigator<StageName> stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
-        stageNavigator.ReplaceAsync(StageName.TitleScreen);
+        private static void InitializeApp()
+        {
+            // Omitted due to no changes
+        }
+
+        private void Awake()
+        {
+            // Omitted due to no changes
+        }
+        
+        // highlight-start
+        [SerializeField] private StageConfig stageConfig;
+
+        private void Start()
+        {
+            var stageNavigator = new StageNavigator<StageName, SceneName>(stageConfig);
+            stageNavigator.ReplaceAsync(StageName.TitleStage);
+        }
+        // highlight-end
     }
 }
 ```
@@ -203,7 +253,7 @@ public class StageTest : MonoBehaviour
 Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
 
 Appシーンを実行します。
-タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Replace: TitleScreen`と出ていれば成功です。
+タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Replace: TitleStage`と出ていれば成功です。
 
 ![Stage遷移成功](/img/learning-core-stagenavigation-success.png)
 
@@ -228,8 +278,8 @@ Extrealが提供するCoreの機能は以上となりますが、[VContainer](ht
 
 ![アバター選択のステージ設定](/img/learning-core-mvp-stageconfig.png)
 
-- StageNameとSceneNameに`AvatarSelectionScreen`を追加します。
-- StageConfigオブジェクトのインスペクタで`AvatarSelectionScreen`を追加します。
+- StageNameに`AvatarSelectionStage`、SceneNameに`AvatarSelectionScreen`を追加します。
+- StageConfigオブジェクトのインスペクタで`AvatarSelectionStage`を追加します。
 
 Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加します。
 
@@ -263,41 +313,81 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
 
 ### VContainer
 
-VContainerを使って先ほど確認用に作ったStageTestを作り変えます。
+VContainerを使って確認用に作成したAppTestを作り変えます。
 
 #### AppPresenter
 
 まずAppディレクトリにエントリーポイントとなるPresenterスクリプトを作成します。
+Appシーンが開始するとタイトル画面に遷移させます。
 
 ```csharp
-public class AppPresenter : IAsyncStartable
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Extreal.Core.StageNavigation;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.App
 {
-    [Inject] private IStageNavigator<StageName> stageNavigator;
-    
-    public async UniTask StartAsync(CancellationToken cancellation)
+    public class AppPresenter : IAsyncStartable
     {
-        await stageNavigator.ReplaceAsync(StageName.TitleScreen);
+        private StageNavigatorr<StageName> stageNavigator;
+
+        public AppPresenter(StageNavigatorr<StageName> stageNavigator)
+        {
+            this.stageNavigator = stageNavigator;
+        }
+
+        public async UniTask StartAsync(CancellationToken cancellation)
+        {
+            await stageNavigator.ReplaceAsync(StageName.TitleStage);
+        }
     }
 }
 ```
 
-Appシーンが開始するとタイトル画面に遷移させます。
-
 #### AppScope
 
 次にVContainerのLifetimeScopeとしてScopeスクリプトをAppディレクトリに作成します。
+ScopeスクリプトのAwakeをオーバーライドしてVContainerの処理よりも先にLoggingの設定を行います。
 
 ```csharp
-public class AppScope : LifetimeScope
+using Extreal.Core.Logging;
+using Extreal.Core.StageNavigation;
+using UnityEngine;
+using VContainer;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.App
 {
-    [SerializeField] private StageConfig stageConfig;
-
-    protected override void Configure(IContainerBuilder builder)
+    public class AppScope : LifetimeScope
     {
-        builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
-        builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton).AsImplementedInterfaces();
+        [SerializeField] private StageConfig stageConfig;
 
-        builder.RegisterEntryPoint<AppPresenter>();
+        private static void InitializeApp()
+        {
+            const LogLevel logLevel = LogLevel.Debug;
+            LoggingManager.Initialize(logLevel: logLevel);
+
+            var logger = LoggingManager.GetLogger(nameof(AppScope));
+            if (logger.IsDebug())
+            {
+                logger.LogDebug("Hello, world!");
+            }
+        }
+
+        protected override void Awake()
+        {
+            InitializeApp();
+            base.Awake();
+        }
+
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(stageConfig).AsImplementedInterfaces();
+            builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton);
+
+            builder.RegisterEntryPoint<AppPresenter>();
+        }
     }
 }
 ```
@@ -325,12 +415,20 @@ UniRxを使ってタイトル画面のGoボタンを実装します。
 タイトル画面に対応するViewスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
-public class TitleScreenView : MonoBehaviour
-{
-    [SerializeField] private Button goButton;
+using System;
+using UniRx;
+using UnityEngine;
+using UnityEngine.UI;
 
-    public IObservable<Unit> OnGoButtonClicked
-        => goButton.OnClickAsObservable().TakeUntilDestroy(this);
+namespace ExtrealCoreLearning.TitleScreen
+{
+    public class TitleScreenView : MonoBehaviour
+    {
+        [SerializeField] private Button goButton;
+
+        public IObservable<Unit> OnGoButtonClicked
+            => goButton.OnClickAsObservable().TakeUntilDestroy(this);
+    }
 }
 ```
 
@@ -341,17 +439,42 @@ UniRxを使ってGoボタンが押された場合にイベントを通知する`
 次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
-public class TitleScreenPresenter : IStartable
+using System;
+using Cysharp.Threading.Tasks;
+using Extreal.Core.StageNavigation;
+using ExtrealCoreLearning.App;
+using UniRx;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.TitleScreen
 {
-    [Inject] private IStageNavigator<StageName> stageNavigator;
+    public class TitleScreenPresenter : IInitializable, IDisposable
+    {
+        private StageNavigator<StageName> stageNavigator;
 
-    [Inject] private TitleScreenView titleScreenView;
+        private TitleScreenView titleScreenView;
 
-    public void Start() =>
-        titleScreenView.OnGoButtonClicked.Subscribe(_ =>
+        private CompositeDisposable compositeDisposable = new CompositeDisposable();
+        
+        public TitleScreenPresenter(StageNavigator<StageName> stageNavigator, TitleScreenView titleScreenView)
         {
-            stageNavigator.ReplaceAsync(StageName.AvatarSelectionScreen).Forget();
-        });
+            this.stageNavigator = stageNavigator;
+            this.titleScreenView = titleScreenView;
+        }
+
+        public void Initialize()
+        {
+            titleScreenView.OnGoButtonClicked.Subscribe(_ =>
+            {
+                stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage).Forget();
+            }).AddTo(compositeDisposable);
+        }
+
+        public void Dispose()
+        {
+            compositeDisposable?.Dispose();
+        }
+    }
 }
 ```
 
@@ -362,15 +485,22 @@ Goボタンのイベント通知とアバター選択画面への遷移をマッ
 最後にViewやPresenterを紐づけるScopeスクリプトをTitleScreenディレクトリに作成します。
 
 ```csharp
-public class TitleScreenScope : LifetimeScope
+using UnityEngine;
+using VContainer;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.TitleScreen
 {
-    [SerializeField] private TitleScreenView titleScreenView;
-
-    protected override void Configure(IContainerBuilder builder)
+    public class TitleScreenScope : LifetimeScope
     {
-        builder.RegisterComponent(titleScreenView);
+        [SerializeField] private TitleScreenView titleScreenView;
 
-        builder.RegisterEntryPoint<TitleScreenPresenter>();
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterComponent(titleScreenView);
+
+            builder.RegisterEntryPoint<TitleScreenPresenter>();
+        }
     }
 }
 ```

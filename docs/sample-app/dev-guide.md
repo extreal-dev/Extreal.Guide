@@ -4,9 +4,11 @@ sidebar_position: 5
 
 # Development Guide
 
-## Directory structure
+## Project
 
-### Overview
+### Directory structure
+
+#### Overview
 
 - Assets
   - AddressableAssetsData
@@ -33,7 +35,7 @@ sidebar_position: 5
 Assets/Holiday以外のディレクトリはサードパーティやUnityの機能利用時に作成された設定になります。
 アプリケーション用にAssets/Holidayディレクトリを設けたのでそれ以外のディレクトリは作成された状態、またはサードバーティと分かる名前を付けて配置しています。
 
-### Holiday
+#### Holiday
 
 - App
   - アプリケーションのエントリーポイント
@@ -57,6 +59,27 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 
 ![application structure](/img/holiday-app-structure.png)
 
+### Static analysis
+
+ルート直下にある`.editorconfig`でAnalyzerの設定をしています。
+[EditorConfig](https://editorconfig.org/)に対応したエディタを使ってスクリプトを編集し、Analyzerの問題がないことを確認してからプッシュしてください。
+
+### Assembly Definition(AD)
+
+アプリケーション単位でADを1つ作成します。
+
+- アプリケーションで使用するサードパーティのパッケージを制限するため
+- 自動テストの導入をしやすくするため
+- [Code Cracker](https://github.com/code-cracker/code-cracker)を適用するため
+  - Code Crackerを適用するにはチェック対象のADにCode Crackerを含める必要があります。
+
+### File settings
+
+意図しない変更差分が出ないようにスクリプトや設定ファイルは次の設定にしてください。
+
+- エンコーディング: `UTF-8`
+- 改行コード: `LF`
+
 ## Application
 
 ### Entry point
@@ -69,11 +92,11 @@ Assets/Holiday/App/App
 
 ### Initialization
 
-アプリケーションの初期化処理はUnityのRuntimeInitializeOnLoadMethodを使用します。
-次のスクリプトで実施しています。
+アプリケーションの初期化処理は次のスクリプトのInitializeAppで実施しています。
+Awakeの先頭でInitializeAppを呼び出しています。
 
 ```
-Assets/Holiday/App/AppInitializer
+Assets/Holiday/App/AppScope
 ```
 
 フレームレートの設定や[Loggingの設定](/core/logging#settings)を行っています。
@@ -92,46 +115,48 @@ Assets/Holiday/App/SceneName
 Assets/Holiday/App/StageConfig
 ```
 
-C#のEnumは定義テキストに定数値を指定しなかった場合、定義テキストの値はC#の仕様で上から順に0からの連番となります。
-ステージやシーンの変更でEnumの記載順が変わると定義テキストの値が変わってしまい、StageConfigの設定内容が変わってしまいます。
-Enumの定義テキストの値を固定するためStageNameとSceneNameでは定数値を指定してください。
-定数値の値は識別以外の意味はないため、重複しなければどんな数を定数値に指定しても大丈夫です。
-
 ```csharp
 public enum StageName
 {
-    // Screen
-    TitleScreen = 100,
-    AvatarSelectionScreen = 101,
-
-    // Room
-    VirtualSpace = 200,
+    TitleStage = 100,
+    AvatarSelectionStage = 101,
+    VirtualStage = 200,
 }
 public enum SceneName
 {
-    // Models
     Models = 0,
 
-    // Control
     CameraControl = 100,
     LightControl = 103,
     InputControl = 101,
     PlayerControl = 102,
 
-    // Screen
     BackgroundScreen = 204,
     LoadingScreen = 203,
     TitleScreen = 200,
     AvatarSelectionScreen = 201,
 
-    // Space
     VirtualSpace = 300,
 }
 ```
 
-## Scope of objects
+## Objects
 
 各シーンで使うオブジェクトの管理には[VContainer](https://vcontainer.hadashikick.jp/)を使います。
+
+### DI
+
+DIについては[What is DI ?](https://vcontainer.hadashikick.jp/about/what-is-di)を参照してください。
+
+DIにはいくつかやり方があります。
+VContainerが推奨するDIコンテナに依存せずオブジェクトを設定できる方法を採用します。
+
+- C# Type: [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
+- MonoBehaviour: [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
+
+VContainerの推奨理由については[Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)のRECOMMENDATIONを参照してください。
+
+### Scope
 
 [VContainer](https://vcontainer.hadashikick.jp/)ではLifetimeScopeを継承したクラスをアタッチしたオブジェクトをシーンに置き、これが1つのスコープ（1つのコンテナ）を表現します。
 スコープに親のスコープを指定することでオブジェクトの検索を親まで広げることができます。
@@ -150,7 +175,27 @@ Modelsシーン
 
 ![オブジェクトスコープの親](/img/object-scope-parent.png)
 
-## Scene
+## Assets
+
+現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
+
+Holidayではアセット管理にUnityのAddressablesを使用します。
+Addressablesは次の目的で使用します。
+
+- 使用するアセットに名前を付け物理的なパスに依存せずアプリケーションでアセットを取得する
+- アプリケーションのソースコードを変更せずにアセットの取得先をローカルからリモートに切り替える
+
+アセット名のルールは下記とします。
+
+```
+タイプ＋名前
+
+（例）
+AvatarAmy
+AvatarMichelle
+```
+
+## Scenes
 
 ### Basic structure
 
@@ -198,11 +243,19 @@ public class AvatarSelectionScreenPresenter : IStartable
 {
     private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(AvatarSelectionScreenPresenter));
 
-    [Inject] private StageNavigator stageNavigator;
+    private readonly StageNavigator<StageName> stageNavigator;
 
-    [Inject] private AvatarSelectionScreenView avatarSelectionScreenView;
+    private readonly AvatarSelectionScreenView avatarSelectionScreenView;
 
-    [Inject] private Player player;
+    private readonly Player player;
+
+    public AvatarSelectionScreenPresenter(StageNavigator<StageName> stageNavigator,
+        AvatarSelectionScreenView avatarSelectionScreenView, Player player)
+    {
+        this.stageNavigator = stageNavigator;
+        this.avatarSelectionScreenView = avatarSelectionScreenView;
+        this.player = player;
+    }
 
     public void Start()
     {
@@ -269,9 +322,8 @@ Viewはアバタープルダウンの初期化、入力項目の初期値設定�
 
 ### Initialization
 
-ステージ遷移で同じシーンが続く場合、シーンはアンロードされず再利用されます。
-そのため再利用されるシーンのPresenterのStartは、ロードされたステージ遷移のタイミングでのみ呼ばれ、再利用されたステージ遷移のタイミングでは呼ばれません。
-再利用されるシーンでステージ遷移のタイミングで初期化処理を行いたい場合は、[ステージ遷移をトリガーに処理を追加する](/core/stage-navigation#ステージ遷移をトリガーに処理を追加する)を使ってシーンの初期化処理を行ってください。
+ステージ遷移で同じシーンが続く場合、シーンはアンロードされず再利用されるためAwakeやStartは実行されません。
+シーンの初期化処理はStageNavigatorが発行する[イベント通知](/core/stage-navigation#core-sn-event)を使用してくだい。
 
 ## UI
 
@@ -317,28 +369,3 @@ Assets/Holiday/Stages/Common
 - SpaceButton
   - 空間用のボタン
   - フォント、文字の設定が入っています。
-
-## Asset management
-
-現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
-
-Holidayではアセット管理にUnityのAddressablesを使用します。
-Addressablesは次の目的で使用します。
-
-- 使用するアセットに名前を付け物理的なパスに依存せずアプリケーションでアセットを取得する
-- アプリケーションのソースコードを変更せずにアセットの取得先をローカルからリモートに切り替える
-
-アセット名のルールは下記とします。
-
-```
-タイプ＋名前
-
-（例）
-AvatarAmy
-AvatarMichelle
-```
-
-## Static analysis
-
-ルート直下にある`.editorconfig`でAnalyzerの設定をしています。
-[EditorConfig](https://editorconfig.org/)に対応したエディタを使ってスクリプトを編集し、Analyzerの問題がないことを確認してからプッシュしてください。
