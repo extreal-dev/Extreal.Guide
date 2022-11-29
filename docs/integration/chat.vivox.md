@@ -242,7 +242,7 @@ VivoxClientは次のイベント通知を設けています。
   - タイプ：IObservable
   - パラメータ：なし
 - OnRecoveryStateChanged
-  - タイミング：予期していないネットワーク切断が発生した直後
+  - タイミング：予期しないネットワーク切断時のリカバリ状態が変化した直後
   - タイプ：IObservable
   - パラメータ：リカバリ状態
     - [ConnectionRecoveryState](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/namespace_vivox_unity.html#a21771ea5086c36c42452bc29059ec379%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CUnity%20API%20Reference%20Manual%7C_____4)
