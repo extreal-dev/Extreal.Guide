@@ -328,7 +328,7 @@ NgoClientは次のイベント通知を設けています。
   - タイプ：IObservable
   - パラメータ：なし
 - OnUnexpectedDisconnected
-  - タイミング：予期せずサーバーから切断した直後
+  - タイミング：予期していないサーバー切断が発生した直後
   - タイプ：IObservable
   - パラメータ：なし
 - OnApprovalRejected
