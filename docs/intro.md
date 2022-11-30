@@ -136,15 +136,11 @@ ExtrealはUnityやサードパーティのパッケージを活用して機能�
 できるだけExtrealの後方互換を維持するように努めますが後方互換を維持できないケースが発生する可能性があります。
 後方互換を維持できない場合は[Release](/category/release)でアップグレード方法をガイドします。
 
-:::note
-TODO: 公開APIの確認方法を追記する。
-:::
-
 ## Unity version
 
 ここではExtrealがUnityのバージョンにどのように追随していくのかについて説明します。
 Extrealの開発やテストで使用するUnityはLTS([Long Term Support](https://unity3d.com/unity/qa/lts-releases))ストリームの最新バージョンを使う方針です。
-Extrealが使っているサードパーティのライブラリの対応状況等を確認し、Unityバージョンを上げるタイミングを私たちで判断します。
+Extrealが使っているサードパーティのライブラリの対応状況等を確認し、Unityバージョンを上げるタイミングをExtrealチームで判断します。
 
 ## Installation
 
@@ -164,13 +160,12 @@ Git URLは各機能のページを参照ください。
 
 - [GitHub](https://github.com/extreal-dev)
 
-### How to Contribute
+Frameworkの各モジュールのリポジトリはUnityパッケージの構成になっているため、Unityプロジェクトにインストールして開発する必要があります。
+開発環境を統一する目的でFrameworkのモジュール開発用のリポジトリを用意しています。
+Frameworkのモジュールを開発する場合は次のリポジトリを使用してください。
+開発方法はREADMEを参照してください。
 
-- リポジトリのREADMEに開発方法を記載しています。
-- mainブランチはリリースしたもの、developブランチが開発の最新です。
-- developブランチの最新からブランチを作成してPull Requestを出してください。
-- Pull Requestのテンプレートを設定しているので中身を埋めてPull Requestの状況を私たちに伝えてください。
-- 作業が完了したら私たちにレビュー依頼してください。
+- [Extreal.Dev](https://github.com/extreal-dev/Extreal.Dev)
 
 ## About Extreal
 
