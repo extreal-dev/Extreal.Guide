@@ -49,7 +49,7 @@ NGOラッパーの仕様は次の通りです。
 - NGOのサーバー状態をトリガーに処理を追加できます。
 - NGOのクライアント向けの機能を使用できます。
 - NGOのクライアント状態をトリガーに処理を追加できます。
-- NetworkTransportを変更できます。
+- NGOが提供するデフォルト以外のNetworkTransportを使用できます。
 
 :::info
 安定したパフォーマンスやセキュリティを担保しやすいため、NGOラッパーはNGOのアーキテクチャとして専用サーバーの使用を前提としています。
@@ -197,6 +197,11 @@ public class MultiplayControlScope : LifetimeScope
 
 :::tip
 NetworkManagerはサーバーとクライアントで同じ設定の必要があるため、Prefabにしてサーバーとクライアントで同じものを使うようにします。
+:::
+
+:::info
+NGOが提供していない新たなトランスポートを使う場合は[NGOが提供するデフォルト以外のNetworkTransportを使用する](/integration/multiplay.ngo#int-ngo-nt)を参照して対応してください。
+NGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）を使用する場合は何も作業が必要ありません。
 :::
 
 ## Usage
@@ -359,10 +364,11 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-## NetworkTransportを変更する
+### NGOが提供するデフォルト以外のNetworkTransportを使用する {#int-ngo-nt}
 
 NGOは通信に使用するトランスポートを変更できます。
-NGOラッパーはNGOがサポートしている2つのトランスポート（Unity Transport、 UNet Transport）に対応していますが、新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
+NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は何も作業が必要ありません。
+NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
 
 各トランスポートの実装において接続情報を保持する部分は共通化されていないため、差異を吸収する必要があります。
 各トランスポートの実装差異を埋めるためにIConnectionSetterを設けています。
