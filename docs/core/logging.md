@@ -96,7 +96,7 @@ classDiagram
 
     class ILogWriter {
         <<interface>>
-        +Log(logCategory, message, exception = null) void
+        +Log(logLevel, logCategory, message, exception = null) void
     }
 
     class LogLevelLogOutputChecker {
