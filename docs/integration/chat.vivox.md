@@ -40,15 +40,11 @@ Vivoxラッパーの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    Application ..> VivoxClient
     VivoxClient --> VivoxAppConfig
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
     VivoxChannelConfig --> ChatType
     ScriptableObject <|-- VivoxAppConfig
-
-    class Application {
-    }
 
     class VivoxClient {
         +Client Client
@@ -64,7 +60,7 @@ classDiagram
         +OnAudioEnergyChanged IObservable
         +VivoxClient(appConfig)
         +Dispose() void
-        +LoginAsync(authConfig) bool
+        +Login(authConfig) bool
         +Logout() void
         +Connect(channelConfig) bool
         +Disconnect(channelId) void
@@ -77,14 +73,13 @@ classDiagram
         +SetAudioInputDeviceAsync(device) void
         +GetAudioOutputDevicesAsync() IAudioOutputDevices
         +SetAudioOutputDeviceAsync(device) void
-        +Update3DPosition(speakerPosition, listenerPosition, listenerForwardDirection, listenerUpDirection) void
     }
 
     class VivoxAppConfig {
         +ApiEndPoint string
         +Domain string
         +Issuer string
-        +TokenKey string
+        +SecretKey string
     }
 
     class VivoxAuthConfig {
@@ -105,7 +100,7 @@ classDiagram
         +ChannelName string
         +ChatType ChatType
         +ChannelType ChannelType
-        +Channel3DProperties Properties
+        +Properties Channel3DProperties
         +TransmissionSwitch bool
         +TokenExpirationDuration TimeSpan
         VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch,tokenExpirationDuration)
