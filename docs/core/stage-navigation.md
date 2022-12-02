@@ -32,10 +32,10 @@ classDiagram
     IStageConfig <|.. StageConfigBase
     StageConfigBase <|-- StageConfig
     ScriptableObject <|-- StageConfigBase
-    IStageConfig *-- Stage
-    IStageConfig o-- SceneName
-    Stage --> StageName
-    Stage o-- SceneName
+    IStageConfig *-- Stage : Stages
+    IStageConfig o-- SceneName : CommonStages
+    Stage --> StageName : StageName
+    Stage o-- SceneName : SceneNames
 
     class Applicaiton {
     }
@@ -54,8 +54,8 @@ classDiagram
     class StageNavigator {
         +OnStageTransitioning IObservable
         +OnStageTransitioned IObservable
-        +StageNavigator(config)
-        +ReplaceAsync(stage) void
+        +StageNavigator(stageConfig)
+        +ReplaceAsync(stageName) void
     }
 
     class IStageConfig {
@@ -72,6 +72,8 @@ classDiagram
     }
 
     class Stage {
+        +StageName Enum
+        +SceneNames List
     }
 ```
 
@@ -81,14 +83,6 @@ classDiagram
 - SceneName：シーン名を表すEnum
 - StageConfig：ステージ設定を保持するクラス
 :::
-
-アプリケーションでステージ遷移する場合のシーケンスは次の通りです。
-
-```mermaid
-sequenceDiagram
-    actor Application
-    Application->>StageNavigator: ReplaceAsync(stage)
-```
 
 ## Installation
 
@@ -104,6 +98,7 @@ Stage Navigationは次のパッケージを使います。
 
 - [Extreal.Core.Logging](/core/logging)
 - [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
 
 モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
 
