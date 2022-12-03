@@ -15,7 +15,10 @@ sidebar_position: 2
 
 ## Create project
 
+:::info step
 まずはプロジェクトを作りましょう。
+:::
+
 Unity Hubから新しいプロジェクトを作成します。
 
 ![プロジェクト作成](/img/learning-core-create-project.png)
@@ -24,13 +27,19 @@ Unity Hubから新しいプロジェクトを作成します。
 - テンプレート: `3D`
 - プロジェクト名: `ExtrealCoreLearning`
 
-Unityエディタが起動したらSampleSceneを実行してみましょう。
+:::info step
+Unityエディタが起動したら実行して問題がないことを確認します。
+:::
+
+SampleSceneを実行してみましょう。
 シーンに何も配置していないので何も起こりません。
 Consoleに何も出ていなければ成功です。
 
 ## Create entry point
 
+:::info step
 アプリケーション用のディレクトリとエントリーポイントとなるAppシーンを作ります。
+:::
 
 ![Appシーン](/img/learning-core-app-scene.png)
 
@@ -42,9 +51,10 @@ Consoleに何も出ていなければ成功です。
 
 Extrealの[Logging](/core/logging)をアプリケーションに追加します。
 
-### Package Manager
+:::info step
+Package ManagerのGit URL指定からLoggingを追加します。
+:::
 
-Package ManagerのGit URL指定から追加します。
 Git URLは[LoggingのPackage](/core/logging#package)から取得します。
 
 ![Logging追加](/img/learning-core-logging-package.png)
@@ -52,9 +62,9 @@ Git URLは[LoggingのPackage](/core/logging#package)から取得します。
 Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 バージョンは実施タイミングにより異なります。
 
-### Assembly Definition
-
+:::info step
 アプリケーションのAssembly DefinitionにLoggingを設定し、スクリプトからLoggingを参照できるようにします。
+:::
 
 ![Loggingアセンブリ設定](/img/learning-core-logging-assembly.png)
 
@@ -62,10 +72,10 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 - Assembly Definition Referencesに`Extreal.Core.Logging`を追加します。
 - Assembly Definition ReferencesのUse GUIDsのチェックは外します。
 
-### Settings
-
+:::info step
 LoggingのデフォルトのログレベルはInfoです。
 開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
+:::
 
 [LoggingのSettings](/core/logging#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
 
@@ -94,7 +104,9 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
+:::info step
 このままではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
+:::
 
 ```csharp
 private static void InitializeApp()
@@ -121,11 +133,11 @@ Consoleに`Hello, world!`と出力されれば成功です。
 
 Extrealの[Stage Navigation](/core/stage-navigation)をアプリケーションに追加します。
 
-### Package Manager & Assembly Definition
-
+:::info step
 Stage Navigationは[UniTask](https://github.com/Cysharp/UniTask)に依存しているため先にUniTaskを追加します。
-UniTaskは[OpenUPM](https://openupm.com/)で提供されているためOpenUPMの設定を追加します。
+:::
 
+UniTaskは[OpenUPM](https://openupm.com/)で提供されているためOpenUPMの設定を追加します。
 `Edit` -> `Project Settings...` -> `Package Manager`からScoped RegistriesにOpenUPMを追加します。
 
 ![Unitask追加](/img/learning-core-stagenavigation-unitask.png)
@@ -145,16 +157,19 @@ UniTaskは[OpenUPM](https://openupm.com/)で提供されているためOpenUPM�
 
 Scope(s)に指定した`com.cysharp`がUniTaskのための設定です。
 
+:::info step
 UniTaskを追加できたのでLoggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作してStage Navigationをスクリプトから使えるようにします。
+:::
+
 Stage NavigationのGit URLは[Stage NavigationのPackage](/core/stage-navigation#package)から取得します。
 
 Assembly DefinitionにUniTaskも設定します。
 
 ![Stage Navigation追加](/img/learning-core-stagenavigation-add.png)
 
-### Title screen
-
+:::info step
 ステージ遷移を試すため次のようなタイトル画面を追加し、アプリ起動後すぐにタイトル画面に遷移させてみましょう。
+:::
 
 ![タイトル画面](/img/learning-core-stagenavigation-titlescreen.png)
 
@@ -183,9 +198,9 @@ Assembly DefinitionにUniTaskも設定します。
   - `Go`というボタンを作ります。
   - こちらもサイズやポジションは自由に決めてください。
 
-### Settings
-
+:::info step
 タイトル画面を追加できたので[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
+:::
 
 ステージ設定で作成する3つのタイプはAppディレクトリに配置します。
 
@@ -207,7 +222,9 @@ public enum SceneName
 - Assetsメニューから`StageConfig`オブジェクトをAppディレクトリに作成します。
 - StageConfigオブジェクトにタイトル画面のステージを設定します。
 
+:::info step
 これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる処理を`AppTest`スクリプトに追加します。
+:::
 
 - AppTestスクリプトにSerializeFieldとStartメソッドを追加します。
 - インスペクタでStageConfigオブジェクトを指定します。
@@ -246,13 +263,20 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
+:::info step
+Appシーンを実行してみましょう。
+:::
+
 この状態でAppシーンを実行すると次のエラーになります。
 
 ![Stage遷移エラー](/img/learning-core-stagenavigation-error.png)
 
 Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
 
-Appシーンを実行します。
+:::info step
+もう一度Appシーンを実行してみましょう。
+:::
+
 タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Replace: TitleStage`と出ていれば成功です。
 
 ![Stage遷移成功](/img/learning-core-stagenavigation-success.png)
@@ -261,9 +285,10 @@ Appシーンを実行します。
 
 Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)と[UniRx](https://github.com/neuecc/UniRx)を追加して[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に近づけていきたいと思います。
 
-### Avatar selection screen
-
+:::info step
 タイトル画面の遷移先となるアバター選択画面を追加します。
+:::
+
 アバター選択画面は遷移先として使用するだけなのでタイトル画面をコピーして作ります。
 
 ![アバター選択画面](/img/learning-core-mvp-avatarselection.png)
@@ -274,20 +299,26 @@ Extrealが提供するCoreの機能は以上となりますが、[VContainer](ht
 - TitleScreenシーンのCanvasとEventSystemをコピーしてAvatarSelectionScreenシーンにペーストします。
 - タイトルを`Avatar Selection`に変更します。
 
+:::info step
 続けてステージ設定を追加します。
+:::
 
 ![アバター選択のステージ設定](/img/learning-core-mvp-stageconfig.png)
 
 - StageNameに`AvatarSelectionStage`、SceneNameに`AvatarSelectionScreen`を追加します。
 - StageConfigオブジェクトのインスペクタで`AvatarSelectionStage`を追加します。
 
+:::info step
 Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加します。
+:::
 
 UIとステージ設定の準備が整いました。
 
-### Package Manager & Assembly Definition
+:::info step
+VContainerとUniRxをアプリケーションに追加します。
+:::
 
-VContainerとUniRxをアプリケーションに追加します。VContainerとUniRxはUniTaskと同様にOpenUPMから取得します。
+VContainerとUniRxはUniTaskと同様にOpenUPMから取得します。
 
 `Edit` -> `Project Settings...` -> `Package Manager`からOpenUPMのScope(s)を追加します。
 
@@ -302,7 +333,9 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
   com.neuecc
   ```
 
+:::info step
 続けてPackage ManagerとAssembly DefinitionにVContainerとUniRxを追加します。
+:::
 
 ![VContainerとUniRx設定](/img/learning-core-mvp-pmandad.png)
 
@@ -315,9 +348,10 @@ VContainerとUniRxをアプリケーションに追加します。VContainerとU
 
 VContainerを使って確認用に作成したAppTestを作り変えます。
 
-#### AppPresenter
-
+:::info step
 まずAppディレクトリにエントリーポイントとなるPresenterスクリプトを作成します。
+:::
+
 Appシーンが開始するとタイトル画面に遷移させます。
 
 ```csharp
@@ -345,9 +379,10 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
-#### AppScope
-
+:::info step
 次にVContainerのLifetimeScopeとしてScopeスクリプトをAppディレクトリに作成します。
+:::
+
 ScopeスクリプトのAwakeをオーバーライドしてVContainerの処理よりも先にLoggingの設定を行います。
 
 ```csharp
@@ -396,7 +431,9 @@ StageConfigとStageNavigator、エントリーポイントとしてAppPresenter�
 この登録により、StageConfigがStageNavigatorに設定され、StageNavigatorがAppPresenterに設定されます。
 このようにVContainerが提供するDIコンテナを使ってオブジェクトの構造を作り上げ、各オブジェクトが処理を実行できるようにします。
 
+:::info step
 ScopeスクリプトをAppシーンに設定します。
+:::
 
 ![AppScope](/img/learning-core-mvp-appscope.png)
 
@@ -410,9 +447,9 @@ Appシーンを実行します。先ほどと同様にタイトル画面とConso
 
 UniRxを使ってタイトル画面のGoボタンを実装します。
 
-#### TitleScreenView
-
+:::info step
 タイトル画面に対応するViewスクリプトをTitleScreenディレクトリに作成します。
+:::
 
 ```csharp
 using System;
@@ -434,9 +471,9 @@ namespace ExtrealCoreLearning.TitleScreen
 
 UniRxを使ってGoボタンが押された場合にイベントを通知する`OnGoButtonClicked`を定義しています。
 
-#### TitleScreenPresenter
-
+:::info step
 次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
+:::
 
 ```csharp
 using System;
@@ -480,9 +517,9 @@ namespace ExtrealCoreLearning.TitleScreen
 
 Goボタンのイベント通知とアバター選択画面への遷移をマッピングしています。
 
-#### TitleScreenScope
-
+:::info step
 最後にViewやPresenterを紐づけるScopeスクリプトをTitleScreenディレクトリに作成します。
+:::
 
 ```csharp
 using UnityEngine;
@@ -514,6 +551,10 @@ ViewスクリプトとScopeスクリプトをTitleScreenシーンに設定しま
 - TitleScreenシーンに`Scope`という名前でTitleScreenScopeスクリプトをアタッチしたGameObjectを作成します。
 - Viewオブジェクトをインスペクタで設定します。
 
+:::info step
+Appシーンを実行してみましょう。
+:::
+
 この状態でAppシーンを実行すると次のエラーになります。
 
 ![AppScope](/img/learning-core-mvp-error.png)
@@ -529,7 +570,11 @@ TitleScreenScopeのインスペクタでParentにAppScopeを指定するとこ�
 このようにスコープは階層を意識して作成します。
 共通利用されるスコープをより親となるように全体のスコープを設計します。
 
-Appシーンを実行します。タイトル画面からアバター選択画面に遷移できれば成功です。
+:::info step
+もう一度Appシーンを実行してみましょう。
+:::
+
+タイトル画面からアバター選択画面に遷移できれば成功です。
 
 ## Next Step
 
