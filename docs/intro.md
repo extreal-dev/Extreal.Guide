@@ -97,44 +97,48 @@ MVPの各オブジェクトの生成や参照関係の構築、各オブジェ�
 Extrealが提供しているコンテンツは無償でご利用いただけます。
 外部のプロダクト、サービス、OSS等は提供元のライセンスを確認ください。
 
-## Versioning
-
-ExtrealはFrameworkに含まれるモジュールの特定バージョンの組み合わせに対してバージョンが決まります。
-各モジュールはモジュール毎にバージョンが決まります。
-
-Extrealバージョンとモジュールバージョンの例を示します。
-
-```
---- Initial release ---
-Extreal 1.0
-Extreal.Core.Logging 1.0.0
-Extreal.Core.StageNavigation 1.0.0
-
---- Bug fixed only ---
-Extreal 1.1
-Extreal.Core.Logging 1.0.0
-Extreal.Core.StageNavigation 1.0.1
-
---- Added feature ---
-Extreal 1.2
-Extreal.Core.Logging 1.0.1
-Extreal.Core.StageNavigation 1.1.0
-```
-
-Extrealバージョンは<メジャーバージョン>.<アップデート回数>です。
-メジャーバージョンは大規模な変更をした場合に更新します。
-アップデート回数は機能追加・変更、不具合対応をした場合に更新します。
-
-モジュールバージョンには[Semantic Versioning 2.0.0](https://semver.org/)を使います。
-
-Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
-
 ## Backward compatibility
 
 ExtrealはUnityやサードパーティのパッケージを活用して機能を実現しています。
 私たちがコントロールできない要素がExtrealには多いため後方互換の維持を約束できません。
 できるだけExtrealの後方互換を維持するように努めますが後方互換を維持できないケースが発生する可能性があります。
 後方互換を維持できない場合は[Release](/category/release)でアップグレード方法をガイドします。
+
+## Versioning
+
+ExtrealはFrameworkに含まれるモジュールの特定バージョンの組み合わせに対してバージョンが決まります。
+各モジュールはモジュール毎にバージョンが決まります。
+
+Extrealバージョンとモジュールバージョンは次のバージョニングを使用します。
+
+- <メジャーバージョン>.<マイナーバージョン>.<パッチバージョン>
+- メジャーバージョン
+  - アーキテクチャ変更など大規模な変更をした場合に更新します。
+- マイナーバージョン
+  - 機能追加・変更・削除、不具合修正をした場合に更新します。
+- パッチバージョン
+  - 緊急性の高い不具合修正をした場合に更新します。
+
+Extrealバージョンとモジュールバージョンの例を示します。
+
+```
+--- Initial release ---
+Extreal 1.0.0
+Extreal.Core.Logging 1.0.0
+Extreal.Core.StageNavigation 1.0.0
+
+--- Bug fixed only ---
+Extreal 1.0.1
+Extreal.Core.Logging 1.0.0
+Extreal.Core.StageNavigation 1.0.1 -> bug fixed
+
+--- Added feature ---
+Extreal 1.1.0
+Extreal.Core.Logging 1.1.0 -> added feature
+Extreal.Core.StageNavigation 1.0.1
+```
+
+Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
 
 ## Unity version
 
