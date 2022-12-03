@@ -63,21 +63,12 @@ NGOのアーキテクチャについては[Network Topologies](https://docs-mult
 ```mermaid
 classDiagram
 
-    NgoServer <.. ServerApplication
-    NgoClient <.. ClientApplication
-    NgoConfig <.. ClientApplication
     NetworkManager <.. NgoServer
     NetworkManager <.. NgoClient
     NgoClient ..> NgoConfig
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
     IConnectionSetter <|.. UnetTransportConnectionSetter
-
-    class ServerApplication {
-    }
-
-    class ClientApplication {
-    }
 
     class NetworkManager {
         <<NGO>>
@@ -96,27 +87,27 @@ classDiagram
         +StopServerAsync() void
         +SetConnectionApprovalCallback(connectionApprovalCallback) void
         +RemoveClient(clientId) bool
-        +SendMessageToClients(clientIds, messageName, messageStream, networkDelivery) void
-        +SendMessageToAllClients(messageName, messageStream, networkDelivery) void
+        +SendMessageToClients(clientIds, messageName, messageStream, networkDelivery = NetworkDelivery.Reliable) void
+        +SendMessageToAllClients(messageName, messageStream, networkDelivery = NetworkDelivery.Reliable) void
         +RegisterMessageHandler(messageName, messageHandler) void
         +UnregisterMessageHandler(messageName) void
         +SetVisibilityDelegate(visibilityDelegate) void
-        +SpawnWithServerOwnership(prefab, position, rotation, parent, worldPositionStays) GameObject
-        +SpawnWithClientOwnership(ownerClientId, prefab, position, rotation, parent, worldPositionStays) GameObject
-        +SpawnAsPlayerObject(ownerClientId, prefab, position, rotation, parent, worldPositionStays) GameObject
+        +SpawnWithServerOwnership(prefab, position, rotation, parent, worldPositionStays = true) GameObject
+        +SpawnWithClientOwnership(ownerClientId, prefab, position, rotation, parent, worldPositionStays = true) GameObject
+        +SpawnAsPlayerObject(ownerClientId, prefab, position, rotation, parent, worldPositionStays = true) GameObject
     }
 
     class NgoClient {
         +OnConnected IObservable
         +OnDisconnecting IObservable
         +OnUnexpectedDisconnected IObservable
-        +OnApprovalRejected IObservable
+        +OnConnectionApprovalRejected IObservable
         +NgoClient(networkManager)
         +Dispose() void
         +AddConnectionSetter(connectionSetter) void
         +ConnectAsync(ngoConfig, cancellationToken) bool
         +DisconnectAsync() void
-        +SendMessage(messageName, messageStream, networkDelivery) void
+        +SendMessage(messageName, messageStream, networkDelivery = NetworkDelivery.Reliable) void
         +RegisterMessageHandler(messageName, messageHandler) void
         +UnregisterMessageHandler(messageName) void
     }
@@ -125,8 +116,8 @@ classDiagram
         +Address string
         +Port ushort
         +ConnectionData byte[]
-        +TimeoutSeconds byte
-        +NgoConfig(address, port, connectionData, timeoutSeconds)
+        +Timeout TimeSpan
+        +NgoConfig(address = "127.0.0.1", port = 7777, connectionData, timeout = 10)
     }
 
     class IConnectionSetter {
@@ -349,7 +340,7 @@ NgoClientは次のイベント通知を設けています。
   - タイミング：予期していないサーバー切断が発生した直後
   - タイプ：IObservable
   - パラメータ：なし
-- OnApprovalRejected
+- OnConnectionApprovalRejected
   - タイミング：接続承認が拒否された直後
   - タイプ：IObservable
   - パラメータ：なし
