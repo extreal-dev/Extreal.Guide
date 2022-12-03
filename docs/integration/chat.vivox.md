@@ -60,13 +60,13 @@ classDiagram
         +OnAudioEnergyChanged IObservable
         +VivoxClient(appConfig)
         +Dispose() void
-        +Login(authConfig) bool
+        +Login(authConfig) void
         +Logout() void
-        +Connect(channelConfig) bool
+        +Connect(channelConfig) void
         +Disconnect(channelId) void
         +DisconnectAllChannels() void
         +SendTextMessage(message, channelIds, language, applicationStanzaNamespace, applicationStanzaBody) void
-        +SendTextMessage(message, channelId, language, applicationStanzaNamespace, applicationStanzaBody) bool
+        +SendTextMessage(message, channelId, language, applicationStanzaNamespace, applicationStanzaBody) void
         +SetTransmissionMode(transmissionMode, channelId) void
         +RefreshAudioDevicesAsync() void
         +GetAudioInputDevicesAsync() IAudioInputDevices
