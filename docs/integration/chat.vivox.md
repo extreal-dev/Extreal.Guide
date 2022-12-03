@@ -204,10 +204,16 @@ VivoxChannelConfigはデフォルトでボイスチャットとテキストチ�
 var vivoxChannelConfig = new VivoxChannelConfig("GuestChannel", ChatType.AudioOnly);
 ```
 
-チャンネルからの退室はVivoxClientのDisconnectAllChannelsを使います。
+空間内でのみボイスチャットやテキストチャットをできるようにする場合など、空間からの退室時点で全てのチャンネルから退室する場合はVivoxClientのDisconnectAllChannelsを使います。
 
 ```csharp
 vivoxClient.DisconnectAllChannels();
+```
+
+グループチャット機能を提供している場合など、特定のチャンネルから退室する場合はVivoxClientのDisconnectChannelを使います。
+
+```csharp
+vivoxClient.Disconnect(channelId);
 ```
 
 テキストチャットのメッセージ送信はVivoxClientのSendTextMessageを使います。
