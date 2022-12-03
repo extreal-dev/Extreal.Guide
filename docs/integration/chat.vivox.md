@@ -224,7 +224,7 @@ vivoxClient.OnTextMessageReceived
     .AddTo(disposables);
 ```
 
-## Vivoxのクライアント状態をトリガーに処理を追加できます。
+## Vivoxのクライアント状態をトリガーに処理を追加する
 
 VivoxClientは次のイベント通知を設けています。
 
