@@ -32,7 +32,7 @@ Vivoxは元々存在していた[Vivox Developer Portal](https://developer.vivox
 
 Vivoxラッパーの仕様は次の通りです。
 
-- Vivoxのクライアント向けの機能を使用できます。
+- Vivoxの機能を使用できます。
 - Vivoxのクライアント状態をトリガーに処理を追加できます。
 
 ## Architecture
@@ -163,9 +163,9 @@ public class ChatControlScope : LifetimeScope
 
 ## Usage
 
-## Vivoxのクライアント向けの機能を使用する
+## Vivoxの機能を使用する
 
-Vivoxのクライアント向けの機能はVivoxClientが提供します。
+Vivoxの機能はVivoxClientが提供します。
 VivoxClientが提供していない機能はVivoxClientからVivoxが提供するClientやILoginSessionを取得して実装してください。
 
 ```csharp
