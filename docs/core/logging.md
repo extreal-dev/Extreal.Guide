@@ -57,17 +57,11 @@ Loggingの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    LogLevel <.. Applicaiton
-    LoggingManager <.. Applicaiton
-    ELogger <.. Applicaiton
     LoggingManager *-- ELogger
     ELogger ..> ILogOutputChecker
     ELogger ..> ILogWriter
     ILogOutputChecker <|.. LogLevelLogOutputChecker
     ILogWriter <|.. UnityDebugLogWriter
-
-    class Applicaiton {
-    }
 
     class LogLevel {
         <<enumeration>>
@@ -78,7 +72,6 @@ classDiagram
     }
 
     class ELogger {
-        -logCategory string
         +IsXxx() bool
         +LogXxx(message, exception = null) void
     }

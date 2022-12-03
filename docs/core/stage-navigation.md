@@ -27,7 +27,6 @@ Stage Navigationの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    Applicaiton ..> StageNavigator
     StageNavigator ..> IStageConfig
     IStageConfig <|.. StageConfigBase
     StageConfigBase <|-- StageConfig
@@ -36,9 +35,6 @@ classDiagram
     IStageConfig o-- SceneName : CommonStages
     Stage --> StageName : StageName
     Stage o-- SceneName : SceneNames
-
-    class Applicaiton {
-    }
 
     class StageName {
         <<enumeration>>
