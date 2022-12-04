@@ -364,9 +364,9 @@ namespace ExtrealCoreLearning.App
 {
     public class AppPresenter : IAsyncStartable
     {
-        private StageNavigatorr<StageName> stageNavigator;
+        private StageNavigator<StageName, SceneName> stageNavigator;
 
-        public AppPresenter(StageNavigatorr<StageName> stageNavigator)
+        public AppPresenter(StageNavigator<StageName, SceneName> stageNavigator)
         {
             this.stageNavigator = stageNavigator;
         }
