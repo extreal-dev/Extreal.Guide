@@ -483,17 +483,18 @@ using ExtrealCoreLearning.App;
 using UniRx;
 using VContainer.Unity;
 
-namespace ExtrealCoreLearning.TitleScreen
+namespace ExtrealCoreLearning.ExtrealCoreLearning.TitleScreen
 {
     public class TitleScreenPresenter : IInitializable, IDisposable
     {
-        private StageNavigator<StageName> stageNavigator;
+        private StageNavigator<StageName, SceneName> stageNavigator;
 
         private TitleScreenView titleScreenView;
 
         private CompositeDisposable compositeDisposable = new CompositeDisposable();
-        
-        public TitleScreenPresenter(StageNavigator<StageName> stageNavigator, TitleScreenView titleScreenView)
+
+        public TitleScreenPresenter(StageNavigator<StageName, SceneName> stageNavigator,
+            TitleScreenView titleScreenView)
         {
             this.stageNavigator = stageNavigator;
             this.titleScreenView = titleScreenView;
