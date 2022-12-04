@@ -172,6 +172,7 @@ Assembly DefinitionにUniTaskとUniRxも設定します。
 
 :::info step
 ステージ遷移を試すため次のようなタイトル画面を追加し、アプリ起動後すぐにタイトル画面に遷移させてみましょう。
+まずはタイトル画面を追加します。
 :::
 
 ![タイトル画面](/img/learning-core-stagenavigation-titlescreen.png)
