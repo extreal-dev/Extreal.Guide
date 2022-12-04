@@ -281,7 +281,7 @@ Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
 もう一度Appシーンを実行してみましょう。
 :::
 
-タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Replace: TitleStage`と出ていれば成功です。
+タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Transitions to 'TitleStage'`と出ていれば成功です。
 
 ![Stage遷移成功](/img/learning-core-stagenavigation-success.png)
 
