@@ -134,10 +134,10 @@ Consoleに`Hello, world!`と出力されれば成功です。
 Extrealの[Stage Navigation](/core/stage-navigation)をアプリケーションに追加します。
 
 :::info step
-Stage Navigationは[UniTask](https://github.com/Cysharp/UniTask)に依存しているため先にUniTaskを追加します。
+Stage Navigationは[UniTask](https://github.com/Cysharp/UniTask)と[UniRx](https://github.com/neuecc/UniRx)に依存しているため先にUniTaskとUniRxを追加します。
 :::
 
-UniTaskは[OpenUPM](https://openupm.com/)で提供されているためOpenUPMの設定を追加します。
+UniTaskとUniRxは[OpenUPM](https://openupm.com/)で提供されているためOpenUPMの設定を追加します。
 `Edit` -> `Project Settings...` -> `Package Manager`からScoped RegistriesにOpenUPMを追加します。
 
 ![Unitask追加](/img/learning-core-stagenavigation-unitask.png)
@@ -151,19 +151,22 @@ UniTaskは[OpenUPM](https://openupm.com/)で提供されているためOpenUPM�
   https://package.openupm.com
   ```
 - Scope(s):
-  ```
-  com.cysharp
-  ```
-
-Scope(s)に指定した`com.cysharp`がUniTaskのための設定です。
+  - UniTask
+    ```
+    com.cysharp
+    ```
+  - UniRx
+    ```
+    com.neuecc
+    ```
 
 :::info step
-UniTaskを追加できたのでLoggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作してStage Navigationをスクリプトから使えるようにします。
+UniTaskとUniRxを追加できたのでLoggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作してStage Navigationをスクリプトから使えるようにします。
 :::
 
 Stage NavigationのGit URLは[Stage NavigationのPackage](/core/stage-navigation#package)から取得します。
 
-Assembly DefinitionにUniTaskも設定します。
+Assembly DefinitionにUniTaskとUniRxも設定します。
 
 ![Stage Navigation追加](/img/learning-core-stagenavigation-add.png)
 
@@ -283,7 +286,7 @@ Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
 
 ## Apply MV(R)P pattern
 
-Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)と[UniRx](https://github.com/neuecc/UniRx)を追加して[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に近づけていきたいと思います。
+Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)を追加して[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に近づけていきたいと思います。
 
 :::info step
 タイトル画面の遷移先となるアバター選択画面を追加します。
@@ -315,34 +318,30 @@ Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加し�
 UIとステージ設定の準備が整いました。
 
 :::info step
-VContainerとUniRxをアプリケーションに追加します。
+VContainerをアプリケーションに追加します。
 :::
 
-VContainerとUniRxはUniTaskと同様にOpenUPMから取得します。
+VContainerはUniTaskやUniRxと同様にOpenUPMから取得します。
 
 `Edit` -> `Project Settings...` -> `Package Manager`からOpenUPMのScope(s)を追加します。
 
-![VContainerとUniRx追加](/img/learning-core-mvp-thirdparty.png)
+![VContainer追加](/img/learning-core-mvp-thirdparty.png)
 
 - VContainer:
   ```
   jp.hadashikick
   ```
-- UniRx:
-  ```
-  com.neuecc
-  ```
 
 :::info step
-続けてPackage ManagerとAssembly DefinitionにVContainerとUniRxを追加します。
+続けてPackage ManagerとAssembly DefinitionにVContainerを追加します。
 :::
 
-![VContainerとUniRx設定](/img/learning-core-mvp-pmandad.png)
+![VContainer設定](/img/learning-core-mvp-pmandad.png)
 
-- Package ManagerでPackages: `My Registries`を選択しVContainerとUniRxをインストールします。
-- アプリケーションのAssembly DefinitionにVContainerとUniRxを設定します。
+- Package ManagerでPackages: `My Registries`を選択しVContainerをインストールします。
+- アプリケーションのAssembly DefinitionにVContainerを設定します。
 
-これでVContainerとUniRxが使える状態になりました。
+これでVContainerが使える状態になりました。
 
 ### VContainer
 
