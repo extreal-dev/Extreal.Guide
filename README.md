@@ -43,7 +43,7 @@ Tell also the concepts necessary to understand the specifications.
 ## Architecture
 
 Tell the structure of this feature using a class diagram.
-In case there is interaction between classes, use a sequence diagram to tell the flow of the process.
+In case there is interaction between classes, use sequence diagrams to tell the flow of the process.
 Sequence diagrams are not required.
 
 ## Installation
