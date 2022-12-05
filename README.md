@@ -20,7 +20,7 @@ Most changes will take effect immediately, without restarting the server.
 
 ## Diagram
 
-- The class diagram is created by [Mermaid](http://mermaid-js.github.io/mermaid/).
+- The class diagram is created with [Mermaid](http://mermaid-js.github.io/mermaid/).
   - [mdx-mermaid](https://github.com/sjwall/mdx-mermaid) is introduced.
 - Diagrams not using Mermaid are created in PowerPoint.
   - Path: `/work/work.pptx`
