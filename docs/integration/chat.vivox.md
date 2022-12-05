@@ -213,7 +213,7 @@ var vivoxChannelConfig = new VivoxChannelConfig("GuestChannel", ChatType.AudioOn
 vivoxClient.DisconnectAllChannels();
 ```
 
-グループチャット機能を提供している場合など、特定のチャンネルから退室する場合はVivoxClientのDisconnectChannelを使います。
+グループチャット機能を提供している場合など、特定のチャンネルから退室する場合はVivoxClientのDisconnectを使います。
 
 ```csharp
 vivoxClient.Disconnect(channelId);
