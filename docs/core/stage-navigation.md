@@ -35,6 +35,7 @@ classDiagram
     IStageConfig o-- SceneName : CommonStages
     Stage --> StageName : StageName
     Stage o-- SceneName : SceneNames
+    IDisposable　<|.. StageNavigator
 
     class StageName {
         <<enumeration>>
@@ -70,6 +71,10 @@ classDiagram
     class Stage {
         +StageName Enum
         +SceneNames List
+    }
+
+    class IDisposable {
+        <<system>>
     }
 ```
 
