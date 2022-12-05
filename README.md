@@ -63,7 +63,7 @@ Tell how to set up this feature.
 ## Usage
 
 Provide headings that correspond to the specifications and tell how to use this feature.
-Add the heading "XXX to do" to indicate the usage scenario and make it easy to find from the table of contents.
+Add the heading "Do XXX" indicating the usage scenario to make it easier to find from the table of contents.
 ```
 
 ## How to Contribute
