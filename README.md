@@ -1,6 +1,6 @@
 # Extreal.Guide
 
-This guide was created by [Docusaurus 2](https://docusaurus.io/).
+This guide is created with [Docusaurus 2](https://docusaurus.io/).
 
 
 ## Installation
