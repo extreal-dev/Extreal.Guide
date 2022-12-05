@@ -166,7 +166,7 @@ public class ChatControlScope : LifetimeScope
 
 ## Usage
 
-## Vivoxの機能を使用する
+### Vivoxの機能を使用する
 
 Vivoxの機能はVivoxClientが提供します。
 VivoxClientが提供していない機能はVivoxClientからVivoxが提供するClientやILoginSessionを取得して実装してください。
@@ -233,7 +233,7 @@ vivoxClient.OnTextMessageReceived
     .AddTo(disposables);
 ```
 
-## Vivoxのクライアント状態をトリガーに処理を追加する
+### Vivoxのクライアント状態をトリガーに処理を追加する
 
 VivoxClientは次のイベント通知を設けています。
 
