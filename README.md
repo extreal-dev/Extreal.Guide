@@ -58,7 +58,7 @@ Tell what other dependent packages need to prepared.
 
 ### Settings
 
-Tell them how to set up this feature.
+Tell how to set up this feature.
 
 ## Usage
 
