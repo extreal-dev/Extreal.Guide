@@ -69,9 +69,9 @@ classDiagram
         +SendTextMessage(message, channelId, language, applicationStanzaNamespace, applicationStanzaBody) void
         +SetTransmissionMode(transmissionMode, channelId) void
         +RefreshAudioDevicesAsync() void
-        +GetAudioInputDevicesAsync() IAudioInputDevices
+        +GetAudioInputDevicesAsync() IAudioDevices
         +SetAudioInputDeviceAsync(device) void
-        +GetAudioOutputDevicesAsync() IAudioOutputDevices
+        +GetAudioOutputDevicesAsync() IAudioDevices
         +SetAudioOutputDeviceAsync(device) void
     }
 
