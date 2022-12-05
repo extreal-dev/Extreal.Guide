@@ -54,7 +54,7 @@ Tell which Unity package this feature depends on.
 
 ### Dependencies
 
-Tell what other dependent packages need to prepared.
+Tell what other dependent packages need to be prepared.
 
 ### Settings
 
