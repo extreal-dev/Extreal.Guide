@@ -38,7 +38,7 @@ Tell what this feature is being provided for.
 ## Specification
 
 Tell the specifications of this feature.
-Tell also the concepts necessary to understand the specification.
+Tell also the concepts necessary to understand the specifications.
 
 ## Architecture
 
