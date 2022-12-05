@@ -26,9 +26,9 @@ Most changes will take effect immediately, without restarting the server.
   - Path: `/work/work.pptx`
   - Screen captures are also included.
 
-## Functional Page Template
+## Feature Page Template
 
-Use the 'Functional Page Template' below for the functional pages.
+Use the 'Feature Page Template' below for the feature pages.
 
 ```
 ## What for?
