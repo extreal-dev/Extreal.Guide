@@ -73,12 +73,12 @@ classDiagram
 
     class ELogger {
         +IsXxx() bool
-        +LogXxx(message, exception = null) void
+        +LogXxx(message, exception) void
     }
 
     class LoggingManager {
         +GetLogger(logCategory)$ ELogger
-        +Initialize(logLevel = LogLevel.Info, checker = null, writer = null)$ void
+        +Initialize(logLevel, checker, writer)$ void
     }
 
     class ILogOutputChecker {
@@ -89,7 +89,7 @@ classDiagram
 
     class ILogWriter {
         <<interface>>
-        +Log(logLevel, logCategory, message, exception = null) void
+        +Log(logLevel, logCategory, message, exception) void
     }
 
     class LogLevelLogOutputChecker {

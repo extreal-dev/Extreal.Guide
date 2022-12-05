@@ -94,14 +94,14 @@ classDiagram
         +StopServerAsync() void
         +SetConnectionApprovalCallback(connectionApprovalCallback) void
         +RemoveClient(clientId) bool
-        +SendMessageToClients(clientIds, messageName, messageStream, networkDelivery = NetworkDelivery.Reliable) void
-        +SendMessageToAllClients(messageName, messageStream, networkDelivery = NetworkDelivery.Reliable) void
+        +SendMessageToClients(clientIds, messageName, messageStream, networkDelivery) void
+        +SendMessageToAllClients(messageName, messageStream, networkDelivery) void
         +RegisterMessageHandler(messageName, messageHandler) void
         +UnregisterMessageHandler(messageName) void
         +SetVisibilityDelegate(visibilityDelegate) void
-        +SpawnWithServerOwnership(prefab, position, rotation, parent, worldPositionStays = true) GameObject
-        +SpawnWithClientOwnership(ownerClientId, prefab, position, rotation, parent, worldPositionStays = true) GameObject
-        +SpawnAsPlayerObject(ownerClientId, prefab, position, rotation, parent, worldPositionStays = true) GameObject
+        +SpawnWithServerOwnership(prefab, position, rotation, parent, worldPositionStays) GameObject
+        +SpawnWithClientOwnership(ownerClientId, prefab, position, rotation, parent, worldPositionStays) GameObject
+        +SpawnAsPlayerObject(ownerClientId, prefab, position, rotation, parent, worldPositionStays) GameObject
     }
 
     class NgoClient {
@@ -113,7 +113,7 @@ classDiagram
         +AddConnectionSetter(connectionSetter) void
         +ConnectAsync(ngoConfig, cancellationToken) bool
         +DisconnectAsync() void
-        +SendMessage(messageName, messageStream, networkDelivery = NetworkDelivery.Reliable) void
+        +SendMessage(messageName, messageStream, networkDelivery) void
         +RegisterMessageHandler(messageName, messageHandler) void
         +UnregisterMessageHandler(messageName) void
     }
@@ -123,7 +123,7 @@ classDiagram
         +Port ushort
         +ConnectionData byte[]
         +Timeout TimeSpan
-        +NgoConfig(address = "127.0.0.1", port = 7777, connectionData, timeout = 10)
+        +NgoConfig(address, port, connectionData, timeout)
     }
 
     class IConnectionSetter {
