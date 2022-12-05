@@ -45,6 +45,7 @@ classDiagram
     VivoxClient ..> VivoxChannelConfig
     VivoxChannelConfig --> ChatType
     ScriptableObject <|-- VivoxAppConfig
+    IDisposable <|.. VivoxClient
 
     class VivoxClient {
         +Client Client
@@ -59,7 +60,6 @@ classDiagram
         +OnTextMessageReceived IObservable
         +OnAudioEnergyChanged IObservable
         +VivoxClient(appConfig)
-        +Dispose() void
         +Login(authConfig) void
         +Logout() void
         +Connect(channelConfig) void
@@ -108,6 +108,10 @@ classDiagram
 
     class ScriptableObject {
         <<unity>>
+    }
+
+    class IDisposable {
+        <<system>>
     }
 ```
 

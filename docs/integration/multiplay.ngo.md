@@ -69,6 +69,8 @@ classDiagram
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
     IConnectionSetter <|.. UnetTransportConnectionSetter
+    IDisposable <|.. NgoServer
+    IDisposable <|.. NgoClient
 
     class NetworkManager {
         <<NGO>>
@@ -82,7 +84,6 @@ classDiagram
         +OnClientRemoving IObservable
         +ConnectedClients IReadOnlyDictionary
         +NgoServer(networkManager)
-        +Dispose() void
         +StartServerAsync(cancellationToken) void
         +StopServerAsync() void
         +SetConnectionApprovalCallback(connectionApprovalCallback) void
@@ -103,7 +104,6 @@ classDiagram
         +OnUnexpectedDisconnected IObservable
         +OnConnectionApprovalRejected IObservable
         +NgoClient(networkManager)
-        +Dispose() void
         +AddConnectionSetter(connectionSetter) void
         +ConnectAsync(ngoConfig, cancellationToken) bool
         +DisconnectAsync() void
@@ -130,6 +130,10 @@ classDiagram
     }
 
     class UnetTransportConnectionSetter {
+    }
+
+    class IDisposable {
+        <<system>>
     }
 ```
 
