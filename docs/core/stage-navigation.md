@@ -27,18 +27,15 @@ Stage Navigationの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    Applicaiton ..> StageNavigator
     StageNavigator ..> IStageConfig
     IStageConfig <|.. StageConfigBase
     StageConfigBase <|-- StageConfig
     ScriptableObject <|-- StageConfigBase
-    IStageConfig *-- Stage
-    IStageConfig o-- SceneName
-    Stage --> StageName
-    Stage o-- SceneName
-
-    class Applicaiton {
-    }
+    IStageConfig *-- Stage : Stages
+    IStageConfig o-- SceneName : CommonStages
+    Stage --> StageName : StageName
+    Stage o-- SceneName : SceneNames
+    IDisposable　<|.. StageNavigator
 
     class StageName {
         <<enumeration>>
@@ -54,8 +51,8 @@ classDiagram
     class StageNavigator {
         +OnStageTransitioning IObservable
         +OnStageTransitioned IObservable
-        +StageNavigator(config)
-        +ReplaceAsync(stage) void
+        +StageNavigator(stageConfig)
+        +ReplaceAsync(stageName) void
     }
 
     class IStageConfig {
@@ -72,6 +69,12 @@ classDiagram
     }
 
     class Stage {
+        +StageName Enum
+        +SceneNames List
+    }
+
+    class IDisposable {
+        <<system>>
     }
 ```
 
@@ -81,14 +84,6 @@ classDiagram
 - SceneName：シーン名を表すEnum
 - StageConfig：ステージ設定を保持するクラス
 :::
-
-アプリケーションでステージ遷移する場合のシーケンスは次の通りです。
-
-```mermaid
-sequenceDiagram
-    actor Application
-    Application->>StageNavigator: ReplaceAsync(stage)
-```
 
 ## Installation
 
@@ -104,6 +99,7 @@ Stage Navigationは次のパッケージを使います。
 
 - [Extreal.Core.Logging](/core/logging)
 - [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
 
 モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
 
@@ -151,9 +147,15 @@ public enum SceneName
 }
 ```
 
-C#の仕様でEnumは定義した順に上から自動で値が振られます。
-Enumが変更された際に値が変わらないようにステージ名とシーン名のEnumは定数値を指定してください。
+ステージ設定のような定数値は編集しやすいようにUnityエディタのインスペクタで指定できるようにします。
+インスペクタでEnumを使う場合は次の問題があるため、ステージ名とシーン名のEnumは定数値を指定してください。
+
+:::caution
+C#の仕様でEnumは定義した順に上から自動で定数値が振られます。
+UnityエディタのインスペクタでEnumを指定すると定数値で状態が保存されるため、Enumの変更で定義順が変わると意図せずインスペクタの設定値も変わってしまいます。
+この問題に対応するため、インスペクタで使うEnumには定数値を指定します。
 定数値は識別以外に意味はないので各Enumで重複しなければどんな数でも大丈夫です。
+:::
 
 IStageConfigインタフェースがステージ設定を保持します。
 ステージ設定をUnityエディタのインスペクタで編集できるようにScriptableObjectを継承したBaseクラスを提供しています。

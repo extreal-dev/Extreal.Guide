@@ -24,8 +24,21 @@ NGOを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照�
 :::
 
 :::info
-現段階のNGOラッパーはNGOと機能的な差が小さいです。
-ネットワーク切断時の再接続処理など、今後マルチプレイのアプリケーションに共通で必要になる機能を追加していく予定です。
+よくあるマルチプレイのアプリケーション要件に対するNGOラッパーの実装例は[サンプルアプリケーション](/category/sample-application)で提供します。
+
+現時点では次の要件を提供済みです。
+
+- ユーザーが選んだアバターでプレイできる
+- 空間の最大人数を超えた場合は入室できないようにする
+
+今後、次の要件を追加していく予定です。
+
+- 予期しないネットワーク切断時に再接続する
+- 空間の最大人数を超えた場合は待機人数まで待機できるようにする
+  - 待機中のユーザーは非表示、他のユーザーのマルチプレイは見える
+  - 他のユーザーが退室して順番が回ってくるとマルチプレイに参加できる
+- オフラインでもオンライン時と同じようにアバターをプレイできる
+- アバターに物を持たせることができる
 :::
 
 ## Specification
@@ -36,7 +49,13 @@ NGOラッパーの仕様は次の通りです。
 - NGOのサーバー状態をトリガーに処理を追加できます。
 - NGOのクライアント向けの機能を使用できます。
 - NGOのクライアント状態をトリガーに処理を追加できます。
-- NetworkTransportを変更できます。
+- NGOが提供するデフォルト以外のNetworkTransportにも対応できます。
+
+:::info
+NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
+NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
+対応方法は[NGOが提供するデフォルト以外のNetworkTransportに対応する](/integration/multiplay.ngo#int-ngo-nt)を参照してください。
+:::
 
 :::info
 安定したパフォーマンスやセキュリティを担保しやすいため、NGOラッパーはNGOのアーキテクチャとして専用サーバーの使用を前提としています。
@@ -50,21 +69,14 @@ NGOのアーキテクチャについては[Network Topologies](https://docs-mult
 ```mermaid
 classDiagram
 
-    NgoServer <.. ServerApplication
-    NgoClient <.. ClientApplication
-    NgoConfig <.. ClientApplication
     NetworkManager <.. NgoServer
     NetworkManager <.. NgoClient
     NgoClient ..> NgoConfig
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
     IConnectionSetter <|.. UnetTransportConnectionSetter
-
-    class ServerApplication {
-    }
-
-    class ClientApplication {
-    }
+    IDisposable <|.. NgoServer
+    IDisposable <|.. NgoClient
 
     class NetworkManager {
         <<NGO>>
@@ -78,7 +90,6 @@ classDiagram
         +OnClientRemoving IObservable
         +ConnectedClients IReadOnlyDictionary
         +NgoServer(networkManager)
-        +Dispose() void
         +StartServerAsync(cancellationToken) void
         +StopServerAsync() void
         +SetConnectionApprovalCallback(connectionApprovalCallback) void
@@ -97,9 +108,8 @@ classDiagram
         +OnConnected IObservable
         +OnDisconnecting IObservable
         +OnUnexpectedDisconnected IObservable
-        +OnApprovalRejected IObservable
+        +OnConnectionApprovalRejected IObservable
         +NgoClient(networkManager)
-        +Dispose() void
         +AddConnectionSetter(connectionSetter) void
         +ConnectAsync(ngoConfig, cancellationToken) bool
         +DisconnectAsync() void
@@ -112,8 +122,8 @@ classDiagram
         +Address string
         +Port ushort
         +ConnectionData byte[]
-        +TimeoutSeconds byte
-        +NgoConfig(address, port, connectionData, timeoutSeconds)
+        +Timeout TimeSpan
+        +NgoConfig(address, port, connectionData, timeout)
     }
 
     class IConnectionSetter {
@@ -126,6 +136,10 @@ classDiagram
     }
 
     class UnetTransportConnectionSetter {
+    }
+
+    class IDisposable {
+        <<system>>
     }
 ```
 
@@ -184,6 +198,11 @@ public class MultiplayControlScope : LifetimeScope
 
 :::tip
 NetworkManagerはサーバーとクライアントで同じ設定の必要があるため、Prefabにしてサーバーとクライアントで同じものを使うようにします。
+:::
+
+:::info
+NGOが提供していない新たなトランスポートを使う場合は[NGOが提供するデフォルト以外のNetworkTransportを使用する](/integration/multiplay.ngo#int-ngo-nt)を参照して対応してください。
+NGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）を使用する場合は何も作業が必要ありません。
 :::
 
 ## Usage
@@ -331,7 +350,7 @@ NgoClientは次のイベント通知を設けています。
   - タイミング：予期していないサーバー切断が発生した直後
   - タイプ：IObservable
   - パラメータ：なし
-- OnApprovalRejected
+- OnConnectionApprovalRejected
   - タイミング：接続承認が拒否された直後
   - タイプ：IObservable
   - パラメータ：なし
@@ -346,10 +365,11 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-## NetworkTransportを変更する
+### NGOが提供するデフォルト以外のNetworkTransportに対応する {#int-ngo-nt}
 
 NGOは通信に使用するトランスポートを変更できます。
-NGOラッパーはNGOがサポートしている2つのトランスポート（Unity Transport、 UNet Transport）に対応していますが、新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
+NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
+NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
 
 各トランスポートの実装において接続情報を保持する部分は共通化されていないため、差異を吸収する必要があります。
 各トランスポートの実装差異を埋めるためにIConnectionSetterを設けています。

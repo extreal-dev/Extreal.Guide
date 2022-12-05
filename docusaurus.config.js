@@ -127,8 +127,17 @@ const config = {
         }
       },
     }),
+
     plugins: [
       require.resolve("docusaurus-plugin-image-zoom")
+    ],
+ 
+    scripts: [
+      {
+        src: 'https://plausible.io/js/script.js',
+        defer: true,
+        'data-domain': 'extreal-dev.github.io'
+      }
     ],
 };
 

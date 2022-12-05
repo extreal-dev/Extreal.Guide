@@ -1,69 +1,74 @@
 # Extreal.Guide
 
-このガイドは[Docusaurus 2](https://docusaurus.io/)で作成しています。
+This guide is created with [Docusaurus 2](https://docusaurus.io/).
 
-### インストール
+
+## Installation
 
 ```
 $ yarn
 ```
 
-### ローカル開発
+## Local Development
 
 ```
 $ yarn start
 ```
 
-このコマンドはローカルの開発サーバーを起動しブラウザウィンドウを開きます。
-サーバーを再起動することなく、ほとんどの変更はすぐに反映されます。
+This command starts the local development server and opens a browser window.
+Most changes will take effect immediately, without restarting the server.
 
-### メンテナーへ
+## Diagram
 
-- ファビコン、ロゴのファイルは[favicon.io](https://favicon.io/)で作成しています。
-- クラス図は[Mermaid](http://mermaid-js.github.io/mermaid/)で作成しています。
-  - [mdx-mermaid](https://github.com/sjwall/mdx-mermaid)を導入しています。
-- 機能ページは下記の「機能ページのテンプレート」を使ってください。
+- The class diagram is created with [Mermaid](http://mermaid-js.github.io/mermaid/).
+  - [mdx-mermaid](https://github.com/sjwall/mdx-mermaid) is introduced.
+- Diagrams not using Mermaid are created in PowerPoint.
+  - Path: `/work/work.pptx`
+  - Screen captures are also included.
 
-#### 機能ページのテンプレート
+## Feature Page Template
+
+Use the 'Feature Page Template' below for the feature pages.
 
 ```
 ## What for?
 
-何のために提供した機能なのかを伝えます。
+Tell what this feature is being provided for.
 
-##Specification
+## Specification
 
-スペックを伝えます。
-スペックの理解に必要な概念なども伝えます。
+Tell the specifications of this feature.
+Tell also the concepts necessary to understand the specifications.
 
 ## Architecture
 
-クラス図とシーケンス図で全体の構造と主要な処理フローを伝えます。
-Applicationを含めアプリケーションとの接点も伝えます。
+Tell the structure of this feature using a class diagram.
+In case there is interaction between classes, use sequence diagrams to tell the flow of the process.
+Sequence diagrams are not required.
 
 ## Installation
 
 ### Package
 
-この機能のGit URLを伝えます。
+Tell which Unity package this feature depends on.
 
 ### Dependencies
 
-他に用意する必要がある依存パッケージを伝えます。
+Tell what other dependent packages need to be prepared.
 
 ### Settings
 
-設定方法を伝えます。
+Tell how to set up this feature.
 
 ## Usage
 
-スペックを網羅するように使い方を伝えます。
-利用シーンを表す「XXXする」という見出しを付けて目次から探しやすくします。
+Provide headings that correspond to the specifications and tell how to use this feature.
+Add the heading "Do XXX" indicating the usage scenario to make it easier to find from the table of contents.
 ```
 
-### コントリビュータへ
+## How to Contribute
 
-- mainブランチはリリースしたもの、developブランチが開発の最新です。
-- developブランチの最新からブランチを作成してPRを出してください。
-- PRテンプレートを設定しているので中身を埋めてPRの状況を私たちに伝えてください。
-- 作業が完了したら私たちにレビュー依頼してください。
+- The main branch is the latest release, and the develop branch is the latest development.
+- Create a branch from the latest development branch and submit a Pull Request.
+- As we have set up a Pull Request template, fill it out and let us know the status of your Pull Request.
+- When you have completed your work, request a review from us.

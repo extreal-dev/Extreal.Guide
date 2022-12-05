@@ -8,7 +8,7 @@ sidebar_position: 1
 
 Vivoxをラップしているこの機能をVivoxラッパーと呼ぶことにします。
 
-VivoxのAPIは概念毎に細かくインタフェースが分かれているので、ログイン/ログアウトやチャンネルへの接続/切断といった実装はどのようなアプリケーションでも同じような実装になります。
+VivoxのAPIを使ったログイン/ログアウトやチャンネルへの接続/切断といった実装はどのようなアプリケーションでも同じような実装になります。
 VivoxラッパーはそのようなVivoxを使う場合に共通する実装を機能として提供します。
 
 あなたのアプリケーションでVivoxラッパーを使うことでVivoxの導入がスムーズになることを目指しています。
@@ -32,7 +32,7 @@ Vivoxは元々存在していた[Vivox Developer Portal](https://developer.vivox
 
 Vivoxラッパーの仕様は次の通りです。
 
-- Vivoxのクライアント向けの機能を使用できます。
+- Vivoxの機能を使用できます。
 - Vivoxのクライアント状態をトリガーに処理を追加できます。
 
 ## Architecture
@@ -40,15 +40,12 @@ Vivoxラッパーの仕様は次の通りです。
 ```mermaid
 classDiagram
 
-    Application ..> VivoxClient
     VivoxClient --> VivoxAppConfig
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
     VivoxChannelConfig --> ChatType
     ScriptableObject <|-- VivoxAppConfig
-
-    class Application {
-    }
+    IDisposable <|.. VivoxClient
 
     class VivoxClient {
         +Client Client
@@ -63,28 +60,25 @@ classDiagram
         +OnTextMessageReceived IObservable
         +OnAudioEnergyChanged IObservable
         +VivoxClient(appConfig)
-        +Dispose() void
-        +LoginAsync(authConfig) bool
+        +Login(authConfig) void
         +Logout() void
-        +Connect(channelConfig) bool
+        +Connect(channelConfig) void
         +Disconnect(channelId) void
         +DisconnectAllChannels() void
         +SendTextMessage(message, channelIds, language, applicationStanzaNamespace, applicationStanzaBody) void
-        +SendTextMessage(message, channelId, language, applicationStanzaNamespace, applicationStanzaBody) bool
+        +SendTextMessage(message, channelId, language, applicationStanzaNamespace, applicationStanzaBody) void
         +SetTransmissionMode(transmissionMode, channelId) void
-        +RefreshAudioDevicesAsync() void
-        +GetAudioInputDevicesAsync() IAudioInputDevices
+        +GetAudioInputDevicesAsync() IAudioDevices
         +SetAudioInputDeviceAsync(device) void
-        +GetAudioOutputDevicesAsync() IAudioOutputDevices
+        +GetAudioOutputDevicesAsync() IAudioDevices
         +SetAudioOutputDeviceAsync(device) void
-        +Update3DPosition(speakerPosition, listenerPosition, listenerForwardDirection, listenerUpDirection) void
     }
 
     class VivoxAppConfig {
         +ApiEndPoint string
         +Domain string
         +Issuer string
-        +TokenKey string
+        +SecretKey string
     }
 
     class VivoxAuthConfig {
@@ -105,7 +99,7 @@ classDiagram
         +ChannelName string
         +ChatType ChatType
         +ChannelType ChannelType
-        +Channel3DProperties Properties
+        +Properties Channel3DProperties
         +TransmissionSwitch bool
         +TokenExpirationDuration TimeSpan
         VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch,tokenExpirationDuration)
@@ -113,6 +107,10 @@ classDiagram
 
     class ScriptableObject {
         <<unity>>
+    }
+
+    class IDisposable {
+        <<system>>
     }
 ```
 
@@ -168,9 +166,9 @@ public class ChatControlScope : LifetimeScope
 
 ## Usage
 
-## Vivoxのクライアント向けの機能を使用する
+### Vivoxの機能を使用する
 
-Vivoxのクライアント向けの機能はVivoxClientが提供します。
+Vivoxの機能はVivoxClientが提供します。
 VivoxClientが提供していない機能はVivoxClientからVivoxが提供するClientやILoginSessionを取得して実装してください。
 
 ```csharp
@@ -209,10 +207,16 @@ VivoxChannelConfigはデフォルトでボイスチャットとテキストチ�
 var vivoxChannelConfig = new VivoxChannelConfig("GuestChannel", ChatType.AudioOnly);
 ```
 
-チャンネルからの退室はVivoxClientのDisconnectAllChannelsを使います。
+空間内でのみボイスチャットやテキストチャットをできるようにする場合など、空間からの退室時点で全てのチャンネルから退室する場合はVivoxClientのDisconnectAllChannelsを使います。
 
 ```csharp
 vivoxClient.DisconnectAllChannels();
+```
+
+グループチャット機能を提供している場合など、特定のチャンネルから退室する場合はVivoxClientのDisconnectを使います。
+
+```csharp
+vivoxClient.Disconnect(channelId);
 ```
 
 テキストチャットのメッセージ送信はVivoxClientのSendTextMessageを使います。
@@ -229,7 +233,7 @@ vivoxClient.OnTextMessageReceived
     .AddTo(disposables);
 ```
 
-## Vivoxのクライアント状態をトリガーに処理を追加できます。
+### Vivoxのクライアント状態をトリガーに処理を追加する
 
 VivoxClientは次のイベント通知を設けています。
 

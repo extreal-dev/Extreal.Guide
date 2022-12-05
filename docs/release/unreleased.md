@@ -59,6 +59,6 @@ sidebar_position: 1
 
 初回リリース前のため対象外です。
 
-## Upgrade guid
+## Upgrade guide
 
 初回リリース前のため対象外です。
