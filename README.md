@@ -33,7 +33,7 @@ Use the 'Functional Page Template' below for the functional pages.
 ```
 ## What for?
 
-Tell them what this feature is being provided for.
+Tell what this feature is being provided for.
 
 ## Specification
 
