@@ -49,7 +49,13 @@ NGOラッパーの仕様は次の通りです。
 - NGOのサーバー状態をトリガーに処理を追加できます。
 - NGOのクライアント向けの機能を使用できます。
 - NGOのクライアント状態をトリガーに処理を追加できます。
-- NGOが提供するデフォルト以外のNetworkTransportを使用できます。
+- NGOが提供するデフォルト以外のNetworkTransportに対応できます。
+
+:::info
+NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
+NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
+対応方法は[NGOが提供するデフォルト以外のNetworkTransportに対応する](/integration/multiplay.ngo#int-ngo-nt)を参照してください。
+:::
 
 :::info
 安定したパフォーマンスやセキュリティを担保しやすいため、NGOラッパーはNGOのアーキテクチャとして専用サーバーの使用を前提としています。
@@ -359,10 +365,10 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### NGOが提供するデフォルト以外のNetworkTransportを使用する {#int-ngo-nt}
+### NGOが提供するデフォルト以外のNetworkTransportに対応する {#int-ngo-nt}
 
 NGOは通信に使用するトランスポートを変更できます。
-NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は何も作業が必要ありません。
+NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
 NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
 
 各トランスポートの実装において接続情報を保持する部分は共通化されていないため、差異を吸収する必要があります。
