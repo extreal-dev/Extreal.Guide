@@ -70,5 +70,5 @@ Add the heading "Do XXX" indicating the usage scenario to make it easier to find
 
 - The main branch is the latest release, and the develop branch is the latest development.
 - Create a branch from the latest development branch and submit a Pull Request.
-- We have set up a pull request template so that you can fill it in and let us know the status of your pull request.
+- As we have set up a Pull Request template, fill it out and let us know the status of your Pull Request.
 - When you have completed your work, request a review from us.
