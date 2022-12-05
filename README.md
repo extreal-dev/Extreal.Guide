@@ -50,7 +50,7 @@ Sequence diagrams are not required.
 
 ### Package
 
-Tell them which Unity package this feature depends on.
+Tell which Unity package this feature depends on.
 
 ### Dependencies
 
