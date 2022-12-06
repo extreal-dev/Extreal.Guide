@@ -12,6 +12,11 @@ sidebar_position: 3
 
 ![system structure](/img/holiday-sys-structure.png)
 
+:::info
+サンプルアプリケーションのため実際に各ストアやAWS S3に配置していません。
+今後、各ストアの審査対応などノウハウを公開していく予定です。
+:::
+
 ## Application Structure
 
 HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](/intro#application)を採用します。
@@ -19,11 +24,8 @@ Holidayのステージとシーンは次の通りです。
 
 ![application structure](/img/holiday-app-structure.png)
 
-AppシーンとModelsシーンは個別の機能提供でなく、特別なシーンなのでここで説明します。
+Appシーンは個別の機能提供でなく、特別なシーンなのでここで説明します。
 
 Appシーンがアプリケーションのエントリーポイントになります。
-Appシーンではアプリケーションの初期化処理やステージ構成など、アプリケーション全体に関わる処理を行います。
+Appシーンではアプリケーションの初期化処理、ステージ構成やアプリケーション状態の提供など、アプリケーション全体に関わる処理を行います。
 
-ModelsシーンはMV(R)PパターンのModelを集めたシーンです。
-Modelは複数シーンのPresenterから使用する可能性があるので、個別機能のシーンではなくModelsシーンに集めて全てのシーンから使用できるようにしています。
-例えば、PlayerというModelをModelsシーンに配置しておき、AvatarSelectionScreenシーンで名前とアバターをPlayerに設定し、PlayerControlシーンでプレイヤーをスポーンするためにPlayerを使っています。
