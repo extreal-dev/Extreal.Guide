@@ -252,7 +252,6 @@ private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader me
     var result = Addressables.LoadAssetAsync<GameObject>(avatarAssetName);
     var playerPrefab = await result.Task;
     ngoServer.SpawnAsPlayerObject(clientId, playerPrefab);
-    SendPlayerSpawned(clientId);
 }
 ```
 
