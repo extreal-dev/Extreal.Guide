@@ -244,7 +244,12 @@ ngoServer.OnServerStopping.Subscribe(_ =>
 ```csharp
 private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader messageStream)
 {
-    var result = Addressables.LoadAssetAsync<GameObject>("PlayerPrefab");
+    if (Logger.IsDebug())
+    {
+        Logger.LogDebug($"{MessageName.PlayerSpawn}: {clientId}");
+    }
+    messageStream.ReadValueSafe(out string avatarAssetName);
+    var result = Addressables.LoadAssetAsync<GameObject>(avatarAssetName);
     var playerPrefab = await result.Task;
     ngoServer.SpawnAsPlayerObject(clientId, playerPrefab);
 }

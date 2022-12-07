@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # Development Guide
@@ -18,7 +18,11 @@ sidebar_position: 5
   - Google Fonts
     - [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)から作成したUnityのフォントアセット
   - Holiday
-    - Holidayアプリケーションで作成するアセット
+    - Holidayのアプリケーションで作成するアセット
+  - Holiday.MultiplayCommon
+    - Holidayのアプリケーションとマルチプレイサーバーに共通するアセット
+  - Holiday.MultiplayServer
+    - Holidayのマルチプレイサーバーで作成するアセット
   - Mixamo
     - [Mixamo](https://www.mixamo.com/)から作成したUnityのキャラクタモデル
   - StarterAssets
@@ -30,28 +34,33 @@ sidebar_position: 5
 - Packages
   - アプリケーション開発で使用するUnityパッケージ
 
-自分達で作成したアセットの格納場所としてAssets/Holidayディレクトリを設けています。
-サードパーティを元に作成したアセットと自分達で作成したアセットの見分けを付きやすくするためです。
-Assets/Holiday以外のディレクトリはサードパーティやUnityの機能利用時に作成された設定になります。
-アプリケーション用にAssets/Holidayディレクトリを設けたのでそれ以外のディレクトリは作成された状態、またはサードバーティと分かる名前を付けて配置しています。
+自分達で作成したアセットの格納場所としてHolidayという名前を付けた3つのディレクトリを設けています。
+サードパーティを元に作成したアセットと自分達で作成したアセットを見分けやすくするためです。
+Holiday以外のディレクトリはサードパーティやUnityの機能利用時に作成された設定になります。
+アプリケーション用のディレクトリを設けたのでそれ以外のディレクトリは作成された状態、またはサードバーティと分かる名前を付けて配置しています。
 
 #### Holiday
 
 - App
   - アプリケーションのエントリーポイント
-  - アプリケーションの初期化処理、ステージ構成
-  - 全シーンから使えるようにアプリケーション全体の設定や共通処理を集約
+  - アプリケーションの初期化処理、ステージ構成とアプリケーション状態を提供
+  - 全シーンから使えるようにアプリケーション全体の設定/状態や共通処理を集約
 - Controls
   - XxxControl
     - Controlシーン。シーン毎のアセットをまとめて配置
 - Models
   - MV(R)PパターンのModelを配置
   - 全シーンから使えるようにアプリケーションの全モデルを集約
-- Stages
-  - XxxScreenまたはXxxSpace
-    - Stageシーン。シーン毎のアセットをまとめて配置
+- Screens
+  - XxxScreen
+    - Screenシーン。シーン毎のアセットをまとめて配置
   - Common
-    - シーン間で共通するUIや処理
+    - Screenシーン間で共通するUIや処理
+- Spaces
+  - XxxSpace
+    - Spaceシーン。シーン毎のアセットをまとめて配置
+  - Common
+    - Spaceシーン間で共通するUIや処理
 
 Unityのアプリケーションではアセットの種類毎にディレクトリを分けることが多いですが、1つの機能を構成するアセットが散らばり探すのが大変なので、Holidayではシーン単位でディレクトリを分けてシーン毎のアセットをまとめて配置します。
 
@@ -107,37 +116,32 @@ Assets/Holiday/App/AppScope
 ステージやシーンの作成時に変更してください。
 
 ```
-# ステージ名を表すEnum（スクリプト）
 Assets/Holiday/App/StageName
-# シーン名を表すEnum（スクリプト）
+```
+
+```
 Assets/Holiday/App/SceneName
-# ステージ設定を保持するクラス（ScriptableObject）
+```
+
+```
 Assets/Holiday/App/StageConfig
 ```
 
-```csharp
-public enum StageName
-{
-    TitleStage = 100,
-    AvatarSelectionStage = 101,
-    VirtualStage = 200,
-}
-public enum SceneName
-{
-    Models = 0,
+### Application state
 
-    CameraControl = 100,
-    LightControl = 103,
-    InputControl = 101,
-    PlayerControl = 102,
+アプリケーション状態を保持するクラスを設けています。
+プレイヤーの名前や選択したアバター、シーンをまたがる情報を保持するのに使います。
 
-    BackgroundScreen = 204,
-    LoadingScreen = 203,
-    TitleScreen = 200,
-    AvatarSelectionScreen = 201,
+```
+Assets/Holiday/App/AppState
+```
 
-    VirtualSpace = 300,
-}
+### Utility class
+
+アプリケーション全体に共通する処理はユーティリティクラスとして提供しています。
+
+```
+Assets/Holiday/App/AppUtils
 ```
 
 ## Objects
@@ -149,31 +153,48 @@ public enum SceneName
 DIについては[What is DI ?](https://vcontainer.hadashikick.jp/about/what-is-di)を参照してください。
 
 DIにはいくつかやり方があります。
-VContainerが推奨するDIコンテナに依存せずオブジェクトを設定できる方法を採用します。
+VContainerが推奨する方法を採用します。
 
-- C# Type: [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
-- MonoBehaviour: [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
+- C# Type
+  - [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
+- MonoBehaviour
+  - [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
 
 VContainerの推奨理由については[Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)のRECOMMENDATIONを参照してください。
+
+VContainerへのの登録は次のRegisterを使います。
+
+```csharp title="C# Type"
+builder.Register<AppState>(Lifetime.Singleton);
+```
+
+```csharp title="MonoBehaviour"
+builder.RegisterComponent(networkManager);
+```
+
+MonoBehaviourのようなインスタンスの登録はRegisterInstanceとRegisterComponentを使えますがRegisterComponentを使ってください。
+RegisterInstanceは引数のオブジェクトに対してDIが行われないため、DIを使いたいオブジェクトを誤って指定した際に問題解決まで時間を要する可能性があります。
+
+```csharp title="Entry point"
+builder.RegisterEntryPoint<AppPresenter>();
+```
 
 ### Scope
 
 [VContainer](https://vcontainer.hadashikick.jp/)ではLifetimeScopeを継承したクラスをアタッチしたオブジェクトをシーンに置き、これが1つのスコープ（1つのコンテナ）を表現します。
 スコープに親のスコープを指定することでオブジェクトの検索を親まで広げることができます。
-Holidayでは親のスコープ指定を使って、AppシーンやModelsシーンのオブジェクトを各シーンで使えるようにします。
+Holidayでは親のスコープ指定を使って、Appシーンのオブジェクトを各シーンで使えるようにします。
 Holidayのスコープ階層は下記になります。
 
 ```
 Appシーン
 ↑
-Modelsシーン
-↑
-各シーン（Controlシーン、Stageシーン）
+各シーン（Controlシーン、Screenシーン、Spaceシーン）
 ```
 
-各シーンのスコープの親にはModelsシーンのスコープを指定してください。
+各シーンのスコープの親にはAppシーンのスコープを指定してください。
 
-![オブジェクトスコープの親](/img/object-scope-parent.png)
+![オブジェクトスコープの親](/img/holiday-object-scope-parent.png)
 
 ## Assets
 
@@ -197,26 +218,90 @@ AvatarMichelle
 
 ## Scenes
 
+### Design policy
+
+シーンの設計方針を示します。
+各シーンはこの設計方針に合わせて作成してください。
+各シーンの作り方を統一することでメンテナンスしやすいアプリケーションを目指します。
+
+- シーンはMV(R)Pパターンで作成します。
+- アプリケーション全体で使用するモデルはAppシーンのスコープで管理します。
+  - StageNavigator、AppState、データアクセスのためのリポジトリ、NetworkManagerなど
+- シーンをまたがる情報のやりとりは[AppState](/sample-app/dev-guide#application-state)を使います。
+- 各シーンでしか使わないモデルは各シーンのスコープで管理します。
+  - MultiplayRoom、TextChatChannelなど
+- シーンのロード/アンロード時の処理はIInitializable/IDisposableで行います。
+  - PresenterでIInitializable/IDisposableを実装して行います。
+  - **IInitializable/IDisposableが呼ばれるタイミングはステージ遷移のタイミングではないことに注意してください。ステージ遷移で同じシーンが続く場合はシーンが再利用されIInitializable/IDisposableは呼ばれません。**
+- ステージ遷移時の処理はStageNavigatorの[イベント通知](/core/stage-navigation#core-sn-event)を使用します。
+  - PresenterでIInitializableを実装して行います。
+  - マルチプレイのルームやテキストチャットのチャンネルへの接続/切断など空間毎に処理を行いたい場合はステージ遷移時の処理として実装します。
+
+```csharp title="Processing on loading/unloading scenes"
+public class XxxxPresenter : IInitializable, IDisposable
+{
+    public void Initialize()
+    {
+        // processing on loading
+    }
+
+    public void Dispose()
+    {
+        // processing on unloading
+    }
+}
+```
+
+```csharp title="Processing on stage transitions"
+public class XxxxPresenter : IInitializable, IDisposable
+{
+    private readonly StageNavigator<StageName, SceneName> stageNavigator;
+
+    private readonly CompositeDisposable disposables = new CompositeDisposable();
+
+    public MultiplayPresenter(StageNavigator<StageName, SceneName> stageNavigator)
+    {
+        this.stageNavigator = stageNavigator;
+    }
+
+    public void Initialize()
+    {
+        stageNavigator.OnStageTransitioned
+            .Subscribe(/* processing on entering the stage */)
+            .AddTo(disposables);
+
+        stageNavigator.OnStageTransitioning
+            .Subscribe(/* processing on exiting the stage */)
+            .AddTo(disposables);
+    }
+
+    public void Dispose()
+    {
+        disposables.Dispose();
+        GC.SuppressFinalize(this);
+    }
+}
+```
+
 ### Basic structure
 
-各シーンはMV(R)Pパターンで作成します。
-各シーンでは次のアセットを作ります。
+各シーンでは次のアセット名でGameObjectを作ります。
 
 - Scope
   - VContainerのLifetimeScopeをアタッチする空のGameObject
 - View
   - Viewをアタッチする空のGameObject
 - (任意の名前)
-  - 画面のUIや空間の3Dオブジェクト等のGameObject
-  - Controlシーンの場合はカメラ等のGameObject
-  - Modelsシーンの場合はMonoBehaviourを継承したクラスをアタッチしたGameObject
+  - Screen/Spaceシーン
+    - 画面のUIや空間の3Dオブジェクト等のGameObject
+  - Controlシーン
+    - カメラ等のGameObject
 
 機能の実現に不要なものは作らなくても大丈夫です。
-ModelはModelsシーンに作成するため個別のシーンには作成しません。
 
 参考としてアバター選択画面シーンのオブジェクトやスクリプトを示します。
 
-![シーンのScopeとView](/img/scene-scope-view.png)
+![シーンのScopeとView](/img/holiday-scene-scope-view.png)
 
 アバター選択画面シーンはプレイヤーの名前入力とアバター選択、次の画面へ移動ができます。
 
@@ -243,46 +328,50 @@ public class AvatarSelectionScreenPresenter : IStartable
 {
     private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(AvatarSelectionScreenPresenter));
 
-    private readonly StageNavigator<StageName> stageNavigator;
+    private readonly StageNavigator<StageName, SceneName> stageNavigator;
 
     private readonly AvatarSelectionScreenView avatarSelectionScreenView;
 
-    private readonly Player player;
+    private readonly AppState appState;
 
-    public AvatarSelectionScreenPresenter(StageNavigator<StageName> stageNavigator,
-        AvatarSelectionScreenView avatarSelectionScreenView, Player player)
+    private readonly IAvatarRepository avatarRepository;
+
+    public AvatarSelectionScreenPresenter(
+        StageNavigator<StageName, SceneName> stageNavigator,
+        AvatarSelectionScreenView avatarSelectionScreenView,
+        AppState appState,
+        IAvatarRepository avatarRepository)
     {
         this.stageNavigator = stageNavigator;
         this.avatarSelectionScreenView = avatarSelectionScreenView;
-        this.player = player;
+        this.appState = appState;
+        this.avatarRepository = avatarRepository;
     }
 
     public void Start()
     {
         if (Logger.IsDebug())
         {
-            Logger.LogDebug($"player: name: {player.Name.Value} avatar: {player.Avatar.Value.Name}");
+            Logger.LogDebug($"player: name: {appState.PlayerName.Value} avatar: {appState.Avatar.Value.Name}");
         }
 
-        var avatars = player.Avatars.Select(avatar => avatar.Name).ToList();
+        var avatars = avatarRepository.Avatars.Select(avatar => avatar.Name).ToList();
         avatarSelectionScreenView.Initialize(avatars);
 
-        avatarSelectionScreenView.SetInitialValues(player.Name.Value, player.Avatar.Value.Name);
+        avatarSelectionScreenView.SetInitialValues(appState.PlayerName.Value, appState.Avatar.Value.Name);
 
-        avatarSelectionScreenView.OnNameChanged.Subscribe(player.SetName);
+        avatarSelectionScreenView.OnNameChanged.Subscribe(appState.SetPlayerName);
 
-        avatarSelectionScreenView.OnAvatarChanged.Subscribe(player.SetAvatar);
+        avatarSelectionScreenView.OnAvatarChanged.Subscribe(appState.SetAvatar);
 
-        avatarSelectionScreenView.OnGoButtonClicked.Subscribe(_ =>
-        {
-            stageNavigator.ReplaceAsync(StageName.VirtualSpace).Forget();
-        });
+        avatarSelectionScreenView.OnGoButtonClicked
+            .Subscribe(_ => stageNavigator.ReplaceAsync(StageName.VirtualStage).Forget());
     }
 }
 ```
 
 PresenterはViewやModelをインジェクトし、ViewとModelの処理のマッピングやステージ遷移を行います。
-スコープの親にModelsシーンのスコープを指定しているため、Appシーンで管理しているStageNavigatorやModelsシーンで管理しているPlayerもインジェクトできます。
+スコープの親にAppシーンのスコープを指定しているため、Appシーンで管理しているStageNavigatorやAppStateを設定して使用できます。
 
 ```csharp
 public class AvatarSelectionScreenView : MonoBehaviour
@@ -319,11 +408,6 @@ public class AvatarSelectionScreenView : MonoBehaviour
 ```
 
 Viewはアバタープルダウンの初期化、入力項目の初期値設定、入力項目のイベント通知を行っています。
-
-### Initialization
-
-ステージ遷移で同じシーンが続く場合、シーンはアンロードされず再利用されるためAwakeやStartは実行されません。
-シーンの初期化処理はStageNavigatorが発行する[イベント通知](/core/stage-navigation#core-sn-event)を使用してくだい。
 
 ## UI
 
@@ -369,3 +453,7 @@ Assets/Holiday/Stages/Common
 - SpaceButton
   - 空間用のボタン
   - フォント、文字の設定が入っています。
+
+### Canvas
+
+バックグラウンド画面やローディング画面のように画面や空間に重ねて使用する共通画面のCanvasにはSortOrderを指定して前面に表示されるようにしてください。
