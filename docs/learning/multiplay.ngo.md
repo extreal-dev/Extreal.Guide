@@ -304,19 +304,16 @@ NgoClientの準備ができたのでアプリケーションのマルチプレ�
 マルチプレイルームへの参加とマルチプレイルームからの退室を提供しています。
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
 using Extreal.Core.Logging;
 using Extreal.Integration.Multiplay.NGO;
-using UniRx;
 
 namespace ExtrealCoreLearning.MultiplayControl
 {
-    public class MultiplayRoom : IDisposable
+    public class MultiplayRoom
     {
         private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
-        private NgoClient ngoClient;
-        private CompositeDisposable disposables = new CompositeDisposable();
+        private readonly NgoClient ngoClient;
 
         public MultiplayRoom(NgoClient ngoClient)
         {
@@ -340,8 +337,6 @@ namespace ExtrealCoreLearning.MultiplayControl
                 Logger.LogDebug("Left");
             }
         }
-
-        public void Dispose() => disposables.Dispose();
     }
 }
 ```
