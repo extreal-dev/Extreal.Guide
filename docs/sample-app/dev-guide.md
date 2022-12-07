@@ -172,7 +172,7 @@ builder.Register<AppState>(Lifetime.Singleton);
 builder.RegisterComponent(networkManager);
 ```
 
-MonoBehaviourのようにインスタンスの登録はRegisterInstanceとRegisterComponentを使えますがRegisterComponentを使ってください。
+MonoBehaviourのようなインスタンスの登録はRegisterInstanceとRegisterComponentを使えますがRegisterComponentを使ってください。
 RegisterInstanceは引数のオブジェクトに対してDIが行われないため、DIを使いたいオブジェクトを誤って指定した際に問題解決まで時間を要する可能性があります。
 
 ```csharp title="Entry point"
