@@ -545,7 +545,7 @@ namespace ExtrealCoreLearning.MultiplayServer
     {
         // highlight-start
         private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayServer));
-        private CompositeDisposable disposables = new CompositeDisposable();
+        private readonly CompositeDisposable disposables = new CompositeDisposable();
         // highlight-end
         private readonly NgoServer ngoServer;
 
