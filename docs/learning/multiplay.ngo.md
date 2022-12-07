@@ -367,20 +367,22 @@ using Extreal.Core.Logging;
 using Extreal.Integration.Multiplay.NGO;
 // highlight-start
 using ExtrealCoreLearning.MultiplayCommon;
-// highlight-end
 using UniRx;
-// highlight-start
 using Unity.Collections;
 using Unity.Netcode;
 // highlight-end
 
 namespace ExtrealCoreLearning.MultiplayControl
 {
+    // highlight-start
     public class MultiplayRoom : IDisposable
+    // highlight-end
     {
         private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
         private NgoClient ngoClient;
+        // highlight-start
         private CompositeDisposable disposables = new CompositeDisposable();
+        // highlight-end
 
         public MultiplayRoom(NgoClient ngoClient)
         {
@@ -412,7 +414,9 @@ namespace ExtrealCoreLearning.MultiplayControl
             // Omitted due to no changes
         }
 
+        // highlight-start
         public void Dispose() => disposables.Dispose();
+        // highlight-end
     }
 }
 ```
@@ -460,7 +464,6 @@ namespace ExtrealCoreLearning.MultiplayControl
 
         public void Dispose()
         {
-            multiplayRoom.Dispose();
             disposables.Dispose();
         }
     }
