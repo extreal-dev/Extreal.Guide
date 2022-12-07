@@ -290,6 +290,15 @@ namespace ExtrealCoreLearning.App
 ![NgoClient init](/img/learning-ngo-ngoclient-init.png)
 
 :::info step
+プレイヤープレハブをNetworkManagerに設定します。
+:::
+
+NGOで同期するプレハブはNetworkManagerに設定する必要があります。
+`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブの`NetwrokPlayer`をNetworkManagerの`NetworkPrefabs`に設定します。
+
+![Netwrok prefab](/img/learning-ngo-networkmanager-playerprefab.png)
+
+:::info step
 NgoClientの準備ができたのでアプリケーションのマルチプレイ制御を作成していきます。
 まずMultiplayControlシーンを追加します。
 :::
