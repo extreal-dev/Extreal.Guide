@@ -305,6 +305,7 @@ NgoClientの準備ができたのでアプリケーションのマルチプレ�
 
 - `ExtrealCoreLearning/MultiplayControl`ディレクトリを作成します。
 - 作成したディレクトリに`MultiplayControl`シーンを作成します。
+- カメラなど初期設定されているGameObjectを削除しMultiplayControlシーンを一旦空にします。
 
 :::info step
 マルチプレイのロジックを提供するModelスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
@@ -367,10 +368,13 @@ namespace ExtrealCoreLearning.MultiplayCommon
 }
 ```
 
-マルチプレイサーバーに接続されたらプレイヤーをスポーンするメッセージをマルチプレイサーバーに送信する処理をMultiplayRoomに追加します。
+マルチプレイサーバーにプレイヤーのスポーンを依頼する処理をMultiplayRoomに追加します。
+マルチプレイサーバーに接続されたタイミングでメッセージを送信します。
 
 ```csharp
+// highlight-start
 using System;
+// highlight-end
 using Cysharp.Threading.Tasks;
 using Extreal.Core.Logging;
 using Extreal.Integration.Multiplay.NGO;
@@ -388,9 +392,9 @@ namespace ExtrealCoreLearning.MultiplayControl
     // highlight-end
     {
         private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
-        private NgoClient ngoClient;
+        private readonly NgoClient ngoClient;
         // highlight-start
-        private CompositeDisposable disposables = new CompositeDisposable();
+        private readonly CompositeDisposable disposables = new CompositeDisposable();
         // highlight-end
 
         public MultiplayRoom(NgoClient ngoClient)
