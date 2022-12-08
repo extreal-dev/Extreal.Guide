@@ -518,7 +518,7 @@ ScopeスクリプトをMultiplayControlシーンに設定します。
 MultiplayControlシーンが完成したのでステージ設定とBuildSettingsに追加します。
 :::
 
-- SceneNameにMultiplayControlシーンを追加します。
+- SceneNameに`MultiplayControl`を追加します。
 - StageConfigのインスペクタでVirtualStageに`MultiplayControl`を追加します。
 - BuildSettingsにMultiplayControlシーンを追加します。
 
