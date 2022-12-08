@@ -529,7 +529,9 @@ MultiplayControlシーンが完成したのでステージ設定とBuildSettings
 :::
 
 MessageHandlerを登録してアプリケーションからのメッセージに対応します。
+
 プレイヤーのプレハブはAddressablesを使ってロードしています。
+ExtrealCoreLearning/MultiplayControlディレクトリの`NetworkPlayer`を選択してインスペクタを開くと、`PlayerPrefab`という名前でAddressablesに登録されていることが確認できます。
 
 今回はアプリケーションからメッセージの内容を何も送っていませんが、メッセージの内容でアバター名を送りユーザーごとに選択したアバターをプレイヤーとしてスポーンするといったこともできます。
 サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Applicaiton](/category/sample-application)をご覧ください。
@@ -618,7 +620,12 @@ namespace ExtrealCoreLearning.MultiplayServer
 
 ## Play
 
-[ParrelSync](https://github.com/VeriorPies/ParrelSync)をプロジェクトに含めてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
+:::info step
+実装が完了したのでプレイしてみましょう。
+:::
+
+マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
+プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
 
 ![ParrelSync](/img/learning-ngo-parrelsync.png)
 
@@ -633,7 +640,8 @@ namespace ExtrealCoreLearning.MultiplayServer
   /Assets/ExtrealCoreLearning/App/App
   ```
 
-ParrelSyncで2つのUnityエディタを開いてプレイしている様子です。
+ParrelSyncでUnityエディタを開いてプレイしている様子です。
+マルチプレイサーバーを実行しているUnityエディタは後ろに隠れています。
 
 ![Play](/img/learning-ngo-play.png)
 
