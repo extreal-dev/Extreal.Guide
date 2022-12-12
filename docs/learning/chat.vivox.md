@@ -333,7 +333,9 @@ namespace ExtrealCoreLearning.TextChatControl
 
         public void Dispose()
         {
+            // highlight-start
             stageDisposables.Dispose();
+            // highlight-end
             disposables.Dispose();
         }
     }
