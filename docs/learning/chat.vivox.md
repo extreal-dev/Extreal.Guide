@@ -206,18 +206,16 @@ namespace ExtrealCoreLearning.TextChatControl
 
         public async UniTask JoinAsync()
         {
-            if (!IsLoggedIn())
+            if (!IsLoggedIn)
             {
                 Login();
             }
-            await UniTask.WaitUntil(IsLoggedIn);
+            await UniTask.WaitUntil(() => IsLoggedIn);
             vivoxClient.Connect(new VivoxChannelConfig(channelName, ChatType.TextOnly, transmissionSwitch: false));
         }
 
-        private bool IsLoggedIn()
-        {
-            return vivoxClient.LoginSession?.State == LoginState.LoggedIn;
-        }
+        private bool IsLoggedIn
+            => VivoxClient.LoginSession?.State == LoginState.LoggedIn;
 
         private void Login()
         {
@@ -226,7 +224,7 @@ namespace ExtrealCoreLearning.TextChatControl
 
         public void Leave()
         {
-            if (!IsLoggedIn())
+            if (!IsLoggedIn)
             {
                 return;
             }
@@ -235,7 +233,7 @@ namespace ExtrealCoreLearning.TextChatControl
 
         public void SendMessage(string message)
         {
-            if (!IsLoggedIn())
+            if (!IsLoggedIn)
             {
                 return;
             }
@@ -398,19 +396,17 @@ namespace ExtrealCoreLearning.App
 
         public async UniTask JoinAsync()
         {
-            if (!IsLoggedIn())
+            if (!IsLoggedIn)
             {
                 Login();
             }
 
-            await UniTask.WaitUntil(IsLoggedIn);
+            await UniTask.WaitUntil(() => IsLoggedIn);
             VivoxClient.Connect(new VivoxChannelConfig(ChannelName, ChatType.TextOnly, transmissionSwitch: false));
         }
 
-        protected bool IsLoggedIn()
-        {
-            return VivoxClient.LoginSession?.State == LoginState.LoggedIn;
-        }
+        protected bool IsLoggedIn
+            => VivoxClient.LoginSession?.State == LoginState.LoggedIn;
 
         private void Login()
         {
@@ -421,7 +417,7 @@ namespace ExtrealCoreLearning.App
 
         public void Leave()
         {
-            if (!IsLoggedIn())
+            if (!IsLoggedIn)
             {
                 return;
             }
@@ -466,7 +462,7 @@ namespace ExtrealCoreLearning.TextChatControl
 
         public void SendMessage(string message)
         {
-            if (!IsLoggedIn())
+            if (!IsLoggedIn)
             {
                 return;
             }
