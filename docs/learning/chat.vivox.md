@@ -502,7 +502,6 @@ namespace ExtrealCoreLearning.App
         {
             stageNavigator.OnStageTransitioned.Subscribe(stageName =>
             {
-                stageDisposables = new CompositeDisposable();
                 OnStageEntered(stageName, stageDisposables);
             }).AddTo(sceneDisposables);
 
