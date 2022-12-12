@@ -200,7 +200,7 @@ namespace ExtrealCoreLearning.TextChatControl
             this.channelName = channelName;
             this.vivoxClient.OnChannelSessionAdded
                 .Where(channelId => channelId.Name == this.channelName)
-                .Subscribe(channelId => { this.channelId = channelId; })
+                .Subscribe(channelId => this.channelId = channelId)
                 .AddTo(disposables);
         }
 
@@ -392,7 +392,7 @@ namespace ExtrealCoreLearning.App
             this.ChannelName = channelName;
             this.VivoxClient.OnChannelSessionAdded
                 .Where(channelId => channelId.Name == this.ChannelName)
-                .Subscribe(channelId => { this.ChannelId = channelId; })
+                .Subscribe(channelId => this.ChannelId = channelId)
                 .AddTo(Disposables);
         }
 
@@ -566,8 +566,11 @@ namespace ExtrealCoreLearning.TextChatControl
             StageNavigator<StageName, SceneName> stageNavigator,
             CompositeDisposable sceneDisposables)
         {
-            textChatControlView.OnSendButtonClicked.Subscribe(message => { textChatChannel.SendMessage(message); })
-                .AddTo(sceneDisposables);
+            textChatControlView.OnSendButtonClicked
+                .Subscribe(message =>
+                {
+                    textChatChannel.SendMessage(message);
+                }).AddTo(sceneDisposables);
         }
 
         protected override void OnStageEntered(
@@ -576,7 +579,10 @@ namespace ExtrealCoreLearning.TextChatControl
         {
             textChatChannel = new TextChatChannel(vivoxClient, $"TextChat-{stageName}");
             textChatChannel.OnMessageReceived
-                .Subscribe(message => { textChatControlView.ShowTextChatMessage(message); }).AddTo(stageDisposables);
+                .Subscribe(message =>
+                {
+                    textChatControlView.ShowTextChatMessage(message);
+                }).AddTo(stageDisposables);
             textChatChannel.JoinAsync().Forget();
         }
 
@@ -669,8 +675,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
             voiceChatControlView.OnVoiceButtonClicked.Subscribe(_ =>
             {
                 voiceChatChannel.ToggleMuteAsync().Forget();
-            })
-            .AddTo(sceneDisposables);
+            }).AddTo(sceneDisposables);
         }
 
         protected override void OnStageEntered(StageName stageName, CompositeDisposable stageDisposables)
@@ -679,8 +684,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
             voiceChatChannel.IsMute.Subscribe(isMute =>
             {
                 voiceChatControlView.toggleMute(isMute);
-            })
-            .AddTo(stageDisposables);
+            }).AddTo(stageDisposables);
             voiceChatChannel.JoinAsync().Forget();
         }
 
