@@ -387,11 +387,11 @@ namespace ExtrealCoreLearning.App
 
         protected ChatChannelBase(VivoxClient vivoxClient, string channelName)
         {
-            this.VivoxClient = vivoxClient;
-            this.ChannelName = channelName;
-            this.VivoxClient.OnChannelSessionAdded
-                .Where(channelId => channelId.Name == this.ChannelName)
-                .Subscribe(channelId => this.ChannelId = channelId)
+            VivoxClient = vivoxClient;
+            ChannelName = channelName;
+            VivoxClient.OnChannelSessionAdded
+                .Where(channelId => channelId.Name == ChannelName)
+                .Subscribe(channelId => ChannelId = channelId)
                 .AddTo(Disposables);
         }
 
@@ -403,7 +403,7 @@ namespace ExtrealCoreLearning.App
             }
 
             await UniTask.WaitUntil(() => IsLoggedIn);
-            VivoxClient.Connect(new VivoxChannelConfig(ChannelName, ChatType.TextOnly, transmissionSwitch: false));
+            Connect();
         }
 
         protected bool IsLoggedIn
