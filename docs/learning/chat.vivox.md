@@ -327,12 +327,13 @@ namespace ExtrealCoreLearning.TextChatControl
         {
             textChatChannel.Leave();
             textChatChannel.Dispose();
-            stageDisposables.Dispose();
+            stageDisposables.Clear();
         }
         // highlight-end
 
         public void Dispose()
         {
+            stageDisposables.Dispose();
             disposables.Dispose();
         }
     }
@@ -508,7 +509,7 @@ namespace ExtrealCoreLearning.App
             stageNavigator.OnStageTransitioning.Subscribe(stageName =>
             {
                 OnStageExiting(stageName);
-                stageDisposables.Dispose();
+                stageDisposables.Clear();
             }).AddTo(sceneDisposables);
 
             Initialize(stageNavigator, sceneDisposables);
@@ -524,6 +525,7 @@ namespace ExtrealCoreLearning.App
 
         public void Dispose()
         {
+            stageDisposables.Dispose();
             sceneDisposables.Dispose();
         }
     }
