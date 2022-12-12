@@ -215,7 +215,7 @@ namespace ExtrealCoreLearning.TextChatControl
         }
 
         private bool IsLoggedIn
-            => VivoxClient.LoginSession?.State == LoginState.LoggedIn;
+            => vivoxClient.LoginSession?.State == LoginState.LoggedIn;
 
         private void Login()
         {
