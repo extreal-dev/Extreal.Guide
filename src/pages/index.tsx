@@ -19,7 +19,7 @@ function HomepageHeader() {
             DANGER
           </div>
           <div className="admonitionContent_node_modules-@docusaurus-theme-classic-lib-theme-Admonition-styles-module">
-            <p>Extrealは現在開発中です。2022年12月に正式リリースを予定しています。正式リリースまでは試す程度にとどめ本格利用はご遠慮ください。</p>
+            <p>Extrealは現在開発中です。2023年1月に正式リリースを予定しています。正式リリースまでは試す程度にとどめ本格利用はご遠慮ください。</p>
           </div>
         </div>
       </div>
