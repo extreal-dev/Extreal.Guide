@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2022-11-28
+2022-12-13
 
 ## Unity version
 
@@ -14,10 +14,10 @@ sidebar_position: 1
 
 ## Modules
 
-- Extreal.Core.Logging 0.1.0
-- Extreal.Core.StageNavigation 0.2.0
-- Extreal.Integration.Multiplay.NGO 0.1.0
-- Extreal.Integration.Chat.Vivox 0.1.0
+- Extreal.Core.Logging 0.2.0
+- Extreal.Core.StageNavigation 0.3.0
+- Extreal.Integration.Multiplay.NGO 0.3.0
+- Extreal.Integration.Chat.Vivox 0.3.0
 
 ## Dependencies
 
