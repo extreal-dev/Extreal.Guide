@@ -49,12 +49,13 @@ Consoleに何も出ていなければ成功です。
 
 ## Add Logging
 
-Extrealの[Logging](/core/logging)をアプリケーションに追加します。
+[Logging](/core/logging)をアプリケーションに追加します。
 
 :::info step
-Package ManagerのGit URL指定からLoggingを追加します。
+Package ManagerからLoggingを追加します。
 :::
 
+Git URL指定でLoggingを追加します。
 Git URLは[LoggingのPackage](/core/logging#package)から取得します。
 
 ![Logging追加](/img/learning-core-logging-package.png)
@@ -63,8 +64,10 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 バージョンは実施タイミングにより異なります。
 
 :::info step
-アプリケーションのAssembly DefinitionにLoggingを設定し、スクリプトからLoggingを参照できるようにします。
+スクリプトからLoggingを参照できるようにします。
 :::
+
+アプリケーションのAssembly DefinitionにLoggingを設定します。
 
 ![Loggingアセンブリ設定](/img/learning-core-logging-assembly.png)
 
@@ -73,9 +76,10 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 - Assembly Definition ReferencesのUse GUIDsのチェックは外します。
 
 :::info step
-LoggingのデフォルトのログレベルはInfoです。
 開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
 :::
+
+LoggingのデフォルトのログレベルはInfoのため、Loggingの設定を追加してログレベルを変更します。
 
 [LoggingのSettings](/core/logging#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
 
@@ -161,17 +165,18 @@ UniTaskとUniRxは[OpenUPM](https://openupm.com/)で提供されているためO
     ```
 
 :::info step
-UniTaskとUniRxを追加できたのでLoggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作してStage Navigationをスクリプトから使えるようにします。
+UniTaskとUniRxを追加できたのでStage Navigationをスクリプトから使えるようにします。
 :::
 
+Loggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作します。
 Stage NavigationのGit URLは[Stage NavigationのPackage](/core/stage-navigation#package)から取得します。
-
 Assembly DefinitionにUniTaskとUniRxも設定します。
 
 ![Stage Navigation追加](/img/learning-core-stagenavigation-add.png)
 
+ステージ遷移を試すためタイトル画面を追加し、アプリ起動後すぐにタイトル画面に遷移させてみましょう。
+
 :::info step
-ステージ遷移を試すため次のようなタイトル画面を追加し、アプリ起動後すぐにタイトル画面に遷移させてみましょう。
 まずはタイトル画面を追加します。
 :::
 
@@ -203,9 +208,10 @@ Assembly DefinitionにUniTaskとUniRxも設定します。
   - こちらもサイズやポジションは自由に決めてください。
 
 :::info step
-タイトル画面を追加できたので[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
+タイトル画面を追加できたのでステージ設定を作成します。
 :::
 
+[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
 ステージ設定で作成する3つのタイプはAppディレクトリに配置します。
 
 ```csharp
@@ -227,7 +233,7 @@ public enum SceneName
 - StageConfigオブジェクトにタイトル画面のステージを設定します。
 
 :::info step
-これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる処理を`AppTest`スクリプトに追加します。
+これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる処理を追加します。
 :::
 
 - AppTestスクリプトにSerializeFieldとStartメソッドを追加します。
@@ -312,9 +318,7 @@ Extrealが提供するCoreの機能は以上となりますが、[VContainer](ht
 - StageNameに`AvatarSelectionStage`、SceneNameに`AvatarSelectionScreen`を追加します。
 - StageConfigオブジェクトのインスペクタで`AvatarSelectionStage`を追加します。
 
-:::info step
 Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加します。
-:::
 
 UIとステージ設定の準備が整いました。
 
@@ -349,9 +353,10 @@ VContainerはUniTaskやUniRxと同様にOpenUPMから取得します。
 VContainerを使って確認用に作成したAppTestを作り変えます。
 
 :::info step
-まずAppディレクトリにエントリーポイントとなるPresenterスクリプトを作成します。
+まずエントリーポイントとなるPresenterスクリプトを作成します。
 :::
 
+Appディレクトリに作成します。
 Appシーンが開始するとタイトル画面に遷移させます。
 
 ```csharp
@@ -380,9 +385,10 @@ namespace ExtrealCoreLearning.App
 ```
 
 :::info step
-次にVContainerのLifetimeScopeとしてScopeスクリプトをAppディレクトリに作成します。
+次にVContainerのLifetimeScopeとしてScopeスクリプトを作成します。
 :::
 
+Appディレクトリに作成します。
 ScopeスクリプトのAwakeをオーバーライドしてVContainerの処理よりも先にLoggingの設定を行います。
 
 ```csharp
@@ -448,8 +454,10 @@ Appシーンを実行します。先ほどと同様にタイトル画面とConso
 UniRxを使ってタイトル画面のGoボタンを実装します。
 
 :::info step
-タイトル画面に対応するViewスクリプトをTitleScreenディレクトリに作成します。
+タイトル画面に対応するViewスクリプトを作成します。
 :::
+
+TitleScreenディレクトリに作成します。
 
 ```csharp
 using System;
@@ -472,8 +480,10 @@ namespace ExtrealCoreLearning.TitleScreen
 UniRxを使ってGoボタンが押された場合にイベントを通知する`OnGoButtonClicked`を定義しています。
 
 :::info step
-次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトをTitleScreenディレクトリに作成します。
+次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトを作成します。
 :::
+
+TitleScreenディレクトリに作成します。
 
 ```csharp
 using System;
@@ -519,8 +529,10 @@ namespace ExtrealCoreLearning.ExtrealCoreLearning.TitleScreen
 Goボタンのイベント通知とアバター選択画面への遷移をマッピングしています。
 
 :::info step
-最後にViewやPresenterを紐づけるScopeスクリプトをTitleScreenディレクトリに作成します。
+最後にViewやPresenterを紐づけるScopeスクリプトを作成します。
 :::
+
+TitleScreenディレクトリに作成します。
 
 ```csharp
 using UnityEngine;

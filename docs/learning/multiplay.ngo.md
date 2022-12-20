@@ -75,9 +75,10 @@ ExtrealCoreLearning/Appディレクトリにある`App`シーンを実行しま�
 まずマルチプレイサーバーを追加します。
 
 :::info step
-マルチプレイサーバーのロジックを提供するModelスクリプトをExtrealCoreLearning.MultiplayServerディレクトリに作成します。
+マルチプレイサーバーのロジックを提供するModelスクリプトを作成します。
 :::
 
+ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
 NgoServerを使ってサーバーを開始します。
 後ほどクライアントからのメッセージを受けてプレイヤーをスポーンする処理を追加します。
 
@@ -105,9 +106,10 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-マルチプレイサーバーのエントリーポイントとなるPresenterスクリプトをExtrealCoreLearning.MultiplayServerディレクトリに作成します。
+マルチプレイサーバーのエントリーポイントとなるPresenterスクリプトを作成します。
 :::
 
+ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
 MultiplayServerシーンが開始するとサーバーを開始します。
 
 ```csharp
@@ -134,9 +136,10 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-マルチプレイサーバーに必要なオブジェクトを組み立てるScopeスクリプトをExtrealCoreLearning.MultiplayServerディレクトリに作成します。
+マルチプレイサーバーに必要なオブジェクトを組み立てるScopeスクリプトを作成します。
 :::
 
+ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
 デバッグログを出力したいのでLoggingの初期化を入れています。
 NetworkManagerはGameObjectとして配置するのでインスペクタから受け取ります。
 
@@ -298,9 +301,10 @@ NGOで同期するプレハブはNetworkManagerに設定する必要がありま
 
 ![Netwrok prefab](/img/learning-ngo-networkmanager-playerprefab.png)
 
-:::info step
 NgoClientの準備ができたのでアプリケーションのマルチプレイ制御を作成していきます。
-まずMultiplayControlシーンを追加します。
+
+:::info step
+MultiplayControlシーンを追加します。
 :::
 
 - `ExtrealCoreLearning/MultiplayControl`ディレクトリを作成します。
@@ -308,9 +312,10 @@ NgoClientの準備ができたのでアプリケーションのマルチプレ�
 - カメラなど初期設定されているGameObjectを削除しMultiplayControlシーンを一旦空にします。
 
 :::info step
-マルチプレイのロジックを提供するModelスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
+マルチプレイのロジックを提供するModelスクリプトを作成します。
 :::
 
+ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
 マルチプレイルームへの参加とマルチプレイルームからの退室を提供しています。
 
 ```csharp
@@ -435,9 +440,10 @@ namespace ExtrealCoreLearning.MultiplayControl
 ```
 
 :::info step
-マルチプレイルームへの参加と退室を制御するPresenterスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
+マルチプレイルームへの参加と退室を制御するPresenterスクリプトを作成します。
 :::
 
+ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
 StageNavigatorのイベント通知を使ってマルチプレイルームへの参加とマルチプレイルームからの退室を制御しています。
 OnStageTransitionedがステージに入った後、OnStageTransitioningがステージから出る前のタイミングになります。
 
@@ -484,8 +490,10 @@ namespace ExtrealCoreLearning.MultiplayControl
 ```
 
 :::info step
-ModelとPresenterのオブジェクトを組み立てるScopeスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
+ModelとPresenterのオブジェクトを組み立てるScopeスクリプトを作成します。
 :::
+
+ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
 
 ```csharp
 using VContainer;

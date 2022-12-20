@@ -167,9 +167,10 @@ namespace ExtrealCoreLearning.App
 VivoxClientが準備できたのでテキストチャットを追加していきます。
 
 :::info step
-テキストチャットのロジックを提供するModelスクリプトを`ExtrealCoreLearning/TextChatControl`ディレクトリに作成します。
+テキストチャットのロジックを提供するModelスクリプトを作成します。
 :::
 
+ExtrealCoreLearning/TextChatControlディレクトリに作成します。
 チャンネルへの参加とチャンネルからの退室、メッセージ送信とメッセージ受信を提供しています。
 チャンネルへの参加時はログインしていなければログインするようにしています。
 
@@ -366,8 +367,10 @@ Appシーンを実行します。
   - ステージに入った時にTextChatChannelを生成してチャンネルに参加し、ステージから出るときにチャンネルから退室
 
 :::info step
-ModelスクリプトのBaseクラスを`App`ディレクトリに作成します。
+ModelスクリプトのBaseクラスを作成します。
 :::
+
+Appディレクトリに作成します。
 
 ```csharp
 using System;
@@ -477,8 +480,10 @@ namespace ExtrealCoreLearning.TextChatControl
 ```
 
 :::info step
-PresenterスクリプトのBaseクラスを`App`ディレクトリに作成します。
+PresenterスクリプトのBaseクラスを作成します。
 :::
+
+Appディレクトリに作成します。
 
 ```csharp
 using System;
