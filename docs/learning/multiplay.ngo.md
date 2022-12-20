@@ -587,7 +587,7 @@ namespace ExtrealCoreLearning.MultiplayServer
             this.ngoServer.OnServerStopping.Subscribe(_ =>
             {
                 ngoServer.UnregisterMessageHandler(MessageName.PlayerSpawn.ToString());
-            });
+            }).AddTo(disposables);
             // highlight-end
         }
 
