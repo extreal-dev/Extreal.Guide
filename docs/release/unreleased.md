@@ -4,30 +4,30 @@ sidebar_position: 1
 
 # Unreleased
 
-2022-12-13
+2022-12-20
 
 ## Unity version
 
 次のUnityバージョンで動作確認しています。
 
-2021.3.13f1
+2021.3.16f1
 
 ## Modules
 
-- Extreal.Core.Logging 0.2.0
-- Extreal.Core.StageNavigation 0.3.0
-- Extreal.Integration.Multiplay.NGO 0.3.0
-- Extreal.Integration.Chat.Vivox 0.3.0
+- [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 0.2.0
+- [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 0.4.0
+- [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 0.4.0
+- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 0.4.0
 
 ## Dependencies
 
 - Common
-  - UniTask 2.3.1
-  - UniRx 7.1.0
+  - [UniTask](https://github.com/Cysharp/UniTask) 2.3.3 ([MIT License](https://github.com/Cysharp/UniTask/blob/master/LICENSE))
+  - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
 - Extreal.Integration.Multiplay.NGO
-  - Netcode for GameObjects 1.1.0
+  - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.2.0 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
 - Extreal.Integration.Chat.Vivox
-  - Vivox Unity SDK 15.1.190000
+  - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.190000 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 
 ## Changes
 
@@ -57,8 +57,8 @@ sidebar_position: 1
 
 ## Backward compatible
 
-初回リリース前のため対象外です。
+初回リリースのため対象外です。
 
 ## Upgrade guide
 
-初回リリース前のため対象外です。
+初回リリースのため対象外です。
