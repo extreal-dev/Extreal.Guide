@@ -16,6 +16,7 @@ sidebar_position: 5
   - アバターを選択できること
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526)のArmature
     - [Mixamo](https://www.mixamo.com)のMichelle、Amy
+  - Goボタンでバーチャル空間に移動できること
 - バーチャル空間
   - ボイスチャットができること
     - ミュートの切り替えができること
@@ -24,11 +25,12 @@ sidebar_position: 5
   - マルチプレイができること
     - 移動とジャンプができること
   - アバター選択画面に戻れること
-  - 最大人数を超えた場合はアバター選択画面でユーザーに通知する。
+  - 最大人数を超えた場合はユーザーに通知してアバター選択画面に戻ること
 
 ## Configuration test
 
 - [Functional test](/sample-app/test-case#functional-test)と同じ
+- マイク付きイヤホンで実施すること
 
 ## Failure test
 
