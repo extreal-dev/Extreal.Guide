@@ -30,7 +30,6 @@ sidebar_position: 5
 ## Configuration test
 
 - [Functional test](/sample-app/test-case#functional-test)と同じ
-- マイク付きイヤホンで実施すること
 
 ## Failure test
 

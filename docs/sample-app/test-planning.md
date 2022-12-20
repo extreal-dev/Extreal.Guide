@@ -52,6 +52,7 @@ sidebar_position: 4
 
 - テスト方法
   - Android、iOS、Winでの手動テスト
+  - マイク付きイヤホンで実施
   - [テストケース](/sample-app/test-case#functional-test)
 - 合格基準
   - 全件合格、テストカバレッジ100%
