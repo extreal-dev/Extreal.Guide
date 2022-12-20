@@ -44,7 +44,6 @@ classDiagram
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
     VivoxChannelConfig --> ChatType
-    ScriptableObject <|-- VivoxAppConfig
     IDisposable <|.. VivoxClient
 
     class VivoxClient {
@@ -79,6 +78,7 @@ classDiagram
         +Domain string
         +Issuer string
         +SecretKey string
+        +VivoxAppConfig(apiEndPoint, domain, issuer, secretKey)
     }
 
     class VivoxAuthConfig {
@@ -103,10 +103,6 @@ classDiagram
         +TransmissionSwitch bool
         +TokenExpirationDuration TimeSpan
         VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch,tokenExpirationDuration)
-    }
-
-    class ScriptableObject {
-        <<unity>>
     }
 
     class IDisposable {
@@ -140,25 +136,34 @@ VivoxClientを初期化します。
 [Vivox Developer Portal](https://developer.vivox.com/)でクライアントからの接続先となるアプリケーションが作成されているものとします。
 
 VivoxClientの初期化にはVivoxAppConfigが必要です。
-VivoxAppConfigはScriptableObjectを継承しているのでアセットを作成します。
-VivoxAppConfigのアセット作成メニューは次の通りです。
+VivoxAppConfigを生成するScriptableObjectを作成し、インスペクタでVivoxへの接続情報を設定します。
 
-```
-Extreal/Integration.Chat.Vivox/VivoxAppConfig
-```
+```csharp
+[CreateAssetMenu(
+    menuName = "Config/" + nameof(ChatConfig),
+    fileName = nameof(ChatConfig))]
+public class ChatConfig : ScriptableObject
+{
+    [SerializeField] private string apiEndPoint;
+    [SerializeField] private string domain;
+    [SerializeField] private string issuer;
+    [SerializeField] private string secretKey;
 
-インスペクタでVivoxのアプリケーションへの接続情報をVivoxAppConfigに設定します。
+    public VivoxAppConfig ToVivoxAppConfig()
+        => new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey);
+}
+```
 
 VContainerを使ってVivoxClientを初期化します。
 
 ```csharp
 public class ChatControlScope : LifetimeScope
 {
-    [SerializeField] private VivoxAppConfig vivoxAppConfig;
+    [SerializeField] private ChatConfig chatConfig;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponent(vivoxAppConfig);
+        builder.RegisterComponent(chatConfig.ToVivoxAppConfig());
         builder.Register<VivoxClient>(Lifetime.Singleton);
     }
 }
