@@ -648,6 +648,14 @@ namespace ExtrealCoreLearning.MultiplayServer
   /Assets/ExtrealCoreLearning/App/App
   ```
 
+操作方法は次の通りです。
+
+- 移動
+  - W：前、A：左、S：後、D：右
+- アクション
+  - スペース：ジャンプ
+  - 左Shift：走る
+
 ParrelSyncでUnityエディタを開いてプレイしている様子です。
 マルチプレイサーバーを実行しているUnityエディタは後ろに隠れています。
 
