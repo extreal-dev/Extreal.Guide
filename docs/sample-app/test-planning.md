@@ -106,7 +106,11 @@ sidebar_position: 4
 
 ## Migration test
 
-対象なし。
+次のような観点がありますがストア（Google Play、Apple Store）にリリースしないため未実施です。
+
+- 次のバージョンと現行のバージョンが本番環境で動作すること
+  - ストアにリリースする場合は審査用と現行の2バージョンを本番環境で動作させる必要があります。
+- バージョンアップできること
 
 ## Current vs. new comparison test
 
