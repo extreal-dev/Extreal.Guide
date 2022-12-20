@@ -247,11 +247,50 @@ AvatarMichelle
 
 ### Base class for Presenter
 
-ステージ遷移時の処理は各シーンのPresenterスクリプトに共通する処理となるためBaseクラスを設けています。
+ステージ遷移時の処理呼び出しは各シーンのPresenterスクリプトに共通する処理となるためBaseクラスを設けています。
 PresenterスクリプトはこのBaseクラスを使ってください。
 
 ```
 Assets/Holiday/App/Common/StagePresenterBase
+```
+
+Baseクラスは次の共通処理を提供します。
+
+- シーンのロード時の初期化処理呼び出し
+- ステージに入る時と出る時の処理呼び出し
+- ステージから出る時のDispose呼び出し
+- シーンのアンロード時のDispose呼び出し
+
+Baseクラスを継承したPresenterスクリプトのひな型は次の通りです。
+
+```csharp
+public class XxxxxPresenter : StagePresenterBase
+{
+
+    public XxxxxPresenter(StageNavigator<StageName, SceneName> stageNavigator) : base(stageNavigator)
+    {
+        // コンストラクタ
+        // BaseクラスにStageNavigatorを渡します。
+        // シーンに必要なオブジェクトをコンストラクタインジェクションで受け取ります。
+    }
+
+    protected override void Initialize(StageNavigator<StageName, SceneName> stageNavigator, CompositeDisposable sceneDisposables)
+    {
+        // シーンのロード時の初期化処理をここに実装します。
+        // シーンのアンロード時にDisposeしたいオブジェクトをsceneDisposablesに追加します。
+    }
+
+    protected override void OnStageEntered(StageName stageName, CompositeDisposable stageDisposables)
+    {
+        // ステージに入る時の処理をここに実装してください。
+        // ステージから出る時にDisposeしたいオブジェクトをstageDisposablesに追加します。
+    }
+
+    protected override void OnStageExiting(StageName stageName)
+    {
+        // ステージから出る時の処理をここに実装してください。
+    }
+}
 ```
 
 ### Basic structure
