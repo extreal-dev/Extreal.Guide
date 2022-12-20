@@ -85,7 +85,8 @@ classDiagram
         +DisplayName string
         +AccountName string
         +TokenExpirationDuration TimeSpan
-        +VivoxAuthConfig(displayName, accountName,  tokenExpirationDuration)
+        +Timeout TimeSpan
+        +VivoxAuthConfig(displayName, accountName,  tokenExpirationDuration, timeout)
     }
 
     class ChatType {
