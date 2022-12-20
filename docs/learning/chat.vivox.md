@@ -353,6 +353,9 @@ namespace ExtrealCoreLearning.TextChatControl
 ![ParrelSync](/img/learning-ngo-parrelsync.png)
 
 Appシーンを実行します。
+Vivoxへの接続に少し時間がかかるので実行後すぐにメッセージ送信しても送信されない場合があります。
+メッセージ送信が反応しなかった場合は少し待ってからメッセージ送信してください。
+
 実行しているすべてのアプリケーションにメッセージが送信されれば成功です。
 
 ## Add base class
