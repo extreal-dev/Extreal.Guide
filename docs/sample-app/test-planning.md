@@ -4,9 +4,12 @@ sidebar_position: 4
 
 # Test Planning
 
-[テスト種別＆テスト観点カタログ](https://fintan.jp/page/1456/)のテスト種別ごとにテスト方法、合格基準を決めています。
+[テスト種別＆テスト観点カタログ](https://fintan.jp/page/1456/)に下記を加えてテスト方法や合格基準を決めています。
 
-## Common
+- レビュー
+- モバイルアプリケーション
+
+## Review
 
 - テスト方法
   - 全成果物のピアレビュー
@@ -14,6 +17,13 @@ sidebar_position: 4
   - 1人以上の承認、全てのConversationのResolvedがマージ条件です。
 - 合格基準
   - 全FB対応済み
+
+## Mobile Application
+
+次のようなテスト観点がありますが今後対応予定のため未実施です。
+
+- アプリケーションがバックグラウンドに遷移した時、復帰した時、フォーカスから外れた時の動作
+- アプリケーション使用時の電池減少
 
 ## Syntax check
 
@@ -87,16 +97,16 @@ sidebar_position: 4
 
 ## Operational scenario test
 
-- 対象なし
+対象なし。
 
 ## Migration test
 
-- 対象なし
+対象なし。
 
 ## Current vs. new comparison test
 
-- 対象なし
+対象なし。
 
 ## Usability test
 
-- 今後改善予定のため未実施
+今後改善予定のため未実施です。
