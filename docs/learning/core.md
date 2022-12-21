@@ -23,7 +23,7 @@ Unity Hubから新しいプロジェクトを作成します。
 
 ![プロジェクト作成](/img/learning-core-create-project.png)
 
-- エディターバージョン: `2021.3.11f1`
+- エディターバージョン: `2021.3.16f1`
 - テンプレート: `3D`
 - プロジェクト名: `ExtrealCoreLearning`
 
