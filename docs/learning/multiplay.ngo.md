@@ -26,13 +26,7 @@ NGOラッパーがセットアップされた学習用のプロジェクトを�
 学習用のプロジェクトをクローンします。
 
 ```
-https://github.com/extreal-dev/Extreal.Learning.git
-```
-
-次のタグをチェックアウトします。
-
-```
-ngo-0.1.0
+https://github.com/extreal-dev/Extreal.Learning.Multiplay.NGO.git
 ```
 
 Unityエディタでクローンしたプロジェクトを開きます。
@@ -191,7 +185,7 @@ NetworkManagerをアタッチしたGameObjectをMultiplayServerシーンに作�
 - MultiplayServerシーンに`NetworkManager`という名前でGameObjectを作成します。
 - インスペクタのAdd Componentから`Network Manager`を追加します。
 - インスペクタのSelect transport...から`UnityTransport`を選びます。
-- StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。
+- **StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。**
 
 :::info step
 ScopeスクリプトをMultiplayServerシーンに設定します。
@@ -223,11 +217,9 @@ MultiplayServerシーンのNetworkManagerオブジェクトを`ExtrealCoreLearni
 
 ![NetworkManager prefab](/img/learning-ngo-networkmanager-prefab.png)
 
-## Add multiplay player
+## Add connection to multiplay room
 
-マルチプレイできるプレイヤーを追加します。
-
-### Client
+マルチプレイルームへの参加とマルチプレイルームからの退室をアプリケーションに追加します。
 
 :::info step
 まずアプリケーションで使うNgoClientの初期化を行います。
@@ -301,7 +293,15 @@ NGOで同期するプレハブはNetworkManagerに設定する必要がありま
 
 ![Netwrok prefab](/img/learning-ngo-networkmanager-playerprefab.png)
 
-NgoClientの準備ができたのでアプリケーションのマルチプレイ制御を作成していきます。
+:::info step
+NgoClientの初期化で問題が起きていないか確認します。
+:::
+
+NgoClientを使った処理はまだ入れていないのでAppシーンを実行してこれまでと同じように起動されれば成功です。
+
+起動時に`Add Scene to Scenes in Build`と表示された場合は`No - Continue`を選択して、NetworkManagerの作成手順が漏れているので次の手順を実施してください。
+
+- **StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。**
 
 :::info step
 MultiplayControlシーンを追加します。
@@ -352,89 +352,6 @@ namespace ExtrealCoreLearning.MultiplayControl
                 Logger.LogDebug("Left");
             }
         }
-    }
-}
-```
-
-:::info step
-マルチプレイサーバーにプレイヤーのスポーンを依頼する処理を追加します。
-:::
-
-プレイヤーのスポーン依頼にはNGOが提供するメッセージを使います。
-メッセージ名はアプリケーションとマルチプレイサーバーで合わせる必要があるのでメッセージ名を表すEnumを`ExtrealCoreLearning.MultiplayCommon`ディレクトリに作成します。
-
-```csharp
-namespace ExtrealCoreLearning.MultiplayCommon
-{
-    public enum MessageName
-    {
-        PlayerSpawn
-    }
-}
-```
-
-マルチプレイサーバーにプレイヤーのスポーンを依頼する処理をMultiplayRoomに追加します。
-マルチプレイサーバーに接続されたタイミングでメッセージを送信します。
-
-```csharp
-// highlight-start
-using System;
-// highlight-end
-using Cysharp.Threading.Tasks;
-using Extreal.Core.Logging;
-using Extreal.Integration.Multiplay.NGO;
-// highlight-start
-using ExtrealCoreLearning.MultiplayCommon;
-using UniRx;
-using Unity.Collections;
-using Unity.Netcode;
-// highlight-end
-
-namespace ExtrealCoreLearning.MultiplayControl
-{
-    // highlight-start
-    public class MultiplayRoom : IDisposable
-    // highlight-end
-    {
-        private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
-        private readonly NgoClient ngoClient;
-        // highlight-start
-        private readonly CompositeDisposable disposables = new CompositeDisposable();
-        // highlight-end
-
-        public MultiplayRoom(NgoClient ngoClient)
-        {
-            this.ngoClient = ngoClient;
-
-            // highlight-start
-            ngoClient.OnConnected
-                .Subscribe(_ => SendPlayerSpawnMessage(ngoClient))
-                .AddTo(disposables);
-            // highlight-end
-        }
-
-        // highlight-start
-        private static void SendPlayerSpawnMessage(NgoClient ngoClient)
-        {
-            var messageStream
-                = new FastBufferWriter(FixedString64Bytes.UTF8MaxLengthInBytes, Allocator.Temp);
-            ngoClient.SendMessage(MessageName.PlayerSpawn.ToString(), messageStream);
-        }
-        // highlight-end
-
-        public async UniTask JoinAsync()
-        {
-            // Omitted due to no changes
-        }
-
-        public async UniTask LeaveAsync()
-        {
-            // Omitted due to no changes
-        }
-
-        // highlight-start
-        public void Dispose() => disposables.Dispose();
-        // highlight-end
     }
 }
 ```
@@ -530,7 +447,130 @@ MultiplayControlシーンが完成したのでステージ設定とBuildSettings
 - StageConfigのインスペクタでVirtualStageに`MultiplayControl`を追加します。
 - BuildSettingsにMultiplayControlシーンを追加します。
 
-### Server
+:::info step
+マルチプレイルームに接続できるか試してみましょう。
+:::
+
+マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
+プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
+
+![ParrelSync](/img/learning-ngo-parrelsync.png)
+
+実行するシーンは次の通りです。
+
+- マルチプレイサーバー
+  ```
+  /Assets/ExtrealCoreLearning.MultiplayServer/MultiplayServer
+  ```
+- アプリケーション
+  ```
+  /Assets/ExtrealCoreLearning/App/App
+  ```
+
+バーチャル空間に移動してもこれまでと変わりありませんが、次のようなログが出ていれば成功です。
+
+- マルチプレイサーバー
+  ```
+  [Debug:NgoServer] The client with client id 1 has connected
+  ```
+- アプリケーション
+  ```
+  [Debug:NgoClient] The client has connected to the server
+  ```
+
+## Add player spawn
+
+マルチプレイルームに接続できたのでプレイヤーをスポーンする処理を追加します。
+この処理を追加するとマルチプレイできるようになります。
+
+アプリケーションからプレイヤーのスポーンを依頼するメッセージをマルチプレイサーバーに送り、マルチプレイサーバーでプレイヤーをスポーンします。
+
+### Application
+
+:::info step
+マルチプレイサーバーにプレイヤーのスポーンを依頼する処理を追加します。
+:::
+
+プレイヤーのスポーン依頼にはNGOが提供するメッセージを使います。
+メッセージ名はアプリケーションとマルチプレイサーバーで合わせる必要があるのでメッセージ名を表すEnumを`ExtrealCoreLearning.MultiplayCommon`ディレクトリに作成します。
+
+```csharp
+namespace ExtrealCoreLearning.MultiplayCommon
+{
+    public enum MessageName
+    {
+        PlayerSpawn
+    }
+}
+```
+
+マルチプレイサーバーにプレイヤーのスポーンを依頼する処理をMultiplayRoomに追加します。
+マルチプレイサーバーに接続されたタイミングでメッセージを送信します。
+
+```csharp
+// highlight-start
+using System;
+// highlight-end
+using Cysharp.Threading.Tasks;
+using Extreal.Core.Logging;
+using Extreal.Integration.Multiplay.NGO;
+// highlight-start
+using ExtrealCoreLearning.MultiplayCommon;
+using UniRx;
+using Unity.Collections;
+using Unity.Netcode;
+// highlight-end
+
+namespace ExtrealCoreLearning.MultiplayControl
+{
+    // highlight-start
+    public class MultiplayRoom : IDisposable
+    // highlight-end
+    {
+        private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
+        private readonly NgoClient ngoClient;
+        // highlight-start
+        private readonly CompositeDisposable disposables = new CompositeDisposable();
+        // highlight-end
+
+        public MultiplayRoom(NgoClient ngoClient)
+        {
+            this.ngoClient = ngoClient;
+
+            // highlight-start
+            ngoClient.OnConnected
+                .Subscribe(_ => SendPlayerSpawnMessage(ngoClient))
+                .AddTo(disposables);
+            // highlight-end
+        }
+
+        // highlight-start
+        private static void SendPlayerSpawnMessage(NgoClient ngoClient)
+        {
+            var messageStream
+                = new FastBufferWriter(FixedString64Bytes.UTF8MaxLengthInBytes, Allocator.Temp);
+            ngoClient.SendMessage(MessageName.PlayerSpawn.ToString(), messageStream);
+        }
+        // highlight-end
+
+        public async UniTask JoinAsync()
+        {
+            // Omitted due to no changes
+        }
+
+        public async UniTask LeaveAsync()
+        {
+            // Omitted due to no changes
+        }
+
+        // highlight-start
+        public void Dispose() => disposables.Dispose();
+        // highlight-end
+    }
+}
+```
+
+### Multiplay Server
 
 :::info step
 アプリケーションから送信されるプレイヤーをスポーンするメッセージに対応する処理をMultiplayServerに追加します。
@@ -629,13 +669,8 @@ namespace ExtrealCoreLearning.MultiplayServer
 ## Play
 
 :::info step
-実装が完了したのでプレイしてみましょう。
+全ての実装が完了したのでプレイしてみましょう。
 :::
-
-マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
-プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
-
-![ParrelSync](/img/learning-ngo-parrelsync.png)
 
 実行するシーンは次の通りです。
 
