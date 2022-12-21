@@ -29,16 +29,11 @@ Vivoxラッパーがセットアップされた学習用のプロジェクトを
 学習用のプロジェクトをクローンします。
 
 ```
-https://github.com/extreal-dev/Extreal.Learning.git
-```
-
-次のタグをチェックアウトします。
-
-```
-vivox-0.1.0
+https://github.com/extreal-dev/Extreal.Learning.Chat.Vivox.git
 ```
 
 Unityエディタでクローンしたプロジェクトを開きます。
+「Link your Unity project」と表示された場合は設定せずに閉じてください。
 
 :::info step
 プロジェクトの内容を確認しましょう。
@@ -95,17 +90,13 @@ Appディレクトリにある`App`シーンを実行します。
 VivoxClientはアプリケーションで1つ存在すればよいのでAppシーンに含めておき、空間が増えても再利用できるようにしておきます。
 
 :::info step
-VivoxAppConfigを作成しVivoxへの接続情報を設定します。
+VivoxAppConfigを生成するScriptableObjectを作成します。
 :::
-
-VivoxAppConfigはVivoxラッパーがScriptableObjectとして提供しているのでアセット作成から
-VivoxAppConfigオブジェクトを作成します。
 
 ![VivoxAppConfig](/img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
-- AppディレクトリにVivoxAppConfigオブジェクトを作成します。
-  - アセット作成メニューのパス：`Extrea＞Integration.Chat.Vivox＞VivoxAppConfig`
-- インスペクタでVivoxへの接続情報を設定します。
+- [VivoxラッパーのSettings](/integration/chat.vivox#settings)を参照して、AppディレクトリにVivoxAppConfigオブジェクトを生成するChatConfigスクリプトを作成します。
+- アセット作成メニューからChatConfigオブジェクトを作成し、インスペクタでVivoxへの接続情報を設定します。
 
 :::info step
 AppScopeを変更してVivoxClientを初期化します。
@@ -129,7 +120,7 @@ namespace ExtrealCoreLearning.App
     {
         [SerializeField] private StageConfig stageConfig;
         // highlight-start
-        [SerializeField] private VivoxAppConfig vivoxAppConfig;
+        [SerializeField] private ChatConfig chatConfig;
         // highlight-end
 
         private static void InitializeApp()
@@ -148,7 +139,7 @@ namespace ExtrealCoreLearning.App
             builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton);
 
             // highlight-start
-            builder.RegisterComponent(vivoxAppConfig);
+            builder.RegisterComponent(chatConfig.ToVivoxAppConfig());
             builder.Register<VivoxClient>(Lifetime.Singleton);
             // highlight-end
 
@@ -158,7 +149,7 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
-インスペクタでAppScopeにVivoxAppConfigオブジェクトを設定します。
+インスペクタでAppScopeにChatConfigオブジェクトを設定します。
 
 ![AppScope](/img/learning-vivox-appscope-vivoxappconfig.png)
 
