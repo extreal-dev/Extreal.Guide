@@ -72,6 +72,7 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 ![Loggingアセンブリ設定](/img/learning-core-logging-assembly.png)
 
 - ExtrealCoreLearningディレクトリに`ExtrealCoreLearning`という名前のAssembly Definitionを作成します。
+- Root Namespaceに`ExtrealCoreLearning`を指定します。
 - Assembly Definition Referencesに`Extreal.Core.Logging`を追加します。
 - Assembly Definition ReferencesのUse GUIDsのチェックは外します。
 
@@ -135,7 +136,7 @@ Consoleに`Hello, world!`と出力されれば成功です。
 
 ## Add Stage Navigation
 
-Extrealの[Stage Navigation](/core/stage-navigation)をアプリケーションに追加します。
+[Stage Navigation](/core/stage-navigation)をアプリケーションに追加します。
 
 :::info step
 Stage Navigationは[UniTask](https://github.com/Cysharp/UniTask)と[UniRx](https://github.com/neuecc/UniRx)に依存しているため先にUniTaskとUniRxを追加します。
@@ -445,7 +446,7 @@ ScopeスクリプトをAppシーンに設定します。
 
 - Appシーンに`Scope`という名前でAppScopeスクリプトをアタッチしたGameObjectを作成します。
 - StageConfigオブジェクトをインスペクタで設定します。
-- 不要になったのでAppシーンからStageTestオブジェクトとStageTestスクリプトを削除します。
+- 不要になったのでAppTestスクリプトとAppTestスクリプトをアタッチしたAppシーンのGameObjectを削除します。
 
 Appシーンを実行します。先ほどと同様にタイトル画面とConsoleのログ出力が出ていれば成功です。
 
@@ -493,7 +494,7 @@ using ExtrealCoreLearning.App;
 using UniRx;
 using VContainer.Unity;
 
-namespace ExtrealCoreLearning.ExtrealCoreLearning.TitleScreen
+namespace ExtrealCoreLearning.TitleScreen
 {
     public class TitleScreenPresenter : IInitializable, IDisposable
     {
