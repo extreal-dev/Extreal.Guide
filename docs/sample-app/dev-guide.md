@@ -23,8 +23,12 @@ sidebar_position: 6
     - Holidayのアプリケーションとマルチプレイサーバーに共通するアセット
   - Holiday.MultiplayServer
     - Holidayのマルチプレイサーバーで作成するアセット
+  - Holiday.PerformanceTest
+    - Holidayのパフォーマンステスト向けの資材
   - Mixamo
     - [Mixamo](https://www.mixamo.com/)から作成したUnityのキャラクタモデル
+  - Plugins
+    - Android向けビルドの設定ファイル
   - StarterAssets
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=ja-JP)のインストール先
   - TextMesh Pro
@@ -34,7 +38,7 @@ sidebar_position: 6
 - Packages
   - アプリケーション開発で使用するUnityパッケージ
 
-自分達で作成したアセットの格納場所としてHolidayという名前を付けた3つのディレクトリを設けています。
+自分達で作成したアセットの格納場所としてHolidayから始まる名前を付けたディレクトリを設けています。
 サードパーティを元に作成したアセットと自分達で作成したアセットを見分けやすくするためです。
 Holiday以外のディレクトリはサードパーティやUnityの機能利用時に作成された設定になります。
 アプリケーション用のディレクトリを設けたのでそれ以外のディレクトリは作成された状態、またはサードバーティと分かる名前を付けて配置しています。
@@ -43,14 +47,14 @@ Holiday以外のディレクトリはサードパーティやUnityの機能利�
 
 - App
   - アプリケーションのエントリーポイント
-  - アプリケーションの初期化処理、ステージ構成とアプリケーション状態を提供
-  - 全シーンから使えるようにアプリケーション全体の設定/状態や共通処理を集約
+  - アプリケーション全体の設定/状態
+  - Common
+    - アプリケーション全体で共通する処理
 - Controls
   - XxxControl
     - Controlシーン。シーン毎のアセットをまとめて配置
-- Models
-  - MV(R)PパターンのModelを配置
-  - 全シーンから使えるようにアプリケーションの全モデルを集約
+  - Common
+    - Controlシーン間で共通する処理
 - Screens
   - XxxScreen
     - Screenシーン。シーン毎のアセットをまとめて配置
@@ -86,8 +90,12 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 
 意図しない変更差分が出ないようにスクリプトや設定ファイルは次の設定にしてください。
 
-- エンコーディング: `UTF-8`
+- エンコーディング: `UTF-8のBOM付き`
 - 改行コード: `LF`
+
+:::info
+Visual Studioで`UTF-8のBOM無し`を設定できないため`UTF-8のBOM付き`としています。
+:::
 
 ## Application
 
@@ -116,15 +124,15 @@ Assets/Holiday/App/AppScope
 ステージやシーンの作成時に変更してください。
 
 ```
-Assets/Holiday/App/StageName
+Assets/Holiday/App/Config/StageName
 ```
 
 ```
-Assets/Holiday/App/SceneName
+Assets/Holiday/App/Config/SceneName
 ```
 
 ```
-Assets/Holiday/App/StageConfig
+Assets/Holiday/App/Config/StageConfig
 ```
 
 ### Application state
@@ -234,51 +242,53 @@ AvatarMichelle
   - PresenterでIInitializable/IDisposableを実装して行います。
   - **IInitializable/IDisposableが呼ばれるタイミングはステージ遷移のタイミングではないことに注意してください。ステージ遷移で同じシーンが続く場合はシーンが再利用されIInitializable/IDisposableは呼ばれません。**
 - ステージ遷移時の処理はStageNavigatorの[イベント通知](/core/stage-navigation#core-sn-event)を使用します。
-  - PresenterでIInitializableを実装して行います。
+  - PresenterでIInitializableを実装してStageNavigatorのイベント購読を登録します。
   - マルチプレイのルームやテキストチャットのチャンネルへの接続/切断など空間毎に処理を行いたい場合はステージ遷移時の処理として実装します。
 
-```csharp title="Processing on loading/unloading scenes"
-public class XxxxPresenter : IInitializable, IDisposable
-{
-    public void Initialize()
-    {
-        // processing on loading
-    }
+### Base class for Presenter
 
-    public void Dispose()
-    {
-        // processing on unloading
-    }
-}
+ステージ遷移時の処理呼び出しは各シーンのPresenterスクリプトに共通する処理となるためBaseクラスを設けています。
+PresenterスクリプトはこのBaseクラスを使ってください。
+
+```
+Assets/Holiday/App/Common/StagePresenterBase
 ```
 
-```csharp title="Processing on stage transitions"
-public class XxxxPresenter : IInitializable, IDisposable
+Baseクラスは次の共通処理を提供します。
+
+- シーンのロード時の初期化処理呼び出し
+- ステージに入る時と出る時の処理呼び出し
+- ステージから出る時のDispose呼び出し
+- シーンのアンロード時のDispose呼び出し
+
+Baseクラスを継承したPresenterスクリプトのひな型は次の通りです。
+
+```csharp
+public class XxxxxPresenter : StagePresenterBase
 {
-    private readonly StageNavigator<StageName, SceneName> stageNavigator;
 
-    private readonly CompositeDisposable disposables = new CompositeDisposable();
-
-    public MultiplayPresenter(StageNavigator<StageName, SceneName> stageNavigator)
+    public XxxxxPresenter(StageNavigator<StageName, SceneName> stageNavigator) : base(stageNavigator)
     {
-        this.stageNavigator = stageNavigator;
+        // コンストラクタ
+        // BaseクラスにStageNavigatorを渡します。
+        // シーンに必要なオブジェクトをコンストラクタインジェクションで受け取ります。
     }
 
-    public void Initialize()
+    protected override void Initialize(StageNavigator<StageName, SceneName> stageNavigator, CompositeDisposable sceneDisposables)
     {
-        stageNavigator.OnStageTransitioned
-            .Subscribe(/* processing on entering the stage */)
-            .AddTo(disposables);
-
-        stageNavigator.OnStageTransitioning
-            .Subscribe(/* processing on exiting the stage */)
-            .AddTo(disposables);
+        // シーンのロード時の初期化処理をここに実装します。
+        // シーンのアンロード時にDisposeしたいオブジェクトをsceneDisposablesに追加します。
     }
 
-    public void Dispose()
+    protected override void OnStageEntered(StageName stageName, CompositeDisposable stageDisposables)
     {
-        disposables.Dispose();
-        GC.SuppressFinalize(this);
+        // ステージに入る時の処理をここに実装してください。
+        // ステージから出る時にDisposeしたいオブジェクトをstageDisposablesに追加します。
+    }
+
+    protected override void OnStageExiting(StageName stageName)
+    {
+        // ステージから出る時の処理をここに実装してください。
     }
 }
 ```
@@ -324,48 +334,68 @@ Presenterはエントリーポイントとして登録しシーン処理の起�
 エントリーポイントで使用できる処理のタイミングは[Plain C# Entry point](https://vcontainer.hadashikick.jp/integrations/entrypoint)を参照してください。
 
 ```csharp
-public class AvatarSelectionScreenPresenter : IStartable
+public class AvatarSelectionScreenPresenter : StagePresenterBase
 {
     private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(AvatarSelectionScreenPresenter));
 
-    private readonly StageNavigator<StageName, SceneName> stageNavigator;
-
+    private readonly AvatarService avatarService;
     private readonly AvatarSelectionScreenView avatarSelectionScreenView;
-
     private readonly AppState appState;
 
-    private readonly IAvatarRepository avatarRepository;
-
-    public AvatarSelectionScreenPresenter(
+    public AvatarSelectionScreenPresenter
+    (
         StageNavigator<StageName, SceneName> stageNavigator,
+        AvatarService avatarService,
         AvatarSelectionScreenView avatarSelectionScreenView,
-        AppState appState,
-        IAvatarRepository avatarRepository)
+        AppState appState
+    ) : base(stageNavigator)
     {
-        this.stageNavigator = stageNavigator;
         this.avatarSelectionScreenView = avatarSelectionScreenView;
+        this.avatarService = avatarService;
         this.appState = appState;
-        this.avatarRepository = avatarRepository;
     }
 
-    public void Start()
+    protected override void Initialize(
+        StageNavigator<StageName, SceneName> stageNavigator, CompositeDisposable sceneDisposables)
     {
+        avatarSelectionScreenView.OnNameChanged
+            .Subscribe(appState.SetPlayerName)
+            .AddTo(sceneDisposables);
+
+        avatarSelectionScreenView.OnAvatarChanged
+            .Subscribe(avatarName =>
+            {
+                var avatar = avatarService.FindAvatarByName(avatarName);
+                appState.SetAvatar(avatar);
+            })
+            .AddTo(sceneDisposables);
+
+        avatarSelectionScreenView.OnGoButtonClicked
+            .Subscribe(_ => stageNavigator.ReplaceAsync(StageName.VirtualStage).Forget())
+            .AddTo(sceneDisposables);
+    }
+
+    protected override void OnStageEntered(StageName stageName, CompositeDisposable stageDisposables)
+    {
+        var avatars = avatarService.Avatars;
+        if (appState.Avatar.Value == null)
+        {
+            appState.SetAvatar(avatars.First());
+        }
+
+        var avatarNames = avatars.Select(avatar => avatar.Name).ToList();
+        avatarSelectionScreenView.Initialize(avatarNames);
+
+        avatarSelectionScreenView.SetInitialValues(appState.PlayerName.Value, appState.Avatar.Value.Name);
+
         if (Logger.IsDebug())
         {
             Logger.LogDebug($"player: name: {appState.PlayerName.Value} avatar: {appState.Avatar.Value.Name}");
         }
+    }
 
-        var avatars = avatarRepository.Avatars.Select(avatar => avatar.Name).ToList();
-        avatarSelectionScreenView.Initialize(avatars);
-
-        avatarSelectionScreenView.SetInitialValues(appState.PlayerName.Value, appState.Avatar.Value.Name);
-
-        avatarSelectionScreenView.OnNameChanged.Subscribe(appState.SetPlayerName);
-
-        avatarSelectionScreenView.OnAvatarChanged.Subscribe(appState.SetAvatar);
-
-        avatarSelectionScreenView.OnGoButtonClicked
-            .Subscribe(_ => stageNavigator.ReplaceAsync(StageName.VirtualStage).Forget());
+    protected override void OnStageExiting(StageName stageName)
+    {
     }
 }
 ```

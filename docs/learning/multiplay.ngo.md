@@ -9,7 +9,7 @@ sidebar_position: 3
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2021.3.13f1
+  - 2021.3.16f1
 
 NGOラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
@@ -26,13 +26,7 @@ NGOラッパーがセットアップされた学習用のプロジェクトを�
 学習用のプロジェクトをクローンします。
 
 ```
-https://github.com/extreal-dev/Extreal.Learning.git
-```
-
-次のタグをチェックアウトします。
-
-```
-ngo-0.1.0
+https://github.com/extreal-dev/Extreal.Learning.Multiplay.NGO.git
 ```
 
 Unityエディタでクローンしたプロジェクトを開きます。
@@ -75,9 +69,10 @@ ExtrealCoreLearning/Appディレクトリにある`App`シーンを実行しま�
 まずマルチプレイサーバーを追加します。
 
 :::info step
-マルチプレイサーバーのロジックを提供するModelスクリプトをExtrealCoreLearning.MultiplayServerディレクトリに作成します。
+マルチプレイサーバーのロジックを提供するModelスクリプトを作成します。
 :::
 
+ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
 NgoServerを使ってサーバーを開始します。
 後ほどクライアントからのメッセージを受けてプレイヤーをスポーンする処理を追加します。
 
@@ -105,9 +100,10 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-マルチプレイサーバーのエントリーポイントとなるPresenterスクリプトをExtrealCoreLearning.MultiplayServerディレクトリに作成します。
+マルチプレイサーバーのエントリーポイントとなるPresenterスクリプトを作成します。
 :::
 
+ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
 MultiplayServerシーンが開始するとサーバーを開始します。
 
 ```csharp
@@ -134,9 +130,10 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-マルチプレイサーバーに必要なオブジェクトを組み立てるScopeスクリプトをExtrealCoreLearning.MultiplayServerディレクトリに作成します。
+マルチプレイサーバーに必要なオブジェクトを組み立てるScopeスクリプトを作成します。
 :::
 
+ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
 デバッグログを出力したいのでLoggingの初期化を入れています。
 NetworkManagerはGameObjectとして配置するのでインスペクタから受け取ります。
 
@@ -188,7 +185,7 @@ NetworkManagerをアタッチしたGameObjectをMultiplayServerシーンに作�
 - MultiplayServerシーンに`NetworkManager`という名前でGameObjectを作成します。
 - インスペクタのAdd Componentから`Network Manager`を追加します。
 - インスペクタのSelect transport...から`UnityTransport`を選びます。
-- StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。
+- **StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。**
 
 :::info step
 ScopeスクリプトをMultiplayServerシーンに設定します。
@@ -220,11 +217,9 @@ MultiplayServerシーンのNetworkManagerオブジェクトを`ExtrealCoreLearni
 
 ![NetworkManager prefab](/img/learning-ngo-networkmanager-prefab.png)
 
-## Add multiplay player
+## Add connection to multiplay room
 
-マルチプレイできるプレイヤーを追加します。
-
-### Client
+マルチプレイルームへの参加とマルチプレイルームからの退室をアプリケーションに追加します。
 
 :::info step
 まずアプリケーションで使うNgoClientの初期化を行います。
@@ -299,8 +294,17 @@ NGOで同期するプレハブはNetworkManagerに設定する必要がありま
 ![Netwrok prefab](/img/learning-ngo-networkmanager-playerprefab.png)
 
 :::info step
-NgoClientの準備ができたのでアプリケーションのマルチプレイ制御を作成していきます。
-まずMultiplayControlシーンを追加します。
+NgoClientの初期化で問題が起きていないか確認します。
+:::
+
+NgoClientを使った処理はまだ入れていないのでAppシーンを実行してこれまでと同じように起動されれば成功です。
+
+起動時に`Add Scene to Scenes in Build`と表示された場合は`No - Continue`を選択して、NetworkManagerの作成手順が漏れているので次の手順を実施してください。
+
+- **StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。**
+
+:::info step
+MultiplayControlシーンを追加します。
 :::
 
 - `ExtrealCoreLearning/MultiplayControl`ディレクトリを作成します。
@@ -308,9 +312,10 @@ NgoClientの準備ができたのでアプリケーションのマルチプレ�
 - カメラなど初期設定されているGameObjectを削除しMultiplayControlシーンを一旦空にします。
 
 :::info step
-マルチプレイのロジックを提供するModelスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
+マルチプレイのロジックを提供するModelスクリプトを作成します。
 :::
 
+ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
 マルチプレイルームへの参加とマルチプレイルームからの退室を提供しています。
 
 ```csharp
@@ -350,6 +355,137 @@ namespace ExtrealCoreLearning.MultiplayControl
     }
 }
 ```
+
+:::info step
+マルチプレイルームへの参加と退室を制御するPresenterスクリプトを作成します。
+:::
+
+ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
+StageNavigatorのイベント通知を使ってマルチプレイルームへの参加とマルチプレイルームからの退室を制御しています。
+OnStageTransitionedがステージに入った後、OnStageTransitioningがステージから出る前のタイミングになります。
+
+```csharp
+using System;
+using Cysharp.Threading.Tasks;
+using Extreal.Core.StageNavigation;
+using ExtrealCoreLearning.App;
+using UniRx;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.MultiplayControl
+{
+    public class MultiplayControlPresenter : IInitializable, IDisposable
+    {
+        private readonly StageNavigator<StageName, SceneName> stageNavigator;
+        private readonly MultiplayRoom multiplayRoom;
+        private readonly CompositeDisposable disposables = new CompositeDisposable();
+
+        public MultiplayControlPresenter(StageNavigator<StageName, SceneName> stageNavigator,
+            MultiplayRoom multiplayRoom)
+        {
+            this.stageNavigator = stageNavigator;
+            this.multiplayRoom = multiplayRoom;
+        }
+
+        public void Initialize()
+        {
+            stageNavigator.OnStageTransitioned
+                .Subscribe(_ => multiplayRoom.JoinAsync().Forget())
+                .AddTo(disposables);
+
+            stageNavigator.OnStageTransitioning
+                .Subscribe(_ => multiplayRoom.LeaveAsync().Forget())
+                .AddTo(disposables);
+        }
+
+        public void Dispose()
+        {
+            disposables.Dispose();
+        }
+    }
+}
+```
+
+:::info step
+ModelとPresenterのオブジェクトを組み立てるScopeスクリプトを作成します。
+:::
+
+ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
+
+```csharp
+using VContainer;
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.MultiplayControl
+{
+    public class MultiplayControlScope : LifetimeScope
+    {
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.Register<MultiplayRoom>(Lifetime.Singleton);
+
+            builder.RegisterEntryPoint<MultiplayControlPresenter>();
+        }
+    }
+}
+```
+
+:::info step
+ScopeスクリプトをMultiplayControlシーンに設定します。
+:::
+
+![MultiplayControl scope](/img/learning-ngo-multiplaycontrol-scope.png)
+
+- MultiplayControlシーンに`Scope`という名前でMultiplayControlScopeをアタッチしたGameObjectを作成します。
+- インスペクタでParentに`AppScope`を指定します。
+
+:::info step
+MultiplayControlシーンが完成したのでステージ設定とBuildSettingsに追加します。
+:::
+
+- SceneNameに`MultiplayControl`を追加します。
+- StageConfigのインスペクタでVirtualStageに`MultiplayControl`を追加します。
+- BuildSettingsにMultiplayControlシーンを追加します。
+
+:::info step
+マルチプレイルームに接続できるか試してみましょう。
+:::
+
+マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
+プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
+
+![ParrelSync](/img/learning-ngo-parrelsync.png)
+
+実行するシーンは次の通りです。
+
+- マルチプレイサーバー
+  ```
+  /Assets/ExtrealCoreLearning.MultiplayServer/MultiplayServer
+  ```
+- アプリケーション
+  ```
+  /Assets/ExtrealCoreLearning/App/App
+  ```
+
+バーチャル空間に移動してもこれまでと変わりありませんが、次のようなログが出ていれば成功です。
+
+- マルチプレイサーバー
+  ```
+  [Debug:NgoServer] The client with client id 1 has connected
+  ```
+- アプリケーション
+  ```
+  [Debug:NgoClient] The client has connected to the server
+  ```
+
+## Add player spawn
+
+マルチプレイルームに接続できたのでプレイヤーをスポーンする処理を追加します。
+この処理を追加するとマルチプレイできるようになります。
+
+アプリケーションからプレイヤーのスポーンを依頼するメッセージをマルチプレイサーバーに送り、マルチプレイサーバーでプレイヤーをスポーンします。
+
+### Application
 
 :::info step
 マルチプレイサーバーにプレイヤーのスポーンを依頼する処理を追加します。
@@ -434,95 +570,7 @@ namespace ExtrealCoreLearning.MultiplayControl
 }
 ```
 
-:::info step
-マルチプレイルームへの参加と退室を制御するPresenterスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
-:::
-
-StageNavigatorのイベント通知を使ってマルチプレイルームへの参加とマルチプレイルームからの退室を制御しています。
-OnStageTransitionedがステージに入った後、OnStageTransitioningがステージから出る前のタイミングになります。
-
-```csharp
-using System;
-using Cysharp.Threading.Tasks;
-using Extreal.Core.StageNavigation;
-using ExtrealCoreLearning.App;
-using UniRx;
-using VContainer.Unity;
-
-namespace ExtrealCoreLearning.MultiplayControl
-{
-    public class MultiplayControlPresenter : IInitializable, IDisposable
-    {
-        private readonly StageNavigator<StageName, SceneName> stageNavigator;
-        private readonly MultiplayRoom multiplayRoom;
-        private readonly CompositeDisposable disposables = new CompositeDisposable();
-
-        public MultiplayControlPresenter(StageNavigator<StageName, SceneName> stageNavigator,
-            MultiplayRoom multiplayRoom)
-        {
-            this.stageNavigator = stageNavigator;
-            this.multiplayRoom = multiplayRoom;
-        }
-
-        public void Initialize()
-        {
-            stageNavigator.OnStageTransitioned
-                .Subscribe(_ => multiplayRoom.JoinAsync().Forget())
-                .AddTo(disposables);
-
-            stageNavigator.OnStageTransitioning
-                .Subscribe(_ => multiplayRoom.LeaveAsync().Forget())
-                .AddTo(disposables);
-        }
-
-        public void Dispose()
-        {
-            disposables.Dispose();
-        }
-    }
-}
-```
-
-:::info step
-ModelとPresenterのオブジェクトを組み立てるScopeスクリプトを`ExtrealCoreLearning/MultiplayControl`ディレクトリに作成します。
-:::
-
-```csharp
-using VContainer;
-using VContainer.Unity;
-
-namespace ExtrealCoreLearning.MultiplayControl
-{
-    public class MultiplayControlScope : LifetimeScope
-    {
-        protected override void Configure(IContainerBuilder builder)
-        {
-            builder.Register<MultiplayRoom>(Lifetime.Singleton);
-
-            builder.RegisterEntryPoint<MultiplayControlPresenter>();
-        }
-    }
-}
-```
-
-:::info step
-ScopeスクリプトをMultiplayControlシーンに設定します。
-:::
-
-![MultiplayControl scope](/img/learning-ngo-multiplaycontrol-scope.png)
-
-- MultiplayControlシーンに`Scope`という名前でMultiplayControlScopeをアタッチしたGameObjectを作成します。
-- インスペクタでParentに`AppScope`を指定します。
-
-:::info step
-MultiplayControlシーンが完成したのでステージ設定とBuildSettingsに追加します。
-:::
-
-- SceneNameに`MultiplayControl`を追加します。
-- StageConfigのインスペクタでVirtualStageに`MultiplayControl`を追加します。
-- BuildSettingsにMultiplayControlシーンを追加します。
-
-### Server
+### Multiplay Server
 
 :::info step
 アプリケーションから送信されるプレイヤーをスポーンするメッセージに対応する処理をMultiplayServerに追加します。
@@ -579,7 +627,7 @@ namespace ExtrealCoreLearning.MultiplayServer
             this.ngoServer.OnServerStopping.Subscribe(_ =>
             {
                 ngoServer.UnregisterMessageHandler(MessageName.PlayerSpawn.ToString());
-            });
+            }).AddTo(disposables);
             // highlight-end
         }
 
@@ -621,13 +669,8 @@ namespace ExtrealCoreLearning.MultiplayServer
 ## Play
 
 :::info step
-実装が完了したのでプレイしてみましょう。
+全ての実装が完了したのでプレイしてみましょう。
 :::
-
-マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
-プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
-
-![ParrelSync](/img/learning-ngo-parrelsync.png)
 
 実行するシーンは次の通りです。
 
@@ -639,6 +682,14 @@ namespace ExtrealCoreLearning.MultiplayServer
   ```
   /Assets/ExtrealCoreLearning/App/App
   ```
+
+操作方法は次の通りです。
+
+- 移動
+  - W：前、A：左、S：後、D：右
+- アクション
+  - スペース：ジャンプ
+  - 左Shift：走る
 
 ParrelSyncでUnityエディタを開いてプレイしている様子です。
 マルチプレイサーバーを実行しているUnityエディタは後ろに隠れています。

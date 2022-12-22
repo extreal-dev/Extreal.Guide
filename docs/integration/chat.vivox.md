@@ -44,7 +44,6 @@ classDiagram
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
     VivoxChannelConfig --> ChatType
-    ScriptableObject <|-- VivoxAppConfig
     IDisposable <|.. VivoxClient
 
     class VivoxClient {
@@ -79,13 +78,15 @@ classDiagram
         +Domain string
         +Issuer string
         +SecretKey string
+        +VivoxAppConfig(apiEndPoint, domain, issuer, secretKey)
     }
 
     class VivoxAuthConfig {
         +DisplayName string
         +AccountName string
         +TokenExpirationDuration TimeSpan
-        +VivoxAuthConfig(displayName, accountName,  tokenExpirationDuration)
+        +Timeout TimeSpan
+        +VivoxAuthConfig(displayName, accountName,  tokenExpirationDuration, timeout)
     }
 
     class ChatType {
@@ -103,10 +104,6 @@ classDiagram
         +TransmissionSwitch bool
         +TokenExpirationDuration TimeSpan
         VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch,tokenExpirationDuration)
-    }
-
-    class ScriptableObject {
-        <<unity>>
     }
 
     class IDisposable {
@@ -139,26 +136,36 @@ VivoxClientを初期化します。
 
 [Vivox Developer Portal](https://developer.vivox.com/)でクライアントからの接続先となるアプリケーションが作成されているものとします。
 
-VivoxClientの初期化にはVivoxAppConfigが必要です。
-VivoxAppConfigはScriptableObjectを継承しているのでアセットを作成します。
-VivoxAppConfigのアセット作成メニューは次の通りです。
+VivoxClientの初期化にはVivoxへの接続情報を保持するVivoxAppConfigが必要です。
+今回は一例としてScriptableObjectでVivoxへの接続情報を設定する方法を紹介します。
+VivoxAppConfigを生成するScriptableObjectを作成し、インスペクタでVivoxへの接続情報を設定します。
 
-```
-Extreal/Integration.Chat.Vivox/VivoxAppConfig
-```
+```csharp
+[CreateAssetMenu(
+    menuName = "Config/" + nameof(ChatConfig),
+    fileName = nameof(ChatConfig))]
+public class ChatConfig : ScriptableObject
+{
+    [SerializeField] private string apiEndPoint;
+    [SerializeField] private string domain;
+    [SerializeField] private string issuer;
+    [SerializeField] private string secretKey;
 
-インスペクタでVivoxのアプリケーションへの接続情報をVivoxAppConfigに設定します。
+    public VivoxAppConfig ToVivoxAppConfig()
+        => new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey);
+}
+```
 
 VContainerを使ってVivoxClientを初期化します。
 
 ```csharp
 public class ChatControlScope : LifetimeScope
 {
-    [SerializeField] private VivoxAppConfig vivoxAppConfig;
+    [SerializeField] private ChatConfig chatConfig;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponent(vivoxAppConfig);
+        builder.RegisterComponent(chatConfig.ToVivoxAppConfig());
         builder.Register<VivoxClient>(Lifetime.Singleton);
     }
 }
@@ -262,14 +269,18 @@ VivoxClientは次のイベント通知を設けています。
     - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnUserConnected
   - タイミング：チャンネルに参加者が入室した直後
+    - イベント発生元になったユーザーにもこのイベントが通知されます。
   - タイプ：IObservable
   - パラメータ：入室した参加者
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - 参加者がチャンネルに入室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
 - OnUserDisconnected
   - タイミング：チャンネルから参加者が退室した直後
+    - イベント発生元になったユーザーにもこのイベントが通知されます。
   - タイプ：IObservable
   - パラメータ：退室した参加者
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - 参加者がチャンネルから退室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
 - OnTextMessageReceived
   - タイミング：チャンネルにメッセージが着信した直後
   - タイプ：IObservable

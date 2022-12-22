@@ -9,7 +9,7 @@ sidebar_position: 3
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2021.3.13f1
+  - 2021.3.16f1
 
 Vivoxラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
@@ -29,16 +29,11 @@ Vivoxラッパーがセットアップされた学習用のプロジェクトを
 学習用のプロジェクトをクローンします。
 
 ```
-https://github.com/extreal-dev/Extreal.Learning.git
-```
-
-次のタグをチェックアウトします。
-
-```
-vivox-0.1.0
+https://github.com/extreal-dev/Extreal.Learning.Chat.Vivox.git
 ```
 
 Unityエディタでクローンしたプロジェクトを開きます。
+「Link your Unity project」と表示された場合は設定せずに閉じてください。
 
 :::info step
 プロジェクトの内容を確認しましょう。
@@ -95,17 +90,13 @@ Appディレクトリにある`App`シーンを実行します。
 VivoxClientはアプリケーションで1つ存在すればよいのでAppシーンに含めておき、空間が増えても再利用できるようにしておきます。
 
 :::info step
-VivoxAppConfigを作成しVivoxへの接続情報を設定します。
+VivoxAppConfigを生成するScriptableObjectを作成します。
 :::
-
-VivoxAppConfigはVivoxラッパーがScriptableObjectとして提供しているのでアセット作成から
-VivoxAppConfigオブジェクトを作成します。
 
 ![VivoxAppConfig](/img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
-- AppディレクトリにVivoxAppConfigオブジェクトを作成します。
-  - アセット作成メニューのパス：`Extrea＞Integration.Chat.Vivox＞VivoxAppConfig`
-- インスペクタでVivoxへの接続情報を設定します。
+- [VivoxラッパーのSettings](/integration/chat.vivox#settings)を参照して、AppディレクトリにVivoxAppConfigオブジェクトを生成するChatConfigスクリプトを作成します。
+- アセット作成メニューからChatConfigオブジェクトを作成し、インスペクタでVivoxへの接続情報を設定します。
 
 :::info step
 AppScopeを変更してVivoxClientを初期化します。
@@ -129,7 +120,7 @@ namespace ExtrealCoreLearning.App
     {
         [SerializeField] private StageConfig stageConfig;
         // highlight-start
-        [SerializeField] private VivoxAppConfig vivoxAppConfig;
+        [SerializeField] private ChatConfig chatConfig;
         // highlight-end
 
         private static void InitializeApp()
@@ -148,7 +139,7 @@ namespace ExtrealCoreLearning.App
             builder.Register<StageNavigator<StageName, SceneName>>(Lifetime.Singleton);
 
             // highlight-start
-            builder.RegisterComponent(vivoxAppConfig);
+            builder.RegisterComponent(chatConfig.ToVivoxAppConfig());
             builder.Register<VivoxClient>(Lifetime.Singleton);
             // highlight-end
 
@@ -158,7 +149,7 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
-インスペクタでAppScopeにVivoxAppConfigオブジェクトを設定します。
+インスペクタでAppScopeにChatConfigオブジェクトを設定します。
 
 ![AppScope](/img/learning-vivox-appscope-vivoxappconfig.png)
 
@@ -167,9 +158,10 @@ namespace ExtrealCoreLearning.App
 VivoxClientが準備できたのでテキストチャットを追加していきます。
 
 :::info step
-テキストチャットのロジックを提供するModelスクリプトを`ExtrealCoreLearning/TextChatControl`ディレクトリに作成します。
+テキストチャットのロジックを提供するModelスクリプトを作成します。
 :::
 
+ExtrealCoreLearning/TextChatControlディレクトリに作成します。
 チャンネルへの参加とチャンネルからの退室、メッセージ送信とメッセージ受信を提供しています。
 チャンネルへの参加時はログインしていなければログインするようにしています。
 
@@ -352,6 +344,9 @@ namespace ExtrealCoreLearning.TextChatControl
 ![ParrelSync](/img/learning-ngo-parrelsync.png)
 
 Appシーンを実行します。
+Vivoxへの接続に少し時間がかかるので実行後すぐにメッセージ送信しても送信されない場合があります。
+メッセージ送信が反応しなかった場合は少し待ってからメッセージ送信してください。
+
 実行しているすべてのアプリケーションにメッセージが送信されれば成功です。
 
 ## Add base class
@@ -366,8 +361,10 @@ Appシーンを実行します。
   - ステージに入った時にTextChatChannelを生成してチャンネルに参加し、ステージから出るときにチャンネルから退室
 
 :::info step
-ModelスクリプトのBaseクラスを`App`ディレクトリに作成します。
+ModelスクリプトのBaseクラスを作成します。
 :::
+
+Appディレクトリに作成します。
 
 ```csharp
 using System;
@@ -477,8 +474,10 @@ namespace ExtrealCoreLearning.TextChatControl
 ```
 
 :::info step
-PresenterスクリプトのBaseクラスを`App`ディレクトリに作成します。
+PresenterスクリプトのBaseクラスを作成します。
 :::
+
+Appディレクトリに作成します。
 
 ```csharp
 using System;
