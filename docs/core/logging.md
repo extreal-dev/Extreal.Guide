@@ -175,8 +175,8 @@ LoggingManager.Initialize(logLevel: logLevel);
 
 ### ログを出力する
 
-Loggerクラスを使ってログを出力します。
-LoggerクラスはLoggingManagerクラスから取得します。
+ELoggerクラスを使ってログを出力します。
+ELoggerクラスはLoggingManagerクラスから取得します。
 
 ```csharp
 public class SomethingService {
