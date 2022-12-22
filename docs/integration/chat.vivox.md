@@ -136,7 +136,8 @@ VivoxClientを初期化します。
 
 [Vivox Developer Portal](https://developer.vivox.com/)でクライアントからの接続先となるアプリケーションが作成されているものとします。
 
-VivoxClientの初期化にはVivoxAppConfigが必要です。
+VivoxClientの初期化にはVivoxへの接続情報を保持するVivoxAppConfigが必要です。
+今回は一例としてScriptableObjectでVivoxへの接続情報を設定する方法を紹介します。
 VivoxAppConfigを生成するScriptableObjectを作成し、インスペクタでVivoxへの接続情報を設定します。
 
 ```csharp
