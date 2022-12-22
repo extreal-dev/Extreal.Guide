@@ -269,14 +269,14 @@ VivoxClientは次のイベント通知を設けています。
     - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnUserConnected
   - タイミング：チャンネルに参加者が入室した直後
-    - チャンネルに入室したユーザーにもイベントが通知されます。
+    - チャンネルに入室したユーザーにもこのイベントが通知されます。
   - タイプ：IObservable
   - パラメータ：入室した参加者
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - 参加者がチャンネルに入室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
 - OnUserDisconnected
   - タイミング：チャンネルから参加者が退室した直後
-    - チャンネルから退室したユーザーにもイベントが通知されます。
+    - チャンネルから退室したユーザーにもこのイベントが通知されます。
   - タイプ：IObservable
   - パラメータ：退室した参加者
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
