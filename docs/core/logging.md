@@ -118,7 +118,7 @@ sequenceDiagram
     Application->>ELogger: IsXxx()
     ELogger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
     ELogger-->>Application: bool
-    Application->>ELogger: LogXxx(logCategory, message)
+    Application->>ELogger: LogXxx(message)
     ELogger->>ILogOutputChecker: IsOutput(logLevel, logCategory)
     ELogger->>ILogWriter: Log(logLevel, logCategory, message)
 ```
