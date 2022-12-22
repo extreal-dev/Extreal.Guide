@@ -170,7 +170,7 @@ VContainerが推奨する方法を採用します。
 
 VContainerの推奨理由については[Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)のRECOMMENDATIONを参照してください。
 
-VContainerへのの登録は次のRegisterを使います。
+VContainerへの登録は次のRegisterを使います。
 
 ```csharp title="C# Type"
 builder.Register<AppState>(Lifetime.Singleton);
