@@ -11,12 +11,32 @@ $ yarn
 
 ## Local Development
 
+This guide are available in Japanese(ja) and English(en).
+
+- ja
+  ```
+  /docs
+  ```
+- en
+  ```
+  /i18n/en
+  ```
+
+Local development cannot check multiple languages simultaneously.
+The following command is used to check `ja`.
+
 ```
-$ yarn start
+yarn run start -- --locale ja
 ```
 
 This command starts the local development server and opens a browser window.
 Most changes will take effect immediately, without restarting the server.
+
+The following command is used to check `en`.
+
+```
+yarn run start -- --locale en
+```
 
 ## Diagram
 

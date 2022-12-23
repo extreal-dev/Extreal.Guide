@@ -24,7 +24,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'ja',
-    locales: ['ja'],
+    locales: ['ja','en'],
   },
 
   presets: [
@@ -66,6 +66,10 @@ const config = {
             docId: 'intro',
             position: 'left',
             label: 'Docs',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right'
           },
           {
             href: 'https://fintan.jp/blog-category/xr/',
