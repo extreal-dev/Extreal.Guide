@@ -6,51 +6,52 @@ sidebar_position: 1
 
 ## What for?
 
-フレームワークとアプリケーションのログ出力を共通化し、アプリケーションで統一してログ出力を制御できるようにLoggingを提供します。
+We provide Logging so that the log output of your framework and application can be commonized and log output can be controlled in a unified manner by your application.
 
-あなたのアプリケーションのログ出力をLoggingに集約することで、開発と本番運用で出力するログの種類や出力先の切り替えなど、アプリケーションのログ出力制御が容易になります。
+By consolidating your application's log output into Logging, you can easily control your application's log output, such as switching log types and output destinations between development and production operations.
 
 :::info
-現時点のLoggingはUnity標準のDebugクラスを使ったログ出力のみ提供します。
-開発時のデバッグ用と考えてください。
-アプリケーションをモニタリングできるようにパブリッククラウドへのログ送信など、今後ログ出力先を増やしていく予定です。
+Currently, Logging only provides log output using the Unity standard Debug class.
+It should be considered for debugging during development.
+We plan to increase the number of log output destinations in the future, such as sending logs to the public cloud so that applications can be monitored.
 :::
 
 ## Specification
 
-Loggingではログ出力を制御しやすいようにログレベルとログカテゴリを関連付けてログを出力します。
+Logging outputs logs with associating log levels and log categories for easier control of log output.
 
-ログレベルは高い方から順にERROR、WARN、INFO、DEBUGの4つです。
+The four log levels are Error, Warn, Info, and Debug in descending order.
 
-- ERROR
-  - アプリケーションを継続できないエラーが発生した場合
-- WARN
-  - すぐに影響はないが放置しておくと問題となる事象が発生した場合
-- INFO
-  - アプリケーションの利用状況や外部サービスとの接続状況を把握する目的で正常動作の事象を出力したい場合
-- DEBUG
-  - 開発時にデバッグ情報を出力したい場合
+- Error
+  - When an error occurs that prevents the application from continuing
+- Warn
+  - When an event occurs that has no immediate impact but could become problematic if left unchecked
+- Info
+  - When you want to output events of normal operation for the purpose of understanding the usage status of the application or the connection status with external services
+- Debug
+  - When you want to output debugging information during development
 
-ログレベルは次のような使い方を想定しています。
-- 開発時はDEBUG以上、本番運用時はINFO以上のログを出力する。
-- ERROR以上のログを監視して通知する。
+The log levels are intended to be used in the following ways.
 
-ログカテゴリはログを分類する名前です。
-次のような使い方を想定しています。
+- Output logs of Debug or higher during development and Info or higher during production operation.
+- Logs of Error or higher are monitored and notified.
 
-- ログ出力を行うクラス名をログカテゴリにしてログを見てどのクラスから出力されたのか分かるようにする。
-- 特定の名前をログカテゴリにして複数クラスで出力しているログを後から追跡できるようにする。
-- 障害の再現テストなどで特定クラスのみログレベルに関係なく全てのログを出力したい場合があります。これはログカテゴリを使ってログ出力判定を変更することで実現できます。
+Log category is a name to classify logs.
+We assume the following usages.
 
-Loggingの仕様は次の通りです。
+- The name of the class that outputs logs is set as the log category so that the logs can be determined which class outputs the logs.
+- A specific name is set as the log category so that logs output by multiple classes can be traced later.
+- In some cases, such as when testing the reproduction of a failure, you may want to output all logs for a specific class only, regardless of the log level. This can be achieved by using log categories to change the log output checker.
 
-- ログレベルとログカテゴリを関連付けてログを出力できます。
-  - デフォルトのログ出力判定はログレベルのみで判定します。
-  - デフォルトではINFO以上のログを出力します。
-  - デフォルトのログ出力はUnity標準のDebugクラスで行います。
-- ログ出力判定に使うログレベルを変更できます。
-- ログ出力判定を変更できます。
-- ログ書き込み（フォーマットや出力先）を変更できます。
+Logging specifications are as follows.
+
+- Logs can be output by associating log levels and log categories.
+  - The default log output checker is based on log level only.
+  - The default log output is Info or higher.
+  - Default log output is performed by the Unity standard Debug class.
+- You can change the log level used to determine log output.
+- You can change the log output checker.
+- You can change the log writer (format and output destination).
 
 ## Architecture
 
@@ -100,14 +101,14 @@ classDiagram
 ```
 
 :::info
-`Xxx`にはログレベル（Error、Warn、Info、Debug）が入ります。
+`Xxx` is the log level (Error, Warn, Info, Debug).
 :::
 
 :::info
-UnityのLoggerとLoggingのLoggerが重複し参照が曖昧になるのを防ぐため、LoggingのLoggerにはExtrealの頭文字の`E`を付けています。
+To prevent duplication and ambiguous references between Unity's Logger and Logging's Logger, Logging's Logger is marked with `E`, the first letter of Extreal.
 :::
 
-アプリケーションでログ出力する場合のシーケンスは次の通りです。
+The sequence for logging output by the application is as follows.
 
 ```mermaid
 sequenceDiagram
@@ -127,22 +128,22 @@ sequenceDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Core.Logging.git
 ```
 
 ### Dependencies
 
-依存するものがないため作業は不要です。
+No work is required as there are no dependencies.
 
 ### Settings
 
-デフォルトのまま使う場合は以降の作業は不要です。
+If the default is used, no further work is required.
 
-フレームワークやアプリケーションの初期化処理でログ出力が必要になるケースがあるため、フレームワークやアプリケーションのどの機能よりも先にログ出力を初期化して利用できる状態にする必要があります。
-ログ出力の初期化はエントリーポイントとなるGameObjectのAwakeで行うのがベストなタイミングです。
+In some cases, log output is required by the initialization process of the framework or application, so log output must be initialized and ready to use before any other feature of the framework or application.
+The best time to initialize log output is at Awake of the GameObject that is the entry point.
 
-LoggingManagerクラスを使ってログ出力を初期化します。
+Log output is initialized using the LoggingManager class.
 
 ```csharp
 public class App : MonoBehaviour
@@ -160,7 +161,7 @@ public class App : MonoBehaviour
 }
 ```
 
-開発時や本番運用時の設定切り替えにはシンボルを使います。
+Symbols are used to switch settings during development and production.
 
 ```csharp
 #if DEV
@@ -173,10 +174,10 @@ LoggingManager.Initialize(logLevel: logLevel);
 
 ## Usage
 
-### ログを出力する
+### Output logs
 
-ELoggerクラスを使ってログを出力します。
-ELoggerクラスはLoggingManagerクラスから取得します。
+The ELogger class is used to output logs.
+The ELogger class is obtained from the LoggingManager class.
 
 ```csharp
 public class SomethingService {
@@ -194,7 +195,7 @@ public class SomethingService {
 }
 ```
 
-ログに出力する文字列作成は出力場所によってはアプリケーションの性能劣化に繋がるので事前にログ出力判定を行ってからログ出力します。
+The creation of character strings to be output to the log may degrade the performance of the application depending on the output location, so a log output determination is made in advance before log output.
 
 ```csharp
 if (Logger.IsDebug()) {
@@ -203,22 +204,22 @@ if (Logger.IsDebug()) {
 ```
 
 :::tip
-本番運用時に設定するログレベルから判断して常に出力されるログにはログ出力判定は不要です。
+Log output determination is not required for logs that are always output based on the log level set for production operation.
 :::
 
-### ログレベルを変更する
+### Change log level
 
-LoggingManagerクラスを使ってログレベルを変更します。
+The log level is changed using the LoggingManager class.
 
 ```csharp
 // Initialization script for Logging
 LoggingManager.Initialize(LogLevel.Debug);
 ```
 
-### ログ出力判定を変更する
+### Change log output checker
 
-ILogOutputCheckerインタフェースがログ出力を判定します。
-ILogOutputCheckerインタフェースを実装したクラスを作成しLoggingManagerクラスに設定します。
+The ILogOutputChecker interface determines log output.
+You create a class that implements the ILogOutputChecker interface and set it to the LoggingManager class.
 
 ```csharp
 // Class that implements the ILogOutputChecker interface.
@@ -245,10 +246,10 @@ public class AppLogOutputChecker : ILogOutputChecker
 LoggingManager.Initialize(checker: new AppLogOutputChecker());
 ```
 
-### ログ書き込みを変更する
+### Change log writer
 
-ILogWriterインタフェースがログを書き込みます。
-ILogWriterインタフェースを実装したクラスを作成しLoggingManagerクラスに設定します。
+The ILogWriter interface writes logs.
+You create a class that implements the ILogWriter interface and set it to the LoggingManager class.
 
 ```csharp
 // Class that implements the ILogWriter interface.
