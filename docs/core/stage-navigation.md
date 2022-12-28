@@ -80,6 +80,7 @@ classDiagram
 
 :::info
 次のタイプはアプリケーションで作成します。
+
 - StageName：ステージ名を表すEnum
 - SceneName：シーン名を表すEnum
 - StageConfig：ステージ設定を保持するクラス
@@ -172,7 +173,7 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 ```
 
 Unityエディタのインスペクタでステージ設定を行います。
-設定例は次の通りです
+設定例は次の通りです。
 
 ![Stage config](/img/core-stagenavigation-stageconfig.png)
 
