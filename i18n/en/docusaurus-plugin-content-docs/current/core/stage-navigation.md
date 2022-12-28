@@ -6,21 +6,21 @@ sidebar_position: 2
 
 ## What for?
 
-[Frameworkが想定するアプリケーションアーキテクチャ](/intro#application)で説明した複数のシーンを組み合わせたステージの作成やステージの切り替えを簡単にできるようにStage Navigationを提供します。
+Stage Navigation is provided to easily create stages that combine multiple scenes and switch between stages as described in [Application Architecture Envisioned by the Framework](/intro#application).
 
-[Frameworkが想定するアプリケーションアーキテクチャ](/intro#application)で示した図を再掲します。
-![Multiple scenes](/img/multi-scenes.png)
+The diagram shown in [Application Architecture Envisioned by the Framework](/intro#application) is reproduced below.
+! [Multiple scenes](/img/multi-scenes.png)
 
-あなたのアプリケーションでStage Navigationを使い機能を自由に組み合わせてステージを作れるようになると機能の再利用性が高まりメンテナンスしやすいアプリケーションが手に入ります。
+If you are able to create stages in your application using Stage Navigation and freely combining features, you will have an application that is easier to maintain and more reusable.
 
 ## Specification
 
-Stage Navigationの仕様は次の通りです。
+Stage Navigation specifications are as follows.
 
-- 複数のシーンを組み合わせてステージを設定できます。
-- 全てのステージに共通するシーンをまとめて一箇所で設定できます。
-- 指定したステージに遷移できます。
-- ステージ遷移をトリガーに処理を追加できます。
+- Stages can be set by combining multiple scenes.
+- Scenes common to all stages can be set together in one place.
+- You can transition to a specified stage.
+- Processing can be added to trigger stage transitions.
 
 ## Architecture
 
@@ -79,38 +79,39 @@ classDiagram
 ```
 
 :::info
-次のタイプはアプリケーションで作成します。
-- StageName：ステージ名を表すEnum
-- SceneName：シーン名を表すEnum
-- StageConfig：ステージ設定を保持するクラス
+The following types are created in the application
+
+- StageName: Enum representing the stage name
+- SceneName: Enum representing the scene name
+- StageConfig: Class that holds the stage configuration
 :::
 
 ## Installation
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Core.StageNavigation.git
 ```
 
 ### Dependencies
 
-Stage Navigationは次のパッケージを使います。
+Stage Navigation uses the following packages.
 
 - [Extreal.Core.Logging](/core/logging)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+Please refer to [Release](/category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
-アプリケーションで使用するステージを設定します。
-次の3つのタイプを作成します。
+The stages to be used in the application are set up.
+You create the following three types.
 
-- ステージ名を表すEnum
-- シーン名を表すEnum
-- ステージ設定を保持するクラス
+- Enum representing the stage name
+- Enum that represents the scene name
+- Class that holds the stage settings
 
 ```csharp
 // Enum for the stage name
@@ -147,19 +148,19 @@ public enum SceneName
 }
 ```
 
-ステージ設定のような定数値は編集しやすいようにUnityエディタのインスペクタで指定できるようにします。
-インスペクタでEnumを使う場合は次の問題があるため、ステージ名とシーン名のEnumは定数値を指定してください。
+Constant values, like stage configuration, can be specified in the Unity editor's inspector for easier editing.
+Enums for stage and scene names should be constant values because of the following problem when using Enums in the inspector
 
 :::caution
-C#の仕様でEnumは定義した順に上から自動で定数値が振られます。
-UnityエディタのインスペクタでEnumを指定すると定数値で状態が保存されるため、Enumの変更で定義順が変わると意図せずインスペクタの設定値も変わってしまいます。
-この問題に対応するため、インスペクタで使うEnumには定数値を指定します。
-定数値は識別以外に意味はないので各Enumで重複しなければどんな数でも大丈夫です。
+The C# specification automatically assigns constant values to Enums in the order in which they are defined, from the top.
+If you specify an Enum in the Inspector of the Unity Editor, the state is saved as a constant value, so if the definition order changes when the Enum is changed, the Inspector setting value will also unintentionally change.
+To deal with this problem, specify a constant value for the Enum used in the inspector.
+The constant value has no meaning other than identification, so any number can be used as long as it does not duplicate in each Enum.
 :::
 
-IStageConfigインタフェースがステージ設定を保持します。
-ステージ設定をUnityエディタのインスペクタで編集できるようにScriptableObjectを継承したBaseクラスを提供しています。
-ステージ設定を保持するクラスはStageConfigBaseクラスを継承してください。
+The IStageConfig interface holds the stage configuration.
+A Base class inheriting from ScriptableObject is provided so that the stage configuration can be edited in the inspector of the Unity editor.
+The class that holds the stage configuration should inherit from the StageConfigBase class.
 
 ```csharp
 // Class that holds the stage config
@@ -171,17 +172,17 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 }
 ```
 
-Unityエディタのインスペクタでステージ設定を行います。
-設定例は次の通りです
+The stage configuration is set up in the Unity editor inspector.
+An example configuration is as follows.
 
-![Stage config](/img/core-stagenavigation-stageconfig.png)
+! [Stage config](/img/core-stagenavigation-stageconfig.png)
 
-- CommonScenesプロパティ
-  - 全てのステージに共通するシーンを指定します。
-- Stagesプロパティ
-  - ステージ毎のシーン構成を指定します。
+- CommonScenes property
+  - Specifies scenes common to all stages.
+- Stages property
+  - Specifies the scene configuration for each stage.
 
-StageNavigatorとStageConfigの初期化はVContainerを使います。
+VContainer is used to initialize StageNavigator and StageConfig.
 
 ```csharp
     public class AppScope : LifetimeScope
@@ -198,9 +199,9 @@ StageNavigatorとStageConfigの初期化はVContainerを使います。
 
 ## Usage
 
-### 指定したステージに遷移する
+### Transition to the specified stage
 
-StageNavigatorのReplaceAsyncを使って指定したステージに遷移します。
+It transitions to the specified stage using StageNavigator's ReplaceAsync.
 
 ```csharp
 // Transition to the title stage
@@ -213,9 +214,9 @@ stageNavigator.ReplaceAsync(StageName.AvatarSelectionStage);
 stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 ```
 
-ステージ遷移で同じシーンが続く場合、StageNavigatorは処理時間を短縮するためそのシーンを再ロードせず再利用します。
+If a stage transition continues with the same scene, StageNavigator will reuse the scene without reloading it to reduce processing time.
 
-```
+```text
 TitleStage
   PlayerControl -> Loaded
   TitleScreen -> Loaded
@@ -229,23 +230,23 @@ SpaceSelectionStage
   AvatarSelectionScreen -> Loaded
 ```
 
-再利用されたシーンのGameObjectのAwakeやStartはロードされたタイミングでのみ実行され、再利用されたタイミングでは実行されません。
-ステージ遷移のタイミングで処理を実行したい場合は、StageNavigatorが発行する[イベント通知](/core/stage-navigation#core-sn-event)を使用してくだい。
+Awake and Start of GameObjects in reused scenes are executed only at the time they are loaded, not at the time they are reused.
+If you want to execute processing at the timing of stage transitions, use [event notification](/core/stage-navigation#core-sn-event) published by StageNavigator.
 
-### ステージ遷移をトリガーに処理を追加する {#core-sn-event}
+### Add processing to trigger stage transitions {#core-sn-event}
 
-StageNavigatorは次のイベント通知を設けています。
+StageNavigator has the following event notifications.
 
 - OnStageTransitioning
-  - タイミング：ステージ遷移する直前
-  - タイプ：IObservable
-  - パラメータ：遷移するステージの名前
+  - Timing: Just before the stage transition
+  - Type: IObservable
+- Parameters: Name of the stage to be transitioned
 - OnStageTransitioned
-  - タイミング：ステージ遷移した直後
-  - タイプ：IObservable
-  - パラメータ：遷移したステージの名前
+- Timing: Immediately after the stage transition
+  - Type: IObservable
+  - Parameter: Name of the stage that has transitioned
 
-OnStageTransitionedのタイミングでログを出力する例は次の通りです。
+The following is an example of log output at the timing of OnStageTransitioned.
 
 ```csharp
 stageNavigator.OnStageTransitioned.Subscribe(stageName =>
