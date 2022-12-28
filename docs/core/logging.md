@@ -128,7 +128,7 @@ sequenceDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Core.Logging.git
 ```
 
