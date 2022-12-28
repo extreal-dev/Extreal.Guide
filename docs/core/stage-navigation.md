@@ -90,7 +90,7 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Core.StageNavigation.git
 ```
 
@@ -216,7 +216,7 @@ stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 
 ステージ遷移で同じシーンが続く場合、StageNavigatorは処理時間を短縮するためそのシーンを再ロードせず再利用します。
 
-```
+```text
 TitleStage
   PlayerControl -> Loaded
   TitleScreen -> Loaded
