@@ -116,7 +116,7 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox.git
 ```
 
