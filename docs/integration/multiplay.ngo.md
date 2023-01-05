@@ -74,7 +74,7 @@ classDiagram
     NgoClient ..> NgoConfig
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
-    IConnectionSetter <|.. UnetTransportConnectionSetter
+    IConnectionSetter <|.. UNetTransportConnectionSetter
     IDisposable <|.. NgoServer
     IDisposable <|.. NgoClient
 
@@ -135,7 +135,7 @@ classDiagram
     class UnityTransportConnectionSetter {
     }
 
-    class UnetTransportConnectionSetter {
+    class UNetTransportConnectionSetter {
     }
 
     class IDisposable {
