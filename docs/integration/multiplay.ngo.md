@@ -310,6 +310,7 @@ ngoClient.ConnectAsync(ngoConfig).Forget();
 ```
 
 NgoConfigのデフォルトは次の通りです。
+timeoutがnullの場合は10秒に設定されます。
 接続処理でタイムアウト時間が経過するとTimeoutExceptionが発生します。
 
 ```csharp
@@ -318,7 +319,7 @@ public NgoConfig
     string address = "127.0.0.1",
     ushort port = 7777,
     byte[] connectionData = null,
-    byte timeoutSeconds = 10
+    TimeSpan timeout = null
 )
 ```
 
