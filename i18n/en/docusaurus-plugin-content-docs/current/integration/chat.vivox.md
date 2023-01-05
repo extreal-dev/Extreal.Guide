@@ -4,36 +4,36 @@ sidebar_position: 1
 
 # Chat using Vivox
 
-[Vivox](https://unity.com/ja/products/vivox)をアプリケーションで使いやすくするラッパーを提供します。
+We provide a wrapper that makes [Vivox](https://unity.com/ja/products/vivox) easier to use in applications.
 
-Vivoxをラップしているこの機能をVivoxラッパーと呼ぶことにします。
+We will call this feature, which wraps Vivox, the Vivox wrapper.
 
-VivoxのAPIを使ったログイン/ログアウトやチャンネルへの接続/切断といった実装はどのようなアプリケーションでも同じような実装になります。
-VivoxラッパーはそのようなVivoxを使う場合に共通する実装を機能として提供します。
+The implementation of login/logout or connecting/disconnecting to a channel using Vivox's API is similar in any application.
+The Vivox wrapper provides features that are common to such implementations when using Vivox.
 
-あなたのアプリケーションでVivoxラッパーを使うことでVivoxの導入がスムーズになることを目指しています。
+The goal is to make Vivox introduction smooth by using the Vivox wrapper in your applications.
 
 :::caution
-VivoxラッパーはVivoxを使いやすくしますが、Vivoxを知らなくてもVivoxラッパーだけ知っていればボイス/テキストチャットを実現できるわけではありません。
-VivoxラッパーはVivoxをそのまま使う場合に使いにくい点や足りない機能を補いますが、ボイス/テキストチャットの処理はVivoxに移譲します。
-そのため、Vivoxラッパーを使うにはVivoxを知っていることが前提です。
-Vivoxを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照してVivoxについて学習してください。
-このガイドはVivoxを知っている前提で説明しています。
+The Vivox wrapper makes Vivox easier to use, but it does not mean that you only need to know the Vivox wrapper to realize voice/text chat without knowing Vivox.
+The Vivox wrapper compensates for the difficulties and lack of features when using Vivox as it is, but transfers the voice/text chat process to Vivox.
+Therefore, to use the Vivox wrapper, it is assumed that you know Vivox.
+If you do not know Vivox, please refer to [How to lean](/learning/intro#how-to-learn) to learn about Vivox.
+This guide assumes you know Vivox.
 :::
 
 :::caution
-Vivoxは元々存在していた[Vivox Developer Portal](https://developer.vivox.com/)と2021年10月に登場した[Unity Gaming Services](https://unity.com/ja/solutions/gaming-services)で使用できます。
-現時点のVivoxラッパーは[Vivox Developer Portal](https://developer.vivox.com/)に対応しています。
-[Unity Gaming Services](https://unity.com/ja/solutions/gaming-services)には対応していません。
-今後[Unity Gaming Services](https://unity.com/ja/solutions/gaming-services)への対応を検討します。
+Vivox is available on the originally existing [Vivox Developer Portal](https://developer.vivox.com/) and on [Unity Gaming Services](<https://unity.com/ja/> solutions/gaming-services), which appeared in October 2021.
+The current Vivox wrapper is compatible with the [Vivox Developer Portal](https://developer.vivox.com/).
+It is not compatible with [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services).
+We will consider supporting [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services) in the future.
 :::
 
 ## Specification
 
-Vivoxラッパーの仕様は次の通りです。
+The specifications of the Vivox wrapper are as follows.
 
-- Vivoxの機能を使用できます。
-- Vivoxのクライアント状態をトリガーに処理を追加できます。
+- You can use Vivox features.
+- You can add processing triggered by Vivox client state.
 
 ## Architecture
 
@@ -116,30 +116,30 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox.git
 ```
 
 ### Dependencies
 
-Vivoxラッパーは次のパッケージを使います。
+The Vivox wrapper uses the following packages.
 
 - [Extreal.Core.Logging](/core/logging)
 - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+Please refer to [Release](/category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
-VivoxClientを初期化します。
+VivoxClient is initialized.
 
-[Vivox Developer Portal](https://developer.vivox.com/)でクライアントからの接続先となるアプリケーションが作成されているものとします。
+It is assumed that the application to which the client will connect has been created in [Vivox Developer Portal](https://developer.vivox.com/).
 
-VivoxClientの初期化にはVivoxへの接続情報を保持するVivoxAppConfigが必要です。
-今回は一例としてScriptableObjectでVivoxへの接続情報を設定する方法を紹介します。
-VivoxAppConfigを生成するScriptableObjectを作成し、インスペクタでVivoxへの接続情報を設定します。
+To initialize VivoxClient, VivoxAppConfig, which holds the connection information to Vivox, is required.
+As an example, we will show how to set the connection information to Vivox with a ScriptableObject.
+Create a ScriptableObject that generates VivoxAppConfig and set the connection information to Vivox in the inspector.
 
 ```csharp
 [CreateAssetMenu(
@@ -157,7 +157,7 @@ public class ChatConfig : ScriptableObject
 }
 ```
 
-VContainerを使ってVivoxClientを初期化します。
+Initialize VivoxClient with VContainer.
 
 ```csharp
 public class ChatControlScope : LifetimeScope
@@ -174,66 +174,66 @@ public class ChatControlScope : LifetimeScope
 
 ## Usage
 
-### Vivoxの機能を使用する
+### Use Vivox features
 
-Vivoxの機能はVivoxClientが提供します。
-VivoxClientが提供していない機能はVivoxClientからVivoxが提供するClientやILoginSessionを取得して実装してください。
+Vivox features are provided by VivoxClient.
+For features that are not provided by VivoxClient, please obtain the Client or ILoginSession provided by Vivox from VivoxClient and implement them.
 
 ```csharp
 var client = vivoxClient.Client;
 var loginSession = vivoxClient.LoginSession;
 ```
 
-ここではVivoxClientの基本的な使い方をいくつか紹介します。
+Here are some basic instructions for using VivoxClient.
 
-ボイス/テキストチャットを行うにはまずVivoxのアプリケーションにログインが必要です。
-ログインはVivoxClientのLoginAsyncを使います。
+To conduct voice/text chat, you must first log in to the Vivox application.
+Login is done using LoginAsync in VivoxClient.
 
 ```csharp
 var vivoxAuthConfig = new VivoxAuthConfig("Guest");
 vivoxClient.LoginAsync(vivoxAuthConfig).Forget();
 ```
 
-ログアウトはVivoxClientのLogoutを使います。
+Logout is done using Logout in VivoxClient.
 
 ```csharp
 vivoxClient.Logout();
 ```
 
-チャンネルへの入室はVivoxClientのConnectAsyncを使います。
+You can use VivoxClient's ConnectAsync to enter the channel.
 
 ```csharp
 var vivoxChannelConfig = new VivoxChannelConfig("GuestChannel");
 vivoxClient.ConnectAsync(vivoxChannelConfig).Forget();
 ```
 
-VivoxChannelConfigはデフォルトでボイスチャットとテキストチャットを有効にします。
-ボイスチャットのみ、テキストチャットのみに制限したい場合はChatTypeを指定します。
-ボイスチャットのみに制限する場合の例は次の通りです。
+VivoxChannelConfig enables voice and text chat by default.
+If you want to restrict to voice chat only or text chat only, specify ChatType.
+An example of restricting to voice chat only is as follows.
 
 ```csharp
 var vivoxChannelConfig = new VivoxChannelConfig("GuestChannel", ChatType.AudioOnly);
 ```
 
-空間内でのみボイスチャットやテキストチャットをできるようにする場合など、空間からの退室時点で全てのチャンネルから退室する場合はVivoxClientのDisconnectAllChannelsを使います。
+If you want to exit from all channels at the point of exiting the space, such as when allowing voice or text chat only within a space, use DisconnectAllChannels in VivoxClient.
 
 ```csharp
 vivoxClient.DisconnectAllChannels();
 ```
 
-グループチャット機能を提供している場合など、特定のチャンネルから退室する場合はVivoxClientのDisconnectを使います。
+You can use Disconnect in VivoxClient to leave a specific channel, such as when a group chat feature is provided.
 
 ```csharp
 vivoxClient.Disconnect(channelId);
 ```
 
-テキストチャットのメッセージ送信はVivoxClientのSendTextMessageを使います。
+You can use SendTextMessage in VivoxClient to send text chat messages.
 
 ```csharp
 vivoxClient.SendTextMessage(message, channelId);
 ```
 
-テキストチャットのメッセージ受信はVivoxClientが発行するイベント通知のOnTextMessageReceivedを使用します。
+Text chat messages are received via OnTextMessageReceived, an event notification published by VivoxClient.
 
 ```csharp
 vivoxClient.OnTextMessageReceived
@@ -241,55 +241,55 @@ vivoxClient.OnTextMessageReceived
     .AddTo(disposables);
 ```
 
-### Vivoxのクライアント状態をトリガーに処理を追加する
+### Add a processing triggered by Vivox client state
 
-VivoxClientは次のイベント通知を設けています。
+VivoxClient has the following event notifications.
 
 - OnLoggedIn
-  - タイミング：ログインした直後
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Immediately after login
+  - Type: IObservable
+  - Parameters: None
 - OnLoggedOut
-  - タイミング：ログアウトした直後
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Immediately after logout
+  - Type: IObservable
+  - Parameters: None
 - OnRecoveryStateChanged
-  - タイミング：予期しないネットワーク切断時のリカバリ状態が変化した直後
-  - タイプ：IObservable
-  - パラメータ：リカバリ状態
+  - Timing: Immediately after the recovery state changes on unexpected network disconnection
+  - Type: IObservable
+  - Parameters: Recovery state
     - [ConnectionRecoveryState](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/namespace_vivox_unity.html#a21771ea5086c36c42452bc29059ec379%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CUnity%20API%20Reference%20Manual%7C_____4)
 - OnChannelSessionAdded
-  - タイミング：チャンネルが追加された直後
-  - タイプ：IObservable
-  - パラメータ：追加されたチャンネルのID
+  - Timing: Immediately after a channel is added
+  - Type: IObservable
+  - Parameters: ID of the added channel
     - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnChannelSessionRemoved
-  - タイミング：チャンネルが削除された直後
-  - タイプ：IObservable
-  - パラメータ：削除されたチャンネルのID
+  - Timing: Immediately after a channel is removed
+  - Type: IObservable
+  - Parameters: ID of the removed channel
     - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnUserConnected
-  - タイミング：チャンネルに参加者が入室した直後
-    - イベント発生元になったユーザーにもこのイベントが通知されます。
-  - タイプ：IObservable
-  - パラメータ：入室した参加者
+  - Timing: Immediately after a participant connects to the channel.
+    - The user who originated the event is also notified of this event.
+  - Type: IObservable
+  - Parameters: Participant who connected to the channel.
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
-    - 参加者がチャンネルに入室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
+    - The IsSelf property of IParticipant determines if the participant is the user itself who entered the channel.
 - OnUserDisconnected
-  - タイミング：チャンネルから参加者が退室した直後
-    - イベント発生元になったユーザーにもこのイベントが通知されます。
-  - タイプ：IObservable
-  - パラメータ：退室した参加者
+  - Timing: Immediately after a participant disconnects from the channel.
+    - The user who originated the event is also notified of this event.
+  - Type: IObservable
+  - Parameters: Participant who disconnected from the room
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
-    - 参加者がチャンネルから退室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
+    - The IsSelf property of IParticipant determines if the participant is the user itself who left the channel.
 - OnTextMessageReceived
-  - タイミング：チャンネルにメッセージが着信した直後
-  - タイプ：IObservable
-  - パラメータ：着信したメッセージ
+  - Timing: Immediately after a message is received on the channel
+  - Type: IObservable
+  - Parameters: Incoming message
     - [IChannelTextMessage](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33)
 - OnAudioEnergyChanged
-  - タイミング：参加者の音声の大きさに変化があった直後
-  - タイプ：IObservable
-  - パラメータ：参加者と音声の大きさ（タプル）
+  - Timing: Immediately after a change in the participant's audio loudness
+  - Type: IObservable
+  - Parameters: Participant and audio volume (tuple)
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
