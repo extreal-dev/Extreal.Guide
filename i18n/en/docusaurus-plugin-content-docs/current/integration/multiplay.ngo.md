@@ -255,7 +255,7 @@ private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader me
 }
 ```
 
-### Add a processing to trigger the NGO server state
+### Add a processing triggered by NGO server state
 
 NgoServer has the following event notifications.
 
@@ -340,7 +340,7 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### Add a processing to trigger NGO client state
+### Add a processing triggered by NGO client state
 
 NgoClient has the following event notifications.
 
