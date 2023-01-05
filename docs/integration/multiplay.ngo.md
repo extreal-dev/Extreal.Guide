@@ -147,7 +147,7 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 ```
 
