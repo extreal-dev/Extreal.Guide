@@ -6,62 +6,62 @@ sidebar_position: 2
 
 ## What for?
 
-[Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)をアプリケーションで使いやすくするラッパーを提供します。
+We provide a wrapper that makes [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html) easier to use in your application.
 
-ExtrealではNetcode for GameObjectsのことをNGO、NGOをラップしているこの機能をNGOラッパーと呼ぶことにします。
+In Extreal, Netcode for GameObjects is called NGO, and this feature that wraps NGO is called the NGO wrapper.
 
-NGOではNetworkManagerという1つのクラスでサーバー、クライアント向けの機能を提供します。
-NetworkManagerをそのまま使う場合は常にコンテキストを意識した実装が必要となり混乱しやすいので、NGOラッパーではサーバー向けとクライアント向けに別々のクラスとしてNgoServerとNgoClientを提供します。
+NGO provides server and client functionality in a single class called NetworkManager.
+Since using NetworkManager as-is always requires context-aware implementation and can be confusing, the NGO wrapper provides NgoServer and NgoClient as separate classes for the server and client, respectively.
 
-あなたのアプリケーションでNGOラッパーを使うことでNGOの導入がスムーズになることを目指しています。
+The goal is to make NGO introduction smooth by using the NGO wrapper in your applications.
 
 :::caution
-NGOラッパーはNGOを使いやすくしますが、NGOを知らなくてもNGOラッパーだけ知っていればマルチプレイを実現できるわけではありません。
-NGOラッパーはNGOをそのまま使う場合に使いにくい点や足りない機能を補いますが、マルチプレイの処理はNGOに移譲します。
-そのため、NGOラッパーを使うにはNGOを知っていることが前提です。
-NGOを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照してNGOについて学習してください。
-このガイドはNGOを知っている前提で説明しています。
+The NGO wrapper makes NGO easier to use, but it does not mean that you only need to know the NGO wrapper to realize multiplayer without knowing NGO.
+The NGO wrapper compensates for the difficulties or lack of features when using NGO as it is, but transfers the multiplayer process to NGO.
+Therefore, to use the NGO wrapper, it is assumed that you know NGO.
+If you do not know NGO, please refer to [how to lean](/learning/intro#how-to-learn) to learn about NGO.
+This guide assumes you know NGO.
 :::
 
 :::info
-よくあるマルチプレイのアプリケーション要件に対するNGOラッパーの実装例は[サンプルアプリケーション](/category/sample-application)で提供します。
+Example implementations of NGO wrappers for common multiplayer application requirements are provided in [sample applications](/category/sample-application).
 
-現時点では次の要件を提供済みです。
+At this time, the following requirements have been provided.
 
-- ユーザーが選んだアバターでプレイできる
-- 空間の最大人数を超えた場合は入室できないようにする
+- The user can play with an avatar of the user's choice
+- If the maximum number of people in the space is exceeded, users will not be able to enter the room
 
-今後、次の要件を追加していく予定です。
+The following requirements will be added in the future.
 
-- 予期しないネットワーク切断時に再接続する
-- 空間の最大人数を超えた場合は待機人数まで待機できるようにする
-  - 待機中のユーザーは非表示、他のユーザーのマルチプレイは見える
-  - 他のユーザーが退室して順番が回ってくるとマルチプレイに参加できる
-- オフラインでもオンライン時と同じようにアバターをプレイできる
-- アバターに物を持たせることができる
+- The system reconnects in case of unexpected network disconnection
+- The system allows users to wait until the maximum number of people on standby is exceeded if the maximum number of people in a space is exceeded
+  - The users on standby is hidden, while other users' multiplayer is visible
+- When other users leave the room and take their turn, they can join the multiplayer
+- Users can play avatars offline as well as online
+- Avatars can have objects
 :::
 
 ## Specification
 
-NGOラッパーの仕様は次の通りです。
+The specifications of the NGO Wrapper are as follows.
 
-- NGOのサーバー向けの機能を使用できます。
-- NGOのサーバー状態をトリガーに処理を追加できます。
-- NGOのクライアント向けの機能を使用できます。
-- NGOのクライアント状態をトリガーに処理を追加できます。
-- NGOが提供するデフォルト以外のNetworkTransportにも対応できます。
+- You can use features for NGO servers.
+- You can add processing triggered by NGO server state.
+- You can use features for NGO clients.
+- You can add processing triggered by NGO client state.
+- You can support any NetworkTransport other than the default one provided by the NGO.
 
 :::info
-NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
-NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
-対応方法は[NGOが提供するデフォルト以外のNetworkTransportに対応する](/integration/multiplay.ngo#int-ngo-nt)を参照してください。
+The NGO wrapper supports the two transports provided by NGO (Unity Transport and UNet Transport), so no additional action is required if you use these two transports.
+When using a new transport not provided by NGO, the IConnectionSetter used by NgoClient must be changed.
+See [Supporting non-default NetworkTransport provided by NGO](/integration/multiplay.ngo#int-ngo-nt) for details.
 :::
 
 :::info
-安定したパフォーマンスやセキュリティを担保しやすいため、NGOラッパーはNGOのアーキテクチャとして専用サーバーの使用を前提としています。
-NGOのアーキテクチャについては[Network Topologies](https://docs-multiplayer.unity3d.com/netcode/current/reference/glossary/network-topologies) を参照ください。
-専用サーバーの使用を前提としているため、NGOラッパーはホスト向けの機能は提供していません。
-ホスト向けの機能を使いたい場合はNetworkManagerを直接使用してください。
+Because it is easier to ensure stable performance and security, the NGO wrapper assumes the use of a dedicated server as the NGO architecture.
+For more information on NGO architecture, see [Network Topologies](https://docs-multiplayer.unity3d.com/netcode/current/reference/glossary/network-topologies).
+Because it assumes the use of a dedicated server, the NGO wrapper does not provide features for the host.
+If you want to use them, please use NetworkManager directly.
 :::
 
 ## Architecture
@@ -74,7 +74,7 @@ classDiagram
     NgoClient ..> NgoConfig
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
-    IConnectionSetter <|.. UnetTransportConnectionSetter
+    IConnectionSetter <|.. UNetTransportConnectionSetter
     IDisposable <|.. NgoServer
     IDisposable <|.. NgoClient
 
@@ -135,7 +135,7 @@ classDiagram
     class UnityTransportConnectionSetter {
     }
 
-    class UnetTransportConnectionSetter {
+    class UNetTransportConnectionSetter {
     }
 
     class IDisposable {
@@ -147,28 +147,28 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 ```
 
 ### Dependencies
 
-NGOラッパーは次のパッケージを使います。
+The NGO wrapper uses the following packages.
 
 - [Extreal.Core.Logging](/core/logging)
 - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+Please refer to [Release](/category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
-NgoServerとNgoClientを初期化します。
-NgoServerとNgoClientの初期化にはNetworkManagerが必要です。
-VContainerを使ってNetworkManagerをNgoServerとNgoClientに設定します。
+NgoServer and NgoClient are initialized.
+Initializing NgoServer and NgoClient requires NetworkManager.
+The NetworkManager is set to NgoServer and NgoClient using VContainer.
 
-NGOのNetworkManagerはGameObjectにアタッチして初期化しているものとします。
+The NGO NetworkManager is assumed to be initialized by attaching it to a GameObject.
 
 ```csharp
 public class MultiplayServerScope : LifetimeScope
@@ -197,33 +197,33 @@ public class MultiplayControlScope : LifetimeScope
 ```
 
 :::tip
-NetworkManagerはサーバーとクライアントで同じ設定の必要があるため、Prefabにしてサーバーとクライアントで同じものを使うようにします。
+NetworkManager needs to be configured the same on server and client, so it should be Prefab and use the same on server and client.
 :::
 
 :::info
-NGOが提供していない新たなトランスポートを使う場合は[NGOが提供するデフォルト以外のNetworkTransportを使用する](/integration/multiplay.ngo#int-ngo-nt)を参照して対応してください。
-NGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）を使用する場合は何も作業が必要ありません。
+If you want to use a new transport not provided by NGO, please refer to [Using a non-default NetworkTransport provided by NGO](/integration/multiplay.ngo#int-ngo-nt).
+If you use the two transports provided by the NGO (Unity Transport and UNet Transport), no work is required.
 :::
 
 ## Usage
 
-### NGOのサーバー向けの機能を使用する
+### Use features for NGO servers
 
-NGOのサーバー向けの機能はNgoServerが提供します。
-ここではNgoServerの基本的な使い方をいくつか紹介します。
-NgoServerはマルチプレイの処理をNetworkManagerに移譲しているので各機能の詳細はNGOのドキュメントを参照してください。
+The features for NGO servers are provided by NgoServer.
+Here are some basic instructions on how to use NgoServer.
+Since NgoServer transfers the multiplayer processing to NetworkManager, please refer to the NGO documentation for details on each feature.
 
-サーバーの開始はStartServerAsyncを使います。
+The server is started using StartServerAsync.
 
 ```csharp
 ngoServer.StartServerAsync().Forget();
 ```
 
-サーバーの停止はStopServerAsyncで行いますが、NgoServerのDisposeでStopServerAsyncを呼んでいるのでアプリケーション終了時は自動で呼ばれます。
+The server is stopped by StopServerAsync, which is called automatically when the application terminates because StopServerAsync is called in NgoServer's Dispose.
 
-クライアントからのメッセージに対応する処理はRegisterMessageHandlerで登録します。
-登録の解除はUnregisterMessageHandlerで行います。
-次のコードではサーバーの開始時と終了時に登録と登録解除をしています。
+Processing in response to messages from clients is registered with RegisterMessageHandler.
+Unregistration is done with UnregisterMessageHandler.
+The following code registers and unregisters at the start and end of the server.
 
 ```csharp
 ngoServer.OnServerStarted.Subscribe(_ =>
@@ -237,9 +237,9 @@ ngoServer.OnServerStopping.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-任意のタイミングでプレイヤーをスポーンしたい場合やプレイヤーのPrefabを動的に切り替えたい場合はSpawnAsPlayerObjectを使います。
-次のコードは上記のRegisterMessageHandlerで登録しているクライアントからのメッセージに対応する処理です。
-クライアントからのメッセージに対応してプレイヤーをスポーンしています。
+You can use SpawnAsPlayerObject if you want to spawn a player at an arbitrary time or if you want to dynamically switch the player's prefab.
+The following code is a response to a message from the client registered with RegisterMessageHandler above.
+The player is spawned in response to a message from the client.
 
 ```csharp
 private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader messageStream)
@@ -255,32 +255,32 @@ private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader me
 }
 ```
 
-### NGOのサーバー状態をトリガーに処理を追加する
+### Add a processing to trigger the NGO server state
 
-NgoServerは次のイベント通知を設けています。
+NgoServer has the following event notifications.
 
 - OnServerStarted
-  - タイミング：サーバーが開始した直後
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Immediately after the server starts
+  - Type: IObservable
+  - Parameters: None
 - OnServerStopping
-  - タイミング：サーバーを停止する直前
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Just before the server stops
+  - Type: IObservable
+  - Parameters: None
 - OnClientConnected
-  - タイミング：クライアントが接続した直後
-  - タイプ：IObservable
-  - パラメータ：接続したクライアントID
+  - Timing: Immediately after a client connects
+  - Type: IObservable
+  - Parameters: Connected client ID
 - OnClientDisconnecting
-  - タイミング：クライアントが切断する直前
-  - タイプ：IObservable
-  - パラメータ：切断するクライアントID
+  - Timing: Just before a client disconnects
+  - Type: IObservable
+  - Parameters: Client ID to be disconnected
 - OnClientRemoving
-  - タイミング：クライアントを削除する直前
-  - タイプ：IObservable
-  - パラメータ：削除するクライアントID
+  - Timing: Immediately before the client is removed
+  - Type: IObservable
+  - Parameters: Client ID to be removed
 
-サーバーの開始時と終了時に処理を追加する例は次の通りです。
+The following is an example of adding processing at server startup and shutdown
 
 ```csharp
 ngoServer.OnServerStarted.Subscribe(_ =>
@@ -294,23 +294,24 @@ ngoServer.OnServerStopping.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### NGOのクライアント向けの機能を使用する
+### Use features for NGO clients
 
-NGOのクライアント向けの機能はNgoClientが提供します。
-ここではNgoClientの基本的な使い方をいくつか紹介します。
-NgoClientはマルチプレイの処理をNetworkManagerに移譲しているので各機能の詳細はNGOのドキュメントを参照してください。
+NGO client features are provided by NgoClient.
+Here are some basic instructions on how to use NgoClient.
+NgoClient transfers the multiplayer processing to NetworkManager, so please refer to the NGO documentation for details on each feature.
 
-サーバーへの接続はConnectAsyncを使います。
-接続情報はNgoConfigで指定します。
-アプリケーションの実行中はNgoClientのインスタンスを再利用する想定のため、接続時に毎回接続情報を指定します。
+ConnectAsync is used to connect to the server.
+Connection information is specified in NgoConfig.
+Since it is assumed that an instance of NgoClient is reused while the application is running, the connection information is specified each time the connection is made.
 
 ```csharp
 var ngoConfig = new NgoConfig();
 ngoClient.ConnectAsync(ngoConfig).Forget();
 ```
 
-NgoConfigのデフォルトは次の通りです。
-接続処理でタイムアウト時間が経過するとTimeoutExceptionが発生します。
+The default for NgoConfig is as follows.
+If timeout is null, it is set to 10 seconds.
+TimeoutException is thrown when the timeout period elapses in the connection process.
 
 ```csharp
 public NgoConfig
@@ -318,18 +319,18 @@ public NgoConfig
     string address = "127.0.0.1",
     ushort port = 7777,
     byte[] connectionData = null,
-    byte timeoutSeconds = 10
+    TimeSpan timeout = null
 )
 ```
 
-サーバーからの切断はDisconnectAsyncを使います。
+DisconnectAsync is used to disconnect from the server.
 
 ```csharp
 ngoClient.DisconnectAsync().Forget();
 ```
 
-サーバーへのメッセージ送信はSendMessageを使います。
-次のコードはサーバーに接続後、プレイヤーをスポーンするメッセージをサーバーに送信しています。
+SendMessage is used to send messages to the server.
+The following code sends a message to the server to spawn a player after connecting to the server.
 
 ```csharp
 ngoClient.OnConnected.Subscribe(_ =>
@@ -339,28 +340,28 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### NGOのクライアント状態をトリガーに処理を追加する
+### Add a processing to trigger NGO client state
 
-NgoClientは次のイベント通知を設けています。
+NgoClient has the following event notifications.
 
 - OnConnected
-  - タイミング：サーバーに接続した直後
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Immediately after connecting to the server
+  - Type: IObservable
+  - Parameters: None
 - OnDisconnecting
-  - タイミング：サーバーから切断する直前
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Just before disconnecting from the server
+  - Type: IObservable
+  - Parameters: None
 - OnUnexpectedDisconnected
-  - タイミング：予期していないサーバー切断が発生した直後
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Immediately after an unexpected server disconnection occurs
+  - Type: IObservable
+  - Parameters: None
 - OnConnectionApprovalRejected
-  - タイミング：接続承認が拒否された直後
-  - タイプ：IObservable
-  - パラメータ：なし
+  - Timing: Immediately after a connection approval is rejected
+  - Type: IObservable
+  - Parameters: None
 
-サーバーに接続した直後に処理を追加する例は次の通りです。
+The following is an example of adding processing immediately after connecting to the server.
 
 ```csharp
 ngoClient.OnConnected.Subscribe(_ =>
@@ -370,17 +371,17 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### NGOが提供するデフォルト以外のNetworkTransportに対応する {#int-ngo-nt}
+### Support non-default NetworkTransport provided by NGO {#int-ngo-nt}
 
-NGOは通信に使用するトランスポートを変更できます。
-NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
-NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
+NGO can change the transport used for communication.
+The NGO wrapper supports the two transports provided by NGO (Unity Transport and UNet Transport), so if you use these two transports, no additional action is required.
+If you want to use a new transport that is not provided by NGO, you will need to change the IConnectionSetter used by NgoClient.
 
-各トランスポートの実装において接続情報を保持する部分は共通化されていないため、差異を吸収する必要があります。
-各トランスポートの実装差異を埋めるためにIConnectionSetterを設けています。
+Since the part of each transport implementation that holds connection information is not standardized, it is necessary to absorb the differences.
+IConnectionSetter is provided to fill in the implementation differences of each transport.
 
-新たなトランスポートを使用する場合はIConnectionSetterを実装したクラスを作り、NgoClientに設定します。
-UnityTransportに対するIConnectionSetterの実装を示すのでIConnectionSetter実装時の参考にしてください。
+To use a new transport, it is necessary to create a class that implements the IConnectionSetter and set it in NgoClient.
+The implementation of IConnectionSetter for UnityTransport is shown below for reference when implementing IConnectionSetter.
 
 ```csharp
 public class UnityTransportConnectionSetter : IConnectionSetter
@@ -397,7 +398,7 @@ public class UnityTransportConnectionSetter : IConnectionSetter
 }
 ```
 
-NgoClientのAddConnectionSetterで実装したクラスを設定します。
+Set the implemented class with NgoClient's AddConnectionSetter.
 
 ```csharp
 ngoClient.AddConnectionSetter(new UnityTransportConnectionSetter());
