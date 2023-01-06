@@ -64,7 +64,7 @@ ExtrealCoreLearning/Appディレクトリにある`App`シーンを実行しま�
 
 バーチャル空間でマルチプレイできるように実装を追加していきます。
 
-## Add multiplay server
+## Add multiplayer server
 
 まずマルチプレイサーバーを追加します。
 
@@ -289,9 +289,9 @@ namespace ExtrealCoreLearning.App
 :::
 
 NGOで同期するプレハブはNetworkManagerに設定する必要があります。
-`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブの`NetwrokPlayer`をNetworkManagerの`NetworkPrefabs`に設定します。
+`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブの`NetworkPlayer`をNetworkManagerの`NetworkPrefabs`に設定します。
 
-![Netwrok prefab](/img/learning-ngo-networkmanager-playerprefab.png)
+![Network prefab](/img/learning-ngo-networkmanager-playerprefab.png)
 
 :::info step
 NgoClientの初期化で問題が起きていないか確認します。
@@ -582,7 +582,7 @@ MessageHandlerを登録してアプリケーションからのメッセージに
 ExtrealCoreLearning/MultiplayControlディレクトリの`NetworkPlayer`を選択してインスペクタを開くと、`PlayerPrefab`という名前でAddressablesに登録されていることが確認できます。
 
 今回はアプリケーションからメッセージの内容を何も送っていませんが、メッセージの内容でアバター名を送りユーザーごとに選択したアバターをプレイヤーとしてスポーンするといったこともできます。
-サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Applicaiton](/category/sample-application)をご覧ください。
+サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Application](/category/sample-application)をご覧ください。
 
 ```csharp
 // highlight-start

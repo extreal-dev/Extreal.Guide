@@ -44,7 +44,7 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 - [Unityエンジニアになるためにやってきたこと](https://fintan.jp/page/5869/)
 - [Unity ユーザーマニュアル 2021.3 (LTS)](https://docs.unity3d.com/ja/2021.3/Manual/UnityManual.html)
 
-### C#
+### C\#
 
 #### Skills
 
@@ -98,7 +98,7 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 
 アプリケーションの要件によって必要となるスキルは次の通りです。
 
-### Multiplay
+### Multiplayer
 
 #### Skills
 
