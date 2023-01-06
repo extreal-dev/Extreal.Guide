@@ -4,39 +4,39 @@ sidebar_position: 1
 
 # Introduction
 
-Extrealは私たちのプロダクト開発で培ったノウハウをベースとしています。
-プロダクト開発は開発経験が豊富なエンジニアが試行錯誤しながら生産性や品質を高めるために新たな仕組みや設計原則、ライブラリを適用しているので前提とするスキルが多くなり、新規参画者の学習コストが高くなります。
-そうしたプロダクト開発で獲得したノウハウを取り込んでいるExtrealも同様に学習コストは高くなります。
-その見返りとしてExtrealに必要なスキルを習得した場合、そのチームの生産性は高くなると考えています。
+Extreal is based on the know-how we have acquired through our product development.
+Product development is a trial-and-error process in which experienced engineers apply new mechanisms, design principles, and libraries to improve productivity and quality, which increases the number of prerequisite skills and increases the learning cost for new participants.
+Extreal, which incorporates the know-how acquired through such product development, has a similarly high learning cost.
+In return, we believe that the team will be more productive if they acquire the skills necessary for Extreal.
 
-Extrealの機能を活用したアプリケーションの作り方を体験できるように、Learningはハンズオンで提供します。
-はじめてExtrealを使う人は[Core](/learning/core)から学習してください。
-Core以外のLearningはCoreを学習していることを前提としています。
+Learning is provided in a hands-on manner so that participants can experience how to create applications that take advantage of Extreal's features.
+If you are new to Extreal, please start learning from [Core](/learning/core).
+All other Learning is based on the assumption that you have already learned Core.
 
-Introductionの残りでは、Extrealを活用するために必要となるスキルを示します。
-このスキルはLearningを実施するための前提スキルでもあります。
-これらのスキルの学習コストを少しでも下げるために私たちが参考にしているリソースを合わせて紹介します。
-Learningをやってみて分からないことが多い場合はここで紹介したリソースを参考に自習してみてください。
+The remainder of the Introduction shows the skills needed to utilize Extreal.
+These skills are also prerequisite skills for implementing Learning.
+We have combined these skills with resources we refer to in order to lower the cost of learning these skills as much as possible.
+If you have any questions after trying Learning, please refer to the resources listed here for self-study.
 
 :::info
-アプリケーション開発にはコンテンツを作成するためにライティングやカメラワーク、アニメーション、エフェクト、レンダリングなど、下記のスキルに加えてコンテンツ作成のスキルが必要になります。
-:::
+Application development requires content creation skills in addition to the following skills: lighting, camera work, animation, effects, rendering, etc.
+::::
 
 ## Basic skills
 
-Extrealを活用したアプリケーション開発を行うためには次のスキルが必要です。
+The following skills are required to develop applications utilizing Extreal.
 
 ### Unity
 
 #### Skills
 
-- エディタの基本操作
-- Unityの概念
-  - Scene、GameObject、Prefab
-- Unityの機能
-  - Package Manager、Assembly Definition
-- Unityのスクリプト
-  - イベント関数、MonoBehaviour
+- Basic Editor Operations
+- Unity Concepts
+  - Scene, GameObject, and Prefab
+- Unity Features
+  - Package Manager, Assembly Definition
+- Unity Scripting
+  - Event functions, MonoBehaviour
 
 #### Resources
 
@@ -44,13 +44,13 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 - [Unityエンジニアになるためにやってきたこと](https://fintan.jp/page/5869/)
 - [Unity ユーザーマニュアル 2021.3 (LTS)](https://docs.unity3d.com/ja/2021.3/Manual/UnityManual.html)
 
-### C#
+### C\#
 
 #### Skills
 
-- 基本構文
-- 非同期処理
-- デリゲート、イベント
+- Basic Syntax
+- Asynchronous Processing
+- Delegates, events
 
 #### Resources
 
@@ -62,11 +62,11 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 #### Skills
 
 - VContainer
-  - DIの基本的な使い方
+  - Basic DI Usage
 - UniTask
-  - 非同期処理の基本的な使い方
+  - Basic usage of asynchronous processing
 - UniRx
-  - イベント処理の基本的な使い方
+  - Basic usage of event processing
 
 #### Resources
 
@@ -83,27 +83,27 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 
 #### Skills
 
-- Observerパターン
-- MV(R)Pパターン
+- Observer Pattern
+- MV(R)P Pattern
 
 #### Resources
 
-- Observerパターン
+- Observer Pattern
   - [ObserverパターンからはじめるUniRx](https://learning.unity3d.jp/1324/)
-- MV(R)Pパターン
+- MV(R)P Pattern
   - [三種の神器とMVRPパターン](https://speakerdeck.com/xrdnk/xrdnk-three-sacred-treasures-and-mvrp-pattern)
   - [【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)
 
 ## Optional skills
 
-アプリケーションの要件によって必要となるスキルは次の通りです。
+The skills required, depending on the application requirements, are as follows.
 
-### Multiplay
+### Multiplayer
 
 #### Skills
 
 - Netcode for GameObjects
-  - マルチプレイの基本的な使い方
+  - Basic Multiplayer Usage
 
 #### Resources
 
@@ -116,7 +116,7 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 #### Skills
 
 - Vivox Unity SDK
-  - ボイス/テキストチャットの基本的な使い方
+  - Basic Voice/Text Chat Usage
 
 #### Resources
 

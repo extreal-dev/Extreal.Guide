@@ -4,105 +4,105 @@ sidebar_position: 3
 
 # Chat using Vivox
 
-ここでは[Vivoxラッパー](/integration/chat.vivox)について学習します。
+In this section, you will learn about the [Vivox wrapper](/integration/chat.vivox).
 
-- 学習時間の目安
-  - 60分
-- Unityバージョン
+- Approximate learning time
+  - 60 min.
+- Unity Version
   - 2021.3.16f1
 
-Vivoxラッパーの学習では学習用に用意したプロジェクトを使います。
-この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
-Coreの学習を実施していない方はこの学習より先に[Coreの学習](/learning/core)を実施することを推奨します。
+The Vivox wrapper learning process uses a project prepared for learning.
+This learning project is based on the application architecture built in the Core learning.
+If you have not learned Core, it is recommended that you learn [Learning Core](/learning/core) before learning this project.
 
-Vivoxラッパーがセットアップされた学習用のプロジェクトを使って、バーチャル空間でテキストチャットとボイスチャットをできるようにアプリケーションの実装を追加していきます。
+Using the learning project with the Vivox wrapper set up, we will add an implementation of the application to allow text and voice chat in virtual space.
 
-この学習を行うにはクライアントからの接続先となる[Vivox Developer Portal](https://developer.vivox.com/)のアプリケーションが必要です。
-以降のハンズオンを始める前に[Vivox Developer Portal](https://developer.vivox.com/)でアプリケーションを作成しておいてください。
+You will need to have an application on the [Vivox Developer Portal](https://developer.vivox.com/) to connect to from the client to do this learning.
+Please create an application on the [Vivox Developer Portal](https://developer.vivox.com/) before starting the following hands-on activities.
 
 ## Prepare project
 
 :::info step
-まずはプロジェクトを準備しましょう。
-:::
+First, prepare your project.
+::::
 
-学習用のプロジェクトをクローンします。
+Clone the learning project.
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Learning.Chat.Vivox.git
 ```
 
-Unityエディタでクローンしたプロジェクトを開きます。
-「Link your Unity project」と表示された場合は設定せずに閉じてください。
+Open the cloned project in the Unity editor.
+If the message "Link your Unity project" appears, close it without setting it.
 
 :::info step
-プロジェクトの内容を確認しましょう。
+Review the project contents.
 :::
 
-Assetsディレクトリの`ExtrealCoreLearning`ディレクトリがアプリケーションのアセットを格納するディレクトリです。
-ディレクトリ名と同じ名前でAssembly Definitionを作成して依存パッケージを制御しています。
+The `ExtrealCoreLearning` directory in the Assets directory is the directory that contains the assets for the application.
+We control the dependent packages by creating an Assembly Definition with the same name as the directory name.
 
-ExtrealCoreLearningディレクトリの状態は次の通りです。
+The state of the `ExtrealCoreLearning` directory is as follows.
 
-- タイトル画面とバーチャル空間を作成済みです。
-- バーチャル空間は[Starter Assets - Third Person Character Controller](http://u3d.as/2z1r)が提供するアセットを使用しています。
-- バーチャル空間にはテキストチャットとボイスチャットのUIを作成済みです。
-- バーチャル空間でテキストチャットとボイスチャットを実現します。
+- The title screen and virtual space have already been created
+- The virtual space uses assets provided by [Starter Assets - Third Person Character Controller](http://u3d.as/2z1r)
+- UIs for text chat and voice chat have already been created in the virtual space
+- Text chat and voice chat are realized in the virtual space
 
 :::info step
-プロジェクトに問題がないことを確認するためアプリケーションを実行してみましょう。
+Let's run the application to make sure there are no problems with the project.
 :::
 
-Appディレクトリにある`App`シーンを実行します。
-タイトル画面のGoボタンを押してバーチャル空間に移動できれば成功です。
+Run the `App` scene in the App directory.
+It is successful if you can press the Go button on the title screen to move to the virtual space.
 
 ![Project success](/img/learning-vivox-project-success.png)
 
-テキストチャットのUIを試してみましょう。
-入力フィールドに適当なメッセージを入力し、Sendボタンを押してください。
-メッセージが画面に現れます。
+Try the text chat UI.
+Enter an appropriate message in the input field and press the Send button.
+The message will appear on the screen.
 
 ![Text chat](/img/learning-vivox-ui-textchat.png)
 
-ボイスチャットのUIではミュート切り替えを行うボタンを用意しています。
-画面左下のVoiceボタンを押してみてください。
-ミュート状態に応じてボタンの色を変えています。
-赤がミュート解除中、グレーがミュート中を表しています。
+The Voice Chat UI provides a button to toggle mute.
+Press the Voice button in the lower left corner of the screen.
+The color of the button changes according to the mute status.
+Red indicates unmuted and gray indicates muted.
 
 ![Voice chat](/img/learning-vivox-ui-voicechat.png)
 
-テキストチャットとボイスチャットのUI実装は次のディレクトリを確認してください。
+Check the following directories for UI implementations of text and voice chat.
 
-- テキストチャット
-  ```
+- Text chat
+  ```text
   ExtrealCoreLearning/TextChatControl
   ```
-- ボイスチャット
-  ```
+- Voice chat
+  ```text
   ExtrealCoreLearning/VoiceChatControl
   ```
 
-バーチャル空間でテキストチャットとボイスチャットをできるように実装を追加していきます。
+We will add an implementation to allow text and voice chat in the virtual space.
 
 ## Add VivoxClient
 
-まずVivoxClientを準備します。
-VivoxClientはアプリケーションで1つ存在すればよいのでAppシーンに含めておき、空間が増えても再利用できるようにしておきます。
+First, prepare a VivoxClient.
+Since only one VivoxClient needs to exist in the application, it should be included in the App scene so that it can be reused even if the space increases.
 
 :::info step
-VivoxAppConfigを生成するScriptableObjectを作成します。
+Create a ScriptableObject that generates the VivoxAppConfig.
 :::
 
 ![VivoxAppConfig](/img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
-- [VivoxラッパーのSettings](/integration/chat.vivox#settings)を参照して、AppディレクトリにVivoxAppConfigオブジェクトを生成するChatConfigスクリプトを作成します。
-- アセット作成メニューからChatConfigオブジェクトを作成し、インスペクタでVivoxへの接続情報を設定します。
+- Create a ChatConfig script that creates a VivoxAppConfig object in the App directory, referring to [Settings in the Vivox wrapper](/integration/chat.vivox#settings).
+- Create a ChatConfig object from the Create Asset menu and set the connection information to Vivox in the inspector.
 
 :::info step
-AppScopeを変更してVivoxClientを初期化します。
+Initialize VivoxClient by changing AppScope.
 :::
 
-VContainerを使ってVivoxAppConfigをVivoxClientに設定しています。
+Set VivoxAppConfig to VivoxClient using VContainer.
 
 ```csharp
 using Extreal.Core.Logging;
@@ -149,21 +149,21 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
-インスペクタでAppScopeにChatConfigオブジェクトを設定します。
+Set the ChatConfig object to AppScope in the Inspector.
 
 ![AppScope](/img/learning-vivox-appscope-vivoxappconfig.png)
 
 ## Add text chat
 
-VivoxClientが準備できたのでテキストチャットを追加していきます。
+Now that VivoxClient is ready, we will add text chat.
 
 :::info step
-テキストチャットのロジックを提供するModelスクリプトを作成します。
+Create a Model script that provides the logic for text chat.
 :::
 
-ExtrealCoreLearning/TextChatControlディレクトリに作成します。
-チャンネルへの参加とチャンネルからの退室、メッセージ送信とメッセージ受信を提供しています。
-チャンネルへの参加時はログインしていなければログインするようにしています。
+Create it in the ExtrealCoreLearning/TextChatControl directory.
+It provides for joining and leaving the channel, sending and receiving messages.
+When joining a channel, we make the user log in if he/she is not already logged in.
 
 ```csharp
 using System;
@@ -241,11 +241,11 @@ namespace ExtrealCoreLearning.TextChatControl
 ```
 
 :::info step
-TextChatChannelを使うようにTextChatControlPresenterを変更します。
+Change TextChatControlPresenter to use TextChatChannel.
 :::
 
-ステージに入った時にTextChatChannelを生成してチャンネルに参加し、ステージから出るときにチャンネルから退室しています。
-メッセージの送信と受信はViewスクリプトのTextChatControlViewとModelスクリプトのTextChatChannelをマッピングして実現しています。
+A TextChatChannel is created and the user joins the channel when entering the stage, and he/she leaves the channel when exiting the stage.
+Sending and receiving messages are realized by mapping TextChatControlView of the View script to TextChatChannel of the Model script.
 
 ```csharp
 using System;
@@ -335,36 +335,36 @@ namespace ExtrealCoreLearning.TextChatControl
 ```
 
 :::info step
-テキストチャットをプレイしてみましょう。
-:::
+Play text chat.
+::::
 
-テキストチャットの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
-プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
+Use [ParrelSync](https://github.com/VeriorPies/ParrelSync) to check how text chat works.
+Since ParrelSync is installed in the project, open multiple Unity editors using ParrelSync and play with them.
 
 ![ParrelSync](/img/learning-ngo-parrelsync.png)
 
-Appシーンを実行します。
-Vivoxへの接続に少し時間がかかるので実行後すぐにメッセージ送信しても送信されない場合があります。
-メッセージ送信が反応しなかった場合は少し待ってからメッセージ送信してください。
+Run the App scene.
+It may take some time to connect to Vivox, so if you send a message immediately after execution, it may not be sent.
+If the message does not respond, please send a message after a short wait.
 
-実行しているすべてのアプリケーションにメッセージが送信されれば成功です。
+If the message is sent to all running applications, it is successful.
 
 ## Add base class
 
-ボイスチャットを追加する前に、テキストチャットとボイスチャットのModelスクリプトとPresenterスクリプトは共通する部分が多いのでBaseクラスに共通処理を切り出します。
-共通処理は次の通りです。
+Before adding voice chat, we will cut out the common processing in the Base class since the Model and Presenter scripts for text and voice chat have many parts in common.
+The common processing is as follows.
 
-- Modelスクリプト
-  - チャンネルへの参加とチャンネルからの退室
-  - チャンネルへの参加時はログインしていなければログインする
-- Presenterスクリプト
-  - ステージに入った時にTextChatChannelを生成してチャンネルに参加し、ステージから出るときにチャンネルから退室
+- Model script
+  - Joining and leaving a channel
+  - When joining a channel, if the user is not logged in, he/she logs in
+- Presenter script
+  - Creates a TextChatChannel and joins the channel when entering the stage, and leaves the channel when exiting the stage
 
 :::info step
-ModelスクリプトのBaseクラスを作成します。
+Create a Base class for the Model script.
 :::
 
-Appディレクトリに作成します。
+Create it in the App directory.
 
 ```csharp
 using System;
@@ -434,9 +434,8 @@ namespace ExtrealCoreLearning.App
 ```
 
 :::info step
-Baseクラスを使うようにTextChatChannelを変更します。
+Change TextChatChannel to use Base class.
 :::
-
 
 ```csharp
 using System;
@@ -474,10 +473,10 @@ namespace ExtrealCoreLearning.TextChatControl
 ```
 
 :::info step
-PresenterスクリプトのBaseクラスを作成します。
+Create a Base class for the Presenter script.
 :::
 
-Appディレクトリに作成します。
+Create it in the App directory.
 
 ```csharp
 using System;
@@ -533,7 +532,7 @@ namespace ExtrealCoreLearning.App
 ```
 
 :::info step
-Baseクラスを使うようにTextChatControlPresenterを変更します。
+Change TextChatControlPresenter to use Base class.
 :::
 
 ```csharp
@@ -593,17 +592,17 @@ namespace ExtrealCoreLearning.TextChatControl
 }
 ```
 
-Appシーンを実行して変更前と同じようにテキストチャットがプレイできれば成功です。
+If you can run the App scene and play text chat as before the change, it is successful.
 
 ## Add voice chat
 
-ボイスチャットを追加していきます。
+We will add voice chat.
 
 :::info step
-BaseクラスとVivoxClientを使うようにModelスクリプトのVoiceChatChannelを変更します。
+Change the VoiceChatChannel in the Model script to use the Base class and VivoxClient.
 :::
 
-VivoxClientを使って入力デバイスのミュート制御を行っています。
+This uses VivoxClient to control the mute of the input device.
 
 ```csharp
 using System;
@@ -640,7 +639,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
 ```
 
 :::info step
-BaseクラスとVoiceChatChannelを使うようにVoiceChatControlPresenterを変更します。
+Modify VoiceChatControlPresenter to use Base class and VoiceChatChannel.
 :::
 
 ```csharp
@@ -696,20 +695,20 @@ namespace ExtrealCoreLearning.VoiceChatControl
 ```
 
 :::info step
-ボイスチャットをプレイしてみましょう。
-:::
+Play voice chat.
+::::
 
-ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
+Open and play multiple Unity editors using ParrelSync.
 
-Appシーンを実行します。
-ミュート切り替え、実行しているすべてのアプリケーションに音声が送信されれば成功です。
+Run the App scene.
+Toggle mute, if the voice is sent to all running applications, it is successful.
 
 ## Next Step
 
-これでVivoxラッパーのハンズオンは終了です。
-お疲れさまでした。
+This concludes our hands-on with the Vivox wrapper.
+Thank you for your time.
 
-このハンズオンを通じて[Vivoxラッパー](/integration/chat.vivox)を使ったテキストチャットとボイスチャットの作り方を体験しました。
-次のステップとしてVivoxラッパーがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
-ぜひSample Applicationをご覧ください。
+Through this hands-on, you have experienced how to create text and voice chats using the [Vivox wrapper](/integration/chat.vivox).
+As a next step, you might be interested in how the Vivox wrapper can be used in a more serious application.
+To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](/category/sample-application).

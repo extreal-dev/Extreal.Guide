@@ -4,77 +4,77 @@ sidebar_position: 3
 
 # Multiplay using Netcode for GameObjects
 
-ここでは[NGOラッパー](/integration/multiplay.ngo)について学習します。
+In this section, you will learn about the [NGO wrapper](/integration/multiplay.ngo).
 
-- 学習時間の目安
-  - 60分
-- Unityバージョン
+- Approximate learning time
+  - 60 min.
+- Unity Version
   - 2021.3.16f1
 
-NGOラッパーの学習では学習用に用意したプロジェクトを使います。
-この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
-Coreの学習を実施していない方はこの学習より先に[Coreの学習](/learning/core)を実施することを推奨します。
+The NGO wrapper learning process uses a project prepared for learning.
+This learning project is based on the application architecture built in the Core learning.
+If you have not learned Core, it is recommended that you learn [Learning Core](/learning/core) before learning this project.
 
-NGOラッパーがセットアップされた学習用のプロジェクトを使って、バーチャル空間でマルチプレイできるようにサーバーとアプリケーションの実装を追加していきます。
+Using the learning project with the NGO wrapper set up, we will add server and application implementations to allow multiplayer in virtual space.
 
 ## Prepare project
 
 :::info step
-まずはプロジェクトを準備しましょう。
-:::
+First, prepare your project.
+::::
 
-学習用のプロジェクトをクローンします。
+Clone the learning project.
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Learning.Multiplay.NGO.git
 ```
 
-Unityエディタでクローンしたプロジェクトを開きます。
+Open the cloned project in the Unity editor.
 
 :::info step
-プロジェクトの内容を確認しましょう。
+Review the project contents.
 :::
 
-`Assets`ディレクトリに次の3つのディレクトリを作成しています。
-各ディレクトリにディレクトリ名と同じ名前でAssembly Definitionを作成して依存パッケージを制御しています。
+The following three directories are created in the `Assets` directory.
+In each directory, we create an Assembly Definition with the same name as the directory name to control the dependent packages.
 
 - ExtrealCoreLearning
-  - アプリケーションのアセットを格納するディレクトリです。
-  - タイトル画面とバーチャル空間を作成済みです。
-    - バーチャル空間には[Starter Assets - Third Person Character Controller](http://u3d.as/2z1r)が提供するアセットを使用しています。
-    - バーチャル空間でマルチプレイを実現します。
-  - このハンズオンでマルチプレイのクライアント実装を追加します。
+  - This directory contains the assets of the application
+  - The title screen and virtual space have already been created
+    - The virtual space uses assets provided by [Starter Assets - Third Person Character Controller](http://u3d.as/2z1r)
+    - The virtual space will be used for multiplayer
+  - Add a client implementation of multiplayer with this hands-on
 - ExtrealCoreLearning.MultiplayServer
-  - マルチプレイサーバーのアセットを格納するディレクトリです。
-  - このハンズオンでマルチプレイのサーバー実装を追加します。
+  - This directory contains the assets for the multiplayer server
+  - Add a multiplayer server implementation with this hands-on
 - ExtrealCoreLearning.MultiplayCommon
-  - アプリケーションとマルチプレイサーバーに共通するアセットを格納するディレクトリです。
-  - NGOに対応したプレイヤーのプレハブを作成済みです。
-    - プレイヤーのプレハブには[Starter Assets - Third Person Character Controller](http://u3d.as/2z1r)が提供するアセットを使用しています。
-  - このハンズオンでNetworkManagerを追加します。
+  - Directory to store assets common to the application and the multiplayer server
+  - Player prefabs supporting the NGO have already been created
+    - The player prefab uses assets provided by [Starter Assets - Third Person Character Controller](http://u3d.as/2z1r)
+  - Add NetworkManager with this hands-on
 
 :::info step
-プロジェクトに問題がないことを確認するためアプリケーションを実行してみましょう。
+Let's run the application to make sure there are no problems with the project.
 :::
 
-ExtrealCoreLearning/Appディレクトリにある`App`シーンを実行します。
-タイトル画面のGoボタンを押してバーチャル空間に移動できれば成功です。
+Run the `App` scene in the ExtrealCoreLearning/App directory.
+It is successful if you can press the Go button on the title screen to move to the virtual space.
 
 ![Project success](/img/learning-ngo-project-success.png)
 
-バーチャル空間でマルチプレイできるように実装を追加していきます。
+We will add an implementation to allow multiplayer in the virtual space.
 
-## Add multiplay server
+## Add multiplayer server
 
-まずマルチプレイサーバーを追加します。
+First, add a multiplayer server.
 
 :::info step
-マルチプレイサーバーのロジックを提供するModelスクリプトを作成します。
+Create a Model script that provides the logic for the multiplayer server.
 :::
 
-ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
-NgoServerを使ってサーバーを開始します。
-後ほどクライアントからのメッセージを受けてプレイヤーをスポーンする処理を追加します。
+Create it in the ExtrealCoreLearning.MultiplayServer directory.
+Start the server with NgoServer.
+Later, we will add the processing to spawn players upon receiving a message from the client.
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -100,11 +100,11 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-マルチプレイサーバーのエントリーポイントとなるPresenterスクリプトを作成します。
+Create a Presenter script that will be the entry point for the multiplayer server.
 :::
 
-ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
-MultiplayServerシーンが開始するとサーバーを開始します。
+Create it in the ExtrealCoreLearning.MultiplayServer directory.
+Start the server when the MultiplayServer scene runs.
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -130,12 +130,12 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-マルチプレイサーバーに必要なオブジェクトを組み立てるScopeスクリプトを作成します。
+Create a Scope script to assemble the necessary objects for a multiplayer server.
 :::
 
-ExtrealCoreLearning.MultiplayServerディレクトリに作成します。
-デバッグログを出力したいのでLoggingの初期化を入れています。
-NetworkManagerはGameObjectとして配置するのでインスペクタから受け取ります。
+Create it in the ExtrealCoreLearning.MultiplayServer directory.
+We want to output debug logs, so we include initialization of Logging.
+The NetworkManager is placed as a GameObject, so we receive it from the inspector.
 
 ```csharp
 using Extreal.Core.Logging;
@@ -177,58 +177,58 @@ namespace ExtrealCoreLearning.MultiplayServer
 ```
 
 :::info step
-NetworkManagerをアタッチしたGameObjectをMultiplayServerシーンに作成します。
+Create a GameObject with NetworkManager attached in the MultiplayServer scene.
 :::
 
 ![Add NetworkManager](/img/learning-ngo-add-networkmanager.png)
 
-- MultiplayServerシーンに`NetworkManager`という名前でGameObjectを作成します。
-- インスペクタのAdd Componentから`Network Manager`を追加します。
-- インスペクタのSelect transport...から`UnityTransport`を選びます。
-- **StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。**
+- Create a GameObject named `NetworkManager` in the MultiplayServer scene
+- Add `Network Manager` from the Inspector's `Add Component`
+- Select `UnityTransport` from `Select transport...` in the inspector
+- **Uncheck `Scene Management>Enable Scene Management` in the inspector, as the scene is managed by StageNavigation**
 
 :::info step
-ScopeスクリプトをMultiplayServerシーンに設定します。
+Set Scope script to MultiplayServer scene.
 :::
 
 ![Add scope](/img/learning-ngo-add-scope.png)
 
-- MultiplayServerシーンに`Scope`という名前でMultiplayServerScopeスクリプトをアタッチしたGameObjectを作成します。
-- NetworkManagerオブジェクトをインスペクタで設定します。
+- Create a GameObject with the MultiplayServerScope script attached to the MultiplayServer scene with the name `Scope`
+- Set the NetworkManager object in the inspector
 
 :::info step
-マルチプレイサーバーを実行します。
-:::
+Run the multiplayer server.
+::::
 
-MultiplayServerシーンを実行します。
-Consoleに`[Debug:NgoServer] The server has started`と出力されれば成功です。
+Run the MultiplayServer scene.
+If the Console outputs `[Debug:NgoServer] The server has started`, it is successful.
 
 ![Server success](/img/learning-ngo-server-success.png)
 
 ## Commonize NetworkManager
 
-NetworkManagerはサーバーとクライアントで同じ設定になっている必要があるため、プレハブにしてサーバーとクライアントから同じオブジェクトを利用できるようにします。
+NetworkManager must be configured the same on the server and client, so it is prefabricated and the same objects are available from the server and client.
 
 :::info step
-NetworkManagerオブジェクトをプレハブに変更します。
-:::
+Change the NetworkManager object to prefabricated.
+::::
 
-MultiplayServerシーンのNetworkManagerオブジェクトを`ExtrealCoreLearning.MultiplayCommon`ディレクトリにドラッグ＆ドロップします。
+Drag and drop the NetworkManager object from the MultiplayServer scene into the `ExtrealCoreLearning.MultiplayCommon` directory.
 
 ![NetworkManager prefab](/img/learning-ngo-networkmanager-prefab.png)
 
 ## Add connection to multiplay room
 
-マルチプレイルームへの参加とマルチプレイルームからの退室をアプリケーションに追加します。
+Add joining and leaving a Multiplayer Room to the application.
 
 :::info step
-まずアプリケーションで使うNgoClientの初期化を行います。
-:::
+First, initialize the NgoClient to be used by the application.
+::::
 
-NgoClientの初期化にはNetworkManagerが必要です。
-NgoClientとNetworkManagerはアプリケーションで1つ存在すればよいのでAppシーンに含めておき、空間が増えても再利用できるようにしておきます。
+Initializing NgoClient requires NetworkManager.
+Since we only need one NgoClient and one NetworkManager in the application, we will include them in the App scene so that they can be reused when more space is available.
 
-`AppScope`スクリプトを変更してNgoClientを初期化します。
+Modify the `AppScope` script to initialize NgoClient.
 
 ```csharp
 using Extreal.Core.Logging;
@@ -280,43 +280,43 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
-`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるNetworkManagerのプレハブをAppシーンにドラッグ＆ドロップして、`AppScope`オブジェクトのインスペクタで設定します。
+Drag and drop the NetworkManager prefab in the `ExtrealCoreLearning.MultiplayCommon` directory into the App scene and set it in the inspector of the `AppScope` object.
 
 ![NgoClient init](/img/learning-ngo-ngoclient-init.png)
 
 :::info step
-プレイヤープレハブをNetworkManagerに設定します。
-:::
+Set the player prefab to NetworkManager.
+::::
 
-NGOで同期するプレハブはNetworkManagerに設定する必要があります。
-`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブの`NetwrokPlayer`をNetworkManagerの`NetworkPrefabs`に設定します。
+The prefabs to be synchronized by the NGO must be configured in the NetworkManager.
+Set the player prefab `NetworkPlayer` in the `ExtrealCoreLearning.MultiplayCommon` directory to `NetworkPrefabs` in NetworkManager.
 
-![Netwrok prefab](/img/learning-ngo-networkmanager-playerprefab.png)
-
-:::info step
-NgoClientの初期化で問題が起きていないか確認します。
-:::
-
-NgoClientを使った処理はまだ入れていないのでAppシーンを実行してこれまでと同じように起動されれば成功です。
-
-起動時に`Add Scene to Scenes in Build`と表示された場合は`No - Continue`を選択して、NetworkManagerの作成手順が漏れているので次の手順を実施してください。
-
-- **StageNavigationでシーンを管理しているため、インスペクタの`Scene Management＞Enable Scene Management`のチェックを外します。**
+![Network prefab](/img/learning-ngo-networkmanager-playerprefab.png)
 
 :::info step
-MultiplayControlシーンを追加します。
-:::
+Check for problems with NgoClient initialization.
+::::
 
-- `ExtrealCoreLearning/MultiplayControl`ディレクトリを作成します。
-- 作成したディレクトリに`MultiplayControl`シーンを作成します。
-- カメラなど初期設定されているGameObjectを削除しMultiplayControlシーンを一旦空にします。
+If it starts up the same way as before, it is successful.
+
+If `Add Scene to Scenes in Build` is displayed at startup, select `No - Continue` and do the following steps since the NetworkManager creation procedure is omitted.
+
+- **Uncheck `Scene Management>Enable Scene Management` in the inspector since the scene is managed by StageNavigation**
 
 :::info step
-マルチプレイのロジックを提供するModelスクリプトを作成します。
-:::
+Add MultiplayControl scene.
+::::
 
-ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
-マルチプレイルームへの参加とマルチプレイルームからの退室を提供しています。
+- Create the `ExtrealCoreLearning/MultiplayControl` directory
+- Create a `MultiplayControl` scene in the created directory
+- Empty the `MultiplayControl` scene by removing the default GameObjects such as cameras
+
+:::info step
+Create a Model script that provides the multiplayer logic.
+::::
+
+Create it in the ExtrealCoreLearning/MultiplayControl directory.
+It provides for joining and leaving a Multiplay room.
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -357,12 +357,12 @@ namespace ExtrealCoreLearning.MultiplayControl
 ```
 
 :::info step
-マルチプレイルームへの参加と退室を制御するPresenterスクリプトを作成します。
+Create a Presenter script to control joining and leaving a Multiplayer Room.
 :::
 
-ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
-StageNavigatorのイベント通知を使ってマルチプレイルームへの参加とマルチプレイルームからの退室を制御しています。
-OnStageTransitionedがステージに入った後、OnStageTransitioningがステージから出る前のタイミングになります。
+Create it in the ExtrealCoreLearning/MultiplayControl directory.
+It uses StageNavigator event notifications to control joining and leaving the Multiplay Room.
+OnStageTransitioned is after entering the stage and OnStageTransitioning is before exiting the stage.
 
 ```csharp
 using System;
@@ -407,10 +407,10 @@ namespace ExtrealCoreLearning.MultiplayControl
 ```
 
 :::info step
-ModelとPresenterのオブジェクトを組み立てるScopeスクリプトを作成します。
+Create a Scope script that assembles Model and Presenter objects.
 :::
 
-ExtrealCoreLearning/MultiplayControlディレクトリに作成します。
+Create it in the ExtrealCoreLearning/MultiplayControl directory.
 
 ```csharp
 using VContainer;
@@ -431,68 +431,68 @@ namespace ExtrealCoreLearning.MultiplayControl
 ```
 
 :::info step
-ScopeスクリプトをMultiplayControlシーンに設定します。
-:::
+Set Scope script to MultiplayControl scene.
+::::
 
 ![MultiplayControl scope](/img/learning-ngo-multiplaycontrol-scope.png)
 
-- MultiplayControlシーンに`Scope`という名前でMultiplayControlScopeをアタッチしたGameObjectを作成します。
-- インスペクタでParentに`AppScope`を指定します。
+- Create a GameObject with the MultiplayControlScope attached to the MultiplayControl scene with the name `Scope`.
+- Specify `AppScope` for Parent in the inspector.
 
 :::info step
-MultiplayControlシーンが完成したのでステージ設定とBuildSettingsに追加します。
+Now that the MultiplayControl scene is complete, add it to the stage settings and BuildSettings.
 :::
 
-- SceneNameに`MultiplayControl`を追加します。
-- StageConfigのインスペクタでVirtualStageに`MultiplayControl`を追加します。
-- BuildSettingsにMultiplayControlシーンを追加します。
+- Add `MultiplayControl` to SceneName.
+- Add `MultiplayControl` to `VirtualStage` in the StageConfig inspector.
+- Add a MultiplayControl scene to BuildSettings.
 
 :::info step
-マルチプレイルームに接続できるか試してみましょう。
-:::
+Try if you can connect to a Multiplay room.
+::::
 
-マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
-プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
+Use [ParrelSync](https://github.com/VeriorPies/ParrelSync) to check if Multiplay works.
+Since ParrelSync is installed in the project, you can use ParrelSync to open multiple Unity editors and play with them.
 
 ![ParrelSync](/img/learning-ngo-parrelsync.png)
 
-実行するシーンは次の通りです。
+The scene to be executed is as follows.
 
-- マルチプレイサーバー
-  ```
+- Multiplayer server
+  ```text
   /Assets/ExtrealCoreLearning.MultiplayServer/MultiplayServer
   ```
-- アプリケーション
-  ```
+- Application
+  ```text
   /Assets/ExtrealCoreLearning/App/App
   ```
 
-バーチャル空間に移動してもこれまでと変わりありませんが、次のようなログが出ていれば成功です。
+When you move to the virtual space, it is no different than before, but it is successful if you see the following logs.
 
-- マルチプレイサーバー
-  ```
+- Multiplayer server
+  ```text
   [Debug:NgoServer] The client with client id 1 has connected
   ```
-- アプリケーション
-  ```
+- Application
+  ```text
   [Debug:NgoClient] The client has connected to the server
   ```
 
 ## Add player spawn
 
-マルチプレイルームに接続できたのでプレイヤーをスポーンする処理を追加します。
-この処理を追加するとマルチプレイできるようになります。
+Now that you have connected to the multiplayer room, add a processing to spawn players.
+After adding this processing, you are ready to play multiplayer.
 
-アプリケーションからプレイヤーのスポーンを依頼するメッセージをマルチプレイサーバーに送り、マルチプレイサーバーでプレイヤーをスポーンします。
+The application sends a message to the multiplayer server requesting to spawn a player, and the multiplayer server spawns the player.
 
 ### Application
 
 :::info step
-マルチプレイサーバーにプレイヤーのスポーンを依頼する処理を追加します。
-:::
+Add a processing to request the multiplayer server to spawn a player.
+::::
 
-プレイヤーのスポーン依頼にはNGOが提供するメッセージを使います。
-メッセージ名はアプリケーションとマルチプレイサーバーで合わせる必要があるのでメッセージ名を表すEnumを`ExtrealCoreLearning.MultiplayCommon`ディレクトリに作成します。
+The player spawn request uses a message provided by the NGO.
+The message name must match the application and the multiplayer server, so create an Enum in the `ExtrealCoreLearning.MultiplayCommon` directory to represent the message name.
 
 ```csharp
 namespace ExtrealCoreLearning.MultiplayCommon
@@ -504,8 +504,8 @@ namespace ExtrealCoreLearning.MultiplayCommon
 }
 ```
 
-マルチプレイサーバーにプレイヤーのスポーンを依頼する処理をMultiplayRoomに追加します。
-マルチプレイサーバーに接続されたタイミングでメッセージを送信します。
+Add a processing to MultiplayRoom to request a multiplayer server to spawn a player.
+The message will be sent when it is connected to the MultiplayRoom server.
 
 ```csharp
 // highlight-start
@@ -573,16 +573,16 @@ namespace ExtrealCoreLearning.MultiplayControl
 ### Multiplay Server
 
 :::info step
-アプリケーションから送信されるプレイヤーをスポーンするメッセージに対応する処理をMultiplayServerに追加します。
+Add processing to MultiplayServer in response to messages sent by the application to spawn players.
 :::
 
-MessageHandlerを登録してアプリケーションからのメッセージに対応します。
+Register a MessageHandler to handle messages from the application.
 
-プレイヤーのプレハブはAddressablesを使ってロードしています。
-ExtrealCoreLearning/MultiplayControlディレクトリの`NetworkPlayer`を選択してインスペクタを開くと、`PlayerPrefab`という名前でAddressablesに登録されていることが確認できます。
+Player prefabs are loaded using Addressables.
+If you select `NetworkPlayer` in the ExtrealCoreLearning/MultiplayControl directory and open the inspector, you will see that it is registered in Addressables under the name `PlayerPrefab`.
 
-今回はアプリケーションからメッセージの内容を何も送っていませんが、メッセージの内容でアバター名を送りユーザーごとに選択したアバターをプレイヤーとしてスポーンするといったこともできます。
-サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Applicaiton](/category/sample-application)をご覧ください。
+In this case, the application does not send any message content, but it is possible to send an avatar name in the message content and spawn an avatar selected by each user as a player.
+Please refer to [Sample Application](/category/sample-application) if you are interested in the sample application that realizes spawning avatars selected by the user.
 
 ```csharp
 // highlight-start
@@ -669,39 +669,39 @@ namespace ExtrealCoreLearning.MultiplayServer
 ## Play
 
 :::info step
-全ての実装が完了したのでプレイしてみましょう。
-:::
+Now that everything is implemented, let's play.
+::::
 
-実行するシーンは次の通りです。
+The scene to be played is as follows.
 
-- マルチプレイサーバー
-  ```
+- Multiplayer server
+  ```text
   /Assets/ExtrealCoreLearning.MultiplayServer/MultiplayServer
   ```
-- アプリケーション
-  ```
+- Application
+  ```text
   /Assets/ExtrealCoreLearning/App/App
   ```
 
-操作方法は次の通りです。
+The operation procedure is as follows
 
-- 移動
-  - W：前、A：左、S：後、D：右
-- アクション
-  - スペース：ジャンプ
-  - 左Shift：走る
+- Movement
+  - W: forward, A: left, S: back, D: right
+- Action
+  - Space: Jump
+  - Shift Left: Sprint
 
-ParrelSyncでUnityエディタを開いてプレイしている様子です。
-マルチプレイサーバーを実行しているUnityエディタは後ろに隠れています。
+Here is a shot of the Unity editor open and playing in ParrelSync.
+The Unity editor running the multiplayer server is hidden behind.
 
 ![Play](/img/learning-ngo-play.png)
 
 ## Next Step
 
-これでNGOラッパーのハンズオンは終了です。
-お疲れさまでした。
+This concludes our hands-on with the NGO Wrapper.
+Thank you for your time.
 
-このハンズオンを通じて[NGOラッパー](/integration/multiplay.ngo)を使ったマルチプレイサーバーとアプリケーションの作り方を体験しました。
-次のステップとしてNGOラッパーがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
-ぜひSample Applicationをご覧ください。
+Through this hands-on, you have experienced how to create a multiplayer server and application using the [NGO Wrapper](/integration/multiplay.ngo).
+As a next step, you might be interested in how the NGO wrapper can be used in a more serious application.
+To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](/category/sample-application).

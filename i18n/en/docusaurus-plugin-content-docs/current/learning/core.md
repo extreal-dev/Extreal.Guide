@@ -4,88 +4,88 @@ sidebar_position: 2
 
 # Core
 
-ここでは[Core](/category/core)について学習します。
+In this section, you will learn about [Core](/category/core).
 
-- 学習時間の目安
-  - 60分
-- Unityバージョン
+- Approximate learning time
+  - 60 min
+- Unity Version
   - 2021.3.16f1
 
-プロジェクトの作成からCoreの機能を導入していき、VContainerやUniRxも導入しExtrealが想定するアプリケーションアーキテクチャを構築します。
+You will start by creating a project and introducing Core features, as well as VContainer and UniRx, to build the application architecture envisioned by Extreal.
 
 ## Create project
 
 :::info step
-まずはプロジェクトを作りましょう。
+First, let's create a project.
 :::
 
-Unity Hubから新しいプロジェクトを作成します。
+Create a new project from Unity Hub.
 
-![プロジェクト作成](/img/learning-core-create-project.png)
+![create project](/img/learning-core-create-project.png)
 
-- エディターバージョン: `2021.3.16f1`
-- テンプレート: `3D`
-- プロジェクト名: `ExtrealCoreLearning`
+- Editor version: `2021.3.16f1`
+- Template: 3D
+- Project name: `ExtrealCoreLearning`
 
 :::info step
-Unityエディタが起動したら実行して問題がないことを確認します。
+Once the Unity editor starts, run it to make sure there are no problems.
 :::
 
-SampleSceneを実行してみましょう。
-シーンに何も配置していないので何も起こりません。
-Consoleに何も出ていなければ成功です。
+Let's run SampleScene.
+Since nothing is placed in the scene, nothing will happen.
+If nothing appears in the Console, it is a successful.
 
 ## Create entry point
 
 :::info step
-アプリケーション用のディレクトリとエントリーポイントとなるAppシーンを作ります。
+Create a directory for the application and an App scene to serve as the entry point.
 :::
 
-![Appシーン](/img/learning-core-app-scene.png)
+![App Scene](/img/learning-core-app-scene.png)
 
-- 初期設定してある`Assets/Scenes`ディレクトリを削除します。
-- `Assets/ExtrealCoreLearning/App`となるディレクトリを作ります。
-- Appディレクトリに`App`シーンを作成します。
+- Remove the initial `Assets/Scenes` directory
+- Create a directory that will become `Assets/ExtrealCoreLearning/App`
+- Create an `App` scene in the `App` directory
 
 ## Add Logging
 
-[Logging](/core/logging)をアプリケーションに追加します。
+Add [Logging](/core/logging) to the application.
 
 :::info step
-Package ManagerからLoggingを追加します。
+Add Logging from Package Manager.
 :::
 
-Git URL指定でLoggingを追加します。
-Git URLは[LoggingのPackage](/core/logging#package)から取得します。
+Add Logging by specifying a Git URL.
+Git URL is obtained from [Package of Logging](/core/logging#package).
 
-![Logging追加](/img/learning-core-logging-package.png)
+![Add Logging](/img/learning-core-logging-package.png)
 
-Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
-バージョンは実施タイミングにより異なります。
+If `Extreal.Core.Logging` is added to Package Manager, it is successful.
+The version depends on the timing of implementation.
 
 :::info step
-スクリプトからLoggingを参照できるようにします。
+Allow scripts to reference Logging.
 :::
 
-アプリケーションのAssembly DefinitionにLoggingを設定します。
+Set Logging to Assembly Definition for the application.
 
-![Loggingアセンブリ設定](/img/learning-core-logging-assembly.png)
+![Logging Assembly Configuration](/img/learning-core-logging-assembly.png)
 
-- ExtrealCoreLearningディレクトリに`ExtrealCoreLearning`という名前のAssembly Definitionを作成します。
-- Root Namespaceに`ExtrealCoreLearning`を指定します。
-- Assembly Definition Referencesに`Extreal.Core.Logging`を追加します。
-- Assembly Definition ReferencesのUse GUIDsのチェックは外します。
+- Create an Assembly Definition named `ExtrealCoreLearning` in the ExtrealCoreLearning directory
+- Specify `ExtrealCoreLearning` as the Root Namespace
+- Add `Extreal.Core.Logging` to the Assembly Definition References
+- Uncheck `Use GUIDs` in Assembly Definition References
 
 :::info step
-開発用にDebugレベルのログを出力したいのでLoggingの設定を追加します。
+Add a Logging setting since we want to output Debug-level logs for development.
 :::
 
-LoggingのデフォルトのログレベルはInfoのため、Loggingの設定を追加してログレベルを変更します。
+Since the default logging level for Logging is Info, add Logging Settings to change the logging level.
 
-[LoggingのSettings](/core/logging#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
+Create an `AppTest` script in the App scene by referring to [Logging Settings](/core/logging#settings).
 
-- AppTestスクリプトをAppディレクトリに作成します。
-- AppTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
+- Create an AppTest script in the App directory
+- Create a GameObject with the AppTest script attached in the App scene
 
 ```csharp
 using Extreal.Core.Logging;
@@ -110,7 +110,7 @@ namespace ExtrealCoreLearning.App
 ```
 
 :::info step
-このままではLoggingの動作確認ができないので、Loggingの初期化直後にログ出力するように処理を追加します。
+Since it is not possible to check the operation of Logging as it is, add processing so that logging is output immediately after initialization of Logging.
 :::
 
 ```csharp
@@ -129,91 +129,91 @@ private static void InitializeApp()
 }
 ```
 
-Appシーンを実行してみましょう。
-Consoleに`Hello, world!`と出力されれば成功です。
+Run the App scene.
+If the Console outputs `Hello, world!`, it is successful.
 
-![Loggingアセンブリ設定](/img/learning-core-logging-success.png)
+![Logging assembly configuration](/img/learning-core-logging-success.png)
 
 ## Add Stage Navigation
 
-[Stage Navigation](/core/stage-navigation)をアプリケーションに追加します。
+Add [Stage Navigation](/core/stage-navigation) to the application.
 
 :::info step
-Stage Navigationは[UniTask](https://github.com/Cysharp/UniTask)と[UniRx](https://github.com/neuecc/UniRx)に依存しているため先にUniTaskとUniRxを追加します。
+Stage Navigation depends on [UniTask](https://github.com/Cysharp/UniTask) and [UniRx](https://github.com/neuecc/UniRx), so add UniTask and UniRx first.
 :::
 
-UniTaskとUniRxは[OpenUPM](https://openupm.com/)で提供されているためOpenUPMの設定を追加します。
-`Edit` -> `Project Settings...` -> `Package Manager`からScoped RegistriesにOpenUPMを追加します。
+UniTask and UniRx are provided by [OpenUPM](https://openupm.com/), so add OpenUPM settings.
+Go to `Edit` -> `Project Settings...` -> `Package Manager` and add OpenUPM to Scoped Registries.
 
-![Unitask追加](/img/learning-core-stagenavigation-unitask.png)
+![Add Unitask](/img/learning-core-stagenavigation-unitask.png)
 
 - Name:
-  ```
+  ```text
   OpenUPM
   ```
 - URL:
-  ```
+  ```text
   https://package.openupm.com
   ```
 - Scope(s):
   - UniTask
-    ```
+    ```text
     com.cysharp
     ```
   - UniRx
-    ```
+    ```text
     com.neuecc
     ```
 
 :::info step
-UniTaskとUniRxを追加できたのでStage Navigationをスクリプトから使えるようにします。
+Now that UniTask and UniRx have been added, make Stage Navigation available from the script.
 :::
 
-Loggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作します。
-Stage NavigationのGit URLは[Stage NavigationのPackage](/core/stage-navigation#package)から取得します。
-Assembly DefinitionにUniTaskとUniRxも設定します。
+Operate the Package Manager and Assembly Definition in the same manner as for Logging.
+The Git URL for Stage Navigation is obtained from [Package for Stage Navigation](/core/stage-navigation#package).
+Also set UniTask and UniRx in Assembly Definition.
 
-![Stage Navigation追加](/img/learning-core-stagenavigation-add.png)
+![Add Stage Navigation](/img/learning-core-stagenavigation-add.png)
 
-ステージ遷移を試すためタイトル画面を追加し、アプリ起動後すぐにタイトル画面に遷移させてみましょう。
+To test the stage navigation, let's add a title screen and transition to the title screen immediately after launching the app.
 
 :::info step
-まずはタイトル画面を追加します。
+First, add a title screen.
 :::
 
-![タイトル画面](/img/learning-core-stagenavigation-titlescreen.png)
+![TitleScreen](/img/learning-core-stagenavigation-titlescreen.png)
 
-- Appディレクトリと同じ階層に`TitleScreen`ディレクトリを作成します。
-- その中に`TitleScreen`シーンを作成します。
-- TitleScreenシーンのカメラなど初期設定されているGameObjectを削除しシーンを一旦空にします。
-- シーンに`Canvas`を追加します。インスペクタで次の設定をします。
-  ![タイトル画面Canvas](/img/learning-core-stagenavigation-canvas.png)
+- Create a `TitleScreen` directory in the same hierarchy as the App directory
+- Create a `TitleScreen` scene in it
+- Remove the default GameObjects such as the camera from the TitleScreen scene and make the scene empty
+- Add a `Canvas` to the scene. In the inspector, make the following settings
+  ![Title Screen Canvas](/img/learning-core-stagenavigation-canvas.png)
   - Canvas Scaler
     - UI Scale Mode: `Scale With Screen Size`
-- Canvasの下に`Image`を追加します。インスペクタで次の設定をします。
-  ![タイトル画面Image](/img/learning-core-stagenavigation-image.png)
+- Add an `Image` under the Canvas. Make the following settings in the inspector
+  ![Title Screen Image](/img/learning-core-stagenavigation-image.png)
   - Rect Transform
     - Anchor Presets
       - X: `stretch`
       - Y: `stretch`
-    - LeftからButtomまで全て`0（Zero）`
+    - All from Left to Buttom are `0 (Zero)`
   - Image
     - Color
       - Hexadecimal: `FF6F61`
-- Imageの下に`Text - TextMeshPro`を追加します。
-  - `Extreal Core Learning`というタイトルを作ります。
-  - サイズやポジションは自由に決めてください。
-  - TMP Importerが表示されたら`Import TMP Essentials`を選択します。TextMeshProの初回利用時のみTMP Importerが表示されます。インポートされたらTMP Importerを閉じます。
-- Imageの下に`Button - TextMeshPro`を追加します。
-  - `Go`というボタンを作ります。
-  - こちらもサイズやポジションは自由に決めてください。
+- Add `Text - TextMeshPro` under `Image`
+  - Create a title `Extreal Core Learning`
+  - You can decide the size and position freely
+  - When the TMP Importer appears, select `Import TMP Essentials`. Only the first time you use TextMeshPro, the TMP Importer will appear. Once imported, close the TMP Importer
+- Add `Button - TextMeshPro` under Image
+  - Create a button called `Go`
+  - You can decide the size and position of this button freely as well
 
 :::info step
-タイトル画面を追加できたのでステージ設定を作成します。
+Now that the title screen has been added, create the stage settings.
 :::
 
-[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
-ステージ設定で作成する3つのタイプはAppディレクトリに配置します。
+Refer to [Settings for Stage Navigation](/core/stage-navigation#settings) to create stage settings.
+The three types to be created in the stage settings are placed in the App directory.
 
 ```csharp
 public enum StageName
@@ -226,19 +226,19 @@ public enum SceneName
 }
 ```
 
-3つのタイプが作成できたら`StageConfig`オブジェクトを作ります。
+Once the three types have been created, create a `StageConfig` object.
 
-![Stage設定](/img/learning-core-stagenavigation-config.png)
+![StageConfig](/img/learning-core-stagenavigation-config.png)
 
-- Assetsメニューから`StageConfig`オブジェクトをAppディレクトリに作成します。
-- StageConfigオブジェクトにタイトル画面のステージを設定します。
+- Create a `StageConfig` object in the App directory from the Assets menu
+- Set the stage of the title screen in the StageConfig object
 
 :::info step
-これでステージ遷移の準備が整ったのでアプリ起動後すぐにタイトル画面に遷移させる処理を追加します。
+Now that the stage transition is ready, add a processing to make the transition to the title screen immediately after the application is launched.
 :::
 
-- AppTestスクリプトにSerializeFieldとStartメソッドを追加します。
-- インスペクタでStageConfigオブジェクトを指定します。
+- Add the SerializeField and Start method to the AppTest script
+- Specify the StageConfig object in the inspector
 
 ```csharp
 using Extreal.Core.Logging;
@@ -275,90 +275,90 @@ namespace ExtrealCoreLearning.App
 ```
 
 :::info step
-Appシーンを実行してみましょう。
+Let's run the App scene.
 :::
 
-この状態でAppシーンを実行すると次のエラーになります。
+Running the App scene in this state will result in the following error.
 
-![Stage遷移エラー](/img/learning-core-stagenavigation-error.png)
+![Stage transition error](/img/learning-core-stagenavigation-error.png)
 
-Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
+Add a `TitleScreen` scene to `Scenes In Build` in Build Settings.
 
 :::info step
-もう一度Appシーンを実行してみましょう。
+Let's run the App scene again.
 :::
 
-タイトル画面が表示され、Consoleに`[Debug:StageNavigator] Transitions to 'TitleStage'`と出ていれば成功です。
+If the title screen appears and the Console shows `[Debug:StageNavigator] Transitions to 'TitleStage'`, it is successful.
 
-![Stage遷移成功](/img/learning-core-stagenavigation-success.png)
+![Stage transition success](/img/learning-core-stagenavigation-success.png)
 
 ## Apply MV(R)P pattern
 
-Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)を追加して[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に近づけていきたいと思います。
+That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [Extreal's envisioned application architecture](/intro#application).
 
 :::info step
-タイトル画面の遷移先となるアバター選択画面を追加します。
+Add an avatar selection screen to which the title screen transitions.
 :::
 
-アバター選択画面は遷移先として使用するだけなのでタイトル画面をコピーして作ります。
+The avatar selection screen is only used as a transition destination, so it is created by copying the title screen.
 
-![アバター選択画面](/img/learning-core-mvp-avatarselection.png)
+![Avatar Selection Screen](/img/learning-core-mvp-avatarselection.png)
 
-- Appディレクトリと同じ階層に`AvatarSelectionScreen`ディレクトリを作成します。
-- その中に`AvatarSelectionScreen`シーンを作成します。
-- AvatarSelectionScreenシーンのカメラなど初期設定されているGameObjectを削除しシーンを一旦空にします。
-- TitleScreenシーンのCanvasとEventSystemをコピーしてAvatarSelectionScreenシーンにペーストします。
-- タイトルを`Avatar Selection`に変更します。
+- Create an `AvatarSelectionScreen` directory in the same hierarchy as the App directory
+- Create an `AvatarSelectionScreen` scene in it
+- Remove the default GameObjects such as the camera in the AvatarSelectionScreen scene and make the scene empty
+- Copy the Canvas and EventSystem from the TitleScreen scene and paste them into the AvatarSelectionScreen scene
+- Change the title to `Avatar Selection`
 
 :::info step
-続けてステージ設定を追加します。
+Then add the stage settings.
 :::
 
-![アバター選択のステージ設定](/img/learning-core-mvp-stageconfig.png)
+! [Avatar Selection Stage Configuration](/img/learning-core-mvp-stageconfig.png)
 
-- StageNameに`AvatarSelectionStage`、SceneNameに`AvatarSelectionScreen`を追加します。
-- StageConfigオブジェクトのインスペクタで`AvatarSelectionStage`を追加します。
+- Add `AvatarSelectionStage` to StageName and `AvatarSelectionScreen` to SceneName
+- Add `AvatarSelectionStage` in the StageConfig object inspector
 
-Build SettingsのScenes In Buildに`AvatarSelectionScreen`シーンを追加します。
+Add the `AvatarSelectionScreen` scene to `Scenes In Build` in Build Settings.
 
-UIとステージ設定の準備が整いました。
+The UI and stage settings are ready.
 
 :::info step
-VContainerをアプリケーションに追加します。
+Add VContainer to your application.
 :::
 
-VContainerはUniTaskやUniRxと同様にOpenUPMから取得します。
+VContainer is obtained from OpenUPM as well as UniTask and UniRx.
 
-`Edit` -> `Project Settings...` -> `Package Manager`からOpenUPMのScope(s)を追加します。
+Go to `Edit` -> `Project Settings...` -> `Package Manager` and add the Scope(s) from OpenUPM.
 
-![VContainer追加](/img/learning-core-mvp-thirdparty.png)
+![Add VContainer](/img/learning-core-mvp-thirdparty.png)
 
 - VContainer:
-  ```
+  ```text
   jp.hadashikick
   ```
 
 :::info step
-続けてPackage ManagerとAssembly DefinitionにVContainerを追加します。
+Then add VContainer to Package Manager and Assembly Definition.
 :::
 
-![VContainer設定](/img/learning-core-mvp-pmandad.png)
+! [VContainer setting](/img/learning-core-mvp-pmandad.png)
 
-- Package ManagerでPackages: `My Registries`を選択しVContainerをインストールします。
-- アプリケーションのAssembly DefinitionにVContainerを設定します。
+- Select Packages: `My Registries` in Package Manager and install VContainer
+- Set VContainer to Assembly Definition of the application
 
-これでVContainerが使える状態になりました。
+Now you can use VContainer.
 
 ### VContainer
 
-VContainerを使って確認用に作成したAppTestを作り変えます。
+Rebuild the AppTest created for confirmation using VContainer.
 
 :::info step
-まずエントリーポイントとなるPresenterスクリプトを作成します。
+First, create a Presenter script as an entry point.
 :::
 
-Appディレクトリに作成します。
-Appシーンが開始するとタイトル画面に遷移させます。
+Create it in the App directory.
+When the App scene starts, make the transition to the title screen.
 
 ```csharp
 using System.Threading;
@@ -386,11 +386,11 @@ namespace ExtrealCoreLearning.App
 ```
 
 :::info step
-次にVContainerのLifetimeScopeとしてScopeスクリプトを作成します。
+Next, create a Scope script as a LifetimeScope for VContainer.
 :::
 
-Appディレクトリに作成します。
-ScopeスクリプトのAwakeをオーバーライドしてVContainerの処理よりも先にLoggingの設定を行います。
+Create it in the App directory.
+Override Awake in the Scope script to configure Logging before VContainer processing.
 
 ```csharp
 using Extreal.Core.Logging;
@@ -434,31 +434,32 @@ namespace ExtrealCoreLearning.App
 }
 ```
 
-StageConfigとStageNavigator、エントリーポイントとしてAppPresenterを登録しています。
-この登録により、StageConfigがStageNavigatorに設定され、StageNavigatorがAppPresenterに設定されます。
-このようにVContainerが提供するDIコンテナを使ってオブジェクトの構造を作り上げ、各オブジェクトが処理を実行できるようにします。
+StageConfig, StageNavigator and AppPresenter as entry points are registered.
+With this registration, StageConfig is set to StageNavigator and StageNavigator is set to AppPresenter.
+In this way, the DI container provided by VContainer is used to build up the object structure so that each object can execute processing.
 
 :::info step
-ScopeスクリプトをAppシーンに設定します。
-:::
+Set the Scope script to the App scene.
+::::
 
 ![AppScope](/img/learning-core-mvp-appscope.png)
 
-- Appシーンに`Scope`という名前でAppScopeスクリプトをアタッチしたGameObjectを作成します。
-- StageConfigオブジェクトをインスペクタで設定します。
-- 不要になったのでAppTestスクリプトとAppTestスクリプトをアタッチしたAppシーンのGameObjectを削除します。
+- Create a GameObject with the AppScope script attached to the App scene with the name `Scope`.
+- Set the StageConfig object in the inspector
+- Remove the AppTest script and the GameObject with the AppTest script attached in the App scene as they are no longer needed
 
-Appシーンを実行します。先ほどと同様にタイトル画面とConsoleのログ出力が出ていれば成功です。
+Run the App scene.
+If the title screen and Console log output appear as before, it is successful.
 
 ### UniRx
 
-UniRxを使ってタイトル画面のGoボタンを実装します。
+Implement the Go button on the title screen using UniRx.
 
 :::info step
-タイトル画面に対応するViewスクリプトを作成します。
+Create a View script for the title screen.
 :::
 
-TitleScreenディレクトリに作成します。
+Create it in the TitleScreen directory.
 
 ```csharp
 using System;
@@ -478,13 +479,13 @@ namespace ExtrealCoreLearning.TitleScreen
 }
 ```
 
-UniRxを使ってGoボタンが押された場合にイベントを通知する`OnGoButtonClicked`を定義しています。
+This defines `OnGoButtonClicked`, which notifies an event when the Go button is pressed using UniRx.
 
 :::info step
-次にGoボタンが押された場合にアバター選択画面に遷移させるPresenterスクリプトを作成します。
+Next, create a Presenter script that will transition to the avatar selection screen when the Go button is pressed.
 :::
 
-TitleScreenディレクトリに作成します。
+Create it in the TitleScreen directory.
 
 ```csharp
 using System;
@@ -527,13 +528,13 @@ namespace ExtrealCoreLearning.TitleScreen
 }
 ```
 
-Goボタンのイベント通知とアバター選択画面への遷移をマッピングしています。
+This maps the event notification of the Go button to the transition to the avatar selection screen.
 
 :::info step
-最後にViewやPresenterを紐づけるScopeスクリプトを作成します。
+Last, create a Scope script that ties the View and Presenter together.
 :::
 
-TitleScreenディレクトリに作成します。
+Create it in the TitleScreen directory.
 
 ```csharp
 using UnityEngine;
@@ -556,46 +557,46 @@ namespace ExtrealCoreLearning.TitleScreen
 }
 ```
 
-ViewスクリプトとScopeスクリプトをTitleScreenシーンに設定します。
+Set the View and Scope scripts to the TitleScreen scene.
 
-![AppScope](/img/learning-core-mvp-titlescreenobject.png)
+! [AppScope](/img/learning-core-mvp-titlescreenobject.png)
 
-- TitleScreenシーンに`View`という名前でTitleScreenViewスクリプトをアタッチしたGameObjectを作成します。
-- Buttonオブジェクトをインスペクタで設定します。
-- TitleScreenシーンに`Scope`という名前でTitleScreenScopeスクリプトをアタッチしたGameObjectを作成します。
-- Viewオブジェクトをインスペクタで設定します。
+- Create a GameObject with the TitleScreenView script attached to the TitleScreen scene with the name `View`
+- Set up a Button object in the inspector
+- Create a GameObject with the TitleScreenScope script attached to the TitleScreen scene with the name `Scope`
+- Set the View object in the inspector
 
 :::info step
-Appシーンを実行してみましょう。
+Let's run the App scene.
 :::
 
-この状態でAppシーンを実行すると次のエラーになります。
+If you run the App scene in this state, you will get the following error.
 
 ![AppScope](/img/learning-core-mvp-error.png)
 
-TitleScreenPresenterにStageNavigatorを設定していますがスコープに登録されていないためエラーとなっています。
-StageNavigatorはAppScope、TitleScreenPresenterはTitleScreenScopeと異なるスコープのためこのエラーが発生しています。
+StageNavigator is set to TitleScreenPresenter, but it is not registered in the scope, resulting in the error.
+This error occurs because StageNavigator is in AppScope and TitleScreenPresenter is in TitleScreenScope, which are different scopes.
 
-VContainerではスコープの親を指定してオブジェクトの検索範囲を親まで広げることができます。
-TitleScreenScopeのインスペクタでParentにAppScopeを指定するとこのエラーが解消します。
+In VContainer, you can specify the parent of a scope to extend the object's search range to the parent.
+Specifying AppScope for Parent in the TitleScreenScope inspector resolves this error.
 
 ![AppScope](/img/learning-core-mvp-parent.png)
 
-このようにスコープは階層を意識して作成します。
-共通利用されるスコープをより親となるように全体のスコープを設計します。
+In this way, scopes are created with hierarchy in mind.
+Design the overall scope so that the commonly used scopes are more parental.
 
 :::info step
-もう一度Appシーンを実行してみましょう。
-:::
+Let's run the App scene again.
+::::
 
-タイトル画面からアバター選択画面に遷移できれば成功です。
+If you can transition from the title screen to the avatar selection screen, it is successful.
 
 ## Next Step
 
-これでCoreのハンズオンは終了です。
-お疲れさまでした。
+This concludes our hands-on with Core.
+Thank you for your time.
 
-このハンズオンを通じて[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に必要な機能を構築済みです。
-次のステップとしてハンズオンで構築したアーキテクチャがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
-ぜひSample Applicationをご覧ください。
+Through this hands-on, you have already built the features required for [Extreal's envisioned application architecture](/intro#application).
+As a next step, you might be interested in how the architecture you built in this hands-on will be used in a more serious application.
+To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](/category/sample-application).
