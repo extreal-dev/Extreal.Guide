@@ -25,7 +25,7 @@ NGOラッパーがセットアップされた学習用のプロジェクトを�
 
 学習用のプロジェクトをクローンします。
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Learning.Multiplay.NGO.git
 ```
 
@@ -459,22 +459,22 @@ MultiplayControlシーンが完成したのでステージ設定とBuildSettings
 実行するシーンは次の通りです。
 
 - マルチプレイサーバー
-  ```
+  ```text
   /Assets/ExtrealCoreLearning.MultiplayServer/MultiplayServer
   ```
 - アプリケーション
-  ```
+  ```text
   /Assets/ExtrealCoreLearning/App/App
   ```
 
 バーチャル空間に移動してもこれまでと変わりありませんが、次のようなログが出ていれば成功です。
 
 - マルチプレイサーバー
-  ```
+  ```text
   [Debug:NgoServer] The client with client id 1 has connected
   ```
 - アプリケーション
-  ```
+  ```text
   [Debug:NgoClient] The client has connected to the server
   ```
 
@@ -675,11 +675,11 @@ namespace ExtrealCoreLearning.MultiplayServer
 実行するシーンは次の通りです。
 
 - マルチプレイサーバー
-  ```
+  ```text
   /Assets/ExtrealCoreLearning.MultiplayServer/MultiplayServer
   ```
 - アプリケーション
-  ```
+  ```text
   /Assets/ExtrealCoreLearning/App/App
   ```
 

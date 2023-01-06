@@ -28,7 +28,7 @@ Vivoxラッパーがセットアップされた学習用のプロジェクトを
 
 学習用のプロジェクトをクローンします。
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Learning.Chat.Vivox.git
 ```
 
@@ -74,11 +74,11 @@ Appディレクトリにある`App`シーンを実行します。
 テキストチャットとボイスチャットのUI実装は次のディレクトリを確認してください。
 
 - テキストチャット
-  ```
+  ```text
   ExtrealCoreLearning/TextChatControl
   ```
 - ボイスチャット
-  ```
+  ```text
   ExtrealCoreLearning/VoiceChatControl
   ```
 
@@ -436,7 +436,6 @@ namespace ExtrealCoreLearning.App
 :::info step
 Baseクラスを使うようにTextChatChannelを変更します。
 :::
-
 
 ```csharp
 using System;
