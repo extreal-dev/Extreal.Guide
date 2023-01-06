@@ -444,7 +444,7 @@ MultiplayControlシーンが完成したのでステージ設定とBuildSettings
 :::
 
 - SceneNameに`MultiplayControl`を追加します。
-- StageConfigのインスペクタでVirtualStageに`MultiplayControl`を追加します。
+- StageConfigのインスペクタで`VirtualStage`に`MultiplayControl`を追加します。
 - BuildSettingsにMultiplayControlシーンを追加します。
 
 :::info step
