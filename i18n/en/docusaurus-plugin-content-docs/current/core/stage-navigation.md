@@ -9,7 +9,7 @@ sidebar_position: 2
 Stage Navigation is provided to easily create stages that combine multiple scenes and switch between stages as described in [Application Architecture Envisioned by the Framework](/intro#application).
 
 The diagram shown in [Application Architecture Envisioned by the Framework](/intro#application) is reproduced below.
-! [Multiple scenes](/img/multi-scenes.png)
+![Multiple scenes](/img/multi-scenes.png)
 
 If you are able to create stages in your application using Stage Navigation and freely combining features, you will have an application that is easier to maintain and more reusable.
 
@@ -175,7 +175,7 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 The stage configuration is set up in the Unity editor inspector.
 An example configuration is as follows.
 
-! [Stage config](/img/core-stagenavigation-stageconfig.png)
+![Stage config](/img/core-stagenavigation-stageconfig.png)
 
 - CommonScenes property
   - Specifies scenes common to all stages.
