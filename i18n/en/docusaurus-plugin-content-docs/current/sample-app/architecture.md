@@ -6,26 +6,25 @@ sidebar_position: 3
 
 ## System Structure
 
-ユーザは各ストアやAWS S3からダウンロードしてアプリケーションを使用します。
-アプリケーションに3Dモデルなどのアセットやサーバーへの接続情報を含めて配布します。
-アプリケーションから直接処理に必要なSaaSやサーバに接続します。
+Users download and use the application from the each store or AWS S3.
+The application is distributed with assets such as 3D models and connection information to servers.
+Connect to the SaaS and servers required for processing directly from the application.
 
 ![system structure](/img/holiday-sys-structure.png)
 
 :::info
-サンプルアプリケーションのため実際に各ストアやAWS S3に配置していません。
-今後、各ストアの審査対応などノウハウを公開していく予定です。
-:::
+This is a sample application and has not been actually placed in each store or AWS S3.
+We plan to release our know-how, such as support for screening of each store, in the future.
+::::
 
 ## Application Structure
 
-HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](/intro#application)を採用します。
-Holidayのステージとシーンは次の通りです。
+The application architecture of Holiday will be the [architecture](/intro#application) assumed by Extreal.
+The stages and scenes of Holiday are as follows.
 
 ![application structure](/img/holiday-app-structure.png)
 
-Appシーンは個別の機能提供でなく、特別なシーンなのでここで説明します。
+The App scene is explained here because it is a special scene, not a separate feature offering.
 
-Appシーンがアプリケーションのエントリーポイントになります。
-Appシーンではアプリケーションの初期化処理、ステージ構成やアプリケーション状態の提供など、アプリケーション全体に関わる処理を行います。
-
+The App scene is the entry point for the application.
+The App scene handles the application initialization process, stage configuration, application state provision, and other processing related to the application as a whole.

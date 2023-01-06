@@ -4,80 +4,80 @@ sidebar_position: 2
 
 # Requirements
 
-ここではHolidayで実現している要件を示します。
+Here are the requirements realized by Holiday.
 
 :::caution
-Holidayの要件は本番運用するアプリケーションに必要な要件を網羅していません。
-本番運用するアプリケーションの場合は[非機能要求グレード](https://www.ipa.go.jp/sec/softwareengineering/std/ent03-b.html)を参考に非機能要件の観点を洗い出して要件定義を実施してください。
+Holiday requirements do not cover those necessary for production applications.
+For production applications, please refer to [Non-Functional Requirements Grade](https://www.ipa.go.jp/sec/softwareengineering/std/ent03-b.html) to identify the perspective of non-functional requirements and define them.
 :::
 
 ## Functional requirements
 
-Holidayは友人や家族で集まって休日のひと時を過ごしてもらうことを目指したアプリケーションです。
+Holiday is an application aimed at gathering with friends and family to spend time together during the holidays.
 
 ![holiday](/img/holiday.png)
 
-- タイトル画面
-  - タイトル表示のみ
-- アバター選択画面
-  - 名前を入力できる
-  - アバターを選択できる
-    - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526)のArmature
-    - [Mixamo](https://www.mixamo.com)のMichelle、Amy
-- バーチャル空間
-  - ボイスチャットができる
-  - テキストチャットができる
-  - マルチプレイができる
-  - アバター選択画面に戻れる
+- Title Screen
+  - Title display only
+- Avatar selection screen
+  - Allows users to enter a name
+  - Allows users to select an avatar
+    - Armature of [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
+    - Michelle and Amy from [Mixamo](https://www.mixamo.com)
+- Virtual Space
+  - Voice chat is available
+  - Text chat is available
+  - Multiplayer is available
+  - Can return to avatar selection screen
 
 ## Non-functional requirements
 
-- 開催方法
-  - 1回あたり1時間、日程を決めてイベント告知して開催する。
-  - 開催のたびにサーバーを起動/停止する。
-- 利用人数
-  - タイトル画面、アバター選択画面
-    - 制限なし
-  - バーチャル空間
-    - 最大人数90人
-    - 最大人数を超えた場合はアバター選択画面でユーザーに通知する。
-- 利用環境
+- Method of holding the event
+  - Each event will be held for one hour, with a set schedule and event announcement
+  - The server is started/stopped each time the event is held
+- Number of users
+  - Title screen, avatar selection screen
+    - No limit
+  - Virtual space
+    - Maximum number of users 90
+    - If the maximum number of users is exceeded, users will be notified on the avatar selection screen
+- Usage environment
   - PC
     - Windows 10
-    - 解像度：1920x1080
-  - モバイル
+    - Resolution: 1920x1080
+  - Mobile phone
     - iOS 16
     - Android 11
-    - 解像度：1080x1920（ポートレートモード）
-  - インターネット回線
-    - 上り/下り 40Mbps以上
-  - 周辺機器
-    - PC、モバイルともマイク付き有線イヤホン
-- 外部接続
-  - Vivox（SaaS）
-    - ネットワーク切断時はユーザーに通知する。
-    - テキスト/ボイスチャット以外の機能は使用できる。
-    - バーチャル空間に再入室すると再接続できるので再接続処理は不要とする。
-  - マルチプレイサーバー
-    - ネットワーク切断時はユーザーに通知する。
-    - マルチプレイ以外の機能は使用できる。
-    - バーチャル空間に再入室すると再接続できるので再接続処理は不要とする。
-- 地域、言語
-  - 日本、日本語のみ
+    - Resolution: 1080x1920 (portrait mode)
+  - Internet connection
+    - Uplink/downlink: 40 Mbps or higher
+  - Peripherals
+    - Wired earphones with microphone for both PC and mobile
+- External Connections
+  - Vivox (SaaS)
+    - Users are notified when the network is disconnected.
+    - All features except text/voice chat can be used.
+    - Reconnection process should not be necessary because the user can reconnect when re-entering the virtual space.
+  - Multiplayer server
+    - Users are notified when the network is disconnected.
+    - All features except for the multiplayer feature can be used.
+    - Reconnection processing is not required because the user can reconnect when re-entering the virtual space.
+- Region, Language
+  - Japan, Japanese only
 
 <!--
-    - マルチプレイ
-      - 最大人数まではマルチプレイに参加できる
-        - 自分が全員に表示される
-      - 最大人数を超えた場合は待機人数までは待機状態となりマルチプレイに参加できない
-        - 自分が非表示、最大人数までの様子は見える
-        - 待機状態、他の人から見えていないことをユーザに通知
-        - 他の人が抜けて順番が回ってくるとマルチプレイに参加できる
-        - マルチプレイに参加したことをユーザに通知
-      - 待機人数を超えた場合はステージにアクセスできない
-        - 人数オーバーでアクセスできないことをユーザに通知
-    - テキストチャット
-      - 待機人数を含めた全員が使用できる
-    - ボイスチャット
-      - 待機人数を含めた全員が使用できる
+    - Multiplayer
+      - Up to a maximum number of people can participate in multiplayer
+        - The user will be shown to everyone
+      - If the maximum number of players is exceeded, the user will be on standby until the number of people on standby is reached and will not be able to participate in multiplayer.
+        - Hide the user itself and be visible up to the maximum number of people
+        - Notify the user that he/she is on standby and not visible to others
+        - When others leave and it is their turn, they can join the multiplayer
+        - Notifies the user that he/she has joined the multiplayer
+      - If the number of people on standby is exceeded, users will not be able to access the stage
+        - Notify users that they cannot access the stage if the number of players is over the limit
+    - Text Chat
+      - Text Chat Available to all users, including those on standby
+    - Voice Chat
+      - Voice Chat Available to all users, including those on standby
 -->

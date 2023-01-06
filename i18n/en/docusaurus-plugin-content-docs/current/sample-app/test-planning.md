@@ -4,119 +4,119 @@ sidebar_position: 4
 
 # Test Planning
 
-[テスト種別＆テスト観点カタログ](https://fintan.jp/page/1456/)に下記を加えてテスト方法や合格基準を決めています。
+The following are added to the [Test Type & Test Perspective Catalog](https://fintan.jp/page/1456/) to determine test methods and acceptance criteria.
 
-- レビュー
-- モバイルアプリケーション
+- Review
+- Mobile Applications
 
 ## Review
 
-- テスト方法
-  - 全成果物のピアレビュー
-  - GitHubのブランチ設定でマージを制限しています。
-  - 1人以上の承認、全てのConversationのResolvedがマージ条件です。
-- 合格基準
-  - 全FB対応済み
+- Test Method
+  - Peer review of all deliverables
+  - Merge is restricted by GitHub branch settings
+  - Approval by at least one person and Resolved for all Conversations are merge requirements
+- Pass Criteria
+  - All feedback has been addressed
 
 ## Mobile Application
 
-次のような観点がありますが今後対応予定のため未実施です。
+The following aspects are not yet implemented as they will be addressed in the future.
 
-- アプリケーションがバックグラウンドに遷移/復帰した時、フォーカスが外れた時の動作
-- アプリケーション使用時の電池消耗への対応
+- Behavior when an application transitions to/from the background or loses focus
+- Battery drain when using applications
 
 ## Syntax check
 
-- テスト方法
-  - [Roslyn Analyzers](https://github.com/dotnet/roslyn-analyzers)、[Code Cracker](https://github.com/code-cracker/code-cracker)による静的解析
-- 合格基準
-  - 問題なし
+- Test Method
+  - Static analysis using [Roslyn Analyzers](https://github.com/dotnet/roslyn-analyzers) and [Code Cracker](https://github.com/code-cracker/code-cracker)
+- Pass Criteria
+  - No problem
 
 ## Functional test
 
-- テスト方法
-  - 手動テスト
-  - [テストケース](/sample-app/test-case#functional-test)
-- 合格基準
-  - 全件合格、テストカバレッジ100%
+- Test Method
+  - Manual test
+  - [test-case](/sample-app/test-case#functional-test)
+- Pass Criteria
+  - All cases passed, 100% test coverage
 
 ## Data compatibility test
 
-対象なし。
+Not applicable.
 
 ## Business scenario test
 
-機能テストと合わせて実施します。
+This will be done in conjunction with functional test.
 
 ## Configuration test
 
-- テスト方法
-  - Android、iOS、Winでの手動テスト
-  - マイク付き有線イヤホンで実施
-  - [テストケース](/sample-app/test-case#functional-test)
-- 合格基準
-  - 全件合格、テストカバレッジ100%
+- Test Method
+  - Manual testing on Android, iOS and Win
+  - Conducted with wired earphones with microphone
+  - [test-case](/sample-app/test-case#functional-test)
+- Pass Criteria
+  - All cases passed, 100% test coverage
 
 ## Security test
 
-- テスト方法
-  - [セキュリティ関連リンク](https://fintan-contents.github.io/mobile-app-crib-notes/reference/security/awesome-sites)のセルフチェック
-- 合格基準
-  - 問題なし
+- Test Method
+  - Self-check of [security-related links](https://fintan-contents.github.io/mobile-app-crib-notes/reference/security/awesome-sites)
+- Pass Criteria
+  - No problem
 
 ## Performance test
 
-- テスト方法
-  - バーチャル空間に90人アクセスした状態で1.5時間実行します。
-  - テスト用アプリケーションでアクセス数を確保します。
-    - テスト用アプリケーションはUIを無くしプレイヤー操作のみを実施します。
-  - 手元の端末数台でアプリケーションの合格基準を目視で判断します。
-  - サーバはCPU/メモリ使用量を監視してデータから合格基準を判断します。
-- 合格基準
-  - アプリケーションのフレーム落ちや停止が発生しないこと
-  - MultiplayサーバのCPU/メモリ使用状況が60%以内であること
+- Test Method
+  - Run for 1.5 hours with 90 people accessing the virtual space
+  - The number of accesses will be secured by a test application
+    - The test application will have no UI and only player operation will be performed
+  - Visually determine the application's acceptance criteria using several devices at hand
+  - The server monitors CPU/memory usage and determines passing criteria based on the data
+- Pass criteria
+  - No frame dropping or stoppage of the application
+  - CPU/memory usage of the multiplayer server must be within 60%
 
 ## Stress test
 
-性能テストと合わせて実施します。
+This will be done in conjunction with performance test.
 
 ## Volume test
 
-対象なし。
+Not applicable.
 
 ## Long run test
 
-性能テストと合わせて実施します。
+This will be done in conjunction with performance test.
 
 ## Failure test
 
-- テスト方法
-  - 手動テスト
-    - 障害事象を手動で発生させる
-  - [テストケース](/sample-app/test-case#failure-test)
-- 合格基準
-  - 全件合格
+- Test Method
+  - Manual Testing
+    - Manually generate a failure event
+  - [test case](/sample-app/test-case#failure-test)
+- Pass Criteria
+  - All cases passed
 
 ## Operational scenario test
 
-次のような観点がありますが本番運用しないため未実施です。
+The following aspects have not yet been implemented as we do not operate in production.
 
-- サーバーの起動/停止を手順通りに実施できること
-- サーバー障害が発生した場合に手順通りに復旧できること
-- スタッフがアプリケーションに入って正常稼働を監視できること
+- Server startup/shutdown procedures must be followed
+- Server recovery procedures must be followed in the event of a server failure
+- Staff should be able to enter the application and monitor normal operation
 
 ## Migration test
 
-次のような観点がありますがストア（Google Play、Apple Store）にリリースしないため未実施です。
+The following aspects have not yet been implemented as we do not release to the stores (Google Play, Apple Store).
 
-- 次のバージョンと現行のバージョンが本番環境で動作すること
-  - ストアにリリースする場合は審査用と現行の2バージョンを本番環境で動作させる必要があります。
-- バージョンアップできること
+- The next version and the current version must work in the production environment
+  - If released to the store, the next version and the current version must run in the production environment
+- The version upgrade is available
 
 ## Current vs. new comparison test
 
-対象なし。
+Not applicable.
 
 ## Usability test
 
-今後改善予定のため未実施です。
+Not yet implemented as it is planned to be improved in the future.

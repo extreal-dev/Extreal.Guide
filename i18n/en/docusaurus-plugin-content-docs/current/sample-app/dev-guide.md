@@ -12,165 +12,165 @@ sidebar_position: 6
 
 - Assets
   - AddressableAssetsData
-    - Addressablesを使うための設定
+    - Settings for using Addressables
   - Analyzer
-    - [Code Cracker](https://github.com/code-cracker/code-cracker)を使うための設定
+    - Settings for using [Code Cracker](https://github.com/code-cracker/code-cracker)
   - Google Fonts
-    - [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)から作成したUnityのフォントアセット
+    - Unity font assets created from [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)
   - Holiday
-    - Holidayのアプリケーションで作成するアセット
+    - Assets created in the Holiday application
   - Holiday.MultiplayCommon
-    - Holidayのアプリケーションとマルチプレイサーバーに共通するアセット
+    - Assets common to the Holiday application and the multiplayer server
   - Holiday.MultiplayServer
-    - Holidayのマルチプレイサーバーで作成するアセット
+    - Assets created by Holiday's multiplayer server
   - Holiday.PerformanceTest
-    - Holidayのパフォーマンステスト向けの資材
+    - Materials for performance testing in Holiday
   - Mixamo
-    - [Mixamo](https://www.mixamo.com/)から作成したUnityのキャラクタモデル
+    - Unity character models created from [Mixamo](https://www.mixamo.com/)
   - Plugins
-    - Android向けビルドの設定ファイル
+    - Configuration files for Android builds
   - StarterAssets
-    - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=ja-JP)のインストール先
+    - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
   - TextMesh Pro
-    - TextMesh Proを使うための設定
+    - Settings for using TextMesh Pro
   - URP
-    - Universal Render Pipelineを使うための設定
+    - Configuration for using Universal Render Pipeline
 - Packages
-  - アプリケーション開発で使用するUnityパッケージ
+  - Unity packages for application development
 
-自分達で作成したアセットの格納場所としてHolidayから始まる名前を付けたディレクトリを設けています。
-サードパーティを元に作成したアセットと自分達で作成したアセットを見分けやすくするためです。
-Holiday以外のディレクトリはサードパーティやUnityの機能利用時に作成された設定になります。
-アプリケーション用のディレクトリを設けたのでそれ以外のディレクトリは作成された状態、またはサードバーティと分かる名前を付けて配置しています。
+We have a directory named starting with Holiday where we store our own assets.
+This is to make it easier to distinguish between assets created by third parties and ourselves.
+Directories other than Holiday are settings created for third parties or when using Unity features.
+We have set up directories for applications, so all other directories have been created or named with names that identify them as third-party.
 
 #### Holiday
 
-- App
-  - アプリケーションのエントリーポイント
-  - アプリケーション全体の設定/状態
+- App.
+  - Application Entry Points
+  - Application-wide settings/status
   - Common
-    - アプリケーション全体で共通する処理
+    - Processing common to the entire application
 - Controls
   - XxxControl
-    - Controlシーン。シーン毎のアセットをまとめて配置
+    - Control scene. Assets for each scene are placed together.
   - Common
-    - Controlシーン間で共通する処理
+    - Processing common to all Control scenes.
 - Screens
   - XxxScreen
-    - Screenシーン。シーン毎のアセットをまとめて配置
+    - Screen scene. Assets for each scene are placed together.
   - Common
-    - Screenシーン間で共通するUIや処理
+    - UI and processing common to all Screen scenes.
 - Spaces
   - XxxSpace
-    - Spaceシーン。シーン毎のアセットをまとめて配置
+    - Space scene. Assets for each scene are placed together.
   - Common
-    - Spaceシーン間で共通するUIや処理
+    - UI and processing common to all Space scenes.
 
-Unityのアプリケーションではアセットの種類毎にディレクトリを分けることが多いですが、1つの機能を構成するアセットが散らばり探すのが大変なので、Holidayではシーン単位でディレクトリを分けてシーン毎のアセットをまとめて配置します。
+In many Unity applications, directories are divided by asset type, but since the assets that make up a single feature are scattered and difficult to find, Holiday will divide the directories by scene and place the assets for each scene together.
 
-ディレクトリとシーンの対応が分かるようにアプリケーション構成を再掲します。
+The application structure is shown below so that the correspondence between directories and scenes can be understood.
 
 ![application structure](/img/holiday-app-structure.png)
 
 ### Static analysis
 
-ルート直下にある`.editorconfig`でAnalyzerの設定をしています。
-[EditorConfig](https://editorconfig.org/)に対応したエディタを使ってスクリプトを編集し、Analyzerの問題がないことを確認してからプッシュしてください。
+Analyzer is configured in `.editorconfig` directly under root.
+Edit the script using an editor that supports [EditorConfig](https://editorconfig.org/) and make sure there are no problems with Analyzer before pushing.
 
 ### Assembly Definition(AD)
 
-アプリケーション単位でADを1つ作成します。
+Create one AD per application unit.
 
-- アプリケーションで使用するサードパーティのパッケージを制限するため
-- 自動テストの導入をしやすくするため
-- [Code Cracker](https://github.com/code-cracker/code-cracker)を適用するため
-  - Code Crackerを適用するにはチェック対象のADにCode Crackerを含める必要があります。
+- To limit third-party packages used in the application
+- To facilitate the introduction of automated testing
+- To apply [Code Cracker](https://github.com/code-cracker/code-cracker)
+  - To apply Code Cracker, the AD to be checked must include Code Cracker.
 
 ### File settings
 
-意図しない変更差分が出ないようにスクリプトや設定ファイルは次の設定にしてください。
+Scripts and configuration files should have the following settings to avoid unintended change differences.
 
-- エンコーディング: `UTF-8のBOM付き`
-- 改行コード: `LF`
+- Encoding: `UTF-8 with BOM`
+- Newline code: `LF`
 
 :::info
-Visual Studioで`UTF-8のBOM無し`を設定できないため`UTF-8のBOM付き`としています。
+It is set as `UTF-8 with BOM` because `UTF-8 without BOM` cannot be set in Visual Studio.
 :::
 
 ## Application
 
 ### Entry point
 
-アプリケーションのエントリーポイントは次のシーンです。
+The entry point for the application is the following scene.
 
-```
+```text
 Assets/Holiday/App/App
 ```
 
 ### Initialization
 
-アプリケーションの初期化処理は次のスクリプトのInitializeAppで実施しています。
-Awakeの先頭でInitializeAppを呼び出しています。
+The initialization processing of the application is performed by InitializeApp in the following script.
+InitializeApp is called at the beginning of Awake.
 
-```
+```text
 Assets/Holiday/App/AppScope
 ```
 
-フレームレートの設定や[Loggingの設定](/core/logging#settings)を行っています。
+It sets the frame rate and [Logging settings](/core/logging#settings).
 
 ### Stage configuration
 
-ステージ構成は[Stage Navigationの設定](/core/stage-navigation#settings)にある通り、3つのタイプを作成しています。
-ステージやシーンの作成時に変更してください。
+Three types of stage configurations are created as shown in [Stage Navigation Settings](/core/stage-navigation#settings).
+Change them when you create a stage or scene.
 
-```
+```text
 Assets/Holiday/App/Config/StageName
 ```
 
-```
+```text
 Assets/Holiday/App/Config/SceneName
 ```
 
-```
+```text
 Assets/Holiday/App/Config/StageConfig
 ```
 
 ### Application state
 
-アプリケーション状態を保持するクラスを設けています。
-プレイヤーの名前や選択したアバター、シーンをまたがる情報を保持するのに使います。
+The class to hold the application state is provided.
+It is used to hold the player's name, selected avatar, and information across scenes.
 
-```
+```text
 Assets/Holiday/App/AppState
 ```
 
 ### Utility class
 
-アプリケーション全体に共通する処理はユーティリティクラスとして提供しています。
+Processing common to the entire application is provided as utility classes.
 
-```
+```text
 Assets/Holiday/App/AppUtils
 ```
 
 ## Objects
 
-各シーンで使うオブジェクトの管理には[VContainer](https://vcontainer.hadashikick.jp/)を使います。
+Use [VContainer](https://vcontainer.hadashikick.jp/) to manage the objects used in each scene.
 
 ### DI
 
-DIについては[What is DI ?](https://vcontainer.hadashikick.jp/about/what-is-di)を参照してください。
+For more information on DI, see [What is DI ?] (<https://vcontainer.hadashikick.jp/about/what-is-di>).
 
-DIにはいくつかやり方があります。
-VContainerが推奨する方法を採用します。
+There are several ways to do DI.
+VContainer recommends the following methods.
 
 - C# Type
   - [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
 - MonoBehaviour
   - [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
 
-VContainerの推奨理由については[Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)のRECOMMENDATIONを参照してください。
+See RECOMMENDATION in [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection) for VContainer's recommended reasons.
 
-VContainerへの登録は次のRegisterを使います。
+The following Register is used to register to VContainer.
 
 ```csharp title="C# Type"
 builder.Register<AppState>(Lifetime.Singleton);
@@ -180,8 +180,8 @@ builder.Register<AppState>(Lifetime.Singleton);
 builder.RegisterComponent(networkManager);
 ```
 
-MonoBehaviourのようなインスタンスの登録はRegisterInstanceとRegisterComponentを使えますがRegisterComponentを使ってください。
-RegisterInstanceは引数のオブジェクトに対してDIが行われないため、DIを使いたいオブジェクトを誤って指定した際に問題解決まで時間を要する可能性があります。
+RegisterInstance and RegisterComponent can be used to register instances such as MonoBehaviour, but RegisterComponent should be used.
+RegisterInstance does not perform DI on the argument object, so if you mistakenly specify an object for which you want to use DI, it may take some time to resolve the problem.
 
 ```csharp title="Entry point"
 builder.RegisterEntryPoint<AppPresenter>();
@@ -189,37 +189,37 @@ builder.RegisterEntryPoint<AppPresenter>();
 
 ### Scope
 
-[VContainer](https://vcontainer.hadashikick.jp/)ではLifetimeScopeを継承したクラスをアタッチしたオブジェクトをシーンに置き、これが1つのスコープ（1つのコンテナ）を表現します。
-スコープに親のスコープを指定することでオブジェクトの検索を親まで広げることができます。
-Holidayでは親のスコープ指定を使って、Appシーンのオブジェクトを各シーンで使えるようにします。
-Holidayのスコープ階層は下記になります。
+In [VContainer](https://vcontainer.hadashikick.jp/), an object attached to a class that extends LifetimeScope is placed in a scene, which represents one scope (one container).
+By specifying the scope of the parent in the scope, the object search can be extended to the parent.
+Holiday uses the parent scope specification to make objects in the App scene available to each scene.
+Holiday's scope hierarchy is as follows.
 
-```
-Appシーン
+```text
+App scene
 ↑
-各シーン（Controlシーン、Screenシーン、Spaceシーン）
+Each scene (Control scene, Screen scene, Space scene)
 ```
 
-各シーンのスコープの親にはAppシーンのスコープを指定してください。
+Specify the scope of the App scene as the parent of each scene scope.
 
-![オブジェクトスコープの親](/img/holiday-object-scope-parent.png)
+![Parent of object scope](/img/holiday-object-scope-parent.png)
 
 ## Assets
 
-現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
+Currently, all assets are included in the application, but if the content volume increases, it is assumed that the content will be externalized so that only the necessary content can be downloaded and used in the application. This is to reduce the download time by reducing the size of the application and the case where only the content needs to be changed.
 
-Holidayではアセット管理にUnityのAddressablesを使用します。
-Addressablesは次の目的で使用します。
+Holiday uses Addressables in Unity for asset management.
+Addressables are used for the following purposes.
 
-- 使用するアセットに名前を付け物理的なパスに依存せずアプリケーションでアセットを取得する
-- アプリケーションのソースコードを変更せずにアセットの取得先をローカルからリモートに切り替える
+- Name the assets to be used and retrieve them in the application without relying on physical paths
+- Switch from local to remote fetching of assets without modifying the application source code
 
-アセット名のルールは下記とします。
+The rules for naming assets are as follows.
 
-```
-タイプ＋名前
+```text
+Type + Name
 
-（例）
+(Example)
 AvatarAmy
 AvatarMichelle
 ```
@@ -228,40 +228,40 @@ AvatarMichelle
 
 ### Design policy
 
-シーンの設計方針を示します。
-各シーンはこの設計方針に合わせて作成してください。
-各シーンの作り方を統一することでメンテナンスしやすいアプリケーションを目指します。
+The following is a design policy for scenes.
+Each scene should be created according to this design policy.
+By unifying the way each scene is created, we aim to create an application that is easy to maintain.
 
-- シーンはMV(R)Pパターンで作成します。
-- アプリケーション全体で使用するモデルはAppシーンのスコープで管理します。
-  - StageNavigator、AppState、データアクセスのためのリポジトリ、NetworkManagerなど
-- シーンをまたがる情報のやりとりは[AppState](/sample-app/dev-guide#application-state)を使います。
-- 各シーンでしか使わないモデルは各シーンのスコープで管理します。
-  - MultiplayRoom、TextChatChannelなど
-- シーンのロード/アンロード時の処理はIInitializable/IDisposableで行います。
-  - PresenterでIInitializable/IDisposableを実装して行います。
-  - **IInitializable/IDisposableが呼ばれるタイミングはステージ遷移のタイミングではないことに注意してください。ステージ遷移で同じシーンが続く場合はシーンが再利用されIInitializable/IDisposableは呼ばれません。**
-- ステージ遷移時の処理はStageNavigatorの[イベント通知](/core/stage-navigation#core-sn-event)を使用します。
-  - PresenterでIInitializableを実装してStageNavigatorのイベント購読を登録します。
-  - マルチプレイのルームやテキストチャットのチャンネルへの接続/切断など空間毎に処理を行いたい場合はステージ遷移時の処理として実装します。
+- Scenes are created using the MV(R)P pattern
+- Models used throughout the application will be managed in the scope of App scenes
+  - StageNavigator, AppState, repositories for data access, NetworkManager, etc.
+- Use [AppState](/sample-app/dev-guide#application-state) to exchange information across scenes
+- Models used only in each scene are managed in the scope of each scene
+  - MultiplayRoom, TextChatChannel, etc.
+- The scene loading/unloading process is handled by IInitializable/IDisposable
+  - This is done by implementing IInitializable/IDisposable in Presenter
+  - **Note that the timing when IInitializable/IDisposable is called is not the timing of stage transitions. If the same scene continues at the stage transition, the scene is reused and IIInitializable/IDisposable is not called**
+- StageNavigator's [event notification](/core/stage-navigation#core-sn-event) is used for processing at stage transitions
+  - Implement IInitializable in Presenter to register StageNavigator's event subscription
+  - If you want to perform processing for each space, such as connecting/disconnecting to a multiplayer room or text chat channel, implement it as a processing at the time of stage transition
 
 ### Base class for Presenter
 
-ステージ遷移時の処理呼び出しは各シーンのPresenterスクリプトに共通する処理となるためBaseクラスを設けています。
-PresenterスクリプトはこのBaseクラスを使ってください。
+A base class is provided for the processing calls during stage transitions, as this processing is common to all presenter scripts in each scene.
+Presenter scripts should use this Base class.
 
-```
+```text
 Assets/Holiday/App/Common/StagePresenterBase
 ```
 
-Baseクラスは次の共通処理を提供します。
+The Base class provides the following common processing.
 
-- シーンのロード時の初期化処理呼び出し
-- ステージに入る時と出る時の処理呼び出し
-- ステージから出る時のDispose呼び出し
-- シーンのアンロード時のDispose呼び出し
+- Calls for initialization when the scene is loaded
+- Calls for processing when entering and exiting the stage
+- Call to Dispose when exiting the stage
+- Call to Dispose when the scene is unloaded
 
-Baseクラスを継承したPresenterスクリプトのひな型は次の通りです。
+The following is a template for a Presenter script that inherits from the Base class.
 
 ```csharp
 public class XxxxxPresenter : StagePresenterBase
@@ -269,51 +269,51 @@ public class XxxxxPresenter : StagePresenterBase
 
     public XxxxxPresenter(StageNavigator<StageName, SceneName> stageNavigator) : base(stageNavigator)
     {
-        // コンストラクタ
-        // BaseクラスにStageNavigatorを渡します。
-        // シーンに必要なオブジェクトをコンストラクタインジェクションで受け取ります。
+        // Constructor
+        // Pass StageNavigator to the Base class.
+        // Receive the objects needed for the scene via constructor injection.
     }
 
     protected override void Initialize(StageNavigator<StageName, SceneName> stageNavigator, CompositeDisposable sceneDisposables)
     {
-        // シーンのロード時の初期化処理をここに実装します。
-        // シーンのアンロード時にDisposeしたいオブジェクトをsceneDisposablesに追加します。
+        // Implement the initialization processing here when the scene is loaded.
+        // Add objects to sceneDisposables that you want to dispose of when unloading the scene.
     }
 
     protected override void OnStageEntered(StageName stageName, CompositeDisposable stageDisposables)
     {
-        // ステージに入る時の処理をここに実装してください。
-        // ステージから出る時にDisposeしたいオブジェクトをstageDisposablesに追加します。
+        // Implement the processing when entering the stage here.
+        // Add to stageDisposables the objects you want to dispose of when exiting the stage.
     }
 
     protected override void OnStageExiting(StageName stageName)
     {
-        // ステージから出る時の処理をここに実装してください。
+        // Implement the process for exiting the stage here.
     }
 }
 ```
 
 ### Basic structure
 
-各シーンでは次のアセット名でGameObjectを作ります。
+For each scene, create a GameObject with the following asset name.
 
 - Scope
-  - VContainerのLifetimeScopeをアタッチする空のGameObject
+  - An empty GameObject to attach the LifetimeScope of the VContainer
 - View
-  - Viewをアタッチする空のGameObject
-- (任意の名前)
-  - Screen/Spaceシーン
-    - 画面のUIや空間の3Dオブジェクト等のGameObject
-  - Controlシーン
-    - カメラ等のGameObject
+  - An empty GameObject to attach a View
+- (arbitrary name)
+  - Screen/Space scene
+    - GameObjects such as UI of the screen or 3D objects in space
+  - Control scene
+    - GameObjects such as cameras, etc.
 
-機能の実現に不要なものは作らなくても大丈夫です。
+There is no need to create objects that are not necessary to realize the feature.
 
-参考としてアバター選択画面シーンのオブジェクトやスクリプトを示します。
+The objects and scripts of the avatar selection screen scene are shown below for reference.
 
-![シーンのScopeとView](/img/holiday-scene-scope-view.png)
+![Scope and View of the scene](/img/holiday-scene-scope-view.png)
 
-アバター選択画面シーンはプレイヤーの名前入力とアバター選択、次の画面へ移動ができます。
+The avatar selection screen scene allows players to enter their name, select an avatar and transition to the next screen.
 
 ```csharp
 public class AvatarSelectionScreenScope : LifetimeScope
@@ -329,9 +329,9 @@ public class AvatarSelectionScreenScope : LifetimeScope
 }
 ```
 
-AvatarSelectionScreenScopeではViewとPresenterをスコープに登録します。
-Presenterはエントリーポイントとして登録しシーン処理の起点となります。
-エントリーポイントで使用できる処理のタイミングは[Plain C# Entry point](https://vcontainer.hadashikick.jp/integrations/entrypoint)を参照してください。
+AvatarSelectionScreenScope registers a View and a Presenter in a scope.
+The Presenter is registered as an entry point and serves as the starting point for scene processing.
+Refer to [Plain C# Entry point](https://vcontainer.hadashikick.jp/integrations/entrypoint) for the timing of processing that can be used at the entry point.
 
 ```csharp
 public class AvatarSelectionScreenPresenter : StagePresenterBase
@@ -400,8 +400,8 @@ public class AvatarSelectionScreenPresenter : StagePresenterBase
 }
 ```
 
-PresenterはViewやModelをインジェクトし、ViewとModelの処理のマッピングやステージ遷移を行います。
-スコープの親にAppシーンのスコープを指定しているため、Appシーンで管理しているStageNavigatorやAppStateを設定して使用できます。
+Presenter injects Views and Models and performs View and Model processing mapping and stage transitions.
+Since the App scene scope is specified as the parent of the scope, StageNavigator and AppState managed by the App scene can be set and used.
 
 ```csharp
 public class AvatarSelectionScreenView : MonoBehaviour
@@ -437,53 +437,53 @@ public class AvatarSelectionScreenView : MonoBehaviour
 }
 ```
 
-Viewはアバタープルダウンの初期化、入力項目の初期値設定、入力項目のイベント通知を行っています。
+View initializes the avatar pull-down, sets initial values for input items and notifies input item events.
 
 ## UI
 
 ### Font
 
-[Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)を取り込みTextMesh Proのデフォルトに設定済みです。
-フォントはNoto Sans Japaneseを使ってください。
+[Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP) has already been imported and set as the default for TextMesh Pro.
+Please use Noto Sans Japanese font.
 
 ### Resolution
 
-解像度は汎用的なサイズの1920x1080を基準にします。
-PCは1920x1080、モバイルはポートレートモードの1080x1920で使う想定です。
-GameViewの解像度に1080x1920を追加し、Unityエディタ上では2つのサイズで確認してください。
+The resolution will be based on the generic size of 1920x1080.
+PC is assumed to be used at 1920x1080 and mobile at 1080x1920 in portrait mode.
+Add 1080x1920 to the GameView resolution and check the two sizes on the Unity editor.
 
 ### Modularization
 
-画面やボタンなどデザインが共通するUIはメンテナンスしやすいように共通化します。
-UIの共通化にはUnityのPrefabを使います。
-Prefabを追加した場合は下記に追記してください。
+UIs that share a common design, such as screens and buttons, should be standardized for ease of maintenance.
+Use Unity's Prefab for UI commonization.
+If you have added a Prefab, please add it below.
 
-Prefabのパス
-```
+Path of Prefab
+```text
 Assets/Holiday/Stages/Common
 ```
 
 - ScreenCanvas
-  - 画面用のCanvas
-  - バックグラウンドの色指定、SafeArea対応が入っています。
-  - SafeAreaの下に画面のUIを配置してください。
+  - Canvas for screen
+  - Includes background color specification and SafeArea support
+  - Place the screen UI under the SafeArea
 - ScreenTitle
-  - 画面用のタイトル
-  - フォント、文字の設定が入っています。
+  - Title for the screen
+  - Contains font and character settings
 - ScreenButton
-  - 画面用のボタン
-  - フォント、文字の設定が入っています。
+  - Button for the screen
+  - Contains font and character settings
 - SpaceCanvas
-  - 空間用のCanvas
-  - SafeArea対応が入っています。
-  - SafeAreaの下に画面のUIを配置してください。
+  - Canvas for space
+  - Contains SafeArea support
+  - Place the screen UI under the SafeArea
 - SpaceTitle
-  - 空間用のタイトル
-  - フォント、文字の設定が入っています。
+  - Title for the space
+  - Contains font and character settings
 - SpaceButton
-  - 空間用のボタン
-  - フォント、文字の設定が入っています。
+  - Button for space
+  - Contains font and character settings
 
 ### Canvas
 
-バックグラウンド画面やローディング画面のように画面や空間に重ねて使用する共通画面のCanvasにはSortOrderを指定して前面に表示されるようにしてください。
+Specify SortOrder for the Canvas of common screens that are superimposed on a screen or space, such as background screens and loading screens, so that they are displayed in the front.

@@ -4,46 +4,46 @@ sidebar_position: 5
 
 # Test Case
 
-[Test Planning](/sample-app/test-planning)で実施対象としたテスト種別のうちテストケースが必要なテストのみ記載しています。
+Only tests that require test cases are listed among the test types targeted for execution in [Test Planning](/sample-app/test-planning).
 
 ## Functional test
 
-- タイトル画面
-  - タイトルが表示されること
-  - Goボタンでアバター選択画面に移動できること
-- アバター選択画面
-  - 名前を入力できること
-  - アバターを選択できること
-    - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526)のArmature
-    - [Mixamo](https://www.mixamo.com)のMichelle、Amy
-  - Goボタンでバーチャル空間に移動できること
-- バーチャル空間
-  - ボイスチャットができること
-    - ミュートの切り替えができること
-  - テキストチャットができること
-    - メッセージを打ち込むと画面に表示されること
-  - マルチプレイができること
-    - 移動とジャンプができること
-  - アバター選択画面に戻れること
-  - 最大人数を超えた場合はユーザーに通知してアバター選択画面に戻ること
+- Title Screen
+  - The title should be displayed
+  - Ability to transition to the avatar selection screen by pressing the Go button
+- Avatar selection screen
+  - Ability to enter a name
+  - Ability to select an avatar
+    - Armature of [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
+    - Michelle and Amy from [Mixamo](https://www.mixamo.com)
+  - Ability to transition to the virtual space by pressing the Go button
+- Virtual space
+  - Ability to voice chat
+    - Ability to toggle mute
+  - Ability to text chat
+    - Message appears on the screen when typing a message
+  - Ability to play multiplayer
+    - Ability to move and jump
+  - Ability to return to the avatar selection screen
+  - When the maximum number of players is exceeded, users will be notified and return to the avatar selection screen
 
 ## Configuration test
 
-- [Functional test](/sample-app/test-case#functional-test)と同じ
+- Same as [functional-test](/sample-app/test-case#functional-test).
 
 ## Failure test
 
-- バーチャル空間
-  - Vivox（SaaS）にアクセスできない場合
-    - クライアントがネットワークに繋がらない場合
-      - アクセスできないことがユーザーに通知されること
-      - テキスト/ボイスチャット以外の機能が使用できること
-    - Vivox（SaaS）で障害が発生しクライアントに応答できない場合
-      - 実現方法がないため未実施
-  - Multiplayサーバにアクセスできない場合
-    - クライアントがネットワークに繋がらない場合
-      - アクセスできないことがユーザーに通知されること
-      - マルチプレイ以外の機能が使用できること
-    - Multiplayサーバで障害が発生しクライアントに応答できない場合
-      - アクセスできないことがユーザーに通知されること
-      - マルチプレイ以外の機能が使用できること
+- Virtual Space
+  - If Vivox (SaaS) is not accessible
+    - If the client is not connected to the network
+      - User must be notified that access is not available
+      - All features other than text/voice chat are available
+    - If Vivox (SaaS) fails and cannot respond to clients
+      - Not implemented as there is no way to implement this
+  - If the multiplayer server is not accessible
+    - If the client is not connected to the network
+      - User is notified that access is not available
+      - All features other than Multiplayer are available
+    - If the multiplayer server fails and cannot respond to the client
+      - The user will be notified that access is denied
+      - All features other than Multiplayer are available
