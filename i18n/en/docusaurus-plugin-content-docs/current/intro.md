@@ -5,52 +5,53 @@ sidebar_position: 1
 # Introduction
 
 :::danger
-Extrealは現在開発中です。2023年1月に正式リリースを予定しています。
-正式リリースまでは試す程度にとどめ本格利用はご遠慮ください。
+Extreal is currently under development.
+The official release is scheduled for January 2023.
+Until the official release, please do not use Extreal on a full-scale basis, but only on a trial basis.
 :::
 
-ここではExtrealのグランドデザインを説明します。
-Extrealの全コンテンツはこのグランドデザインをベースに作成しています。
+This section describes the grand design of Extreal.
+All of Extreal's contents are based on this grand design.
 
 ## Contents
 
-Extrealは次のコンテンツを提供します。
+Extreal provides the following contents.
 
 - Framework
-  - UnityベースのXRフレームワーク。
-  - Unityパッケージで提供します。
+  - Unity-based XR framework
+  - Provided as a Unity package
 - Sample Application
-  - Frameworkを使ったサンプルアプリケーション。
-  - Unityプロジェクトで提供します。
+  - A sample application using Framework
+  - Provided as a Unity project
 - Learning
-  - Frameworkの使い方を学習する教材。
-  - このガイドに含まれています。
+  - Learning materials to learn how to use Framework
+  - Included in this guide
 - Guide
-  - Extrealの活用方法を案内するガイド。
-  - このドキュメントがガイドです。
+  - A guide that will guide you through the use of Extreal
+  - This document is the guide
 
 ## Architecture
 
-FrameworkのアーキテクチャとFrameworkが想定するアプリケーションアーキテクチャを説明します。
-FrameworkやSample Applicationはこのアーキテクチャを前提に作成しています。
+This section describes the Framework architecture and the application architecture assumed by Framework.
+Framework and Sample Application are created assuming this architecture.
 
 ### Framework
 
 ![Framework architecture](/img/fw-arch.png)
 
-FrameworkはUnityやサードパーティのパッケージを活用して機能を実現します。
-Frameworkは機能を次のカテゴリに分類しています。
+Framework leverages Unity and third-party packages to achieve features.
+Framework classifies the features into the following categories.
 
 - Core
-  - アプリケーションのベースとなるコア機能を提供します。
-  - ログ出力や画面遷移のようにどのようなアプリケーションでも使用する機能がCoreに含まれます。
+  - Provides the core features that form the basis of an application
+  - Core includes features that are used in any application, such as log output and screen transitions
 - Integration
-  - アプリケーションの要件に合わせてアプリケーションに統合する機能を提供します。
-  - チャットやマルチプレイのようにアプリケーションの要件に応じて使用する機能がIntegrationに含まれます。
+  - Provides features that are integrated into the application according to the requirements of the application
+  - Integration includes features that are used according to the requirements of the application, such as chat or multiplayer
 
-CoreとIntegrationはさらに機能単位でモジュールに分割しています。
-Frameworkはモジュールの集まりです。
-Frameworkは次の機能を提供しています。
+Core and Integration are further divided into modules by feature unit.
+Framework is a collection of modules.
+Framework provides the following features.
 
 - Core
   - [Logging](/core/logging)
@@ -59,69 +60,70 @@ Frameworkは次の機能を提供しています。
   - [Chat using Vivox](/integration/chat.vivox)
   - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
 
-全てのモジュールはログ出力を統一するためLoggingに依存しています。
-モジュールはLogging以外のモジュールに依存しないように作成しているのでLoggingと併せれば単体で使用できます。
+All modules depend on Logging to unify log output.
+The modules are designed to be independent of any other module except Logging, so they can be used alone by combining them with Logging.
 
 ### Application
 
-ゲームやXRのアプリケーションはGUIだけでなく走り回る空間なども含まれるため画面と空間で構成します。
-Extrealではこれら画面と空間をステージと呼ぶことにします。
-例えば、バーチャル空間に集まって何かするようなアプリケーションであれば、タイトル画面→アバター選択画面→空間選択画面→バーチャル空間といったステージ構成になります。
-入力制御のように複数のステージに共通する機能やボイスチャットのように特定のステージでのみ使う機能が存在します。
-こういった機能を自由に組み合わせてステージを作れると機能の再利用性が高まりメンテナンスしやすくなります。
+Games and XR applications are composed of a screen and a space because they include not only the GUI but also the space to run around in.
+In Extreal, these screens and spaces are called stages.
+For example, an application that requires users to gather in a virtual space to do something would consist of the following stages: title screen, avatar selection screen, space selection screen, virtual space, and so on.
+There are some features that are common to multiple stages, such as input control, or that are used only in a specific stage, such as voice chat.
+If these features can be freely combined to create a stage, reusability of the features will increase and maintenance will be easier.
 
-Unityでは画面や空間を作成する単位としてシーンを提供しています。1つのシーンで1つの画面や空間を作成することが多いのですが、Extrealでは機能を自由に組み合わせてステージを作れるようにするため、1つのシーンで1つの機能や画面を作成し複数のシーンを組み合わせてステージを作ります。
+Unity provides scenes as units for creating screens and spaces.
+While a single scene is often used to create a single screen or space, Extreal allows you to freely combine features to create a stage by creating a single feature or screen in a single scene and combining multiple scenes.
 
 ![Multiple scenes](/img/multi-scenes.png)
 
-複数のシーンを組み合わせたステージの作成やステージの切り替えにはFrameworkが提供する[Stage Navigation](/core/stage-navigation)を使います。
+Use [Stage Navigation](/core/stage-navigation) provided by Framework to create stages combining multiple scenes and to switch between stages.
 
-シーンで作る機能や画面はMV(R)Pパターンを使って作ります。
-MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)を参照ください。
+Features and screens created in scenes are created using the MV(R)P pattern.
+For more information on the MV(R)P pattern, please refer to [【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9).
 
 ![MVP pattern](/img/mvp-pattern.png)
 
-MV(R)Pパターンに必要なイベント通知にはサードパーティの[UniRx](https://github.com/neuecc/UniRx)を使います。
-MVPの各オブジェクトの生成や参照関係の構築、各オブジェクトのライフサイクルイベントの実行制御にはサードパーティの[VContainer](https://vcontainer.hadashikick.jp/)を使います。
+Use third-party [UniRx](https://github.com/neuecc/UniRx) for event notification required for the MV(R)P pattern.
+Use third-party [VContainer](https://vcontainer.hadashikick.jp/) for creating each MVP object, establishing reference relationships and controlling the execution of each object's lifecycle events.
 
-例えば、テキストチャット機能の実現イメージは次の通りです。
+For example, the following is an image of the realization of a text chat feature.
 
 ![MVP example](/img/mvp-example.png)
 
-アプリケーションの要件に合わせてUIとMVPを作成し、ModelからFrameworkが提供する機能を使ってテキストチャットを実現します。
+Create UI and MVP according to the application requirements and realize text chat using the features provided by Framework from Model.
 
 ## License
 
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
-Extrealが提供しているコンテンツは無償でご利用いただけます。
-外部のプロダクト、サービス、OSS等は提供元のライセンスを確認ください。
+Contents provided by Extreal are free of charge.
+For external products, services, OSS, etc., please check the license of the provider.
 
 ## Backward compatibility
 
-ExtrealはUnityやサードパーティのパッケージを活用して機能を実現しています。
-私たちがコントロールできない要素がExtrealには多いため後方互換の維持を約束できません。
-できるだけExtrealの後方互換を維持するように努めますが後方互換を維持できないケースが発生する可能性があります。
-後方互換を維持できない場合は[Release](/category/release)でアップグレード方法をガイドします。
+Extreal leverages Unity and third-party packages to achieve its features.
+Because there are many elements of Extreal over which we have no control, we cannot promise to maintain backward compatibility.
+We will do our best to maintain backward compatibility of Extreal, but there may be cases where backward compatibility cannot be maintained.
+If backward compatibility cannot be maintained, [Release](/category/release) will guide you on how to upgrade.
 
 ## Versioning
 
-ExtrealはFrameworkに含まれるモジュールの特定バージョンの組み合わせに対してバージョンが決まります。
-各モジュールはモジュール毎にバージョンが決まります。
+Extreal is versioned for a specific version combination of modules in Framework.
+Each module is versioned on an individual module basis.
 
-Extrealバージョンとモジュールバージョンは次のバージョニングを使用します。
+Extreal versions and module versions use the following versioning.
 
-- <メジャーバージョン>.<マイナーバージョン>.<パッチバージョン>
-- メジャーバージョン
-  - アーキテクチャ変更など大規模な変更をした場合に更新します。
-- マイナーバージョン
-  - 機能追加・変更・削除、不具合修正をした場合に更新します。
-- パッチバージョン
-  - 緊急性の高い不具合修正をした場合に更新します。
+- &lt;Major Version>.&lt;Minor version>.&lt;Patch version>
+- Major Version
+  - Updated when major changes are made, such as architectural changes
+- Minor version
+  - Updated when features are added, changed, deleted, or defects are fixed
+- Patch version
+  - Updated when urgent bug fixes are made
 
-Extrealバージョンとモジュールバージョンの例を示します。
+Examples of Extreal Version and Module Version are shown below.
 
-```
+```text
 --- Initial release ---
 Extreal 1.0.0
 Extreal.Core.Logging 1.0.0
@@ -138,51 +140,51 @@ Extreal.Core.Logging 1.1.0 -> added feature
 Extreal.Core.StageNavigation 1.0.1
 ```
 
-Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
+Please refer to [Release](/category/release) for the correspondence between Extreal version and module version.
 
 ## Unity version
 
-ここではExtrealがUnityのバージョンにどのように追随していくのかについて説明します。
-Extrealの開発やテストで使用するUnityはLTS([Long Term Support](https://unity3d.com/unity/qa/lts-releases))ストリームの最新バージョンを使う方針です。
-Extrealが使っているサードパーティのライブラリの対応状況等を確認し、Unityバージョンを上げるタイミングをExtrealチームで判断します。
+This section describes how Extreal will follow the Unity version.
+Extreal's policy is to use the latest version of Unity from the LTS ([Long Term Support](https://unity3d.com/unity/qa/lts-releases)) stream for development and testing.
+The Extreal team will determine when to raise the Unity version by checking the support status of third-party libraries used by Extreal.
 
 ## Installation
 
-FrameworkはUnityパッケージで提供します。
-Package Managerを使いGit URLからインストールしてください。
+Framework is provided as a Unity package.
+Use Package Manager to install it from the Git URL.
 
 [Installing from a Git URL](https://docs.unity3d.com/2021.3/Documentation/Manual/upm-ui-giturl.html)
 
-Git URLは各機能のページを参照ください。
+Please refer to each feature page for the Git URL.
 
 - [Core](/category/core)
 - [Integration](/category/integration)
 
 ## Feedback or Contribution
 
-フィードバックはGitHubのIssue、コントリビューションはGitHubのPull Requestにお願いします。
+Please send feedback to Issue on GitHub and contributions to Pull Request on GitHub.
 
 - [GitHub](https://github.com/extreal-dev)
 
-Frameworkの各モジュールのリポジトリはUnityパッケージの構成になっているため、Unityプロジェクトにインストールして開発する必要があります。
-開発環境を統一する目的でFrameworkのモジュール開発用のリポジトリを用意しています。
-Frameworkのモジュールを開発する場合は次のリポジトリを使用してください。
-開発方法はREADMEを参照してください。
+Since the repository for each module of Framework is structured as a Unity package, it must be installed and developed in a Unity project.
+For the purpose of unifying the development environment, a repository for developing modules of Framework is provided.
+Please use the following repository when developing modules for Framework.
+Please refer to README for the development method.
 
 - [Extreal.Dev](https://github.com/extreal-dev/Extreal.Dev)
 
 ## About Extreal
 
-Extrealという名前は元々「仮想から現実へ（XR to Real）」というフレーズから名付けています。
+The name Extreal was originally named after the phrase "XR to Real (from virtual to real)".
 
-```
+```text
 XR to Real　→　XRtoReal　→　XtoReal
 ```
 
-さらに「Xto」を「拡げる」という意味の接頭辞「Ext」に変形して今のExtrealとなりました。
+Furthermore, "Xto" was transformed into the prefix "Ext," which means "to expand" and it became the current name Extreal.
 
-```
+```text
 XtoReal →　Extreal
 ```
 
-誰もが仮想を活用して現実の課題を解決する、そんな未来を私たちはExtrealで目指しています。
+We are aiming for such a future with Extreal, where everyone can utilize virtuality to solve real-life problems.
