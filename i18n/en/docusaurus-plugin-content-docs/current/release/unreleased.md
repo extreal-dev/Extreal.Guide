@@ -8,7 +8,7 @@ sidebar_position: 1
 
 ## Unity version
 
-次のUnityバージョンで動作確認しています。
+The following Unity versions have been tested.
 
 2021.3.16f1
 
@@ -35,30 +35,30 @@ sidebar_position: 1
 
 #### Added
 
-- モジュールを追加しました。
+- Modules are added.
 
 ### Extreal.Core.StageNavigation
 
 #### Added
 
-- モジュールを追加しました。
+- Modules are added.
 
 ### Extreal.Integration.Multiplay.NGO
 
 #### Added
 
-- モジュールを追加しました。
+- Modules are added.
 
 ### Extreal.Integration.Chat.Vivox
 
 #### Added
 
-- モジュールを追加しました。
+- Modules are added.
 
 ## Backward compatible
 
-初回リリースのため対象外です。
+Not applicable for first release.
 
 ## Upgrade guide
 
-初回リリースのため対象外です。
+Not applicable for first release.
