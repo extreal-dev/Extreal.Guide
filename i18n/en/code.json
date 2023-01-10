@@ -261,5 +261,26 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "homepage.virtual-space-for-communication": {
+    "message": "Extreal provides the foundation for developing virtual spaces where people can gather and communicate. Extreal provides the base for communication features such as voice chat, text chat and multiplayer, so you can focus on creating ideas using these features."
+  },
+  "homepage.header.danger": {
+    "message": "Extreal is currently under development and will be officially released in January 2023. Until the official release, please do not use Extreal on a full-scale basis, but only on a trial basis."
+  },
+  "homepage.feature.title": {
+    "message": "With Extreal, you can develop applications like this one!"
+  },
+  "homepage.feature.venus-fort-virtual-experience": {
+    "message": "Virtual experience of the last illumination at Venus Fort"
+  },
+  "homepage.feature.country-wide-virtual-sightseeing": {
+    "message": "Virtual Sightseeing & Experiences throughout Japan"
+  },
+  "homepage.easy-to-develop-virtual-spaces": {
+    "message": "Extreal facilitates the development of virtual spaces, which tend to be complex. Creating a virtual space requires multiple features such as camera control and input control. The ability to freely combine these features to create virtual spaces increases the reusability of features and speeds up the creation of various virtual spaces. Extreal provides features to realize the application structure and mechanisms that we have practiced in our product development in order to enhance the reusability of features."
+  },
+  "homepage.production-ready": {
+    "message": "Extreal will gradually provide features that support not only the functional requirements of the application, but also non-functional requirements. For example, the ability to visualize application usage."
   }
 }
