@@ -10,7 +10,7 @@ We provide a wrapper that makes [Netcode for GameObjects](https://docs-multiplay
 
 In Extreal, Netcode for GameObjects is called NGO, and this feature that wraps NGO is called the NGO wrapper.
 
-NGO provides server and client functionality in a single class called NetworkManager.
+NGO provides server and client features in a single class called NetworkManager.
 Since using NetworkManager as-is always requires context-aware implementation and can be confusing, the NGO wrapper provides NgoServer and NgoClient as separate classes for the server and client, respectively.
 
 The goal is to make NGO introduction smooth by using the NGO wrapper in your applications.
