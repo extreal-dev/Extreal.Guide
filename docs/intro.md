@@ -121,7 +121,7 @@ Extrealバージョンとモジュールバージョンは次のバージョニ�
 
 Extrealバージョンとモジュールバージョンの例を示します。
 
-```
+```text
 --- Initial release ---
 Extreal 1.0.0
 Extreal.Core.Logging 1.0.0
@@ -175,13 +175,13 @@ Frameworkのモジュールを開発する場合は次のリポジトリを使�
 
 Extrealという名前は元々「仮想から現実へ（XR to Real）」というフレーズから名付けています。
 
-```
+```text
 XR to Real　→　XRtoReal　→　XtoReal
 ```
 
 さらに「Xto」を「拡げる」という意味の接頭辞「Ext」に変形して今のExtrealとなりました。
 
-```
+```text
 XtoReal →　Extreal
 ```
 
