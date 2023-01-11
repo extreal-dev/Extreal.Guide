@@ -20,7 +20,7 @@ We plan to increase the number of log output destinations in the future, such as
 
 Logging outputs logs with associating log levels and log categories for easier control of log output.
 
-The four log levels are Error, Warn, Info, and Debug in descending order.
+The four log levels in order from highest to lowest are Error, Warn, Info, and Debug.
 
 - Error
   - When an error occurs that prevents the application from continuing
