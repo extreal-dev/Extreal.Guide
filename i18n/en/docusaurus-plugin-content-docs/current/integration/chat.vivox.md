@@ -19,12 +19,12 @@ The goal is to make Vivox introduction smooth by using the Vivox wrapper in your
 The Vivox wrapper makes Vivox easier to use, but it does not mean that you only need to know the Vivox wrapper to realize voice/text chat without knowing Vivox.
 The Vivox wrapper compensates for the difficulties and lack of features when using Vivox as it is, but transfers the voice/text chat process to Vivox.
 Therefore, to use the Vivox wrapper, it is assumed that you know Vivox.
-If you do not know Vivox, please refer to [How to lean](/learning/intro#how-to-learn) to learn about Vivox.
+If you do not know Vivox, please refer to [Learning](/learning/intro#chat) to learn about Vivox.
 This guide assumes you know Vivox.
 :::
 
 :::caution
-Vivox is available on the originally existing [Vivox Developer Portal](https://developer.vivox.com/) and on [Unity Gaming Services](<https://unity.com/ja/> solutions/gaming-services), which appeared in October 2021.
+Vivox is available on the originally existing [Vivox Developer Portal](https://developer.vivox.com/) and [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services), which appeared in October 2021.
 The current Vivox wrapper is compatible with the [Vivox Developer Portal](https://developer.vivox.com/).
 It is not compatible with [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services).
 We will consider supporting [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services) in the future.

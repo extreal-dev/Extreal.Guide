@@ -19,7 +19,7 @@ VivoxラッパーはそのようなVivoxを使う場合に共通する実装を�
 VivoxラッパーはVivoxを使いやすくしますが、Vivoxを知らなくてもVivoxラッパーだけ知っていればボイス/テキストチャットを実現できるわけではありません。
 VivoxラッパーはVivoxをそのまま使う場合に使いにくい点や足りない機能を補いますが、ボイス/テキストチャットの処理はVivoxに移譲します。
 そのため、Vivoxラッパーを使うにはVivoxを知っていることが前提です。
-Vivoxを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照してVivoxについて学習してください。
+Vivoxを知らない場合は[Learning](/learning/intro#chat)を参照してVivoxについて学習してください。
 このガイドはVivoxを知っている前提で説明しています。
 :::
 

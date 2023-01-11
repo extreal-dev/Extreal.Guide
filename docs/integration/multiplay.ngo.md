@@ -19,7 +19,7 @@ NetworkManagerをそのまま使う場合は常にコンテキストを意識し
 NGOラッパーはNGOを使いやすくしますが、NGOを知らなくてもNGOラッパーだけ知っていればマルチプレイを実現できるわけではありません。
 NGOラッパーはNGOをそのまま使う場合に使いにくい点や足りない機能を補いますが、マルチプレイの処理はNGOに移譲します。
 そのため、NGOラッパーを使うにはNGOを知っていることが前提です。
-NGOを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照してNGOについて学習してください。
+NGOを知らない場合は[Learning](/learning/intro#multiplayer)を参照してNGOについて学習してください。
 このガイドはNGOを知っている前提で説明しています。
 :::
 

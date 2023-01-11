@@ -19,7 +19,7 @@ The goal is to make NGO introduction smooth by using the NGO wrapper in your app
 The NGO wrapper makes NGO easier to use, but it does not mean that you only need to know the NGO wrapper to realize multiplayer without knowing NGO.
 The NGO wrapper compensates for the difficulties or lack of features when using NGO as it is, but transfers the multiplayer process to NGO.
 Therefore, to use the NGO wrapper, it is assumed that you know NGO.
-If you do not know NGO, please refer to [how to lean](/learning/intro#how-to-learn) to learn about NGO.
+If you do not know NGO, please refer to [Learning](/learning/intro#multiplayer) to learn about NGO.
 This guide assumes you know NGO.
 :::
 
@@ -201,7 +201,7 @@ NetworkManager needs to be configured the same on server and client, so it shoul
 :::
 
 :::info
-If you want to use a new transport not provided by NGO, please refer to [Using a non-default NetworkTransport provided by NGO](/integration/multiplay.ngo#int-ngo-nt).
+If you want to use a new transport not provided by NGO, please refer to [Supporting non-default NetworkTransport provided by NGO](/integration/multiplay.ngo#int-ngo-nt).
 If you use the two transports provided by the NGO (Unity Transport and UNet Transport), no work is required.
 :::
 
