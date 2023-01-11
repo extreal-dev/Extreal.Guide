@@ -240,9 +240,9 @@ StageNavigator has the following event notifications.
 - OnStageTransitioning
   - Timing: Just before the stage transition
   - Type: IObservable
-- Parameters: Name of the stage to be transitioned
+  - Parameters: Name of the stage to be transitioned
 - OnStageTransitioned
-- Timing: Immediately after the stage transition
+  - Timing: Immediately after the stage transition
   - Type: IObservable
   - Parameter: Name of the stage that has transitioned
 
