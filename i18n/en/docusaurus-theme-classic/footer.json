@@ -28,7 +28,7 @@
     "description": "The label of footer link with label=BURALIT linking to https://www.buralit.com/"
   },
   "copyright": {
-    "message": "Copyright © 2022 TIS, Inc. Built with Docusaurus.<br/><small>本サイトに掲載されている商品またはサービスなどの名称は各社の商標または登録商標です。</small>",
+    "message": "Copyright © 2022 TIS, Inc. Built with Docusaurus.<br/><small>The names of products or services appearing on this site are trademarks or registered trademarks of the respective companies.</small>",
     "description": "The footer copyright"
   }
 }
