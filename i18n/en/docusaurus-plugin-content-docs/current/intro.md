@@ -113,15 +113,15 @@ Each module is versioned on an individual module basis.
 
 Extreal versions and module versions use the following versioning.
 
-- &lt;Major Version>.&lt;Minor version>.&lt;Patch version>
-- Major Version
+- &lt;Major version>.&lt;Minor version>.&lt;Patch version>
+- Major version
   - Updated when major changes are made, such as architectural changes
 - Minor version
   - Updated when features are added, changed, deleted, or defects are fixed
 - Patch version
   - Updated when urgent bug fixes are made
 
-Examples of Extreal Version and Module Version are shown below.
+Examples of Extreal version and module version are shown below.
 
 ```text
 --- Initial release ---
