@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Chat using Vivox
 
+## What for?
+
 We provide a wrapper that makes [Vivox](https://unity.com/ja/products/vivox) easier to use in applications.
 
 We will call this feature, which wraps Vivox, the Vivox wrapper.

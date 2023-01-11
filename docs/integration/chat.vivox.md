@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Chat using Vivox
 
+## What for?
+
 [Vivox](https://unity.com/ja/products/vivox)をアプリケーションで使いやすくするラッパーを提供します。
 
 Vivoxをラップしているこの機能をVivoxラッパーと呼ぶことにします。
