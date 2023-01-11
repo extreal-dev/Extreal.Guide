@@ -282,5 +282,8 @@
   },
   "homepage.production-ready": {
     "message": "Extreal will gradually provide features that support not only the functional requirements of the application, but also non-functional requirements. For example, the ability to visualize application usage."
+  },
+  "homepage.tagline": {
+    "message": "Unity-based XR Framework"
   }
 }

@@ -13,7 +13,13 @@ function HomepageHeader() {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className="hero__subtitle">
+          <Translate
+            id='homepage.tagline'
+          >
+            UnityベースのXRフレームワーク
+          </Translate>
+        </p>
         <div style={{maxWidth: "520px", margin: "30px auto 0 auto"}} className="theme-admonition theme-admonition-danger alert alert--danger admonition_node_modules-@docusaurus-theme-classic-lib-theme-Admonition-styles-module">
           <div className="admonitionHeading_node_modules-@docusaurus-theme-classic-lib-theme-Admonition-styles-module">
             DANGER
