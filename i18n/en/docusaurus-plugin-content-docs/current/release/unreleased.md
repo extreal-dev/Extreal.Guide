@@ -31,7 +31,7 @@ The following Unity versions have been tested.
 
 ## Changes
 
-### Extreal.Core.Loggin
+### Extreal.Core.Logging
 
 #### Added
 
