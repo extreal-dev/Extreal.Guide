@@ -46,7 +46,7 @@ We have set up directories for applications, so all other directories have been 
 #### Holiday
 
 - App.
-  - Application Entry Points
+  - Application entry point
   - Application-wide settings/status
   - Common
     - Processing common to the entire application
@@ -158,7 +158,7 @@ Use [VContainer](https://vcontainer.hadashikick.jp/) to manage the objects used 
 
 ### DI
 
-For more information on DI, see [What is DI ?] (<https://vcontainer.hadashikick.jp/about/what-is-di>).
+For more information on DI, see [What is DI ?](<https://vcontainer.hadashikick.jp/about/what-is-di>).
 
 There are several ways to do DI.
 VContainer recommends the following methods.
