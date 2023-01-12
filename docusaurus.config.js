@@ -7,7 +7,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Extreal',
-  tagline: 'UnityベースのXRフレームワーク',
   url: 'https://extreal-dev.github.io',
   baseUrl: '/Extreal.Guide/',
   onBrokenLinks: 'throw',
@@ -24,7 +23,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'ja',
-    locales: ['ja'],
+    locales: ['ja', 'en'],
   },
 
   presets: [
@@ -68,6 +67,10 @@ const config = {
             label: 'Docs',
           },
           {
+            type: 'localeDropdown',
+            position: 'right'
+          },
+          {
             href: 'https://fintan.jp/blog-category/xr/',
             label: 'Fintan - XR',
             position: 'right',
@@ -104,10 +107,6 @@ const config = {
             title: 'Used by',
             items: [
               {
-                label: 'XR Campus',
-                href: 'https://www.tis.jp/service_solution/xr_campus/',
-              },
-              {
                 label: 'BURALIT',
                 href: 'https://www.buralit.com/',
               },
@@ -132,17 +131,17 @@ const config = {
       },
     }),
 
-    plugins: [
-      require.resolve("docusaurus-plugin-image-zoom")
-    ],
- 
-    scripts: [
-      {
-        src: 'https://plausible.io/js/script.js',
-        defer: true,
-        'data-domain': 'extreal-dev.github.io'
-      }
-    ],
+  plugins: [
+    require.resolve("docusaurus-plugin-image-zoom")
+  ],
+
+  scripts: [
+    {
+      src: 'https://plausible.io/js/script.js',
+      defer: true,
+      'data-domain': 'extreal-dev.github.io'
+    }
+  ],
 };
 
 module.exports = config;

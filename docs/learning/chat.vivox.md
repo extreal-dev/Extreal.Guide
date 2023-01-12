@@ -28,7 +28,7 @@ Vivoxラッパーがセットアップされた学習用のプロジェクトを
 
 学習用のプロジェクトをクローンします。
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Learning.Chat.Vivox.git
 ```
 
@@ -74,11 +74,11 @@ Appディレクトリにある`App`シーンを実行します。
 テキストチャットとボイスチャットのUI実装は次のディレクトリを確認してください。
 
 - テキストチャット
-  ```
+  ```text
   ExtrealCoreLearning/TextChatControl
   ```
 - ボイスチャット
-  ```
+  ```text
   ExtrealCoreLearning/VoiceChatControl
   ```
 
@@ -203,7 +203,7 @@ namespace ExtrealCoreLearning.TextChatControl
                 Login();
             }
             await UniTask.WaitUntil(() => IsLoggedIn);
-            vivoxClient.Connect(new VivoxChannelConfig(channelName, ChatType.TextOnly, transmissionSwitch: false));
+            vivoxClient.ConnectAsync(new VivoxChannelConfig(channelName, ChatType.TextOnly, transmissionSwitch: false)).Forget();
         }
 
         private bool IsLoggedIn
@@ -211,7 +211,7 @@ namespace ExtrealCoreLearning.TextChatControl
 
         private void Login()
         {
-            vivoxClient.Login(new VivoxAuthConfig(nameof(TextChatChannel)));
+            vivoxClient.LoginAsync(new VivoxAuthConfig(nameof(TextChatChannel))).Forget();
         }
 
         public void Leave()
@@ -410,7 +410,7 @@ namespace ExtrealCoreLearning.App
 
         private void Login()
         {
-            VivoxClient.Login(new VivoxAuthConfig(nameof(TextChatChannel)));
+            VivoxClient.LoginAsync(new VivoxAuthConfig(nameof(TextChatChannel))).Forget();
         }
 
         protected abstract void Connect();
@@ -437,7 +437,6 @@ namespace ExtrealCoreLearning.App
 Baseクラスを使うようにTextChatChannelを変更します。
 :::
 
-
 ```csharp
 using System;
 using Extreal.Integration.Chat.Vivox;
@@ -457,7 +456,7 @@ namespace ExtrealCoreLearning.TextChatControl
 
         protected override void Connect()
         {
-            VivoxClient.Connect(new VivoxChannelConfig(ChannelName, ChatType.TextOnly, transmissionSwitch: false));
+            VivoxClient.ConnectAsync(new VivoxChannelConfig(ChannelName, ChatType.TextOnly, transmissionSwitch: false)).Forget();
         }
 
         public void SendMessage(string message)
@@ -626,7 +625,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
 
         protected override void Connect()
         {
-            VivoxClient.Connect(new VivoxChannelConfig(ChannelName, ChatType.AudioOnly));
+            VivoxClient.ConnectAsync(new VivoxChannelConfig(ChannelName, ChatType.AudioOnly)).Forget();
         }
 
         public async UniTask ToggleMuteAsync()

@@ -148,20 +148,20 @@ UniTaskとUniRxは[OpenUPM](https://openupm.com/)で提供されているためO
 ![Unitask追加](/img/learning-core-stagenavigation-unitask.png)
 
 - Name:
-  ```
+  ```text
   OpenUPM
   ```
 - URL:
-  ```
+  ```text
   https://package.openupm.com
   ```
 - Scope(s):
   - UniTask
-    ```
+    ```text
     com.cysharp
     ```
   - UniRx
-    ```
+    ```text
     com.neuecc
     ```
 
@@ -334,7 +334,7 @@ VContainerはUniTaskやUniRxと同様にOpenUPMから取得します。
 ![VContainer追加](/img/learning-core-mvp-thirdparty.png)
 
 - VContainer:
-  ```
+  ```text
   jp.hadashikick
   ```
 
@@ -448,7 +448,8 @@ ScopeスクリプトをAppシーンに設定します。
 - StageConfigオブジェクトをインスペクタで設定します。
 - 不要になったのでAppTestスクリプトとAppTestスクリプトをアタッチしたAppシーンのGameObjectを削除します。
 
-Appシーンを実行します。先ほどと同様にタイトル画面とConsoleのログ出力が出ていれば成功です。
+Appシーンを実行します。
+先ほどと同様にタイトル画面とConsoleのログ出力が出ていれば成功です。
 
 ### UniRx
 

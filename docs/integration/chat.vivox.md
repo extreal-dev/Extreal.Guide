@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Chat using Vivox
 
+## What for?
+
 [Vivox](https://unity.com/ja/products/vivox)をアプリケーションで使いやすくするラッパーを提供します。
 
 Vivoxをラップしているこの機能をVivoxラッパーと呼ぶことにします。
@@ -17,7 +19,7 @@ VivoxラッパーはそのようなVivoxを使う場合に共通する実装を�
 VivoxラッパーはVivoxを使いやすくしますが、Vivoxを知らなくてもVivoxラッパーだけ知っていればボイス/テキストチャットを実現できるわけではありません。
 VivoxラッパーはVivoxをそのまま使う場合に使いにくい点や足りない機能を補いますが、ボイス/テキストチャットの処理はVivoxに移譲します。
 そのため、Vivoxラッパーを使うにはVivoxを知っていることが前提です。
-Vivoxを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照してVivoxについて学習してください。
+Vivoxを知らない場合は[Learning](/learning/intro#chat)を参照してVivoxについて学習してください。
 このガイドはVivoxを知っている前提で説明しています。
 :::
 
@@ -59,9 +61,9 @@ classDiagram
         +OnTextMessageReceived IObservable
         +OnAudioEnergyChanged IObservable
         +VivoxClient(appConfig)
-        +Login(authConfig) void
+        +LoginAsync(authConfig) void
         +Logout() void
-        +Connect(channelConfig) void
+        +ConnectAsync(channelConfig) void
         +Disconnect(channelId) void
         +DisconnectAllChannels() void
         +SendTextMessage(message, channelIds, language, applicationStanzaNamespace, applicationStanzaBody) void
@@ -86,7 +88,7 @@ classDiagram
         +AccountName string
         +TokenExpirationDuration TimeSpan
         +Timeout TimeSpan
-        +VivoxAuthConfig(displayName, accountName,  tokenExpirationDuration, timeout)
+        +VivoxAuthConfig(displayName, accountName, tokenExpirationDuration, timeout)
     }
 
     class ChatType {
@@ -103,7 +105,8 @@ classDiagram
         +Properties Channel3DProperties
         +TransmissionSwitch bool
         +TokenExpirationDuration TimeSpan
-        VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch,tokenExpirationDuration)
+        +Timeout TimeSpan
+        VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch, tokenExpirationDuration, timeout)
     }
 
     class IDisposable {
@@ -115,7 +118,7 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox.git
 ```
 
@@ -186,11 +189,11 @@ var loginSession = vivoxClient.LoginSession;
 ここではVivoxClientの基本的な使い方をいくつか紹介します。
 
 ボイス/テキストチャットを行うにはまずVivoxのアプリケーションにログインが必要です。
-ログインはVivoxClientのLoginを使います。
+ログインはVivoxClientのLoginAsyncを使います。
 
 ```csharp
 var vivoxAuthConfig = new VivoxAuthConfig("Guest");
-vivoxClient.Login(vivoxAuthConfig);
+vivoxClient.LoginAsync(vivoxAuthConfig).Forget();
 ```
 
 ログアウトはVivoxClientのLogoutを使います。
@@ -199,11 +202,11 @@ vivoxClient.Login(vivoxAuthConfig);
 vivoxClient.Logout();
 ```
 
-チャンネルへの入室はVivoxClientのConnectを使います。
+チャンネルへの入室はVivoxClientのConnectAsyncを使います。
 
 ```csharp
 var vivoxChannelConfig = new VivoxChannelConfig("GuestChannel");
-vivoxClient.Connect(vivoxChannelConfig);
+vivoxClient.ConnectAsync(vivoxChannelConfig).Forget();
 ```
 
 VivoxChannelConfigはデフォルトでボイスチャットとテキストチャットを有効にします。

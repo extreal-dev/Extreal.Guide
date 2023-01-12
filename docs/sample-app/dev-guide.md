@@ -103,7 +103,7 @@ Visual Studioで`UTF-8のBOM無し`を設定できないため`UTF-8のBOM付き
 
 アプリケーションのエントリーポイントは次のシーンです。
 
-```
+```text
 Assets/Holiday/App/App
 ```
 
@@ -112,7 +112,7 @@ Assets/Holiday/App/App
 アプリケーションの初期化処理は次のスクリプトのInitializeAppで実施しています。
 Awakeの先頭でInitializeAppを呼び出しています。
 
-```
+```text
 Assets/Holiday/App/AppScope
 ```
 
@@ -123,15 +123,15 @@ Assets/Holiday/App/AppScope
 ステージ構成は[Stage Navigationの設定](/core/stage-navigation#settings)にある通り、3つのタイプを作成しています。
 ステージやシーンの作成時に変更してください。
 
-```
+```text
 Assets/Holiday/App/Config/StageName
 ```
 
-```
+```text
 Assets/Holiday/App/Config/SceneName
 ```
 
-```
+```text
 Assets/Holiday/App/Config/StageConfig
 ```
 
@@ -140,7 +140,7 @@ Assets/Holiday/App/Config/StageConfig
 アプリケーション状態を保持するクラスを設けています。
 プレイヤーの名前や選択したアバター、シーンをまたがる情報を保持するのに使います。
 
-```
+```text
 Assets/Holiday/App/AppState
 ```
 
@@ -148,7 +148,7 @@ Assets/Holiday/App/AppState
 
 アプリケーション全体に共通する処理はユーティリティクラスとして提供しています。
 
-```
+```text
 Assets/Holiday/App/AppUtils
 ```
 
@@ -194,7 +194,7 @@ builder.RegisterEntryPoint<AppPresenter>();
 Holidayでは親のスコープ指定を使って、Appシーンのオブジェクトを各シーンで使えるようにします。
 Holidayのスコープ階層は下記になります。
 
-```
+```text
 Appシーン
 ↑
 各シーン（Controlシーン、Screenシーン、Spaceシーン）
@@ -216,7 +216,7 @@ Addressablesは次の目的で使用します。
 
 アセット名のルールは下記とします。
 
-```
+```text
 タイプ＋名前
 
 （例）
@@ -250,7 +250,7 @@ AvatarMichelle
 ステージ遷移時の処理呼び出しは各シーンのPresenterスクリプトに共通する処理となるためBaseクラスを設けています。
 PresenterスクリプトはこのBaseクラスを使ってください。
 
-```
+```text
 Assets/Holiday/App/Common/StagePresenterBase
 ```
 
@@ -459,7 +459,7 @@ UIの共通化にはUnityのPrefabを使います。
 Prefabを追加した場合は下記に追記してください。
 
 Prefabのパス
-```
+```text
 Assets/Holiday/Stages/Common
 ```
 
