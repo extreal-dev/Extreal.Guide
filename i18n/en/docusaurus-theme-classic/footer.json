@@ -19,10 +19,6 @@
     "message": "GitHub Issues",
     "description": "The label of footer link with label=GitHub Issues linking to https://github.com/extreal-dev"
   },
-  "link.item.label.XR Campus": {
-    "message": "XR Campus",
-    "description": "The label of footer link with label=XR Campus linking to https://www.tis.jp/service_solution/xr_campus/"
-  },
   "link.item.label.BURALIT": {
     "message": "BURALIT",
     "description": "The label of footer link with label=BURALIT linking to https://www.buralit.com/"

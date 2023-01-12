@@ -107,10 +107,6 @@ const config = {
             title: 'Used by',
             items: [
               {
-                label: 'XR Campus',
-                href: 'https://www.tis.jp/service_solution/xr_campus/',
-              },
-              {
                 label: 'BURALIT',
                 href: 'https://www.buralit.com/',
               },
