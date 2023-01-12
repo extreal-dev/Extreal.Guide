@@ -19,7 +19,8 @@ We have combined these skills with resources we refer to in order to lower the c
 If you have any questions after trying Learning, please refer to the resources listed here for self-study.
 
 :::info
-Application development requires content creation skills in addition to the following skills: lighting, camera work, animation, effects, rendering, etc.
+Application development requires content creation skills in addition to the skills listed below.
+Content creation requires skills in lighting, camera work, animation, effects, and rendering.
 ::::
 
 ## Basic skills
@@ -62,7 +63,7 @@ The following skills are required to develop applications utilizing Extreal.
 #### Skills
 
 - VContainer
-  - Basic DI Usage
+  - Basic usage of DI
 - UniTask
   - Basic usage of asynchronous processing
 - UniRx
@@ -103,7 +104,7 @@ The skills required, depending on the application requirements, are as follows.
 #### Skills
 
 - Netcode for GameObjects
-  - Basic Multiplayer Usage
+  - Basic multiplayer usage
 
 #### Resources
 
@@ -116,7 +117,7 @@ The skills required, depending on the application requirements, are as follows.
 #### Skills
 
 - Vivox Unity SDK
-  - Basic Voice/Text Chat Usage
+  - Basic voice/text chat usage
 
 #### Resources
 
