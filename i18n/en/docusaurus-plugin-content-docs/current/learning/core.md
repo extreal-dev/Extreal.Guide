@@ -11,7 +11,7 @@ In this section, you will learn about [Core](/category/core).
 - Unity Version
   - 2021.3.16f1
 
-You will start by creating a project and introducing Core features, as well as VContainer and UniRx, to build the application architecture envisioned by Extreal.
+You will start by creating a project and introducing Core features, as well as VContainer and UniRx, to build the application architecture assumed by Extreal.
 
 ## Create project
 
@@ -24,7 +24,7 @@ Create a new project from Unity Hub.
 ![create project](/img/learning-core-create-project.png)
 
 - Editor version: `2021.3.16f1`
-- Template: 3D
+- Template: `3D`
 - Project name: `ExtrealCoreLearning`
 
 :::info step
@@ -294,7 +294,7 @@ If the title screen appears and the Console shows `[Debug:StageNavigator] Transi
 
 ## Apply MV(R)P pattern
 
-That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [Extreal's envisioned application architecture](/intro#application).
+That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [the application architecture assumed by Extreal](/intro#application).
 
 :::info step
 Add an avatar selection screen to which the title screen transitions.
@@ -314,7 +314,7 @@ The avatar selection screen is only used as a transition destination, so it is c
 Then add the stage settings.
 :::
 
-! [Avatar Selection Stage Configuration](/img/learning-core-mvp-stageconfig.png)
+![Avatar Selection Stage Configuration](/img/learning-core-mvp-stageconfig.png)
 
 - Add `AvatarSelectionStage` to StageName and `AvatarSelectionScreen` to SceneName
 - Add `AvatarSelectionStage` in the StageConfig object inspector
@@ -342,7 +342,7 @@ Go to `Edit` -> `Project Settings...` -> `Package Manager` and add the Scope(s) 
 Then add VContainer to Package Manager and Assembly Definition.
 :::
 
-! [VContainer setting](/img/learning-core-mvp-pmandad.png)
+![VContainer setting](/img/learning-core-mvp-pmandad.png)
 
 - Select Packages: `My Registries` in Package Manager and install VContainer
 - Set VContainer to Assembly Definition of the application
@@ -559,7 +559,7 @@ namespace ExtrealCoreLearning.TitleScreen
 
 Set the View and Scope scripts to the TitleScreen scene.
 
-! [AppScope](/img/learning-core-mvp-titlescreenobject.png)
+![AppScope](/img/learning-core-mvp-titlescreenobject.png)
 
 - Create a GameObject with the TitleScreenView script attached to the TitleScreen scene with the name `View`
 - Set up a Button object in the inspector
@@ -596,7 +596,7 @@ If you can transition from the title screen to the avatar selection screen, it i
 This concludes our hands-on with Core.
 Thank you for your time.
 
-Through this hands-on, you have already built the features required for [Extreal's envisioned application architecture](/intro#application).
+Through this hands-on, you have already built the features required for [Extreal's assumed application architecture](/intro#application).
 As a next step, you might be interested in how the architecture you built in this hands-on will be used in a more serious application.
 To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
 Please take a look at [Sample Application](/category/sample-application).
