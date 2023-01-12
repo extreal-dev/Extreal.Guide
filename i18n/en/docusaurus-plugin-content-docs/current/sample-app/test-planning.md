@@ -74,7 +74,7 @@ This will be done in conjunction with functional test.
   - The server monitors CPU/memory usage and determines passing criteria based on the data
 - Pass criteria
   - No frame dropping or stoppage of the application
-  - CPU/memory usage of the multiplayer server must be within 60%
+  - CPU utilization/memory usage of the multiplayer server must be within a certain range, and there must be no memory leaks or other problems
 
 ## Stress test
 
