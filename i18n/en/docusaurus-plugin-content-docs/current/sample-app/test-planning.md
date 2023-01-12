@@ -101,8 +101,8 @@ This will be done in conjunction with performance test.
 
 The following aspects have not yet been implemented as we do not operate in production.
 
-- Server startup/shutdown procedures must be followed
-- Server recovery procedures must be followed in the event of a server failure
+- Ability to start/stop servers according to procedures
+- Ability to recover from server failure according to procedures
 - Staff should be able to enter the application and monitor normal operation
 
 ## Migration test
@@ -110,7 +110,7 @@ The following aspects have not yet been implemented as we do not operate in prod
 The following aspects have not yet been implemented as we do not release to the stores (Google Play, Apple Store).
 
 - The next version and the current version must work in the production environment
-  - If released to the store, the next version and the current version must run in the production environment
+  - If released to the store, two versions must run in the production environment, one for review and the other for the current version
 - The version upgrade is available
 
 ## Current vs. new comparison test
