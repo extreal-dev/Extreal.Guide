@@ -50,9 +50,9 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - Android 11
     - Resolution: 1080x1920 (portrait mode)
   - Internet connection
-    - Uplink/downlink: 40 Mbps or higher
+    - Up/Down stream: 40 Mbps or higher
   - Peripherals
-    - Wired earphones with microphone for both PC and mobile
+    - Wired earphones with microphone
 - External Connections
   - Vivox (SaaS)
     - Users are notified when the network is disconnected.
