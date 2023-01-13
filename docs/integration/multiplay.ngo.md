@@ -19,7 +19,7 @@ NetworkManagerをそのまま使う場合は常にコンテキストを意識し
 NGOラッパーはNGOを使いやすくしますが、NGOを知らなくてもNGOラッパーだけ知っていればマルチプレイを実現できるわけではありません。
 NGOラッパーはNGOをそのまま使う場合に使いにくい点や足りない機能を補いますが、マルチプレイの処理はNGOに移譲します。
 そのため、NGOラッパーを使うにはNGOを知っていることが前提です。
-NGOを知らない場合は[How to lean](/learning/intro#how-to-learn)を参照してNGOについて学習してください。
+NGOを知らない場合は[Learning](/learning/intro#multiplayer)を参照してNGOについて学習してください。
 このガイドはNGOを知っている前提で説明しています。
 :::
 
@@ -74,7 +74,7 @@ classDiagram
     NgoClient ..> NgoConfig
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
-    IConnectionSetter <|.. UnetTransportConnectionSetter
+    IConnectionSetter <|.. UNetTransportConnectionSetter
     IDisposable <|.. NgoServer
     IDisposable <|.. NgoClient
 
@@ -135,7 +135,7 @@ classDiagram
     class UnityTransportConnectionSetter {
     }
 
-    class UnetTransportConnectionSetter {
+    class UNetTransportConnectionSetter {
     }
 
     class IDisposable {
@@ -147,7 +147,7 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 ```
 
@@ -219,7 +219,8 @@ NgoServerはマルチプレイの処理をNetworkManagerに移譲しているの
 ngoServer.StartServerAsync().Forget();
 ```
 
-サーバーの停止はStopServerAsyncで行いますが、NgoServerのDisposeでStopServerAsyncを呼んでいるのでアプリケーション終了時は自動で呼ばれます。
+サーバーの停止はStopServerAsyncで行いますが、NgoServerのDisposeでStopServerAsyncを呼んでいます。
+アプリケーション終了時はNgoServerのDisposeが呼ばれるようにしてください。
 
 クライアントからのメッセージに対応する処理はRegisterMessageHandlerで登録します。
 登録の解除はUnregisterMessageHandlerで行います。
@@ -310,6 +311,7 @@ ngoClient.ConnectAsync(ngoConfig).Forget();
 ```
 
 NgoConfigのデフォルトは次の通りです。
+timeoutがnullの場合は10秒に設定されます。
 接続処理でタイムアウト時間が経過するとTimeoutExceptionが発生します。
 
 ```csharp
@@ -318,7 +320,7 @@ public NgoConfig
     string address = "127.0.0.1",
     ushort port = 7777,
     byte[] connectionData = null,
-    byte timeoutSeconds = 10
+    TimeSpan timeout = null
 )
 ```
 

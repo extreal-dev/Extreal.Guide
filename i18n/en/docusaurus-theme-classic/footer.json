@@ -1,0 +1,30 @@
+{
+  "link.title.License": {
+    "message": "License",
+    "description": "The title of the footer links column with title=License in the footer"
+  },
+  "link.title.Feedback": {
+    "message": "Feedback",
+    "description": "The title of the footer links column with title=Feedback in the footer"
+  },
+  "link.title.Used by": {
+    "message": "Used by",
+    "description": "The title of the footer links column with title=Used by in the footer"
+  },
+  "link.item.label.Apache License 2.0": {
+    "message": "Apache License 2.0",
+    "description": "The label of footer link with label=Apache License 2.0 linking to https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  "link.item.label.GitHub Issues": {
+    "message": "GitHub Issues",
+    "description": "The label of footer link with label=GitHub Issues linking to https://github.com/extreal-dev"
+  },
+  "link.item.label.BURALIT": {
+    "message": "BURALIT",
+    "description": "The label of footer link with label=BURALIT linking to https://www.buralit.com/"
+  },
+  "copyright": {
+    "message": "Copyright © 2022 TIS, Inc. Built with Docusaurus.<br/><small>The names of products or services appearing on this site are trademarks or registered trademarks of the respective companies.</small>",
+    "description": "The footer copyright"
+  }
+}

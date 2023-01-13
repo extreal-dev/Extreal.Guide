@@ -80,6 +80,7 @@ classDiagram
 
 :::info
 次のタイプはアプリケーションで作成します。
+
 - StageName：ステージ名を表すEnum
 - SceneName：シーン名を表すEnum
 - StageConfig：ステージ設定を保持するクラス
@@ -89,7 +90,7 @@ classDiagram
 
 ### Package
 
-```
+```text
 https://github.com/extreal-dev/Extreal.Core.StageNavigation.git
 ```
 
@@ -172,7 +173,7 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 ```
 
 Unityエディタのインスペクタでステージ設定を行います。
-設定例は次の通りです
+設定例は次の通りです。
 
 ![Stage config](/img/core-stagenavigation-stageconfig.png)
 
@@ -215,7 +216,7 @@ stageNavigator.ReplaceAsync(StageName.SpaceSelectionStage);
 
 ステージ遷移で同じシーンが続く場合、StageNavigatorは処理時間を短縮するためそのシーンを再ロードせず再利用します。
 
-```
+```text
 TitleStage
   PlayerControl -> Loaded
   TitleScreen -> Loaded

@@ -1,0 +1,26 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Release": {
+    "message": "Release",
+    "description": "The label for category Release in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Core": {
+    "message": "Core",
+    "description": "The label for category Core in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Integration": {
+    "message": "Integration",
+    "description": "The label for category Integration in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Sample Application": {
+    "message": "Sample Application",
+    "description": "The label for category Sample Application in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Learning": {
+    "message": "Learning",
+    "description": "The label for category Learning in sidebar tutorialSidebar"
+  }
+}

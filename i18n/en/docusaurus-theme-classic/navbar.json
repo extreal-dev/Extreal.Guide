@@ -1,0 +1,18 @@
+{
+  "item.label.Extreal": {
+    "message": "Extreal",
+    "description": "Navbar item with label Extreal"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Fintan - XR": {
+    "message": "Fintan - XR",
+    "description": "Navbar item with label Fintan - XR"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
