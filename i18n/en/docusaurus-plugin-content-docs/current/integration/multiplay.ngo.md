@@ -219,7 +219,8 @@ The server is started using StartServerAsync.
 ngoServer.StartServerAsync().Forget();
 ```
 
-The server is stopped by StopServerAsync, which is called automatically when the application terminates because StopServerAsync is called in NgoServer's Dispose.
+The server is stopped by StopServerAsync, but StopServerAsync is called in NgoServer's Dispose.
+When the application is terminated, NgoServer's Dispose should be called.
 
 Processing in response to messages from clients is registered with RegisterMessageHandler.
 Unregistration is done with UnregisterMessageHandler.

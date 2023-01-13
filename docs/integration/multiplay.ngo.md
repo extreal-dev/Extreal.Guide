@@ -219,7 +219,8 @@ NgoServerはマルチプレイの処理をNetworkManagerに移譲しているの
 ngoServer.StartServerAsync().Forget();
 ```
 
-サーバーの停止はStopServerAsyncで行いますが、NgoServerのDisposeでStopServerAsyncを呼んでいるのでアプリケーション終了時は自動で呼ばれます。
+サーバーの停止はStopServerAsyncで行いますが、NgoServerのDisposeでStopServerAsyncを呼んでいます。
+アプリケーション終了時はNgoServerのDisposeが呼ばれるようにしてください。
 
 クライアントからのメッセージに対応する処理はRegisterMessageHandlerで登録します。
 登録の解除はUnregisterMessageHandlerで行います。
