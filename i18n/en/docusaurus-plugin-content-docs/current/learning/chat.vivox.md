@@ -163,7 +163,7 @@ Create a Model script that provides the logic for text chat.
 
 Create it in the ExtrealCoreLearning/TextChatControl directory.
 It provides for joining and leaving the channel, sending and receiving messages.
-When joining a channel, we make the user log in if user is not already logged in.
+When joining a channel, log in if the user is not logged in.
 
 ```csharp
 using System;
