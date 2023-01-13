@@ -356,7 +356,7 @@ The common processing is as follows.
 
 - Model script
   - Joining and leaving a channel
-  - When joining a channel, if the user is not logged in, user logs in
+  - When joining a channel, log in if the user is not logged in.
 - Presenter script
   - Creates a TextChatChannel and joins the channel when entering the stage, and leaves the channel when exiting the stage
 
