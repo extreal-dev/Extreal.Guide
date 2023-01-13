@@ -71,7 +71,7 @@ This will be done in conjunction with functional test.
   - The number of accesses will be secured by a test application
     - The test application will have no UI and only player operation will be performed
   - Visually determine the application's acceptance criteria using several devices at hand
-  - The server monitors CPU/memory usage and determines passing criteria based on the data
+  - The server monitors CPU utilization/memory usage and determines passing criteria based on the data
 - Pass criteria
   - No frame dropping or stoppage of the application
   - CPU utilization/memory usage of the multiplayer server must be within a certain range, and there must be no memory leaks or other problems
