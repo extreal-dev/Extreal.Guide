@@ -4,12 +4,6 @@ sidebar_position: 1
 
 # Introduction
 
-:::danger
-Extreal is currently under development.
-The official release is scheduled for January 2023.
-Until the official release, please do not use Extreal on a full-scale basis, but only on a trial basis.
-:::
-
 This section describes the grand design of Extreal.
 All of Extreal's contents are based on this grand design.
 
