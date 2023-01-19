@@ -20,20 +20,6 @@ function HomepageHeader() {
             UnityベースのXRフレームワーク
           </Translate>
         </p>
-        <div style={{maxWidth: "520px", margin: "30px auto 0 auto"}} className="theme-admonition theme-admonition-danger alert alert--danger admonition_node_modules-@docusaurus-theme-classic-lib-theme-Admonition-styles-module">
-          <div className="admonitionHeading_node_modules-@docusaurus-theme-classic-lib-theme-Admonition-styles-module">
-            DANGER
-          </div>
-          <div className="admonitionContent_node_modules-@docusaurus-theme-classic-lib-theme-Admonition-styles-module">
-            <p>
-              <Translate
-                id='homepage.header.danger'
-              >
-                Extrealは現在開発中です。2023年1月に正式リリースを予定しています。正式リリースまでは試す程度にとどめ本格利用はご遠慮ください。
-              </Translate>
-            </p>
-          </div>
-        </div>
       </div>
     </header>
   );

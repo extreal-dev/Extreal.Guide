@@ -439,7 +439,6 @@ Change TextChatChannel to use Base class.
 
 ```csharp
 using System;
-using Cysharp.Threading.Tasks;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.App;
 using UniRx;
@@ -621,7 +620,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
 
         public VoiceChatChannel(VivoxClient vivoxClient, string channelName) : base(vivoxClient, channelName)
         {
-            SetMuteAsync(true).Forget();
+            isMute.Value = true;
         }
 
         protected override void Connect()
@@ -629,16 +628,11 @@ namespace ExtrealCoreLearning.VoiceChatControl
             VivoxClient.ConnectAsync(new VivoxChannelConfig(ChannelName, ChatType.AudioOnly)).Forget();
         }
 
-        public UniTask ToggleMuteAsync()
+        public async UniTask ToggleMuteAsync()
         {
-            return SetMuteAsync(!isMute.Value);
-        }
-
-        private async UniTask SetMuteAsync(bool muted)
-        {
+            isMute.Value = !isMute.Value;
             var audioInputDevices = await VivoxClient.GetAudioInputDevicesAsync();
-            audioInputDevices.Muted = muted;
-            isMute.Value = muted;
+            audioInputDevices.Muted = isMute.Value;
         }
     }
 }

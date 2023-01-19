@@ -439,6 +439,7 @@ Baseクラスを使うようにTextChatChannelを変更します。
 
 ```csharp
 using System;
+using Cysharp.Threading.Tasks;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.App;
 using UniRx;
@@ -620,7 +621,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
 
         public VoiceChatChannel(VivoxClient vivoxClient, string channelName) : base(vivoxClient, channelName)
         {
-            isMute.Value = true;
+            SetMuteAsync(true).Forget();
         }
 
         protected override void Connect()
@@ -628,11 +629,16 @@ namespace ExtrealCoreLearning.VoiceChatControl
             VivoxClient.ConnectAsync(new VivoxChannelConfig(ChannelName, ChatType.AudioOnly)).Forget();
         }
 
-        public async UniTask ToggleMuteAsync()
+        public UniTask ToggleMuteAsync()
         {
-            isMute.Value = !isMute.Value;
+            return SetMuteAsync(!isMute.Value);
+        }
+
+        private async UniTask SetMuteAsync(bool muted)
+        {
             var audioInputDevices = await VivoxClient.GetAudioInputDevicesAsync();
-            audioInputDevices.Muted = isMute.Value;
+            audioInputDevices.Muted = muted;
+            isMute.Value = muted;
         }
     }
 }

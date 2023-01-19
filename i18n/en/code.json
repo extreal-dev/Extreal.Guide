@@ -265,9 +265,6 @@
   "homepage.virtual-space-for-communication": {
     "message": "Extreal provides the foundation for developing virtual spaces where people can gather and communicate. Extreal provides the base for communication features such as voice chat, text chat and multiplayer, so you can focus on creating ideas using these features."
   },
-  "homepage.header.danger": {
-    "message": "Extreal is currently under development and will be officially released in January 2023. Until the official release, please do not use Extreal on a full-scale basis, but only on a trial basis."
-  },
   "homepage.feature.title": {
     "message": "With Extreal, you can develop applications like this one!"
   },
