@@ -1,10 +1,10 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# 1.0.0
+# Unreleased
 
-2023-01-20
+2023-01-25
 
 ## Unity version
 
@@ -16,6 +16,7 @@ sidebar_position: 2
 
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.0.0
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.0.0
+- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 0.1.0
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.0.0
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.0.0
 
@@ -31,29 +32,12 @@ sidebar_position: 2
 
 ## Changes
 
-### Extreal.Core.Logging
+### Extreal.Core.Common
 
 #### Added
 
 - モジュールを追加しました。
-
-### Extreal.Core.StageNavigation
-
-#### Added
-
-- モジュールを追加しました。
-
-### Extreal.Integration.Multiplay.NGO
-
-#### Added
-
-- モジュールを追加しました。
-
-### Extreal.Integration.Chat.Vivox
-
-#### Added
-
-- モジュールを追加しました。
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を継承/移譲で適用する機能を追加しました。([Doc](./../core/common.md))
 
 ## Backward compatible
 

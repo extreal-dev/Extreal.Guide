@@ -50,6 +50,7 @@ Frameworkは次の機能を提供しています。
 - Core
   - [Logging](/core/logging)
   - [Stage Navigation](/core/stage-navigation)
+  - [Common](./core/common.md)
 - Integration
   - [Chat using Vivox](/integration/chat.vivox)
   - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
