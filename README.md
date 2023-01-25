@@ -26,7 +26,7 @@ Local development cannot check multiple languages simultaneously.
 The following command is used to check `ja`.
 
 ```
-yarn run start -- --locale ja
+yarn start
 ```
 
 This command starts the local development server and opens a browser window.
@@ -35,7 +35,7 @@ Most changes will take effect immediately, without restarting the server.
 The following command is used to check `en`.
 
 ```
-yarn run start -- --locale en
+yarn start --locale en
 ```
 
 ## Diagram
