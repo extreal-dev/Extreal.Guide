@@ -87,10 +87,11 @@ public class SomethingClass : DisposableBase
 ```
 
 扱うリソースに応じてReleaseManagedResourcesメソッドとReleaseUnmanagedResourcesメソッドをオーバーライドしてリソースを解放します。
+デフォルトでこれらのメソッドは何も処理しないので、解放処理が不要なメソッドのオーバーライドは不要です。
 これらのメソッドはDisposableBaseクラスによりDispose Patternで示されたタイミングで呼び出されます。
 
 :::caution
-リソースの解放処理では例外が発生して他のリソース解放が漏れないように実装してください。
+リソースの解放漏れを防ぐため、例外やエラーを発生させないようにリソース解放処理を実装してください。
 :::
 
 :::caution
