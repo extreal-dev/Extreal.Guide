@@ -75,8 +75,8 @@ classDiagram
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
     IConnectionSetter <|.. UNetTransportConnectionSetter
-    IDisposable <|.. NgoServer
-    IDisposable <|.. NgoClient
+    DisposableBase <|-- NgoServer
+    DisposableBase <|-- NgoClient
 
     class NetworkManager {
         <<NGO>>
@@ -138,8 +138,8 @@ classDiagram
     class UNetTransportConnectionSetter {
     }
 
-    class IDisposable {
-        <<system>>
+    class DisposableBase {
+        <<extreal>>
     }
 ```
 
@@ -156,6 +156,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 NGOラッパーは次のパッケージを使います。
 
 - [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Common](./../core/common.md)
 - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
