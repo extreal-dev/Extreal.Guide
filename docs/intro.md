@@ -56,7 +56,6 @@ Frameworkは次の機能を提供しています。
   - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
-モジュールはLogging以外のモジュールに依存しないように作成しているのでLoggingと併せれば単体で使用できます。
 
 ### Application
 
