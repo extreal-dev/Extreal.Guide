@@ -18,7 +18,7 @@ sidebar_position: 1
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0-next.1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 0.1.0
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.0.0
-- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.0.0
+- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.1
 
 ## Dependencies
 
@@ -33,17 +33,17 @@ sidebar_position: 1
 ## Changes
 
 ### Extreal.Core.StageNavigation
-
 #### Changed
-
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.Core.StageNavigation/pull/18))
 
 ### Extreal.Core.Common
-
 #### Added
-
 - モジュールを追加しました。
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を継承/移譲で適用する機能を追加しました。([Doc](./../core/common.md), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
+
+### Extreal.Integration.Chat.Vivox
+#### Changed
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/13))
 
 ## Backward compatible
 

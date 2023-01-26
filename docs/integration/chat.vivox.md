@@ -46,7 +46,7 @@ classDiagram
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
     VivoxChannelConfig --> ChatType
-    IDisposable <|.. VivoxClient
+    DisposableBase <|-- VivoxClient
 
     class VivoxClient {
         +Client Client
@@ -109,8 +109,8 @@ classDiagram
         VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch, tokenExpirationDuration, timeout)
     }
 
-    class IDisposable {
-        <<system>>
+    class DisposableBase {
+        <<extreal>>
     }
 ```
 
