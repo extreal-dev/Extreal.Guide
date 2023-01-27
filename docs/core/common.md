@@ -61,7 +61,7 @@ Commonは次のパッケージを使います。
 
 ## Usage
 
-### Dispose Patternを適用する
+### Dispose Patternを適用する {#core-common-dp}
 
 [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用する方法として継承と移譲の2つの方法を提供しています。
 継承の方がDispose Patternのカバー範囲が広いので、継承が使える場合は継承を使ってください。
