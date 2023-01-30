@@ -166,15 +166,15 @@ ExtrealCoreLearning/TextChatControlディレクトリに作成します。
 チャンネルへの参加時はログインしていなければログインするようにしています。
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
+using Extreal.Core.Common.System;
 using Extreal.Integration.Chat.Vivox;
 using UniRx;
 using VivoxUnity;
 
 namespace ExtrealCoreLearning.TextChatControl
 {
-    public class TextChatChannel : IDisposable
+    public class TextChatChannel : DisposableBase
     {
         private readonly VivoxClient vivoxClient;
         private readonly string channelName;
@@ -232,7 +232,7 @@ namespace ExtrealCoreLearning.TextChatControl
             vivoxClient.SendTextMessage(message, channelId);
         }
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             disposables.Dispose();
         }
@@ -248,9 +248,11 @@ TextChatChannelを使うようにTextChatControlPresenterを変更します。
 メッセージの送信と受信はViewスクリプトのTextChatControlViewとModelスクリプトのTextChatChannelをマッピングして実現しています。
 
 ```csharp
-using System;
 // highlight-start
 using Cysharp.Threading.Tasks;
+// highlight-end
+using Extreal.Core.Common.System;
+// highlight-start
 using Extreal.Core.StageNavigation;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.App;
@@ -260,7 +262,7 @@ using VContainer.Unity;
 
 namespace ExtrealCoreLearning.TextChatControl
 {
-    public class TextChatControlPresenter : IInitializable, IDisposable
+    public class TextChatControlPresenter : DisposableBase, IInitializable
     {
         // highlight-start
         private readonly StageNavigator<StageName, SceneName> stageNavigator;
@@ -268,11 +270,12 @@ namespace ExtrealCoreLearning.TextChatControl
         // highlight-end
         private readonly TextChatControlView textChatControlView;
         private readonly CompositeDisposable disposables = new CompositeDisposable();
-
         // highlight-start
         private TextChatChannel textChatChannel;
         private readonly CompositeDisposable stageDisposables = new CompositeDisposable();
+        // highlight-end
 
+        // highlight-start
         public TextChatControlPresenter(
             StageNavigator<StageName, SceneName> stageNavigator,
             VivoxClient vivoxClient,
@@ -323,7 +326,7 @@ namespace ExtrealCoreLearning.TextChatControl
         }
         // highlight-end
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             // highlight-start
             stageDisposables.Dispose();
@@ -367,8 +370,8 @@ ModelスクリプトのBaseクラスを作成します。
 Appディレクトリに作成します。
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
+using Extreal.Core.Common.System;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.TextChatControl;
 using UniRx;
@@ -376,7 +379,7 @@ using VivoxUnity;
 
 namespace ExtrealCoreLearning.App
 {
-    public abstract class ChatChannelBase : IDisposable
+    public abstract class ChatChannelBase : DisposableBase
     {
         protected readonly VivoxClient VivoxClient;
         protected readonly string ChannelName;
@@ -425,7 +428,7 @@ namespace ExtrealCoreLearning.App
             VivoxClient.Disconnect(ChannelId);
         }
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             Disposables.Dispose();
         }
@@ -438,7 +441,6 @@ Baseクラスを使うようにTextChatChannelを変更します。
 :::
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.App;
@@ -480,14 +482,14 @@ PresenterスクリプトのBaseクラスを作成します。
 Appディレクトリに作成します。
 
 ```csharp
-using System;
+using Extreal.Core.Common.System;
 using Extreal.Core.StageNavigation;
 using UniRx;
 using VContainer.Unity;
 
 namespace ExtrealCoreLearning.App
 {
-    public abstract class ControlPresenterBase : IInitializable, IDisposable
+    public abstract class ControlPresenterBase : DisposableBase, IInitializable
     {
         private readonly StageNavigator<StageName, SceneName> stageNavigator;
         private readonly CompositeDisposable sceneDisposables = new CompositeDisposable();
@@ -523,7 +525,7 @@ namespace ExtrealCoreLearning.App
 
         protected abstract void OnStageExiting(StageName stageName);
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             stageDisposables.Dispose();
             sceneDisposables.Dispose();
