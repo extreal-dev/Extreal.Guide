@@ -49,6 +49,10 @@ sidebar_position: 1
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/13))
 
+### Extreal.SampleApp.Holiday
+#### Changed
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/2))
+
 ## Backward compatible
 
 後方互換に影響がある変更はありません。
