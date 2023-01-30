@@ -365,8 +365,8 @@ StageNavigatorのイベント通知を使ってマルチプレイルームへの
 OnStageTransitionedがステージに入った後、OnStageTransitioningがステージから出る前のタイミングになります。
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
+using Extreal.Core.Common.System;
 using Extreal.Core.StageNavigation;
 using ExtrealCoreLearning.App;
 using UniRx;
@@ -374,7 +374,7 @@ using VContainer.Unity;
 
 namespace ExtrealCoreLearning.MultiplayControl
 {
-    public class MultiplayControlPresenter : IInitializable, IDisposable
+    public class MultiplayControlPresenter : DisposableBase, IInitializable
     {
         private readonly StageNavigator<StageName, SceneName> stageNavigator;
         private readonly MultiplayRoom multiplayRoom;
@@ -398,7 +398,7 @@ namespace ExtrealCoreLearning.MultiplayControl
                 .AddTo(disposables);
         }
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             disposables.Dispose();
         }
@@ -508,10 +508,10 @@ namespace ExtrealCoreLearning.MultiplayCommon
 マルチプレイサーバーに接続されたタイミングでメッセージを送信します。
 
 ```csharp
-// highlight-start
-using System;
-// highlight-end
 using Cysharp.Threading.Tasks;
+// highlight-start
+using Extreal.Core.Common.System;
+// highlight-end
 using Extreal.Core.Logging;
 using Extreal.Integration.Multiplay.NGO;
 // highlight-start
@@ -524,7 +524,7 @@ using Unity.Netcode;
 namespace ExtrealCoreLearning.MultiplayControl
 {
     // highlight-start
-    public class MultiplayRoom : IDisposable
+    public class MultiplayRoom : DisposableBase
     // highlight-end
     {
         private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
@@ -564,7 +564,7 @@ namespace ExtrealCoreLearning.MultiplayControl
         }
 
         // highlight-start
-        public void Dispose() => disposables.Dispose();
+        protected override void ReleaseManagedResources() => disposables.Dispose();
         // highlight-end
     }
 }
@@ -585,11 +585,9 @@ ExtrealCoreLearning/MultiplayControlディレクトリの`NetworkPlayer`を選�
 サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Application](/category/sample-application)をご覧ください。
 
 ```csharp
-// highlight-start
-using System;
-// highlight-end
 using Cysharp.Threading.Tasks;
 // highlight-start
+using Extreal.Core.Common.System;
 using Extreal.Core.Logging;
 // highlight-end
 using Extreal.Integration.Multiplay.NGO;
@@ -604,7 +602,7 @@ using UnityEngine.AddressableAssets;
 namespace ExtrealCoreLearning.MultiplayServer
 {
     // highlight-start
-    public class MultiplayServer : IDisposable
+    public class MultiplayServer : DisposableBase
     // highlight-end
     {
         // highlight-start
@@ -657,7 +655,7 @@ namespace ExtrealCoreLearning.MultiplayServer
         }
 
         // highlight-start
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             disposables.Dispose();
         }
