@@ -169,10 +169,10 @@ UniTaskとUniRxは[OpenUPM](https://openupm.com/)で提供されているためO
 UniTaskとUniRxを追加できたのでStage Navigationをスクリプトから使えるようにします。
 :::
 
-Stage Navigationは[Common](./../core/common.md)に依存してるのでCommonも追加します。
+Stage Navigationは[Common](../core/common.md)に依存してるのでCommonも追加します。
 
 Loggingの時と同じ手順でPackage ManagerとAssembly Definitionを操作します。
-CommonとStage NavigationのGit URLは[CommonのPackage](./../core/common.md#package)と[Stage NavigationのPackage](./../core/stage-navigation.md#package)から取得します。
+CommonとStage NavigationのGit URLは[CommonのPackage](../core/common.md#package)と[Stage NavigationのPackage](../core/stage-navigation.md#package)から取得します。
 Assembly DefinitionにUniTaskとUniRxも設定します。
 
 ![Stage Navigation追加](/img/learning-core-stagenavigation-add.png)
@@ -534,7 +534,7 @@ Goボタンのイベント通知とアバター選択画面への遷移をマッ
 
 Disposeを行うクラスには[Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)の実装が推奨されています。
 Dispose Patternを適用するため、TitleScreenPresenterはCommonが提供するDisposableBaseクラスを継承し、ReleaseManagedResourcesメソッドにマネージドリソースの解放処理を実装しています。
-Dispose Patternの適用方法は[Common](./../core/common.md#core-common-dp)を参照してください。
+Dispose Patternの適用方法は[Common](../core/common.md#core-common-dp)を参照してください。
 
 :::info step
 最後にViewやPresenterを紐づけるScopeスクリプトを作成します。

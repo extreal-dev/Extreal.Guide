@@ -127,7 +127,7 @@ https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox.git
 Vivoxラッパーは次のパッケージを使います。
 
 - [Extreal.Core.Logging](/core/logging)
-- [Extreal.Core.Common](./../core/common.md)
+- [Extreal.Core.Common](../core/common.md)
 - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)

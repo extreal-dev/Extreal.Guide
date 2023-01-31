@@ -39,7 +39,7 @@ sidebar_position: 1
 ### Extreal.Core.Common
 #### Added
 - モジュールを追加しました。
-- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を継承/移譲で適用する機能を追加しました。([Doc](./../core/common.md), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を継承/移譲で適用する機能を追加しました。([Doc](../core/common.md#core-common-dp), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
 
 ### Extreal.Integration.Multiplay.NGO
 #### Changed

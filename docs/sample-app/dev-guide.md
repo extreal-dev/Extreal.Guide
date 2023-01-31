@@ -207,7 +207,7 @@ Appシーン
 ### Dispose pattern
 
 Disposeを行うクラスには[Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)の実装が推奨されています。
-Dispose Patternの実装を共通化するため、個別にDispose Patternを実装せず[Common](./../core/common.md#core-common-dp)が提供するクラスを使用してください。
+Dispose Patternの実装を共通化するため、個別にDispose Patternを実装せず[Common](../core/common.md#core-common-dp)が提供するクラスを使用してください。
 
 ## Assets
 

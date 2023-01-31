@@ -156,7 +156,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 NGOラッパーは次のパッケージを使います。
 
 - [Extreal.Core.Logging](/core/logging)
-- [Extreal.Core.Common](./../core/common.md)
+- [Extreal.Core.Common](../core/common.md)
 - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
