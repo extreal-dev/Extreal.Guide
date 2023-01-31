@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-01-25
+2023-01-31
 
 ## Unity version
 
@@ -16,7 +16,7 @@ sidebar_position: 1
 
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.0.0
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0-next.1
-- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 0.1.0
+- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.1
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.1
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.1
 
