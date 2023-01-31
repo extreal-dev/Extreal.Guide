@@ -156,7 +156,7 @@ Git URLは各機能のページを参照ください。
 
 ## Feedback or Contribution
 
-フィードバックはGitHubのIssue、コントリビューションはGitHubのPull Requestにお願いします。
+フィードバックはGitHubのIssue、コントリビューションはGitHubのPull Request(PR)にお願いします。
 
 - [GitHub](https://github.com/extreal-dev)
 
