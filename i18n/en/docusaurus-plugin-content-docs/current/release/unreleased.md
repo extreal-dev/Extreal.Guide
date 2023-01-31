@@ -1,0 +1,63 @@
+---
+sidebar_position: 1
+---
+
+# Unreleased
+
+2023-01-31
+
+## Unity version
+
+The following Unity versions have been tested.
+
+2021.3.16f1
+
+## Modules
+
+- [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.0.0
+- [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0-next.1
+- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.1
+- [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.1
+- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.1
+
+## Dependencies
+
+- Common
+  - [UniTask](https://github.com/Cysharp/UniTask) 2.3.3 ([MIT License](https://github.com/Cysharp/UniTask/blob/master/LICENSE))
+  - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
+- Extreal.Integration.Multiplay.NGO
+  - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.2.0 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
+- Extreal.Integration.Chat.Vivox
+  - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.190000 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
+
+## Changes
+
+### Extreal.Core.StageNavigation
+#### Changed
+
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.Core.StageNavigation/pull/18))
+
+### Extreal.Core.Common
+#### Added
+- Modules are added.
+- Added feature to apply [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) by inheritance/delegation. ([Doc](../core/common.md#core-common-dp), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
+
+### Extreal.Integration.Multiplay.NGO
+#### Changed
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/14))
+
+### Extreal.Integration.Chat.Vivox
+#### Changed
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/13))
+
+### Extreal.SampleApp.Holiday
+#### Changed
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/2))
+
+## Backward compatible
+
+No changes affecting backward compatibility.
+
+## Upgrade guide
+
+Please update the module versions.

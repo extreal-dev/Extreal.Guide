@@ -204,6 +204,11 @@ Specify the scope of the App scene as the parent of each scene scope.
 
 ![Parent of object scope](/img/holiday-object-scope-parent.png)
 
+### Dispose pattern
+
+It is recommended to implement a [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) in the class that disposes.
+To standardize the implementation of the Dispose Pattern, use the classes provided by [Common](../core/common.md#core-common-dp) instead of implementing the Dispose Pattern individually.
+
 ## Assets
 
 Currently, all assets are included in the application, but if the content volume increases, it is assumed that the content will be externalized so that only the necessary content can be downloaded and used in the application. This is to reduce the download time by reducing the size of the application and the case where only the content needs to be changed.

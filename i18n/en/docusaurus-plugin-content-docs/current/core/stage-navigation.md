@@ -35,7 +35,7 @@ classDiagram
     IStageConfig o-- SceneName : CommonStages
     Stage --> StageName : StageName
     Stage o-- SceneName : SceneNames
-    IDisposable　<|.. StageNavigator
+    DisposableBase　<|-- StageNavigator
 
     class StageName {
         <<enumeration>>
@@ -73,8 +73,8 @@ classDiagram
         +SceneNames List
     }
 
-    class IDisposable {
-        <<system>>
+    class DisposableBase {
+        <<extreal>>
     }
 ```
 
@@ -99,6 +99,7 @@ https://github.com/extreal-dev/Extreal.Core.StageNavigation.git
 Stage Navigation uses the following packages.
 
 - [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Common](./common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 

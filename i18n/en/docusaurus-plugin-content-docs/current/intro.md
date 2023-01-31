@@ -50,12 +50,12 @@ Framework provides the following features.
 - Core
   - [Logging](/core/logging)
   - [Stage Navigation](/core/stage-navigation)
+  - [Common](./core/common.md)
 - Integration
   - [Chat using Vivox](/integration/chat.vivox)
   - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
 
 All modules depend on Logging to unify log output.
-The modules are designed to be independent of any other module except Logging, so they can be used alone by combining them with Logging.
 
 ### Application
 
@@ -156,7 +156,7 @@ Please refer to each feature page for the Git URL.
 
 ## Feedback or Contribution
 
-Please send feedback to Issue on GitHub and contributions to Pull Request on GitHub.
+Please send feedback to Issue on GitHub and contributions to Pull Request(PR) on GitHub.
 
 - [GitHub](https://github.com/extreal-dev)
 
