@@ -166,6 +166,7 @@ ExtrealCoreLearning/TextChatControlディレクトリに作成します。
 チャンネルへの参加時はログインしていなければログインするようにしています。
 
 ```csharp
+using System;
 using Cysharp.Threading.Tasks;
 using Extreal.Core.Common.System;
 using Extreal.Integration.Chat.Vivox;
@@ -441,6 +442,7 @@ Baseクラスを使うようにTextChatChannelを変更します。
 :::
 
 ```csharp
+using System;
 using Cysharp.Threading.Tasks;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.App;
