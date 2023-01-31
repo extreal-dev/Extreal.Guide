@@ -204,6 +204,11 @@ Appシーン
 
 ![オブジェクトスコープの親](/img/holiday-object-scope-parent.png)
 
+### Dispose pattern
+
+Disposeを行うクラスには[Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)の実装が推奨されています。
+Dispose Patternの実装を共通化するため、個別にDispose Patternを実装せず[Common](../core/common.md#core-common-dp)が提供するクラスを使用してください。
+
 ## Assets
 
 現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
