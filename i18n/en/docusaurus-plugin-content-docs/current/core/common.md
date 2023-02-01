@@ -6,9 +6,9 @@ sidebar_position: 3
 
 ## What for?
 
-A generic function like retry processing is needed to realize the functionality of a framework or application.
-For example, retry processing is required for external connection functions such as [Chat](/integration/chat.vivox) and [Multiplay](/integration/multiplay.ngo) in frameworks and external API calls in applications.
-This module provides such generic processing as common functions.
+A generic feature like retry processing is needed to realize the features of a framework or application.
+For example, retry processing is required for external connection features such as [Chat](/integration/chat.vivox) and [Multiplay](/integration/multiplay.ngo) in frameworks and external API calls in applications.
+This module provides such generic processing as common features.
 
 ## Specification
 
