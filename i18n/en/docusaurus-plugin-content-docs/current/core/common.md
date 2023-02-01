@@ -64,7 +64,7 @@ No work is required as there are no settings.
 ### Apply the Dispose Pattern {#core-common-dp}
 
 We provide two ways to apply the [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose): inheritance and delegation.
-Inheritance has a wider coverage of the Dispose Pattern, so if inheritance is available, use inheritance.
+Use inheritance if it is available, since inheritance covers a wider range of Dispose Patterns.
 If the class to which the pattern is applied has already inherited from another class and inheritance is not available, use delegation.
 
 The DisposableBase class is used in the inheritance.
