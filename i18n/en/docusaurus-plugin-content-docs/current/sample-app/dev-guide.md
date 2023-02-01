@@ -206,7 +206,7 @@ Specify the scope of the App scene as the parent of each scene scope.
 
 ### Dispose pattern
 
-It is recommended to implement a [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) in the class that disposes.
+It is recommended to implement the [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) in the class that disposes.
 To standardize the implementation of the Dispose Pattern, use the classes provided by [Common](../core/common.md#core-common-dp) instead of implementing the Dispose Pattern individually.
 
 ## Assets
