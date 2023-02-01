@@ -169,8 +169,10 @@ Go to `Edit` -> `Project Settings...` -> `Package Manager` and add OpenUPM to Sc
 Now that UniTask and UniRx have been added, make Stage Navigation available from the script.
 :::
 
+Stage Navigation depends on [Common](../core/common.md), so add Common as well.
+
 Operate the Package Manager and Assembly Definition in the same manner as for Logging.
-The Git URL for Stage Navigation is obtained from [Package for Stage Navigation](/core/stage-navigation#package).
+The Git URLs for Common and Stage Navigation are obtained from [Package for Common](../core/common.md#package) and [Package for Stage Navigation](../core/stage-navigation.md#package).
 Also set UniTask and UniRx in Assembly Definition.
 
 ![Add Stage Navigation](/img/learning-core-stagenavigation-add.png)
@@ -488,8 +490,8 @@ Next, create a Presenter script that will transition to the avatar selection scr
 Create it in the TitleScreen directory.
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
+using Extreal.Core.Common.System;
 using Extreal.Core.StageNavigation;
 using ExtrealCoreLearning.App;
 using UniRx;
@@ -497,7 +499,7 @@ using VContainer.Unity;
 
 namespace ExtrealCoreLearning.TitleScreen
 {
-    public class TitleScreenPresenter : IInitializable, IDisposable
+    public class TitleScreenPresenter : DisposableBase, IInitializable
     {
         private StageNavigator<StageName, SceneName> stageNavigator;
 
@@ -520,7 +522,7 @@ namespace ExtrealCoreLearning.TitleScreen
             }).AddTo(compositeDisposable);
         }
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             compositeDisposable?.Dispose();
         }
@@ -529,6 +531,10 @@ namespace ExtrealCoreLearning.TitleScreen
 ```
 
 This maps the event notification of the Go button to the transition to the avatar selection screen.
+
+It is recommended that a class that disposes implement the [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose).
+To apply the Dispose Pattern, TitleScreenPresenter inherits from the DisposableBase class provided by Common and implements the managed resources release processing in the ReleaseManagedResources method.
+Please refer to [Common](../core/common.md#core-common-dp) for details on how to apply the Dispose Pattern.
 
 :::info step
 Last, create a Scope script that ties the View and Presenter together.

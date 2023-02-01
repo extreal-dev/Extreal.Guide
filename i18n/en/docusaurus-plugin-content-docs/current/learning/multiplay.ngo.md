@@ -365,8 +365,8 @@ It uses StageNavigator event notifications to control joining and leaving the Mu
 OnStageTransitioned is after entering the stage and OnStageTransitioning is before exiting the stage.
 
 ```csharp
-using System;
 using Cysharp.Threading.Tasks;
+using Extreal.Core.Common.System;
 using Extreal.Core.StageNavigation;
 using ExtrealCoreLearning.App;
 using UniRx;
@@ -374,7 +374,7 @@ using VContainer.Unity;
 
 namespace ExtrealCoreLearning.MultiplayControl
 {
-    public class MultiplayControlPresenter : IInitializable, IDisposable
+    public class MultiplayControlPresenter : DisposableBase, IInitializable
     {
         private readonly StageNavigator<StageName, SceneName> stageNavigator;
         private readonly MultiplayRoom multiplayRoom;
@@ -398,7 +398,7 @@ namespace ExtrealCoreLearning.MultiplayControl
                 .AddTo(disposables);
         }
 
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             disposables.Dispose();
         }
@@ -508,10 +508,10 @@ Add a processing to MultiplayRoom to request a multiplayer server to spawn a pla
 The message will be sent when it is connected to the MultiplayRoom server.
 
 ```csharp
-// highlight-start
-using System;
-// highlight-end
 using Cysharp.Threading.Tasks;
+// highlight-start
+using Extreal.Core.Common.System;
+// highlight-end
 using Extreal.Core.Logging;
 using Extreal.Integration.Multiplay.NGO;
 // highlight-start
@@ -524,7 +524,7 @@ using Unity.Netcode;
 namespace ExtrealCoreLearning.MultiplayControl
 {
     // highlight-start
-    public class MultiplayRoom : IDisposable
+    public class MultiplayRoom : DisposableBase
     // highlight-end
     {
         private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(MultiplayRoom));
@@ -564,7 +564,7 @@ namespace ExtrealCoreLearning.MultiplayControl
         }
 
         // highlight-start
-        public void Dispose() => disposables.Dispose();
+        protected override void ReleaseManagedResources() => disposables.Dispose();
         // highlight-end
     }
 }
@@ -585,11 +585,9 @@ In this case, the application does not send any message content, but it is possi
 Please refer to [Sample Application](/category/sample-application) if you are interested in the sample application that realizes spawning avatars selected by the user.
 
 ```csharp
-// highlight-start
-using System;
-// highlight-end
 using Cysharp.Threading.Tasks;
 // highlight-start
+using Extreal.Core.Common.System;
 using Extreal.Core.Logging;
 // highlight-end
 using Extreal.Integration.Multiplay.NGO;
@@ -604,7 +602,7 @@ using UnityEngine.AddressableAssets;
 namespace ExtrealCoreLearning.MultiplayServer
 {
     // highlight-start
-    public class MultiplayServer : IDisposable
+    public class MultiplayServer : DisposableBase
     // highlight-end
     {
         // highlight-start
@@ -657,7 +655,7 @@ namespace ExtrealCoreLearning.MultiplayServer
         }
 
         // highlight-start
-        public void Dispose()
+        protected override void ReleaseManagedResources()
         {
             disposables.Dispose();
         }
