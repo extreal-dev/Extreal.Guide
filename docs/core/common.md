@@ -12,7 +12,7 @@ sidebar_position: 3
 
 ## Specification
 
-- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用できる
+- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用できます。
 
 ## Architecture
 
