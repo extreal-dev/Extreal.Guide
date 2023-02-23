@@ -19,7 +19,7 @@ VivoxラッパーはそのようなVivoxを使う場合に共通する実装を�
 VivoxラッパーはVivoxを使いやすくしますが、Vivoxを知らなくてもVivoxラッパーだけ知っていればボイス/テキストチャットを実現できるわけではありません。
 VivoxラッパーはVivoxをそのまま使う場合に使いにくい点や足りない機能を補いますが、ボイス/テキストチャットの処理はVivoxに移譲します。
 そのため、Vivoxラッパーを使うにはVivoxを知っていることが前提です。
-Vivoxを知らない場合は[Learning](/learning/intro#chat)を参照してVivoxについて学習してください。
+Vivoxを知らない場合は[Learning](../learning/intro.md#chat)を参照してVivoxについて学習してください。
 このガイドはVivoxを知っている前提で説明しています。
 :::
 
@@ -126,12 +126,12 @@ https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox.git
 
 Vivoxラッパーは次のパッケージを使います。
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](../core/logging.md)
 - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
 ### Settings
 

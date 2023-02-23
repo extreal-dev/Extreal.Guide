@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Multiplay using Netcode for GameObjects
 
-In this section, you will learn about the [NGO wrapper](/integration/multiplay.ngo).
+In this section, you will learn about the [NGO wrapper](../integration/multiplay.ngo.md).
 
 - Approximate learning time
   - 60 min.
@@ -13,7 +13,7 @@ In this section, you will learn about the [NGO wrapper](/integration/multiplay.n
 
 The NGO wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.
-If you have not learned Core, it is recommended that you learn [Learning Core](/learning/core) before learning this project.
+If you have not learned Core, it is recommended that you learn [Learning Core](./core.md) before learning this project.
 
 Using the learning project with the NGO wrapper set up, we will add server and application implementations to allow multiplayer in virtual space.
 
@@ -21,7 +21,7 @@ Using the learning project with the NGO wrapper set up, we will add server and a
 
 :::info step
 First, prepare your project.
-::::
+:::
 
 Clone the learning project.
 
@@ -60,7 +60,7 @@ Let's run the application to make sure there are no problems with the project.
 Run the `App` scene in the ExtrealCoreLearning/App directory.
 It is successful if you can press the Go button on the title screen to move to the virtual space.
 
-![Project success](/img/learning-ngo-project-success.png)
+![Project success](../img/learning-ngo-project-success.png)
 
 We will add an implementation to allow multiplayer in the virtual space.
 
@@ -180,7 +180,7 @@ namespace ExtrealCoreLearning.MultiplayServer
 Create a GameObject with NetworkManager attached in the MultiplayServer scene.
 :::
 
-![Add NetworkManager](/img/learning-ngo-add-networkmanager.png)
+![Add NetworkManager](../img/learning-ngo-add-networkmanager.png)
 
 - Create a GameObject named `NetworkManager` in the MultiplayServer scene
 - Add `Network Manager` from the Inspector's `Add Component`
@@ -191,19 +191,19 @@ Create a GameObject with NetworkManager attached in the MultiplayServer scene.
 Set Scope script to MultiplayServer scene.
 :::
 
-![Add scope](/img/learning-ngo-add-scope.png)
+![Add scope](../img/learning-ngo-add-scope.png)
 
 - Create a GameObject with the MultiplayServerScope script attached to the MultiplayServer scene with the name `Scope`
 - Set the NetworkManager object in the inspector
 
 :::info step
 Run the multiplayer server.
-::::
+:::
 
 Run the MultiplayServer scene.
 If the Console outputs `[Debug:NgoServer] The server has started`, it is successful.
 
-![Server success](/img/learning-ngo-server-success.png)
+![Server success](../img/learning-ngo-server-success.png)
 
 ## Commonize NetworkManager
 
@@ -211,11 +211,11 @@ NetworkManager must be configured the same on the server and client, so it is pr
 
 :::info step
 Change the NetworkManager object to prefabricated.
-::::
+:::
 
 Drag and drop the NetworkManager object from the MultiplayServer scene into the `ExtrealCoreLearning.MultiplayCommon` directory.
 
-![NetworkManager prefab](/img/learning-ngo-networkmanager-prefab.png)
+![NetworkManager prefab](../img/learning-ngo-networkmanager-prefab.png)
 
 ## Add connection to multiplay room
 
@@ -223,7 +223,7 @@ Add joining and leaving a Multiplayer Room to the application.
 
 :::info step
 First, initialize the NgoClient to be used by the application.
-::::
+:::
 
 Initializing NgoClient requires NetworkManager.
 Since we only need one NgoClient and one NetworkManager in the application, we will include them in the App scene so that they can be reused when more space is available.
@@ -282,20 +282,20 @@ namespace ExtrealCoreLearning.App
 
 Drag and drop the NetworkManager prefab in the `ExtrealCoreLearning.MultiplayCommon` directory into the App scene and set it in the inspector of the `AppScope` object.
 
-![NgoClient init](/img/learning-ngo-ngoclient-init.png)
+![NgoClient init](../img/learning-ngo-ngoclient-init.png)
 
 :::info step
 Set the player prefab to NetworkManager.
-::::
+:::
 
 The prefabs to be synchronized by the NGO must be configured in the NetworkManager.
 Set the player prefab `NetworkPlayer` in the `ExtrealCoreLearning.MultiplayCommon` directory to `NetworkPrefabs` in NetworkManager.
 
-![Network prefab](/img/learning-ngo-networkmanager-playerprefab.png)
+![Network prefab](../img/learning-ngo-networkmanager-playerprefab.png)
 
 :::info step
 Check for problems with NgoClient initialization.
-::::
+:::
 
 If it starts up the same way as before, it is successful.
 
@@ -305,7 +305,7 @@ If `Add Scene to Scenes in Build` is displayed at startup, select `No - Continue
 
 :::info step
 Add MultiplayControl scene.
-::::
+:::
 
 - Create the `ExtrealCoreLearning/MultiplayControl` directory
 - Create a `MultiplayControl` scene in the created directory
@@ -313,7 +313,7 @@ Add MultiplayControl scene.
 
 :::info step
 Create a Model script that provides the multiplayer logic.
-::::
+:::
 
 Create it in the ExtrealCoreLearning/MultiplayControl directory.
 It provides for joining and leaving a Multiplay room.
@@ -432,9 +432,9 @@ namespace ExtrealCoreLearning.MultiplayControl
 
 :::info step
 Set Scope script to MultiplayControl scene.
-::::
+:::
 
-![MultiplayControl scope](/img/learning-ngo-multiplaycontrol-scope.png)
+![MultiplayControl scope](../img/learning-ngo-multiplaycontrol-scope.png)
 
 - Create a GameObject with the MultiplayControlScope attached to the MultiplayControl scene with the name `Scope`.
 - Specify `AppScope` for Parent in the inspector.
@@ -449,12 +449,12 @@ Now that the MultiplayControl scene is complete, add it to the stage settings an
 
 :::info step
 Try if you can connect to a Multiplay room.
-::::
+:::
 
 Use [ParrelSync](https://github.com/VeriorPies/ParrelSync) to check if Multiplay works.
 Since ParrelSync is installed in the project, you can use ParrelSync to open multiple Unity editors and play with them.
 
-![ParrelSync](/img/learning-ngo-parrelsync.png)
+![ParrelSync](../img/learning-ngo-parrelsync.png)
 
 The scene to be executed is as follows.
 
@@ -489,7 +489,7 @@ The application sends a message to the multiplayer server requesting to spawn a 
 
 :::info step
 Add a processing to request the multiplayer server to spawn a player.
-::::
+:::
 
 The player spawn request uses a message provided by the NGO.
 The message name must match the application and the multiplayer server, so create an Enum in the `ExtrealCoreLearning.MultiplayCommon` directory to represent the message name.
@@ -582,7 +582,7 @@ Player prefabs are loaded using Addressables.
 If you select `NetworkPlayer` in the ExtrealCoreLearning/MultiplayControl directory and open the inspector, you will see that it is registered in Addressables under the name `PlayerPrefab`.
 
 In this case, the application does not send any message content, but it is possible to send an avatar name in the message content and spawn an avatar selected by each user as a player.
-Please refer to [Sample Application](/category/sample-application) if you are interested in the sample application that realizes spawning avatars selected by the user.
+Please refer to [Sample Application](../category/sample-application) if you are interested in the sample application that realizes spawning avatars selected by the user.
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -668,7 +668,7 @@ namespace ExtrealCoreLearning.MultiplayServer
 
 :::info step
 Now that everything is implemented, let's play.
-::::
+:::
 
 The scene to be played is as follows.
 
@@ -692,14 +692,14 @@ The operation procedure is as follows
 Here is a shot of the Unity editor open and playing in ParrelSync.
 The Unity editor running the multiplayer server is hidden behind.
 
-![Play](/img/learning-ngo-play.png)
+![Play](../img/learning-ngo-play.png)
 
 ## Next Step
 
 This concludes our hands-on with the NGO Wrapper.
 Thank you for your time.
 
-Through this hands-on, you have experienced how to create a multiplayer server and application using the [NGO Wrapper](/integration/multiplay.ngo).
+Through this hands-on, you have experienced how to create a multiplayer server and application using the [NGO Wrapper](../integration/multiplay.ngo.md).
 As a next step, you might be interested in how the NGO wrapper can be used in a more serious application.
-To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](/category/sample-application).
+To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../category/sample-application).

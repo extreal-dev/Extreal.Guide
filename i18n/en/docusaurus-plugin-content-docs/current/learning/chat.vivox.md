@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Chat using Vivox
 
-In this section, you will learn about the [Vivox wrapper](/integration/chat.vivox).
+In this section, you will learn about the [Vivox wrapper](../integration/chat.vivox.md).
 
 - Approximate learning time
   - 60 min.
@@ -13,7 +13,7 @@ In this section, you will learn about the [Vivox wrapper](/integration/chat.vivo
 
 The Vivox wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.
-If you have not learned Core, it is recommended that you learn [Learning Core](/learning/core) before learning this project.
+If you have not learned Core, it is recommended that you learn [Learning Core](./core.md) before learning this project.
 
 Using the learning project with the Vivox wrapper set up, we will add an implementation of the application to allow text and voice chat in virtual space.
 
@@ -24,7 +24,7 @@ Please create an application on the [Vivox Developer Portal](https://developer.v
 
 :::info step
 First, prepare your project.
-::::
+:::
 
 Clone the learning project.
 
@@ -56,20 +56,20 @@ Let's run the application to make sure there are no problems with the project.
 Run the `App` scene in the App directory.
 It is successful if you can press the Go button on the title screen to move to the virtual space.
 
-![Project success](/img/learning-vivox-project-success.png)
+![Project success](../img/learning-vivox-project-success.png)
 
 Try the text chat UI.
 Enter an appropriate message in the input field and press the Send button.
 The message will appear on the screen.
 
-![Text chat](/img/learning-vivox-ui-textchat.png)
+![Text chat](../img/learning-vivox-ui-textchat.png)
 
 The Voice Chat UI provides a button to toggle mute.
 Press the Voice button in the lower left corner of the screen.
 The color of the button changes according to the mute status.
 Red indicates unmuted and gray indicates muted.
 
-![Voice chat](/img/learning-vivox-ui-voicechat.png)
+![Voice chat](../img/learning-vivox-ui-voicechat.png)
 
 Check the following directories for UI implementations of text and voice chat.
 
@@ -93,9 +93,9 @@ Since only one VivoxClient needs to exist in the application, it should be inclu
 Create a ScriptableObject that generates the VivoxAppConfig.
 :::
 
-![VivoxAppConfig](/img/learning-vivox-vivoxclient-vivoxappconfig.png)
+![VivoxAppConfig](../img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
-- Create a ChatConfig script that creates a VivoxAppConfig object in the App directory, referring to [Settings in the Vivox wrapper](/integration/chat.vivox#settings).
+- Create a ChatConfig script that creates a VivoxAppConfig object in the App directory, referring to [Settings in the Vivox wrapper](../integration/chat.vivox.md#settings).
 - Create a ChatConfig object from the Create Asset menu and set the connection information to Vivox in the inspector.
 
 :::info step
@@ -151,7 +151,7 @@ namespace ExtrealCoreLearning.App
 
 Set the ChatConfig object to AppScope in the Inspector.
 
-![AppScope](/img/learning-vivox-appscope-vivoxappconfig.png)
+![AppScope](../img/learning-vivox-appscope-vivoxappconfig.png)
 
 ## Add text chat
 
@@ -340,12 +340,12 @@ namespace ExtrealCoreLearning.TextChatControl
 
 :::info step
 Play text chat.
-::::
+:::
 
 Use [ParrelSync](https://github.com/VeriorPies/ParrelSync) to check how text chat works.
 Since ParrelSync is installed in the project, open multiple Unity editors using ParrelSync and play with them.
 
-![ParrelSync](/img/learning-ngo-parrelsync.png)
+![ParrelSync](../img/learning-ngo-parrelsync.png)
 
 Run the App scene.
 It may take some time to connect to Vivox, so if you send a message immediately after execution, it may not be sent.
@@ -706,7 +706,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
 
 :::info step
 Play voice chat.
-::::
+:::
 
 Open and play multiple Unity editors using ParrelSync.
 
@@ -718,7 +718,7 @@ Toggle mute, if the voice is sent to all running applications, it is successful.
 This concludes our hands-on with the Vivox wrapper.
 Thank you for your time.
 
-Through this hands-on, you have experienced how to create text and voice chats using the [Vivox wrapper](/integration/chat.vivox).
+Through this hands-on, you have experienced how to create text and voice chats using the [Vivox wrapper](../integration/chat.vivox.md).
 As a next step, you might be interested in how the Vivox wrapper can be used in a more serious application.
-To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](/category/sample-application).
+To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../category/sample-application).

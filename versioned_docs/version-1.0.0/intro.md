@@ -31,7 +31,7 @@ FrameworkやSample Applicationはこのアーキテクチャを前提に作成�
 
 ### Framework
 
-![Framework architecture](/img/fw-arch.png)
+![Framework architecture](./img/fw-arch.png)
 
 FrameworkはUnityやサードパーティのパッケージを活用して機能を実現します。
 Frameworkは機能を次のカテゴリに分類しています。
@@ -48,11 +48,11 @@ Frameworkはモジュールの集まりです。
 Frameworkは次の機能を提供しています。
 
 - Core
-  - [Logging](/core/logging)
-  - [Stage Navigation](/core/stage-navigation)
+  - [Logging](./core/logging.md)
+  - [Stage Navigation](./core/stage-navigation.md)
 - Integration
-  - [Chat using Vivox](/integration/chat.vivox)
-  - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
+  - [Chat using Vivox](./integration/chat.vivox.md)
+  - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 モジュールはLogging以外のモジュールに依存しないように作成しているのでLoggingと併せれば単体で使用できます。
@@ -68,21 +68,21 @@ Extrealではこれら画面と空間をステージと呼ぶことにします�
 Unityでは画面や空間を作成する単位としてシーンを提供しています。
 1つのシーンで1つの画面や空間を作成することが多いのですが、Extrealでは機能を自由に組み合わせてステージを作れるようにするため、1つのシーンで1つの機能や画面を作成し複数のシーンを組み合わせてステージを作ります。
 
-![Multiple scenes](/img/multi-scenes.png)
+![Multiple scenes](./img/multi-scenes.png)
 
-複数のシーンを組み合わせたステージの作成やステージの切り替えにはFrameworkが提供する[Stage Navigation](/core/stage-navigation)を使います。
+複数のシーンを組み合わせたステージの作成やステージの切り替えにはFrameworkが提供する[Stage Navigation](./core/stage-navigation.md)を使います。
 
 シーンで作る機能や画面はMV(R)Pパターンを使って作ります。
 MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)を参照ください。
 
-![MVP pattern](/img/mvp-pattern.png)
+![MVP pattern](./img/mvp-pattern.png)
 
 MV(R)Pパターンに必要なイベント通知にはサードパーティの[UniRx](https://github.com/neuecc/UniRx)を使います。
 MVPの各オブジェクトの生成や参照関係の構築、各オブジェクトのライフサイクルイベントの実行制御にはサードパーティの[VContainer](https://vcontainer.hadashikick.jp/)を使います。
 
 例えば、テキストチャット機能の実現イメージは次の通りです。
 
-![MVP example](/img/mvp-example.png)
+![MVP example](./img/mvp-example.png)
 
 アプリケーションの要件に合わせてUIとMVPを作成し、ModelからFrameworkが提供する機能を使ってテキストチャットを実現します。
 
@@ -98,7 +98,7 @@ Extrealが提供しているコンテンツは無償でご利用いただけま�
 ExtrealはUnityやサードパーティのパッケージを活用して機能を実現しています。
 私たちがコントロールできない要素がExtrealには多いため後方互換の維持を約束できません。
 できるだけExtrealの後方互換を維持するように努めますが後方互換を維持できないケースが発生する可能性があります。
-後方互換を維持できない場合は[Release](/category/release)でアップグレード方法をガイドします。
+後方互換を維持できない場合は[Release](./category/release)でアップグレード方法をガイドします。
 
 ## Versioning
 
@@ -134,7 +134,7 @@ Extreal.Core.Logging 1.1.0 -> added feature
 Extreal.Core.StageNavigation 1.0.1
 ```
 
-Extrealバージョンとモジュールバージョンの対応は[Release](/category/release)を参照ください。
+Extrealバージョンとモジュールバージョンの対応は[Release](./category/release)を参照ください。
 
 ## Unity version
 
@@ -151,8 +151,8 @@ Package Managerを使いGit URLからインストールしてください。
 
 Git URLは各機能のページを参照ください。
 
-- [Core](/category/core)
-- [Integration](/category/integration)
+- [Core](./category/core)
+- [Integration](./category/integration)
 
 ## Feedback or Contribution
 

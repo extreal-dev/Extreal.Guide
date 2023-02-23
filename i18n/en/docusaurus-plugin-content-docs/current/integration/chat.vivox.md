@@ -19,7 +19,7 @@ The goal is to make Vivox introduction smooth by using the Vivox wrapper in your
 The Vivox wrapper makes Vivox easier to use, but it does not mean that you only need to know the Vivox wrapper to realize voice/text chat without knowing Vivox.
 The Vivox wrapper compensates for the difficulties and lack of features when using Vivox as it is, but transfers the voice/text chat process to Vivox.
 Therefore, to use the Vivox wrapper, it is assumed that you know Vivox.
-If you do not know Vivox, please refer to [Learning](/learning/intro#chat) to learn about Vivox.
+If you do not know Vivox, please refer to [Learning](../learning/intro.md#chat) to learn about Vivox.
 This guide assumes you know Vivox.
 :::
 
@@ -126,13 +126,13 @@ https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox.git
 
 The Vivox wrapper uses the following packages.
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
 - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-Please refer to [Release](/category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 

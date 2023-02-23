@@ -19,12 +19,12 @@ NetworkManagerをそのまま使う場合は常にコンテキストを意識し
 NGOラッパーはNGOを使いやすくしますが、NGOを知らなくてもNGOラッパーだけ知っていればマルチプレイを実現できるわけではありません。
 NGOラッパーはNGOをそのまま使う場合に使いにくい点や足りない機能を補いますが、マルチプレイの処理はNGOに移譲します。
 そのため、NGOラッパーを使うにはNGOを知っていることが前提です。
-NGOを知らない場合は[Learning](/learning/intro#multiplayer)を参照してNGOについて学習してください。
+NGOを知らない場合は[Learning](../learning/intro.md#multiplayer)を参照してNGOについて学習してください。
 このガイドはNGOを知っている前提で説明しています。
 :::
 
 :::info
-よくあるマルチプレイのアプリケーション要件に対するNGOラッパーの実装例は[サンプルアプリケーション](/category/sample-application)で提供します。
+よくあるマルチプレイのアプリケーション要件に対するNGOラッパーの実装例は[サンプルアプリケーション](../category/sample-application)で提供します。
 
 現時点では次の要件を提供済みです。
 
@@ -54,7 +54,7 @@ NGOラッパーの仕様は次の通りです。
 :::info
 NGOラッパーはNGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）に対応しているので、これら2つのトランスポートを使用する場合は対応が不要です。
 NGOが提供していない新たなトランスポートを使用する場合はNgoClientが使うIConnectionSetterを変更する必要があります。
-対応方法は[NGOが提供するデフォルト以外のNetworkTransportに対応する](/integration/multiplay.ngo#int-ngo-nt)を参照してください。
+対応方法は[NGOが提供するデフォルト以外のNetworkTransportに対応する](#int-ngo-nt)を参照してください。
 :::
 
 :::info
@@ -155,12 +155,12 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 
 NGOラッパーは次のパッケージを使います。
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](../core/logging.md)
 - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
 ### Settings
 
@@ -201,7 +201,7 @@ NetworkManagerはサーバーとクライアントで同じ設定の必要があ
 :::
 
 :::info
-NGOが提供していない新たなトランスポートを使う場合は[NGOが提供するデフォルト以外のNetworkTransportを使用する](/integration/multiplay.ngo#int-ngo-nt)を参照して対応してください。
+NGOが提供していない新たなトランスポートを使う場合は[NGOが提供するデフォルト以外のNetworkTransportを使用する](#int-ngo-nt)を参照して対応してください。
 NGOが提供している2つのトランスポート（Unity Transport、 UNet Transport）を使用する場合は何も作業が必要ありません。
 :::
 

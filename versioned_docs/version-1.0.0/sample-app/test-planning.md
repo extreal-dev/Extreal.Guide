@@ -36,7 +36,7 @@ sidebar_position: 4
 
 - テスト方法
   - 手動テスト
-  - [テストケース](/sample-app/test-case#functional-test)
+  - [テストケース](./test-case.md#functional-test)
 - 合格基準
   - 全件合格、テストカバレッジ100%
 
@@ -53,7 +53,7 @@ sidebar_position: 4
 - テスト方法
   - Android、iOS、Winでの手動テスト
   - マイク付き有線イヤホンで実施
-  - [テストケース](/sample-app/test-case#functional-test)
+  - [テストケース](./test-case.md#functional-test)
 - 合格基準
   - 全件合格、テストカバレッジ100%
 
@@ -93,7 +93,7 @@ sidebar_position: 4
 - テスト方法
   - 手動テスト
     - 障害事象を手動で発生させる
-  - [テストケース](/sample-app/test-case#failure-test)
+  - [テストケース](./test-case.md#failure-test)
 - 合格基準
   - 全件合格
 

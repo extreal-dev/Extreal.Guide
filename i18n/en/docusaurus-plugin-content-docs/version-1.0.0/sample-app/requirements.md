@@ -15,7 +15,7 @@ For production applications, please refer to [Non-Functional Requirements Grade]
 
 Holiday is an application aimed at gathering with friends and family to spend time together during the holidays.
 
-![holiday](/img/holiday.png)
+![holiday](../img/holiday.png)
 
 - Title Screen
   - Title display only

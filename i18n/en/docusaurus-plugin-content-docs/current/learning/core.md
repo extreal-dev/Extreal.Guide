@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Core
 
-In this section, you will learn about [Core](/category/core).
+In this section, you will learn about [Core](../category/core).
 
 - Approximate learning time
   - 60 min
@@ -21,7 +21,7 @@ First, let's create a project.
 
 Create a new project from Unity Hub.
 
-![create project](/img/learning-core-create-project.png)
+![create project](../img/learning-core-create-project.png)
 
 - Editor version: `2021.3.16f1`
 - Template: `3D`
@@ -41,7 +41,7 @@ If nothing appears in the Console, it is a successful.
 Create a directory for the application and an App scene to serve as the entry point.
 :::
 
-![App Scene](/img/learning-core-app-scene.png)
+![App Scene](../img/learning-core-app-scene.png)
 
 - Remove the initial `Assets/Scenes` directory
 - Create a directory that will become `Assets/ExtrealCoreLearning/App`
@@ -49,16 +49,16 @@ Create a directory for the application and an App scene to serve as the entry po
 
 ## Add Logging
 
-Add [Logging](/core/logging) to the application.
+Add [Logging](../core/logging.md) to the application.
 
 :::info step
 Add Logging from Package Manager.
 :::
 
 Add Logging by specifying a Git URL.
-Git URL is obtained from [Package of Logging](/core/logging#package).
+Git URL is obtained from [Package of Logging](../core/logging.md#package).
 
-![Add Logging](/img/learning-core-logging-package.png)
+![Add Logging](../img/learning-core-logging-package.png)
 
 If `Extreal.Core.Logging` is added to Package Manager, it is successful.
 The version depends on the timing of implementation.
@@ -69,7 +69,7 @@ Allow scripts to reference Logging.
 
 Set Logging to Assembly Definition for the application.
 
-![Logging Assembly Configuration](/img/learning-core-logging-assembly.png)
+![Logging Assembly Configuration](../img/learning-core-logging-assembly.png)
 
 - Create an Assembly Definition named `ExtrealCoreLearning` in the ExtrealCoreLearning directory
 - Specify `ExtrealCoreLearning` as the Root Namespace
@@ -82,7 +82,7 @@ Add a Logging setting since we want to output Debug-level logs for development.
 
 Since the default logging level for Logging is Info, add Logging Settings to change the logging level.
 
-Create an `AppTest` script in the App scene by referring to [Logging Settings](/core/logging#settings).
+Create an `AppTest` script in the App scene by referring to [Logging Settings](../core/logging.md#settings).
 
 - Create an AppTest script in the App directory
 - Create a GameObject with the AppTest script attached in the App scene
@@ -132,11 +132,11 @@ private static void InitializeApp()
 Run the App scene.
 If the Console outputs `Hello, world!`, it is successful.
 
-![Logging assembly configuration](/img/learning-core-logging-success.png)
+![Logging assembly configuration](../img/learning-core-logging-success.png)
 
 ## Add Stage Navigation
 
-Add [Stage Navigation](/core/stage-navigation) to the application.
+Add [Stage Navigation](../core/stage-navigation.md) to the application.
 
 :::info step
 Stage Navigation depends on [UniTask](https://github.com/Cysharp/UniTask) and [UniRx](https://github.com/neuecc/UniRx), so add UniTask and UniRx first.
@@ -145,7 +145,7 @@ Stage Navigation depends on [UniTask](https://github.com/Cysharp/UniTask) and [U
 UniTask and UniRx are provided by [OpenUPM](https://openupm.com/), so add OpenUPM settings.
 Go to `Edit` -> `Project Settings...` -> `Package Manager` and add OpenUPM to Scoped Registries.
 
-![Add Unitask](/img/learning-core-stagenavigation-unitask.png)
+![Add Unitask](../img/learning-core-stagenavigation-unitask.png)
 
 - Name:
   ```text
@@ -175,7 +175,7 @@ Operate the Package Manager and Assembly Definition in the same manner as for Lo
 The Git URLs for Common and Stage Navigation are obtained from [Package for Common](../core/common.md#package) and [Package for Stage Navigation](../core/stage-navigation.md#package).
 Also set UniTask and UniRx in Assembly Definition.
 
-![Add Stage Navigation](/img/learning-core-stagenavigation-add.png)
+![Add Stage Navigation](../img/learning-core-stagenavigation-add.png)
 
 To test the stage navigation, let's add a title screen and transition to the title screen immediately after launching the app.
 
@@ -183,17 +183,17 @@ To test the stage navigation, let's add a title screen and transition to the tit
 First, add a title screen.
 :::
 
-![TitleScreen](/img/learning-core-stagenavigation-titlescreen.png)
+![TitleScreen](../img/learning-core-stagenavigation-titlescreen.png)
 
 - Create a `TitleScreen` directory in the same hierarchy as the App directory
 - Create a `TitleScreen` scene in it
 - Remove the default GameObjects such as the camera from the TitleScreen scene and make the scene empty
 - Add a `Canvas` to the scene. In the inspector, make the following settings
-  ![Title Screen Canvas](/img/learning-core-stagenavigation-canvas.png)
+  ![Title Screen Canvas](../img/learning-core-stagenavigation-canvas.png)
   - Canvas Scaler
     - UI Scale Mode: `Scale With Screen Size`
 - Add an `Image` under the Canvas. Make the following settings in the inspector
-  ![Title Screen Image](/img/learning-core-stagenavigation-image.png)
+  ![Title Screen Image](../img/learning-core-stagenavigation-image.png)
   - Rect Transform
     - Anchor Presets
       - X: `stretch`
@@ -214,7 +214,7 @@ First, add a title screen.
 Now that the title screen has been added, create the stage settings.
 :::
 
-Refer to [Settings for Stage Navigation](/core/stage-navigation#settings) to create stage settings.
+Refer to [Settings for Stage Navigation](../core/stage-navigation.md#settings) to create stage settings.
 The three types to be created in the stage settings are placed in the App directory.
 
 ```csharp
@@ -230,7 +230,7 @@ public enum SceneName
 
 Once the three types have been created, create a `StageConfig` object.
 
-![StageConfig](/img/learning-core-stagenavigation-config.png)
+![StageConfig](../img/learning-core-stagenavigation-config.png)
 
 - Create a `StageConfig` object in the App directory from the Assets menu
 - Set the stage of the title screen in the StageConfig object
@@ -282,7 +282,7 @@ Let's run the App scene.
 
 Running the App scene in this state will result in the following error.
 
-![Stage transition error](/img/learning-core-stagenavigation-error.png)
+![Stage transition error](../img/learning-core-stagenavigation-error.png)
 
 Add a `TitleScreen` scene to `Scenes In Build` in Build Settings.
 
@@ -292,11 +292,11 @@ Let's run the App scene again.
 
 If the title screen appears and the Console shows `[Debug:StageNavigator] Transitions to 'TitleStage'`, it is successful.
 
-![Stage transition success](/img/learning-core-stagenavigation-success.png)
+![Stage transition success](../img/learning-core-stagenavigation-success.png)
 
 ## Apply MV(R)P pattern
 
-That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [the application architecture assumed by Extreal](/intro#application).
+That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [the application architecture assumed by Extreal](../intro.md#application).
 
 :::info step
 Add an avatar selection screen to which the title screen transitions.
@@ -304,7 +304,7 @@ Add an avatar selection screen to which the title screen transitions.
 
 The avatar selection screen is only used as a transition destination, so it is created by copying the title screen.
 
-![Avatar Selection Screen](/img/learning-core-mvp-avatarselection.png)
+![Avatar Selection Screen](../img/learning-core-mvp-avatarselection.png)
 
 - Create an `AvatarSelectionScreen` directory in the same hierarchy as the App directory
 - Create an `AvatarSelectionScreen` scene in it
@@ -316,7 +316,7 @@ The avatar selection screen is only used as a transition destination, so it is c
 Then add the stage settings.
 :::
 
-![Avatar Selection Stage Configuration](/img/learning-core-mvp-stageconfig.png)
+![Avatar Selection Stage Configuration](../img/learning-core-mvp-stageconfig.png)
 
 - Add `AvatarSelectionStage` to StageName and `AvatarSelectionScreen` to SceneName
 - Add `AvatarSelectionStage` in the StageConfig object inspector
@@ -333,7 +333,7 @@ VContainer is obtained from OpenUPM as well as UniTask and UniRx.
 
 Go to `Edit` -> `Project Settings...` -> `Package Manager` and add the Scope(s) from OpenUPM.
 
-![Add VContainer](/img/learning-core-mvp-thirdparty.png)
+![Add VContainer](../img/learning-core-mvp-thirdparty.png)
 
 - VContainer:
   ```text
@@ -344,7 +344,7 @@ Go to `Edit` -> `Project Settings...` -> `Package Manager` and add the Scope(s) 
 Then add VContainer to Package Manager and Assembly Definition.
 :::
 
-![VContainer setting](/img/learning-core-mvp-pmandad.png)
+![VContainer setting](../img/learning-core-mvp-pmandad.png)
 
 - Select Packages: `My Registries` in Package Manager and install VContainer
 - Set VContainer to Assembly Definition of the application
@@ -442,9 +442,9 @@ In this way, the DI container provided by VContainer is used to build up the obj
 
 :::info step
 Set the Scope script to the App scene.
-::::
+:::
 
-![AppScope](/img/learning-core-mvp-appscope.png)
+![AppScope](../img/learning-core-mvp-appscope.png)
 
 - Create a GameObject with the AppScope script attached to the App scene with the name `Scope`.
 - Set the StageConfig object in the inspector
@@ -565,7 +565,7 @@ namespace ExtrealCoreLearning.TitleScreen
 
 Set the View and Scope scripts to the TitleScreen scene.
 
-![AppScope](/img/learning-core-mvp-titlescreenobject.png)
+![AppScope](../img/learning-core-mvp-titlescreenobject.png)
 
 - Create a GameObject with the TitleScreenView script attached to the TitleScreen scene with the name `View`
 - Set up a Button object in the inspector
@@ -578,7 +578,7 @@ Let's run the App scene.
 
 If you run the App scene in this state, you will get the following error.
 
-![AppScope](/img/learning-core-mvp-error.png)
+![AppScope](../img/learning-core-mvp-error.png)
 
 StageNavigator is set to TitleScreenPresenter, but it is not registered in the scope, resulting in the error.
 This error occurs because StageNavigator is in AppScope and TitleScreenPresenter is in TitleScreenScope, which are different scopes.
@@ -586,14 +586,14 @@ This error occurs because StageNavigator is in AppScope and TitleScreenPresenter
 In VContainer, you can specify the parent of a scope to extend the object's search range to the parent.
 Specifying AppScope for Parent in the TitleScreenScope inspector resolves this error.
 
-![AppScope](/img/learning-core-mvp-parent.png)
+![AppScope](../img/learning-core-mvp-parent.png)
 
 In this way, scopes are created with hierarchy in mind.
 Design the overall scope so that the commonly used scopes are more parental.
 
 :::info step
 Let's run the App scene again.
-::::
+:::
 
 If you can transition from the title screen to the avatar selection screen, it is successful.
 
@@ -602,7 +602,7 @@ If you can transition from the title screen to the avatar selection screen, it i
 This concludes our hands-on with Core.
 Thank you for your time.
 
-Through this hands-on, you have already built the features required for [the application architecture assumed by Extreal](/intro#application).
+Through this hands-on, you have already built the features required for [the application architecture assumed by Extreal](../intro.md#application).
 As a next step, you might be interested in how the architecture you built in this hands-on will be used in a more serious application.
-To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](/category/sample-application).
+To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../category/sample-application).

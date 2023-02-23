@@ -6,10 +6,10 @@ sidebar_position: 2
 
 ## What for?
 
-[Frameworkが想定するアプリケーションアーキテクチャ](/intro#application)で説明した複数のシーンを組み合わせたステージの作成やステージの切り替えを簡単にできるようにStage Navigationを提供します。
+[Frameworkが想定するアプリケーションアーキテクチャ](../intro.md#application)で説明した複数のシーンを組み合わせたステージの作成やステージの切り替えを簡単にできるようにStage Navigationを提供します。
 
-[Frameworkが想定するアプリケーションアーキテクチャ](/intro#application)で示した図を再掲します。
-![Multiple scenes](/img/multi-scenes.png)
+[Frameworkが想定するアプリケーションアーキテクチャ](../intro.md#application)で示した図を再掲します。
+![Multiple scenes](../img/multi-scenes.png)
 
 あなたのアプリケーションでStage Navigationを使い機能を自由に組み合わせてステージを作れるようになると機能の再利用性が高まりメンテナンスしやすいアプリケーションが手に入ります。
 
@@ -98,12 +98,12 @@ https://github.com/extreal-dev/Extreal.Core.StageNavigation.git
 
 Stage Navigationは次のパッケージを使います。
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](./logging.md)
 - [Extreal.Core.Common](./common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
 ### Settings
 
@@ -176,7 +176,7 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 Unityエディタのインスペクタでステージ設定を行います。
 設定例は次の通りです。
 
-![Stage config](/img/core-stagenavigation-stageconfig.png)
+![Stage config](../img/core-stagenavigation-stageconfig.png)
 
 - CommonScenesプロパティ
   - 全てのステージに共通するシーンを指定します。
@@ -232,7 +232,7 @@ SpaceSelectionStage
 ```
 
 再利用されたシーンのGameObjectのAwakeやStartはロードされたタイミングでのみ実行され、再利用されたタイミングでは実行されません。
-ステージ遷移のタイミングで処理を実行したい場合は、StageNavigatorが発行する[イベント通知](/core/stage-navigation#core-sn-event)を使用してくだい。
+ステージ遷移のタイミングで処理を実行したい場合は、StageNavigatorが発行する[イベント通知](#core-sn-event)を使用してくだい。
 
 ### ステージ遷移をトリガーに処理を追加する {#core-sn-event}
 

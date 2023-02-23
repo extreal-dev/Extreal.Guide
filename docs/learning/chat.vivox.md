@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Chat using Vivox
 
-ここでは[Vivoxラッパー](/integration/chat.vivox)について学習します。
+ここでは[Vivoxラッパー](../integration/chat.vivox.md)について学習します。
 
 - 学習時間の目安
   - 60分
@@ -13,7 +13,7 @@ sidebar_position: 3
 
 Vivoxラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
-Coreの学習を実施していない方はこの学習より先に[Coreの学習](/learning/core)を実施することを推奨します。
+Coreの学習を実施していない方はこの学習より先に[Coreの学習](./core.md)を実施することを推奨します。
 
 Vivoxラッパーがセットアップされた学習用のプロジェクトを使って、バーチャル空間でテキストチャットとボイスチャットをできるようにアプリケーションの実装を追加していきます。
 
@@ -56,20 +56,20 @@ ExtrealCoreLearningディレクトリの状態は次の通りです。
 Appディレクトリにある`App`シーンを実行します。
 タイトル画面のGoボタンを押してバーチャル空間に移動できれば成功です。
 
-![Project success](/img/learning-vivox-project-success.png)
+![Project success](../img/learning-vivox-project-success.png)
 
 テキストチャットのUIを試してみましょう。
 入力フィールドに適当なメッセージを入力し、Sendボタンを押してください。
 メッセージが画面に現れます。
 
-![Text chat](/img/learning-vivox-ui-textchat.png)
+![Text chat](../img/learning-vivox-ui-textchat.png)
 
 ボイスチャットのUIではミュート切り替えを行うボタンを用意しています。
 画面左下のVoiceボタンを押してみてください。
 ミュート状態に応じてボタンの色を変えています。
 赤がミュート解除中、グレーがミュート中を表しています。
 
-![Voice chat](/img/learning-vivox-ui-voicechat.png)
+![Voice chat](../img/learning-vivox-ui-voicechat.png)
 
 テキストチャットとボイスチャットのUI実装は次のディレクトリを確認してください。
 
@@ -93,9 +93,9 @@ VivoxClientはアプリケーションで1つ存在すればよいのでAppシ�
 VivoxAppConfigを生成するScriptableObjectを作成します。
 :::
 
-![VivoxAppConfig](/img/learning-vivox-vivoxclient-vivoxappconfig.png)
+![VivoxAppConfig](../img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
-- [VivoxラッパーのSettings](/integration/chat.vivox#settings)を参照して、AppディレクトリにVivoxAppConfigオブジェクトを生成するChatConfigスクリプトを作成します。
+- [VivoxラッパーのSettings](../integration/chat.vivox.md#settings)を参照して、AppディレクトリにVivoxAppConfigオブジェクトを生成するChatConfigスクリプトを作成します。
 - アセット作成メニューからChatConfigオブジェクトを作成し、インスペクタでVivoxへの接続情報を設定します。
 
 :::info step
@@ -151,7 +151,7 @@ namespace ExtrealCoreLearning.App
 
 インスペクタでAppScopeにChatConfigオブジェクトを設定します。
 
-![AppScope](/img/learning-vivox-appscope-vivoxappconfig.png)
+![AppScope](../img/learning-vivox-appscope-vivoxappconfig.png)
 
 ## Add text chat
 
@@ -345,7 +345,7 @@ namespace ExtrealCoreLearning.TextChatControl
 テキストチャットの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
 プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
 
-![ParrelSync](/img/learning-ngo-parrelsync.png)
+![ParrelSync](../img/learning-ngo-parrelsync.png)
 
 Appシーンを実行します。
 Vivoxへの接続に少し時間がかかるので実行後すぐにメッセージ送信しても送信されない場合があります。
@@ -718,7 +718,7 @@ Appシーンを実行します。
 これでVivoxラッパーのハンズオンは終了です。
 お疲れさまでした。
 
-このハンズオンを通じて[Vivoxラッパー](/integration/chat.vivox)を使ったテキストチャットとボイスチャットの作り方を体験しました。
+このハンズオンを通じて[Vivoxラッパー](../integration/chat.vivox.md)を使ったテキストチャットとボイスチャットの作り方を体験しました。
 次のステップとしてVivoxラッパーがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](../category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。

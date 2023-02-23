@@ -19,12 +19,12 @@ The goal is to make NGO introduction smooth by using the NGO wrapper in your app
 The NGO wrapper makes NGO easier to use, but it does not mean that you only need to know the NGO wrapper to realize multiplayer without knowing NGO.
 The NGO wrapper compensates for the difficulties or lack of features when using NGO as it is, but transfers the multiplayer process to NGO.
 Therefore, to use the NGO wrapper, it is assumed that you know NGO.
-If you do not know NGO, please refer to [Learning](/learning/intro#multiplayer) to learn about NGO.
+If you do not know NGO, please refer to [Learning](../learning/intro.md#multiplayer) to learn about NGO.
 This guide assumes you know NGO.
 :::
 
 :::info
-Example implementations of NGO wrappers for common multiplayer application requirements are provided in [sample applications](/category/sample-application).
+Example implementations of NGO wrappers for common multiplayer application requirements are provided in [sample applications](../category/sample-application).
 
 At this time, the following requirements have been provided.
 
@@ -54,7 +54,7 @@ The specifications of the NGO Wrapper are as follows.
 :::info
 The NGO wrapper supports the two transports provided by NGO (Unity Transport and UNet Transport), so no additional action is required if you use these two transports.
 When using a new transport not provided by NGO, the IConnectionSetter used by NgoClient must be changed.
-See [Supporting non-default NetworkTransport provided by NGO](/integration/multiplay.ngo#int-ngo-nt) for details.
+See [Supporting non-default NetworkTransport provided by NGO](#int-ngo-nt) for details.
 :::
 
 :::info
@@ -155,13 +155,13 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 
 The NGO wrapper uses the following packages.
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
 - [Netcode for GameObjects](https://docs-multiplayer.unity3d.com/netcode/current/about/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-Please refer to [Release](/category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
@@ -202,7 +202,7 @@ NetworkManager needs to be configured the same on server and client, so it shoul
 :::
 
 :::info
-If you want to use a new transport not provided by NGO, please refer to [Supporting non-default NetworkTransport provided by NGO](/integration/multiplay.ngo#int-ngo-nt).
+If you want to use a new transport not provided by NGO, please refer to [Supporting non-default NetworkTransport provided by NGO](#int-ngo-nt).
 If you use the two transports provided by the NGO (Unity Transport and UNet Transport), no work is required.
 :::
 

@@ -10,7 +10,7 @@ sidebar_position: 3
 アプリケーションに3Dモデルなどのアセットやサーバーへの接続情報を含めて配布します。
 アプリケーションから直接処理に必要なSaaSやサーバに接続します。
 
-![system structure](/img/holiday-sys-structure.png)
+![system structure](../img/holiday-sys-structure.png)
 
 :::info
 サンプルアプリケーションのため実際に各ストアやAWS S3に配置していません。
@@ -19,10 +19,10 @@ sidebar_position: 3
 
 ## Application Structure
 
-HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](/intro#application)を採用します。
+HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](../intro.md#application)を採用します。
 Holidayのステージとシーンは次の通りです。
 
-![application structure](/img/holiday-app-structure.png)
+![application structure](../img/holiday-app-structure.png)
 
 Appシーンは個別の機能提供でなく、特別なシーンなのでここで説明します。
 

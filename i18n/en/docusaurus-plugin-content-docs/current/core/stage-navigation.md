@@ -6,10 +6,10 @@ sidebar_position: 2
 
 ## What for?
 
-Stage Navigation is provided to easily create stages that combine multiple scenes and switch between stages as described in [the application architecture assumed by Framework](/intro#application).
+Stage Navigation is provided to easily create stages that combine multiple scenes and switch between stages as described in [the application architecture assumed by Framework](../intro.md#application).
 
-The diagram shown in [the application architecture assumed by Framework](/intro#application) is reproduced below.
-![Multiple scenes](/img/multi-scenes.png)
+The diagram shown in [the application architecture assumed by Framework](../intro.md#application) is reproduced below.
+![Multiple scenes](../img/multi-scenes.png)
 
 If you are able to create stages in your application using Stage Navigation and freely combining features, you will have an application that is easier to maintain and more reusable.
 
@@ -98,12 +98,12 @@ https://github.com/extreal-dev/Extreal.Core.StageNavigation.git
 
 Stage Navigation uses the following packages.
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](./logging.md)
 - [Extreal.Core.Common](./common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-Please refer to [Release](/category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
@@ -176,7 +176,7 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 The stage configuration is set up in the Unity editor inspector.
 An example configuration is as follows.
 
-![Stage config](/img/core-stagenavigation-stageconfig.png)
+![Stage config](../img/core-stagenavigation-stageconfig.png)
 
 - CommonScenes property
   - Specifies scenes common to all stages.
@@ -232,7 +232,7 @@ SpaceSelectionStage
 ```
 
 Awake and Start of GameObjects in reused scenes are executed only at the time they are loaded, not at the time they are reused.
-If you want to execute processing at the timing of stage transitions, use [event notification](/core/stage-navigation#core-sn-event) published by StageNavigator.
+If you want to execute processing at the timing of stage transitions, use [event notification](#core-sn-event) published by StageNavigator.
 
 ### Add processing to trigger stage transitions {#core-sn-event}
 

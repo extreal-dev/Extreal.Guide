@@ -7,7 +7,7 @@ sidebar_position: 3
 ## What for?
 
 A generic feature like retry processing is needed to realize the features of a framework or application.
-For example, retry processing is required for external connection features such as [Chat](/integration/chat.vivox) and [Multiplay](/integration/multiplay.ngo) in frameworks and external API calls in applications.
+For example, retry processing is required for external connection features such as [Chat](../integration/chat.vivox.md) and [Multiplay](../integration/multiplay.ngo.md) in frameworks and external API calls in applications.
 This module provides such generic processing as common features.
 
 ## Specification
@@ -51,9 +51,9 @@ https://github.com/extreal-dev/Extreal.Core.Common.git
 
 Common uses the following packages.
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](./logging.md)
 
-Please refer to [Release](/category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
