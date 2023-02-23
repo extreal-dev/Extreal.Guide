@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Core
 
-In this section, you will learn about [Core](/category/core).
+In this section, you will learn about [Core](../category/core).
 
 - Approximate learning time
   - 60 min
@@ -49,14 +49,14 @@ Create a directory for the application and an App scene to serve as the entry po
 
 ## Add Logging
 
-Add [Logging](/core/logging) to the application.
+Add [Logging](../core/logging.md) to the application.
 
 :::info step
 Add Logging from Package Manager.
 :::
 
 Add Logging by specifying a Git URL.
-Git URL is obtained from [Package of Logging](/core/logging#package).
+Git URL is obtained from [Package of Logging](../core/logging.md#package).
 
 ![Add Logging](../img/learning-core-logging-package.png)
 
@@ -82,7 +82,7 @@ Add a Logging setting since we want to output Debug-level logs for development.
 
 Since the default logging level for Logging is Info, add Logging Settings to change the logging level.
 
-Create an `AppTest` script in the App scene by referring to [Logging Settings](/core/logging#settings).
+Create an `AppTest` script in the App scene by referring to [Logging Settings](../core/logging.md#settings).
 
 - Create an AppTest script in the App directory
 - Create a GameObject with the AppTest script attached in the App scene
@@ -136,7 +136,7 @@ If the Console outputs `Hello, world!`, it is successful.
 
 ## Add Stage Navigation
 
-Add [Stage Navigation](/core/stage-navigation) to the application.
+Add [Stage Navigation](../core/stage-navigation.md) to the application.
 
 :::info step
 Stage Navigation depends on [UniTask](https://github.com/Cysharp/UniTask) and [UniRx](https://github.com/neuecc/UniRx), so add UniTask and UniRx first.
@@ -170,7 +170,7 @@ Now that UniTask and UniRx have been added, make Stage Navigation available from
 :::
 
 Operate the Package Manager and Assembly Definition in the same manner as for Logging.
-The Git URL for Stage Navigation is obtained from [Package for Stage Navigation](/core/stage-navigation#package).
+The Git URL for Stage Navigation is obtained from [Package for Stage Navigation](../core/stage-navigation.md#package).
 Also set UniTask and UniRx in Assembly Definition.
 
 ![Add Stage Navigation](../img/learning-core-stagenavigation-add.png)
@@ -212,7 +212,7 @@ First, add a title screen.
 Now that the title screen has been added, create the stage settings.
 :::
 
-Refer to [Settings for Stage Navigation](/core/stage-navigation#settings) to create stage settings.
+Refer to [Settings for Stage Navigation](../core/stage-navigation.md#settings) to create stage settings.
 The three types to be created in the stage settings are placed in the App directory.
 
 ```csharp
@@ -294,7 +294,7 @@ If the title screen appears and the Console shows `[Debug:StageNavigator] Transi
 
 ## Apply MV(R)P pattern
 
-That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [the application architecture assumed by Extreal](/intro#application).
+That is all the Core features that Extreal provides, but we would like to add [VContainer](https://vcontainer.hadashikick.jp/) to get closer to [the application architecture assumed by Extreal](../intro.md#application).
 
 :::info step
 Add an avatar selection screen to which the title screen transitions.
@@ -596,7 +596,7 @@ If you can transition from the title screen to the avatar selection screen, it i
 This concludes our hands-on with Core.
 Thank you for your time.
 
-Through this hands-on, you have already built the features required for [the application architecture assumed by Extreal](/intro#application).
+Through this hands-on, you have already built the features required for [the application architecture assumed by Extreal](../intro.md#application).
 As a next step, you might be interested in how the architecture you built in this hands-on will be used in a more serious application.
-To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](/category/sample-application).
+To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../category/sample-application).

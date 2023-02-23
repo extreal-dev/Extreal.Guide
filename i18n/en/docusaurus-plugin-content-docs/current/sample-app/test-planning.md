@@ -36,7 +36,7 @@ The following aspects are not yet implemented as they will be addressed in the f
 
 - Test Method
   - Manual test
-  - [test-case](/sample-app/test-case#functional-test)
+  - [test case](./test-case.md#functional-test)
 - Pass Criteria
   - All cases passed, 100% test coverage
 
@@ -53,7 +53,7 @@ This will be done in conjunction with functional test.
 - Test Method
   - Manual testing on Android, iOS and Win
   - Conducted with wired earphones with microphone
-  - [test-case](/sample-app/test-case#functional-test)
+  - [test case](./test-case.md#functional-test)
 - Pass Criteria
   - All cases passed, 100% test coverage
 
@@ -93,7 +93,7 @@ This will be done in conjunction with performance test.
 - Test Method
   - Manual Testing
     - Manually generate a failure event
-  - [test case](/sample-app/test-case#failure-test)
+  - [test case](./test-case.md#failure-test)
 - Pass Criteria
   - All cases passed
 

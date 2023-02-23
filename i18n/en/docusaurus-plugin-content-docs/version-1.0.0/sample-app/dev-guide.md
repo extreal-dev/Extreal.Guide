@@ -116,11 +116,11 @@ InitializeApp is called at the beginning of Awake.
 Assets/Holiday/App/AppScope
 ```
 
-It sets the frame rate and [Logging settings](/core/logging#settings).
+It sets the frame rate and [Logging settings](../core/logging.md#settings).
 
 ### Stage configuration
 
-Three types of stage configurations are created as shown in [Stage Navigation Settings](/core/stage-navigation#settings).
+Three types of stage configurations are created as shown in [Stage Navigation Settings](../core/stage-navigation.md#settings).
 Change them when you create a stage or scene.
 
 ```text
@@ -235,13 +235,13 @@ By unifying the way each scene is created, we aim to create an application that 
 - Scenes are created using the MV(R)P pattern
 - Models used throughout the application will be managed in the scope of App scenes
   - StageNavigator, AppState, repositories for data access, NetworkManager, etc.
-- Use [AppState](/sample-app/dev-guide#application-state) to exchange information across scenes
+- Use [AppState](#application-state) to exchange information across scenes
 - Models used only in each scene are managed in the scope of each scene
   - MultiplayRoom, TextChatChannel, etc.
 - The scene loading/unloading process is handled by IInitializable/IDisposable
   - This is done by implementing IInitializable/IDisposable in Presenter
   - **Note that the timing when IInitializable/IDisposable is called is not the timing of stage transitions. If the same scene continues at the stage transition, the scene is reused and IIInitializable/IDisposable is not called**
-- StageNavigator's [event notification](/core/stage-navigation#core-sn-event) is used for processing at stage transitions
+- StageNavigator's [event notification](../core/stage-navigation.md#core-sn-event) is used for processing at stage transitions
   - Implement IInitializable in Presenter to register StageNavigator's event subscription
   - If you want to perform processing for each space, such as connecting/disconnecting to a multiplayer room or text chat channel, implement it as a processing at the time of stage transition
 

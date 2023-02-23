@@ -19,7 +19,7 @@ We plan to release our know-how, such as support for screening of each store, in
 
 ## Application Structure
 
-The application architecture of Holiday will be the [architecture](/intro#application) assumed by Extreal.
+The application architecture of Holiday will be the [architecture](../intro.md#application) assumed by Extreal.
 The stages and scenes of Holiday are as follows.
 
 ![application structure](../img/holiday-app-structure.png)

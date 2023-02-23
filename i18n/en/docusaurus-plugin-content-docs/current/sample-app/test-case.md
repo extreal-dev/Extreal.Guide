@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Test Case
 
-Only tests that require test cases are listed among the test types targeted for execution in [Test Planning](/sample-app/test-planning).
+Only tests that require test cases are listed among the test types targeted for execution in [Test Planning](./test-planning.md).
 
 ## Functional test
 
@@ -29,7 +29,7 @@ Only tests that require test cases are listed among the test types targeted for 
 
 ## Configuration test
 
-- Same as [functional-test](/sample-app/test-case#functional-test).
+- Same as [functional test](#functional-test).
 
 ## Failure test
 

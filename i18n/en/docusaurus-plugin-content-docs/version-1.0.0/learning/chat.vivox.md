@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Chat using Vivox
 
-In this section, you will learn about the [Vivox wrapper](/integration/chat.vivox).
+In this section, you will learn about the [Vivox wrapper](../integration/chat.vivox.md).
 
 - Approximate learning time
   - 60 min.
@@ -13,7 +13,7 @@ In this section, you will learn about the [Vivox wrapper](/integration/chat.vivo
 
 The Vivox wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.
-If you have not learned Core, it is recommended that you learn [Learning Core](/learning/core) before learning this project.
+If you have not learned Core, it is recommended that you learn [Learning Core](./core.md) before learning this project.
 
 Using the learning project with the Vivox wrapper set up, we will add an implementation of the application to allow text and voice chat in virtual space.
 
@@ -95,7 +95,7 @@ Create a ScriptableObject that generates the VivoxAppConfig.
 
 ![VivoxAppConfig](../img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
-- Create a ChatConfig script that creates a VivoxAppConfig object in the App directory, referring to [Settings in the Vivox wrapper](/integration/chat.vivox#settings).
+- Create a ChatConfig script that creates a VivoxAppConfig object in the App directory, referring to [Settings in the Vivox wrapper](../integration/chat.vivox.md#settings).
 - Create a ChatConfig object from the Create Asset menu and set the connection information to Vivox in the inspector.
 
 :::info step
@@ -251,6 +251,9 @@ Sending and receiving messages are realized by mapping TextChatControlView of th
 using System;
 // highlight-start
 using Cysharp.Threading.Tasks;
+// highlight-end
+using Extreal.Core.Common.System;
+// highlight-start
 using Extreal.Core.StageNavigation;
 using Extreal.Integration.Chat.Vivox;
 using ExtrealCoreLearning.App;
@@ -714,7 +717,7 @@ Toggle mute, if the voice is sent to all running applications, it is successful.
 This concludes our hands-on with the Vivox wrapper.
 Thank you for your time.
 
-Through this hands-on, you have experienced how to create text and voice chats using the [Vivox wrapper](/integration/chat.vivox).
+Through this hands-on, you have experienced how to create text and voice chats using the [Vivox wrapper](../integration/chat.vivox.md).
 As a next step, you might be interested in how the Vivox wrapper can be used in a more serious application.
-To meet your expectations, we provide [Sample Application](/category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](/category/sample-application).
+To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../category/sample-application).

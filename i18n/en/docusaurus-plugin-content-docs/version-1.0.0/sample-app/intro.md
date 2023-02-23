@@ -16,13 +16,13 @@ In the future, Holiday's features will increase as Extreal's features increase.
 
 Holiday will provide the following contents
 
-- [Requirements](/sample-app/requirements)
+- [Requirements](./requirements.md)
   - Functional and non-functional requirements for Holiday
-- [Architecture](/sample-app/architecture)
+- [Architecture](./architecture.md)
   - System and application architecture to realize Holiday's requirements
-- [Test Planning](/sample-app/test-planning)
+- [Test Planning](./test-planning.md)
   - How to test Holiday's requirements and test contents
-- [Development Guid](/sample-app/dev-guide)
+- [Development Guid](./dev-guide.md)
   - How to create Holiday and development rules
 - [Repository](https://github.com/extreal-dev/Extreal.SampleApp.Holiday)
   - An application (Unity project) that realizes the requirements of Holiday

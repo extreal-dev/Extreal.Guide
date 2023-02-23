@@ -48,11 +48,11 @@ Framework is a collection of modules.
 Framework provides the following features.
 
 - Core
-  - [Logging](/core/logging)
-  - [Stage Navigation](/core/stage-navigation)
+  - [Logging](./core/logging.md)
+  - [Stage Navigation](./core/stage-navigation.md)
 - Integration
-  - [Chat using Vivox](/integration/chat.vivox)
-  - [Multiplay using Netcode for GameObjects](/integration/multiplay.ngo)
+  - [Chat using Vivox](./integration/chat.vivox.md)
+  - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
 
 All modules depend on Logging to unify log output.
 The modules are designed to be independent of any other module except Logging, so they can be used alone by combining them with Logging.
@@ -70,7 +70,7 @@ While a single scene is often used to create a single screen or space, Extreal a
 
 ![Multiple scenes](./img/multi-scenes.png)
 
-Use [Stage Navigation](/core/stage-navigation) provided by Framework to create stages combining multiple scenes and to switch between stages.
+Use [Stage Navigation](./core/stage-navigation.md) provided by Framework to create stages combining multiple scenes and to switch between stages.
 
 Features and screens created in scenes are created using the MV(R)P pattern.
 For more information on the MV(R)P pattern, please refer to [【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9).
@@ -98,7 +98,7 @@ For external products, services, OSS, etc., please check the license of the prov
 Extreal leverages Unity and third-party packages to achieve its features.
 Because there are many elements of Extreal over which we have no control, we cannot promise to maintain backward compatibility.
 We will do our best to maintain backward compatibility of Extreal, but there may be cases where backward compatibility cannot be maintained.
-If backward compatibility cannot be maintained, [Release](/category/release) will guide you on how to upgrade.
+If backward compatibility cannot be maintained, [Release](./category/release) will guide you on how to upgrade.
 
 ## Versioning
 
@@ -134,7 +134,7 @@ Extreal.Core.Logging 1.1.0 -> added feature
 Extreal.Core.StageNavigation 1.0.1
 ```
 
-Please refer to [Release](/category/release) for the correspondence between Extreal version and module version.
+Please refer to [Release](./category/release) for the correspondence between Extreal version and module version.
 
 ## Unity version
 
@@ -151,8 +151,8 @@ Use Package Manager to install it from the Git URL.
 
 Please refer to each feature page for the Git URL.
 
-- [Core](/category/core)
-- [Integration](/category/integration)
+- [Core](./category/core)
+- [Integration](./category/integration)
 
 ## Feedback or Contribution
 

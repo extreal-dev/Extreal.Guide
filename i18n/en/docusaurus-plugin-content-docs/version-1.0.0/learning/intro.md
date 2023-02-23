@@ -10,7 +10,7 @@ Extreal, which incorporates the know-how acquired through such product developme
 In return, we believe that the team will be more productive if they acquire the skills necessary for Extreal.
 
 Learning is provided in a hands-on manner so that participants can experience how to create applications that take advantage of Extreal's features.
-If you are new to Extreal, please start learning from [Core](/learning/core).
+If you are new to Extreal, please start learning from [Core](./core.md).
 All other Learning is based on the assumption that you have already learned Core.
 
 The remainder of the Introduction shows the skills needed to utilize Extreal.
