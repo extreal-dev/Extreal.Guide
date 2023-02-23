@@ -70,7 +70,7 @@ Unityのアプリケーションではアセットの種類毎にディレクト
 
 ディレクトリとシーンの対応が分かるようにアプリケーション構成を再掲します。
 
-![application structure](/img/holiday-app-structure.png)
+![application structure](../img/holiday-app-structure.png)
 
 ### Static analysis
 
@@ -202,7 +202,7 @@ Appシーン
 
 各シーンのスコープの親にはAppシーンのスコープを指定してください。
 
-![オブジェクトスコープの親](/img/holiday-object-scope-parent.png)
+![オブジェクトスコープの親](../img/holiday-object-scope-parent.png)
 
 ## Assets
 
@@ -311,7 +311,7 @@ public class XxxxxPresenter : StagePresenterBase
 
 参考としてアバター選択画面シーンのオブジェクトやスクリプトを示します。
 
-![シーンのScopeとView](/img/holiday-scene-scope-view.png)
+![シーンのScopeとView](../img/holiday-scene-scope-view.png)
 
 アバター選択画面シーンはプレイヤーの名前入力とアバター選択、次の画面へ移動ができます。
 

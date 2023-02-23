@@ -9,7 +9,7 @@ sidebar_position: 2
 [Frameworkが想定するアプリケーションアーキテクチャ](/intro#application)で説明した複数のシーンを組み合わせたステージの作成やステージの切り替えを簡単にできるようにStage Navigationを提供します。
 
 [Frameworkが想定するアプリケーションアーキテクチャ](/intro#application)で示した図を再掲します。
-![Multiple scenes](/img/multi-scenes.png)
+![Multiple scenes](../img/multi-scenes.png)
 
 あなたのアプリケーションでStage Navigationを使い機能を自由に組み合わせてステージを作れるようになると機能の再利用性が高まりメンテナンスしやすいアプリケーションが手に入ります。
 
@@ -176,7 +176,7 @@ public class StageConfig : StageConfigBase<StageName, SceneName>
 Unityエディタのインスペクタでステージ設定を行います。
 設定例は次の通りです。
 
-![Stage config](/img/core-stagenavigation-stageconfig.png)
+![Stage config](../img/core-stagenavigation-stageconfig.png)
 
 - CommonScenesプロパティ
   - 全てのステージに共通するシーンを指定します。

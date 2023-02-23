@@ -70,7 +70,7 @@ In many Unity applications, directories are divided by asset type, but since the
 
 The application structure is shown below so that the correspondence between directories and scenes can be understood.
 
-![application structure](/img/holiday-app-structure.png)
+![application structure](../img/holiday-app-structure.png)
 
 ### Static analysis
 
@@ -202,7 +202,7 @@ Each scene (Control scene, Screen scene, Space scene)
 
 Specify the scope of the App scene as the parent of each scene scope.
 
-![Parent of object scope](/img/holiday-object-scope-parent.png)
+![Parent of object scope](../img/holiday-object-scope-parent.png)
 
 ## Assets
 
@@ -311,7 +311,7 @@ There is no need to create objects that are not necessary to realize the feature
 
 The objects and scripts of the avatar selection screen scene are shown below for reference.
 
-![Scope and View of the scene](/img/holiday-scene-scope-view.png)
+![Scope and View of the scene](../img/holiday-scene-scope-view.png)
 
 The avatar selection screen scene allows players to enter their name, select an avatar and transition to the next screen.
 

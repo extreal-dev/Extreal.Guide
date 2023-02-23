@@ -9,7 +9,7 @@ This section describes the sample application features.
 One of Extreal's goals is to provide a foundation for virtual spaces where people can gather and communicate.
 We provide "Holiday" as a sample application equipped with the multiplayer and voice chat features necessary for such a virtual space.
 
-![holiday](/img/holiday.png)
+![holiday](../img/holiday.png)
 
 Holiday has a simple stage structure: title screen -> avatar selection screen -> virtual space.
 In the future, Holiday's features will increase as Extreal's features increase.

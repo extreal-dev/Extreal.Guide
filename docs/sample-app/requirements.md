@@ -15,7 +15,7 @@ Holidayの要件は本番運用するアプリケーションに必要な要件�
 
 Holidayは友人や家族で集まって休日のひと時を過ごしてもらうことを目指したアプリケーションです。
 
-![holiday](/img/holiday.png)
+![holiday](../img/holiday.png)
 
 - タイトル画面
   - タイトル表示のみ

@@ -31,7 +31,7 @@ FrameworkやSample Applicationはこのアーキテクチャを前提に作成�
 
 ### Framework
 
-![Framework architecture](/img/fw-arch.png)
+![Framework architecture](./img/fw-arch.png)
 
 FrameworkはUnityやサードパーティのパッケージを活用して機能を実現します。
 Frameworkは機能を次のカテゴリに分類しています。
@@ -68,21 +68,21 @@ Extrealではこれら画面と空間をステージと呼ぶことにします�
 Unityでは画面や空間を作成する単位としてシーンを提供しています。
 1つのシーンで1つの画面や空間を作成することが多いのですが、Extrealでは機能を自由に組み合わせてステージを作れるようにするため、1つのシーンで1つの機能や画面を作成し複数のシーンを組み合わせてステージを作ります。
 
-![Multiple scenes](/img/multi-scenes.png)
+![Multiple scenes](./img/multi-scenes.png)
 
 複数のシーンを組み合わせたステージの作成やステージの切り替えにはFrameworkが提供する[Stage Navigation](/core/stage-navigation)を使います。
 
 シーンで作る機能や画面はMV(R)Pパターンを使って作ります。
 MV(R)Pパターンについては[【Unity】Model-View-(Reactive)Presenterパターンとは何なのか](https://qiita.com/toRisouP/items/5365936fc14c7e7eabf9)を参照ください。
 
-![MVP pattern](/img/mvp-pattern.png)
+![MVP pattern](./img/mvp-pattern.png)
 
 MV(R)Pパターンに必要なイベント通知にはサードパーティの[UniRx](https://github.com/neuecc/UniRx)を使います。
 MVPの各オブジェクトの生成や参照関係の構築、各オブジェクトのライフサイクルイベントの実行制御にはサードパーティの[VContainer](https://vcontainer.hadashikick.jp/)を使います。
 
 例えば、テキストチャット機能の実現イメージは次の通りです。
 
-![MVP example](/img/mvp-example.png)
+![MVP example](./img/mvp-example.png)
 
 アプリケーションの要件に合わせてUIとMVPを作成し、ModelからFrameworkが提供する機能を使ってテキストチャットを実現します。
 

@@ -21,7 +21,7 @@ If you have any questions after trying Learning, please refer to the resources l
 :::info
 Application development requires content creation skills in addition to the skills listed below.
 Content creation requires skills in lighting, camera work, animation, effects, and rendering.
-::::
+:::
 
 ## Basic skills
 

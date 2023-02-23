@@ -56,20 +56,20 @@ ExtrealCoreLearningディレクトリの状態は次の通りです。
 Appディレクトリにある`App`シーンを実行します。
 タイトル画面のGoボタンを押してバーチャル空間に移動できれば成功です。
 
-![Project success](/img/learning-vivox-project-success.png)
+![Project success](../img/learning-vivox-project-success.png)
 
 テキストチャットのUIを試してみましょう。
 入力フィールドに適当なメッセージを入力し、Sendボタンを押してください。
 メッセージが画面に現れます。
 
-![Text chat](/img/learning-vivox-ui-textchat.png)
+![Text chat](../img/learning-vivox-ui-textchat.png)
 
 ボイスチャットのUIではミュート切り替えを行うボタンを用意しています。
 画面左下のVoiceボタンを押してみてください。
 ミュート状態に応じてボタンの色を変えています。
 赤がミュート解除中、グレーがミュート中を表しています。
 
-![Voice chat](/img/learning-vivox-ui-voicechat.png)
+![Voice chat](../img/learning-vivox-ui-voicechat.png)
 
 テキストチャットとボイスチャットのUI実装は次のディレクトリを確認してください。
 
@@ -93,7 +93,7 @@ VivoxClientはアプリケーションで1つ存在すればよいのでAppシ�
 VivoxAppConfigを生成するScriptableObjectを作成します。
 :::
 
-![VivoxAppConfig](/img/learning-vivox-vivoxclient-vivoxappconfig.png)
+![VivoxAppConfig](../img/learning-vivox-vivoxclient-vivoxappconfig.png)
 
 - [VivoxラッパーのSettings](/integration/chat.vivox#settings)を参照して、AppディレクトリにVivoxAppConfigオブジェクトを生成するChatConfigスクリプトを作成します。
 - アセット作成メニューからChatConfigオブジェクトを作成し、インスペクタでVivoxへの接続情報を設定します。
@@ -151,7 +151,7 @@ namespace ExtrealCoreLearning.App
 
 インスペクタでAppScopeにChatConfigオブジェクトを設定します。
 
-![AppScope](/img/learning-vivox-appscope-vivoxappconfig.png)
+![AppScope](../img/learning-vivox-appscope-vivoxappconfig.png)
 
 ## Add text chat
 
@@ -341,7 +341,7 @@ namespace ExtrealCoreLearning.TextChatControl
 テキストチャットの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
 プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
 
-![ParrelSync](/img/learning-ngo-parrelsync.png)
+![ParrelSync](../img/learning-ngo-parrelsync.png)
 
 Appシーンを実行します。
 Vivoxへの接続に少し時間がかかるので実行後すぐにメッセージ送信しても送信されない場合があります。

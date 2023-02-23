@@ -60,7 +60,7 @@ Unityエディタでクローンしたプロジェクトを開きます。
 ExtrealCoreLearning/Appディレクトリにある`App`シーンを実行します。
 タイトル画面のGoボタンを押してバーチャル空間に移動できれば成功です。
 
-![Project success](/img/learning-ngo-project-success.png)
+![Project success](../img/learning-ngo-project-success.png)
 
 バーチャル空間でマルチプレイできるように実装を追加していきます。
 
@@ -180,7 +180,7 @@ namespace ExtrealCoreLearning.MultiplayServer
 NetworkManagerをアタッチしたGameObjectをMultiplayServerシーンに作成します。
 :::
 
-![Add NetworkManager](/img/learning-ngo-add-networkmanager.png)
+![Add NetworkManager](../img/learning-ngo-add-networkmanager.png)
 
 - MultiplayServerシーンに`NetworkManager`という名前でGameObjectを作成します。
 - インスペクタのAdd Componentから`Network Manager`を追加します。
@@ -191,7 +191,7 @@ NetworkManagerをアタッチしたGameObjectをMultiplayServerシーンに作�
 ScopeスクリプトをMultiplayServerシーンに設定します。
 :::
 
-![Add scope](/img/learning-ngo-add-scope.png)
+![Add scope](../img/learning-ngo-add-scope.png)
 
 - MultiplayServerシーンに`Scope`という名前でMultiplayServerScopeスクリプトをアタッチしたGameObjectを作成します。
 - NetworkManagerオブジェクトをインスペクタで設定します。
@@ -203,7 +203,7 @@ ScopeスクリプトをMultiplayServerシーンに設定します。
 MultiplayServerシーンを実行します。
 Consoleに`[Debug:NgoServer] The server has started`と出力されれば成功です。
 
-![Server success](/img/learning-ngo-server-success.png)
+![Server success](../img/learning-ngo-server-success.png)
 
 ## Commonize NetworkManager
 
@@ -215,7 +215,7 @@ NetworkManagerオブジェクトをプレハブに変更します。
 
 MultiplayServerシーンのNetworkManagerオブジェクトを`ExtrealCoreLearning.MultiplayCommon`ディレクトリにドラッグ＆ドロップします。
 
-![NetworkManager prefab](/img/learning-ngo-networkmanager-prefab.png)
+![NetworkManager prefab](../img/learning-ngo-networkmanager-prefab.png)
 
 ## Add connection to multiplay room
 
@@ -282,7 +282,7 @@ namespace ExtrealCoreLearning.App
 
 `ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるNetworkManagerのプレハブをAppシーンにドラッグ＆ドロップして、`AppScope`オブジェクトのインスペクタで設定します。
 
-![NgoClient init](/img/learning-ngo-ngoclient-init.png)
+![NgoClient init](../img/learning-ngo-ngoclient-init.png)
 
 :::info step
 プレイヤープレハブをNetworkManagerに設定します。
@@ -291,7 +291,7 @@ namespace ExtrealCoreLearning.App
 NGOで同期するプレハブはNetworkManagerに設定する必要があります。
 `ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブの`NetworkPlayer`をNetworkManagerの`NetworkPrefabs`に設定します。
 
-![Network prefab](/img/learning-ngo-networkmanager-playerprefab.png)
+![Network prefab](../img/learning-ngo-networkmanager-playerprefab.png)
 
 :::info step
 NgoClientの初期化で問題が起きていないか確認します。
@@ -434,7 +434,7 @@ namespace ExtrealCoreLearning.MultiplayControl
 ScopeスクリプトをMultiplayControlシーンに設定します。
 :::
 
-![MultiplayControl scope](/img/learning-ngo-multiplaycontrol-scope.png)
+![MultiplayControl scope](../img/learning-ngo-multiplaycontrol-scope.png)
 
 - MultiplayControlシーンに`Scope`という名前でMultiplayControlScopeをアタッチしたGameObjectを作成します。
 - インスペクタでParentに`AppScope`を指定します。
@@ -454,7 +454,7 @@ MultiplayControlシーンが完成したのでステージ設定とBuildSettings
 マルチプレイの動作確認には[ParrelSync](https://github.com/VeriorPies/ParrelSync)を使います。
 プロジェクトにParrelSyncをインストールしてあるので、ParrelSyncを使って複数のUnityエディタを開いてプレイしてみましょう。
 
-![ParrelSync](/img/learning-ngo-parrelsync.png)
+![ParrelSync](../img/learning-ngo-parrelsync.png)
 
 実行するシーンは次の通りです。
 
@@ -692,7 +692,7 @@ namespace ExtrealCoreLearning.MultiplayServer
 ParrelSyncでUnityエディタを開いてプレイしている様子です。
 マルチプレイサーバーを実行しているUnityエディタは後ろに隠れています。
 
-![Play](/img/learning-ngo-play.png)
+![Play](../img/learning-ngo-play.png)
 
 ## Next Step
 
