@@ -116,11 +116,11 @@ Awakeの先頭でInitializeAppを呼び出しています。
 Assets/Holiday/App/AppScope
 ```
 
-フレームレートの設定や[Loggingの設定](/core/logging#settings)を行っています。
+フレームレートの設定や[Loggingの設定](../core/logging.md#settings)を行っています。
 
 ### Stage configuration
 
-ステージ構成は[Stage Navigationの設定](/core/stage-navigation#settings)にある通り、3つのタイプを作成しています。
+ステージ構成は[Stage Navigationの設定](../core/stage-navigation.md#settings)にある通り、3つのタイプを作成しています。
 ステージやシーンの作成時に変更してください。
 
 ```text
@@ -235,13 +235,13 @@ AvatarMichelle
 - シーンはMV(R)Pパターンで作成します。
 - アプリケーション全体で使用するモデルはAppシーンのスコープで管理します。
   - StageNavigator、AppState、データアクセスのためのリポジトリ、NetworkManagerなど
-- シーンをまたがる情報のやりとりは[AppState](/sample-app/dev-guide#application-state)を使います。
+- シーンをまたがる情報のやりとりは[AppState](#application-state)を使います。
 - 各シーンでしか使わないモデルは各シーンのスコープで管理します。
   - MultiplayRoom、TextChatChannelなど
 - シーンのロード/アンロード時の処理はIInitializable/IDisposableで行います。
   - PresenterでIInitializable/IDisposableを実装して行います。
   - **IInitializable/IDisposableが呼ばれるタイミングはステージ遷移のタイミングではないことに注意してください。ステージ遷移で同じシーンが続く場合はシーンが再利用されIInitializable/IDisposableは呼ばれません。**
-- ステージ遷移時の処理はStageNavigatorの[イベント通知](/core/stage-navigation#core-sn-event)を使用します。
+- ステージ遷移時の処理はStageNavigatorの[イベント通知](../core/stage-navigation.md#core-sn-event)を使用します。
   - PresenterでIInitializableを実装してStageNavigatorのイベント購読を登録します。
   - マルチプレイのルームやテキストチャットのチャンネルへの接続/切断など空間毎に処理を行いたい場合はステージ遷移時の処理として実装します。
 

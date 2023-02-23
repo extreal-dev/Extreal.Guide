@@ -19,7 +19,7 @@ sidebar_position: 3
 
 ## Application Structure
 
-HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](/intro#application)を採用します。
+HolidayのアプリケーションアーキテクチャはExtrealが想定している[アーキテクチャ](../intro.md#application)を採用します。
 Holidayのステージとシーンは次の通りです。
 
 ![application structure](../img/holiday-app-structure.png)

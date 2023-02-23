@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Core
 
-ここでは[Core](/category/core)について学習します。
+ここでは[Core](../category/core)について学習します。
 
 - 学習時間の目安
   - 60分
@@ -49,14 +49,14 @@ Consoleに何も出ていなければ成功です。
 
 ## Add Logging
 
-[Logging](/core/logging)をアプリケーションに追加します。
+[Logging](../core/logging.md)をアプリケーションに追加します。
 
 :::info step
 Package ManagerからLoggingを追加します。
 :::
 
 Git URL指定でLoggingを追加します。
-Git URLは[LoggingのPackage](/core/logging#package)から取得します。
+Git URLは[LoggingのPackage](../core/logging.md#package)から取得します。
 
 ![Logging追加](../img/learning-core-logging-package.png)
 
@@ -82,7 +82,7 @@ Package Managerに`Extreal.Core.Logging`が追加されれば成功です。
 
 LoggingのデフォルトのログレベルはInfoのため、Loggingの設定を追加してログレベルを変更します。
 
-[LoggingのSettings](/core/logging#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
+[LoggingのSettings](../core/logging.md#settings)を参考にして`AppTest`スクリプトをAppシーンに作成します。
 
 - AppTestスクリプトをAppディレクトリに作成します。
 - AppTestスクリプトをアタッチしたGameObjectをAppシーンに作成します。
@@ -136,7 +136,7 @@ Consoleに`Hello, world!`と出力されれば成功です。
 
 ## Add Stage Navigation
 
-[Stage Navigation](/core/stage-navigation)をアプリケーションに追加します。
+[Stage Navigation](../core/stage-navigation.md)をアプリケーションに追加します。
 
 :::info step
 Stage Navigationは[UniTask](https://github.com/Cysharp/UniTask)と[UniRx](https://github.com/neuecc/UniRx)に依存しているため先にUniTaskとUniRxを追加します。
@@ -214,7 +214,7 @@ Assembly DefinitionにUniTaskとUniRxも設定します。
 タイトル画面を追加できたのでステージ設定を作成します。
 :::
 
-[Stage NavigationのSettings](/core/stage-navigation#settings)を参照してステージ設定を作成します。
+[Stage NavigationのSettings](../core/stage-navigation.md#settings)を参照してステージ設定を作成します。
 ステージ設定で作成する3つのタイプはAppディレクトリに配置します。
 
 ```csharp
@@ -296,7 +296,7 @@ Build SettingsのScenes In Buildに`TitleScreen`シーンを追加します。
 
 ## Apply MV(R)P pattern
 
-Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)を追加して[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に近づけていきたいと思います。
+Extrealが提供するCoreの機能は以上となりますが、[VContainer](https://vcontainer.hadashikick.jp/)を追加して[Extrealが想定するアプリケーションアーキテクチャ](../intro.md#application)に近づけていきたいと思います。
 
 :::info step
 タイトル画面の遷移先となるアバター選択画面を追加します。
@@ -602,7 +602,7 @@ TitleScreenScopeのインスペクタでParentにAppScopeを指定するとこ�
 これでCoreのハンズオンは終了です。
 お疲れさまでした。
 
-このハンズオンを通じて[Extrealが想定するアプリケーションアーキテクチャ](/intro#application)に必要な機能を構築済みです。
+このハンズオンを通じて[Extrealが想定するアプリケーションアーキテクチャ](../intro.md#application)に必要な機能を構築済みです。
 次のステップとしてハンズオンで構築したアーキテクチャがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](../category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。

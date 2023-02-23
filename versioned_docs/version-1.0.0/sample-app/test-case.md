@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Test Case
 
-[Test Planning](/sample-app/test-planning)で実施対象としたテスト種別のうちテストケースが必要なテストのみ記載しています。
+[Test Planning](./test-planning.md)で実施対象としたテスト種別のうちテストケースが必要なテストのみ記載しています。
 
 ## Functional test
 
@@ -29,7 +29,7 @@ sidebar_position: 5
 
 ## Configuration test
 
-- [Functional test](/sample-app/test-case#functional-test)と同じ
+- [Functional test](#functional-test)と同じ
 
 ## Failure test
 

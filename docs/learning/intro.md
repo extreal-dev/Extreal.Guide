@@ -10,7 +10,7 @@ Extrealは私たちのプロダクト開発で培ったノウハウをベース�
 その見返りとしてExtrealに必要なスキルを習得した場合、そのチームの生産性は高くなると考えています。
 
 Extrealの機能を活用したアプリケーションの作り方を体験できるように、Learningはハンズオンで提供します。
-はじめてExtrealを使う人は[Core](/learning/core)から学習してください。
+はじめてExtrealを使う人は[Core](./core.md)から学習してください。
 Core以外のLearningはCoreを学習していることを前提としています。
 
 Introductionの残りでは、Extrealを活用するために必要となるスキルを示します。

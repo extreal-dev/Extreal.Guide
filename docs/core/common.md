@@ -7,7 +7,7 @@ sidebar_position: 3
 ## What for?
 
 フレームワークやアプリケーションの機能を実現するにはリトライ処理のように汎用的な機能が必要になります。
-例えばリトライ処理であれば、フレームワークの[Chat](/integration/chat.vivox)や[Multiplay](/integration/multiplay.ngo)、アプリケーションの外部API呼び出しなど、外部接続を行う機能で必要になります。
+例えばリトライ処理であれば、フレームワークの[Chat](../integration/chat.vivox.md)や[Multiplay](../integration/multiplay.ngo.md)、アプリケーションの外部API呼び出しなど、外部接続を行う機能で必要になります。
 このモジュールではそういった汎用的な処理を共通機能として提供します。
 
 ## Specification
@@ -51,9 +51,9 @@ https://github.com/extreal-dev/Extreal.Core.Common.git
 
 Commonは次のパッケージを使います。
 
-- [Extreal.Core.Logging](/core/logging)
+- [Extreal.Core.Logging](./logging.md)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](/category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
 ### Settings
 

@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Multiplay using Netcode for GameObjects
 
-ここでは[NGOラッパー](/integration/multiplay.ngo)について学習します。
+ここでは[NGOラッパー](../integration/multiplay.ngo.md)について学習します。
 
 - 学習時間の目安
   - 60分
@@ -13,7 +13,7 @@ sidebar_position: 3
 
 NGOラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
-Coreの学習を実施していない方はこの学習より先に[Coreの学習](/learning/core)を実施することを推奨します。
+Coreの学習を実施していない方はこの学習より先に[Coreの学習](./core.md)を実施することを推奨します。
 
 NGOラッパーがセットアップされた学習用のプロジェクトを使って、バーチャル空間でマルチプレイできるようにサーバーとアプリケーションの実装を追加していきます。
 
@@ -582,7 +582,7 @@ MessageHandlerを登録してアプリケーションからのメッセージに
 ExtrealCoreLearning/MultiplayControlディレクトリの`NetworkPlayer`を選択してインスペクタを開くと、`PlayerPrefab`という名前でAddressablesに登録されていることが確認できます。
 
 今回はアプリケーションからメッセージの内容を何も送っていませんが、メッセージの内容でアバター名を送りユーザーごとに選択したアバターをプレイヤーとしてスポーンするといったこともできます。
-サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Application](/category/sample-application)をご覧ください。
+サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Application](../category/sample-application)をご覧ください。
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -699,7 +699,7 @@ ParrelSyncでUnityエディタを開いてプレイしている様子です。
 これでNGOラッパーのハンズオンは終了です。
 お疲れさまでした。
 
-このハンズオンを通じて[NGOラッパー](/integration/multiplay.ngo)を使ったマルチプレイサーバーとアプリケーションの作り方を体験しました。
+このハンズオンを通じて[NGOラッパー](../integration/multiplay.ngo.md)を使ったマルチプレイサーバーとアプリケーションの作り方を体験しました。
 次のステップとしてNGOラッパーがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](/category/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](../category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。
