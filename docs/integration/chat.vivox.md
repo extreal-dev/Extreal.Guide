@@ -268,19 +268,7 @@ VivoxClientはデフォルトで再接続を行いません。
 VivoxAppConfigにリトライ戦略を指定すると再接続を行います。
 
 ```csharp
-[CreateAssetMenu(
-    menuName = "Config/" + nameof(ChatConfig),
-    fileName = nameof(ChatConfig))]
-public class ChatConfig : ScriptableObject
-{
-    [SerializeField] private string apiEndPoint;
-    [SerializeField] private string domain;
-    [SerializeField] private string issuer;
-    [SerializeField] private string secretKey;
-
-    public VivoxAppConfig ToVivoxAppConfig()
-        => new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey, loginRetryStrategy: new CountingRetryStrategy());
-}
+new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey, loginRetryStrategy: new CountingRetryStrategy());
 ```
 
 VivoxClientが行う再接続の処理内容は次の通りです。
@@ -299,7 +287,7 @@ VivoxClientが行う再接続の処理内容は次の通りです。
 
 自動接続回復が失敗した場合はログアウト状態となり、ログインからやり直す必要があるため、VivoxClientの再接続はログイン処理のみを対象としています。
 
-リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#chat-vivox-event)を使用してくだい。
+リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#chat-vivox-event)を使用してください。
 
 ### Vivoxのクライアント状態をトリガーに処理を追加する {#chat-vivox-event}
 

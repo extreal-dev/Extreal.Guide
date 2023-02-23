@@ -33,7 +33,6 @@ NGOを知らない場合は[Learning](../learning/intro.md#multiplayer)を参照
 
 今後、次の要件を追加していく予定です。
 
-- 予期しないネットワーク切断時に再接続する
 - 空間の最大人数を超えた場合は待機人数まで待機できるようにする
   - 待機中のユーザーは非表示、他のユーザーのマルチプレイは見える
   - 他のユーザーが退室して順番が回ってくるとマルチプレイに参加できる
@@ -48,6 +47,7 @@ NGOラッパーの仕様は次の通りです。
 - NGOのサーバー向けの機能を使用できます。
 - NGOのサーバー状態をトリガーに処理を追加できます。
 - NGOのクライアント向けの機能を使用できます。
+- 通信切断時に再接続できます。
 - NGOのクライアント状態をトリガーに処理を追加できます。
 - NGOが提供するデフォルト以外のNetworkTransportにも対応できます。
 
@@ -109,7 +109,9 @@ classDiagram
         +OnDisconnecting IObservable
         +OnUnexpectedDisconnected IObservable
         +OnConnectionApprovalRejected IObservable
-        +NgoClient(networkManager)
+        +OnConnectRetrying IObservable
+        +OnConnectRetried IObservable
+        +NgoClient(networkManager, connectRetryStrategy)
         +AddConnectionSetter(connectionSetter) void
         +ConnectAsync(ngoConfig, cancellationToken) bool
         +DisconnectAsync() void
@@ -192,7 +194,7 @@ public class MultiplayControlScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(networkManager);
-        builder.Register<NgoClient>(Lifetime.Singleton);
+        builder.Register<NgoClient>(Lifetime.Singleton).WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
     }
 }
 ```
@@ -342,7 +344,32 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### NGOのクライアント状態をトリガーに処理を追加する
+### 通信切断時に再接続する {#multiplay-ngo-retry}
+
+NgoClientはCommonが提供する[リトライ処理](../core/common.md#core-common-retry)を使って通信切断時の再接続を実現しています。
+[リトライ処理](../core/common.md#core-common-retry)を知っている前提で以降の説明をするため、リトライ処理を確認していない方は先に[リトライ処理](../core/common.md#core-common-retry)を確認してください。
+
+NgoClientはデフォルトで再接続を行いません。
+NgoClientの初期化時にリトライ戦略を指定すると再接続を行います。
+
+```csharp
+builder.Register<NgoClient>(Lifetime.Singleton).WithParameter(typeof(IRetryStrategy), new CountingRetryStrategy());
+```
+
+NgoClientが行う再接続の処理内容は次の通りです。
+
+- 再接続を実行するタイミング
+  - 接続が失敗した場合
+  - 予期していないサーバー切断が発生した場合
+- 再接続の処理内容
+  - 接続が失敗した場合
+    - リトライ戦略に応じて接続を繰り返します。
+  - 予期していないサーバー切断が発生した場合
+    - リトライ戦略に応じて接続を繰り返します。
+
+リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#multiplay-ngo-event)を使用してください。
+
+### NGOのクライアント状態をトリガーに処理を追加する {#multiplay-ngo-event}
 
 NgoClientは次のイベント通知を設けています。
 
@@ -362,6 +389,19 @@ NgoClientは次のイベント通知を設けています。
   - タイミング：接続承認が拒否された直後
   - タイプ：IObservable
   - パラメータ：なし
+- OnConnectRetrying
+  - タイミング：接続をリトライする直前
+  - タイプ：IObservable
+  - パラメータ：リトライ回数
+    - 1回目は`1`、2回目は`2`となります。
+    - `1`はリトライ戦略の実行開始を意味します。
+- OnConnectRetried
+  - タイミング：接続のリトライが終了した直後
+    - リトライがキャンセルされた場合は通知されません。
+  - タイプ：IObservable
+  - パラメータ：リトライ結果
+    - true：リトライ戦略を実行してリトライが成功した場合
+    - false：リトライ戦略を実行して最終的にリトライが成功しなかった場合
 
 サーバーに接続した直後に処理を追加する例は次の通りです。
 

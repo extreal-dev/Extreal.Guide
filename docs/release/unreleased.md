@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-02-03
+2023-02-23
 
 ## Unity version
 
@@ -17,8 +17,8 @@ sidebar_position: 1
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.0.0
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0-next.1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.2
-- [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.1
-- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.1
+- [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.2
+- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.2
 
 ## Dependencies
 
@@ -45,6 +45,7 @@ sidebar_position: 1
 ### Extreal.Integration.Multiplay.NGO
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/14))
+- 通信切断時の再接続を追加しました。([Doc](../integration/multiplay.ngo.md#multiplay-ngo-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/16))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed
