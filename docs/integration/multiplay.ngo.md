@@ -47,7 +47,7 @@ NGOラッパーの仕様は次の通りです。
 - NGOのサーバー向けの機能を使用できます。
 - NGOのサーバー状態をトリガーに処理を追加できます。
 - NGOのクライアント向けの機能を使用できます。
-- 通信切断時に再接続できます。
+- 通信が切断されたときに再接続できます。
 - NGOのクライアント状態をトリガーに処理を追加できます。
 - NGOが提供するデフォルト以外のNetworkTransportにも対応できます。
 
@@ -194,7 +194,8 @@ public class MultiplayControlScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(networkManager);
-        builder.Register<NgoClient>(Lifetime.Singleton).WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
+        builder.Register<NgoClient>(Lifetime.Singleton)
+            .WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
     }
 }
 ```
@@ -344,10 +345,10 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### 通信切断時に再接続する {#multiplay-ngo-retry}
+### 通信が切断されたときに再接続する {#multiplay-ngo-retry}
 
-NgoClientはCommonが提供する[リトライ処理](../core/common.md#core-common-retry)を使って通信切断時の再接続を実現しています。
-[リトライ処理](../core/common.md#core-common-retry)を知っている前提で以降の説明をするため、リトライ処理を確認していない方は先に[リトライ処理](../core/common.md#core-common-retry)を確認してください。
+NgoClientは[Common](../core/common.md)が提供するリトライ処理を使って通信切断時の再接続を実現しています。
+リトライ処理を知っている前提で以降の説明をするため、リトライ処理を確認していない方は先に[リトライ処理](../core/common.md#core-common-retry)を確認してください。
 
 NgoClientはデフォルトで再接続を行いません。
 NgoClientの初期化時にリトライ戦略を指定すると再接続を行います。

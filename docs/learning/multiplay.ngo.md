@@ -274,7 +274,8 @@ namespace ExtrealCoreLearning.App
 
             // highlight-start
             builder.RegisterComponent(networkManager);
-            builder.Register<NgoClient>(Lifetime.Singleton).WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
+            builder.Register<NgoClient>(Lifetime.Singleton)
+                .WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
             // highlight-end
 
             builder.RegisterEntryPoint<AppPresenter>();

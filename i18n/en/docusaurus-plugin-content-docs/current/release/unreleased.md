@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-01-31
+2023-02-23
 
 ## Unity version
 
@@ -16,9 +16,9 @@ The following Unity versions have been tested.
 
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.0.0
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0-next.1
-- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.1
-- [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.1
-- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.1
+- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.2
+- [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.2
+- [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.2
 
 ## Dependencies
 
@@ -34,30 +34,62 @@ The following Unity versions have been tested.
 
 ### Extreal.Core.StageNavigation
 #### Changed
-
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.Core.StageNavigation/pull/18))
 
 ### Extreal.Core.Common
 #### Added
 - Modules are added.
 - Added feature to apply [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) by inheritance/delegation. ([Doc](../core/common.md#core-common-dp), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
+- Added ability to apply retry processing to methods. ([Doc](../core/common.md#core-common-retry), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/4))
 
 ### Extreal.Integration.Multiplay.NGO
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/14))
+- Added the ability to reconnect when communication is disconnected. ([Doc](../integration/multiplay.ngo.md#multiplay-ngo-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/16))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/13))
+- Added the ability to reconnect when communication is disconnected. ([Doc](../integration/chat.vivox.md#chat-vivox-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15))
+- Changed so that VivoxConfig can be specified when initializing VivoxClient. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/403cf5040d1f30acc43f88f4f7fad11128e42193))
+- Changed to return ChannelId, which is required when disconnecting a channel, at the time of channel connection (ConnectAsync method of VivoxClient). ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/94e5a257ff6bbef9e00153d65abc9ca6916c253c))
+- Changed the method of detecting processing failures in login (LoginAsync method of VivoxClient) and channel connection (ConnectAsync method of VivoxClient) from timeout to waiting for the processing results to be determined so that processing failures can be detected immediately. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a183b44b9573c8080de0fe1df004a4fe1b6c2ad8))
+  - Please refer to the [upgrade guide](#upgrade-guide) as this change affects backward compatibility.
+- Changed so that disconnecting a channel (Disconnect method of VivoxClient) while not logged in will not raise an exception. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a9147710d6f7ca0d49c7db8e4eca4e92fe6a3388))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/2))
 
-## Backward compatible
-
-No changes affecting backward compatibility.
-
-## Upgrade guide
+## Upgrade guide {#upgrade-guide}
 
 Please update the module versions.
+
+Since there are changes that affect backward compatibility, please check the following and respond to the applicable applications.
+
+### Extreal.Integration.Chat.Vivox
+
+#### Applications affected by the change
+
+Applications that meet at least one of the following conditions are affected.
+
+- Timeout is specified in login (LoginAsync method of VivoxClient) or channel connection (ConnectAsync method of VivoxClient)
+- Exception handling for TimeoutException in login or channel connection calls.
+
+#### Change impact and how to respond
+
+The method of detecting failure in login and channel connection has been changed from timeout to waiting for the result of the process.
+Since login and channel connection are asynchronous processes, we decided to round off processing at timeout in consideration of cases where the result is not returned, and to use event notifications separate from method calls to monitor the login and connection statuses.
+After testing various cases with the addition of reconnection, we were able to confirm that there were no cases where the results of login and channel connection processing were not returned, so we made this change so that processing failures can be detected immediately.
+
+The impact of the change is as follows.
+- LoginAsync method of VivoxClient
+  - Timeout can no longer be specified.
+  - The exception sent when processing fails has been changed from TimeoutException to VivoxConnectionException.
+- ConnectAsync method of VivoxClient
+  - Timeout can no longer be specified.
+  - The exception sent when processing fails has been changed from TimeoutException to VivoxConnectionException.
+
+Please take the following actions.
+- If you wish to realize a timeout, implement it on the caller side of each method.
+- Please change the exception that was supplemented at the time of processing failure of each method from TimeoutException to VivoxConnectionException.

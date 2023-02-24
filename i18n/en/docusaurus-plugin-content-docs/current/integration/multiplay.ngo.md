@@ -33,7 +33,6 @@ At this time, the following requirements have been provided.
 
 The following requirements will be added in the future.
 
-- The system reconnects in case of unexpected network disconnection
 - The system allows users to wait until the maximum number of people on standby is exceeded if the maximum number of people in a space is exceeded
   - The users on standby is hidden, while other users' multiplayer is visible
 - When other users leave the room and take their turn, they can join the multiplayer
@@ -48,6 +47,7 @@ The specifications of the NGO Wrapper are as follows.
 - You can use features for NGO servers.
 - You can add processing triggered by NGO server state.
 - You can use features for NGO clients.
+- Reconnect when communication is disconnected.
 - You can add processing triggered by NGO client state.
 - You can support any NetworkTransport other than the default one provided by the NGO.
 
@@ -109,7 +109,9 @@ classDiagram
         +OnDisconnecting IObservable
         +OnUnexpectedDisconnected IObservable
         +OnConnectionApprovalRejected IObservable
-        +NgoClient(networkManager)
+        +OnConnectRetrying IObservable
+        +OnConnectRetried IObservable
+        +NgoClient(networkManager, connectRetryStrategy)
         +AddConnectionSetter(connectionSetter) void
         +ConnectAsync(ngoConfig, cancellationToken) bool
         +DisconnectAsync() void
@@ -192,7 +194,8 @@ public class MultiplayControlScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(networkManager);
-        builder.Register<NgoClient>(Lifetime.Singleton);
+        builder.Register<NgoClient>(Lifetime.Singleton)
+            .WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
     }
 }
 ```
@@ -342,7 +345,32 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### Add a processing triggered by NGO client state
+### Reconnect when communication is disconnected {#multiplay-ngo-retry}
+
+NgoClient uses the retry processing provided by [Common](../core/common.md) to reconnect when communication is disconnected.
+The following explanation assumes that you are familiar with the retry processing, so if you have not checked the retry processing, please check the [retry processing](../core/common.md#core-common-retry) first.
+
+NgoClient does not reconnect by default.
+If a retry strategy is specified when NgoClient is initialized, it will reconnect.
+
+```csharp
+builder.Register<NgoClient>(Lifetime.Singleton).WithParameter(typeof(IRetryStrategy), new CountingRetryStrategy());
+```
+
+The reconnection processing handled by NgoClient is as follows.
+
+- When to run reconnection
+  - If a connection failed
+  - Unexpected disconnection to the server
+- Reconnection processing details
+  - If a connection failed
+    - Repeat the connection according to the retry strategy.
+  - Unexpected disconnection to the server
+    - Repeat the connection according to the retry strategy.
+
+Use [event notifications](#multiplay-ngo-event) if you want to run processing based on the status of retry processing.
+
+### Add a processing triggered by NGO client state {#multiplay-ngo-event}
 
 NgoClient has the following event notifications.
 
@@ -362,6 +390,19 @@ NgoClient has the following event notifications.
   - Timing: Immediately after a connection approval is rejected
   - Type: IObservable
   - Parameters: None
+- OnConnectRetrying
+  - Timing：Just before retrying the connection
+  - Type：IObservable
+  - Parameters：Retry count
+    - The first time is `1` and the second time is `2`.
+    - `1` means the start of retry strategy running.
+- OnConnectRetried
+  - Timing：Immediately after connection retry is finished
+    - If the retry is canceled, it will not be notified.
+  - Type：IObservable
+  - Parameters：Retry result
+    - true: If the retry strategy is run and the retry is successful
+    - false: If the retry strategy is run and the retry is not successful finally
 
 The following is an example of adding processing immediately after connecting to the server.
 

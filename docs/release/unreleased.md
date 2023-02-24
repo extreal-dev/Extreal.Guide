@@ -45,17 +45,17 @@ sidebar_position: 1
 ### Extreal.Integration.Multiplay.NGO
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/14))
-- 通信切断時の再接続を追加しました。([Doc](../integration/multiplay.ngo.md#multiplay-ngo-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/16))
+- 通信が切断された時に再接続する機能を追加しました。([Doc](../integration/multiplay.ngo.md#multiplay-ngo-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/16))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/13))
-- 通信切断時の再接続を追加しました。([Doc](../integration/chat.vivox.md#chat-vivox-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15))
+- 通信が切断された時に再接続する機能を追加しました。([Doc](../integration/chat.vivox.md#chat-vivox-retry), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15))
 - VivoxClientの初期化時にVivoxConfigを指定できるように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/403cf5040d1f30acc43f88f4f7fad11128e42193))
 - チャンネル切断時に必要となるChannelIdをチャンネル接続時(VivoxClientのConnectAsyncメソッド)に返すように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/94e5a257ff6bbef9e00153d65abc9ca6916c253c))
 - ログイン(VivoxClientのLoginAsyncメソッド)とチャンネル接続(VivoxClientのConnectAsyncメソッド)の処理失敗をすぐに検知できるように処理失敗を判定する方法をタイムアウトから処理結果を待って判定するように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a183b44b9573c8080de0fe1df004a4fe1b6c2ad8))
   - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
-- ログインしていない状態でチェンネル切断(VivoxClientのDisconnectメソッド)を呼び出しても例外が発生しないように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a9147710d6f7ca0d49c7db8e4eca4e92fe6a3388))
+- ログインしていない状態でチャンネルを切断(VivoxClientのDisconnectメソッド)しても例外が発生しないように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a9147710d6f7ca0d49c7db8e4eca4e92fe6a3388))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
@@ -71,15 +71,18 @@ sidebar_position: 1
 
 #### 変更影響があるアプリケーション
 
-ログイン(VivoxClientのLoginAsyncメソッド)とチャンネル接続(VivoxClientのConnectAsyncメソッド)にてタイムアウトを指定している、またはログインとチャンネル接続にてTimeoutExceptionを補足しているアプリケーションに影響があります。
+次の条件を1つでも満たすアプリケーションに影響があります。
 
-#### 変更内容と対応方法
+- ログイン(VivoxClientのLoginAsyncメソッド)またはチャンネル接続(VivoxClientのConnectAsyncメソッド)にてタイムアウトを指定している
+- ログインまたはチャンネル接続の呼び出しにてTimeoutExceptionに対する例外処理を行っている
+
+#### 変更影響と対応方法
 
 ログインとチャンネル接続にて処理失敗を判定する方法をタイムアウトから処理結果を待って判定するように変更しました。
 ログインとチャンネル接続は非同期処理のため結果が返ってこない場合を考慮しタイムアウトで処理を切り上げ、メソッド呼び出しとは別のイベント通知でログイン状況や接続状況を把握する方針としていました。
 再接続の追加に伴い様々なケースでテストをした結果、ログインとチャンネル接続の処理結果が返ってこないケースがないことを確認できたため、すぐに処理失敗を検知できるように今回の変更を実施しました。
 
-変更内容は次の通りです。
+変更影響は次の通りです。
 - VivoxClientのLoginAsyncメソッド
   - タイムアウトが指定できなくなりました。
   - 処理が失敗した場合に送出される例外がTimeoutExceptionからVivoxConnectionExceptionに変わりました。
@@ -87,5 +90,6 @@ sidebar_position: 1
   - タイムアウトが指定できなくなりました。
   - 処理が失敗した場合に送出される例外がTimeoutExceptionからVivoxConnectionExceptionに変わりました。
 
-タイムアウトを実現したい場合は各メソッドの呼び出し側で実装してください。
-各メソッドの処理失敗時に補足していた例外をTimeoutExceptionからVivoxConnectionExceptionに変更してください。
+次の対応を実施してください。
+- タイムアウトを実現したい場合は各メソッドの呼び出し側で実装してください。
+- 各メソッドの処理失敗時に補足していた例外をTimeoutExceptionからVivoxConnectionExceptionに変更してください。

@@ -236,7 +236,7 @@ var result = await sut.HandleAsync();
 
 #### リトライ戦略
 
-リトライ戦略はデフォルトで次のクラスを提供しています。
+デフォルトで次のリトライ戦略を提供しています。
 
 - CountingRetryStrategy
   - 回数でリトライを制御します。

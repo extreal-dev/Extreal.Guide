@@ -35,7 +35,7 @@ Vivoxは元々存在していた[Vivox Developer Portal](https://developer.vivox
 Vivoxラッパーの仕様は次の通りです。
 
 - Vivoxの機能を使用できます。
-- 通信切断時に再接続できます。
+- 通信が切断されたときに再接続できます。
 - Vivoxのクライアント状態をトリガーに処理を追加できます。
 
 ## Architecture
@@ -173,6 +173,7 @@ public class ChatConfig : ScriptableObject
 VivoxAppConfigには接続情報の他に次の設定を行えます。
 - [VivoxConfig](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15)
 - 通信切断時の再接続で使うリトライ戦略
+  - 詳細は[通信切断時に再接続する](#chat-vivox-retry)を参照してください。
 :::
 
 VContainerを使ってVivoxClientを初期化します。
@@ -259,10 +260,10 @@ vivoxClient.OnTextMessageReceived
     .AddTo(disposables);
 ```
 
-### 通信切断時に再接続する {#chat-vivox-retry}
+### 通信が切断されたときに再接続する {#chat-vivox-retry}
 
-VivoxClientはCommonが提供する[リトライ処理](../core/common.md#core-common-retry)を使って通信切断時の再接続を実現しています。
-[リトライ処理](../core/common.md#core-common-retry)を知っている前提で以降の説明をするため、リトライ処理を確認していない方は先に[リトライ処理](../core/common.md#core-common-retry)を確認してください。
+VivoxClientは[Common](../core/common.md)が提供するリトライ処理を使って通信切断時の再接続を実現しています。
+リトライ処理を知っている前提で以降の説明をするため、リトライ処理を確認していない方は先に[リトライ処理](../core/common.md#core-common-retry)を確認してください。
 
 VivoxClientはデフォルトで再接続を行いません。
 VivoxAppConfigにリトライ戦略を指定すると再接続を行います。
