@@ -176,7 +176,7 @@ The RetryHandler class can be used to apply retry processing to methods.
 The conditions for methods to which retry processing can be applied are as follows.
 
 - The target method is one of the following.
-    - Synchronous processing with no return value
+    - Synchronous processing without return value
       ```csharp
       void RunAction()
       ```
