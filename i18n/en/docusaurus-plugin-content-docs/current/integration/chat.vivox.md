@@ -263,7 +263,7 @@ vivoxClient.OnTextMessageReceived
 ### Reconnect when communication is disconnected {#chat-vivox-retry}
 
 VivoxClient uses the retry processing provided by [Common](../core/common.md) to reconnect when communication is disconnected.
-The following explanation assumes that you are familiar with the retry processing, so if you have not checked the retry processing, please check the [retry processing](../core/common.md#core-common-retry) first.
+The following description assumes that you are familiar with the retry processing, so if you have not checked the retry processing, please check the [retry processing](../core/common.md#core-common-retry) first.
 
 VivoxClient does not reconnect by default.
 If a retry strategy is specified in VivoxAppConfig, it will reconnect.
