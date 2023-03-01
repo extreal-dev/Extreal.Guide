@@ -78,11 +78,11 @@ Applications that meet at least one of the following conditions are affected.
 
 #### Change impact and how to respond
 
-The method of detecting failure in login and channel connection has been changed from timeout to waiting for the result of the process.
-Since login and channel connection are asynchronous processes, we decided to round off processing at timeout in consideration of cases where the result is not returned, and to use event notifications separate from method calls to monitor the login and connection statuses.
+The method of detecting failure in login and channel connection has been changed from timeout to waiting for the processing result.
+Since login and channel connection are asynchronous processing, we decided to round off processing at timeout in consideration of cases where the result is not returned, and to use event notifications separate from method calls to monitor the login and connection statuses.
 After testing various cases with the addition of reconnection, we were able to confirm that there were no cases where the results of login and channel connection processing were not returned, so we made this change so that processing failures can be detected immediately.
 
-The impact of the change is as follows.
+The change impact is as follows.
 - LoginAsync method of VivoxClient
   - Timeout can no longer be specified.
   - The exception sent when processing fails has been changed from TimeoutException to VivoxConnectionException.
