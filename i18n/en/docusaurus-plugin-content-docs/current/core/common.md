@@ -272,7 +272,7 @@ If the class provided by default does not support your needs, please create a cl
 
 Unexpected disconnections may occur during connections in voice chat and multiplayer.
 When such a disconnection occurs, you may want to reconnect using the state of the initial connection (channel name and other access information).
-RetryHandler resets the retry state each time the HandleAsync method is called, so it can be reused and used again.
+RetryHandler resets the retry state each time the HandleAsync method is called, so it can be reused.
 
 #### Event notifications for retry processing {#core-common-retry-event}
 
