@@ -277,7 +277,7 @@ VivoxClientが行う再接続の処理内容は次の通りです。
 - 再接続を実行するタイミング
   - ログインが失敗した場合
   - Vivox Unity SDKの[自動接続回復](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#Unity/developer-guide/channels/automatic-connection-recovery/connection-recovery.htm?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CVivox%2520Unity%2520Developer%2520Guide%257CChannels%257CAutomatic%2520connection%2520recovery%257C_____0)が失敗した場合
-    - ログイン後に通信が切断するとVivox Unity SDKは自動接続回復を30秒間試みます。
+    - ログイン後に通信が切断されるとVivox Unity SDKは自動接続回復を30秒間試みます。
     - 自動接続回復が失敗した場合はVivox Unity SDKによりクライアントはログアウトされます。
 - 再接続の処理内容
   - ログインが失敗した場合
