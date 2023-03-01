@@ -272,7 +272,7 @@ var retryStrategy = new CountingRetryStrategy(5);
 
 ボイスチャットやマルチプレイでは接続中に予期しない切断が発生する可能性があります。
 そのような切断が発生した場合は初回接続時の状態（チャンネル名などのアクセス情報）を使って再接続を行いたい場合があります。
-RetryHandlerはHandleAsyncメソッドが呼ばれる度にリトライ状態をリセットするため、再利用して使うことが可能です。
+RetryHandlerはHandleAsyncメソッドが呼ばれる度にリトライ状態をリセットするため、再利用することが可能です。
 
 #### リトライ処理のイベント通知 {#core-common-retry-event}
 
