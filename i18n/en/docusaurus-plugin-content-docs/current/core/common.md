@@ -211,7 +211,7 @@ HandleAsync uses a retry or not retry decision processing and a retry strategy t
 
 ```csharp
 using var retryHandler = RetryHandler<Unit>.Of(RunAction, e => e is AccessViolationException, new CountingRetryStrategy());
-await sut.HandleAsync();
+await retryHandler.HandleAsync();
 ```
 
 If the method to be retried has arguments, use [lambda expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions).
@@ -219,19 +219,19 @@ If the method to be retried has arguments, use [lambda expression](https://learn
 ```csharp
 // Synchronous processing without return value
 using var retryHandler = RetryHandler<Unit>.Of(() => RunAction(value), e => e is AccessViolationException, new CountingRetryStrategy());
-await sut.HandleAsync();
+await retryHandler.HandleAsync();
 
 // Asynchronous processing without return value
-using var retryHandler = RetryHandler<Unit>.Of(async () => await RunActionAsync(value), e => e is AccessViolationException, new CountingRetryStrategy());
-await sut.HandleAsync();
+using var retryHandler = RetryHandler<Unit>.Of(() => RunActionAsync(value), e => e is AccessViolationException, new CountingRetryStrategy());
+await retryHandler.HandleAsync();
 
 // Synchronous processing with return value
 using var retryHandler = RetryHandler<Unit>.Of(() => RunFunc(value), e => e is AccessViolationException, new CountingRetryStrategy());
-var result = await sut.HandleAsync();
+var result = await retryHandler.HandleAsync();
 
 // Asynchronous processing with return value
-using var retryHandler = RetryHandler<Unit>.Of(async () => await RunFuncAsync(value), e => e is AccessViolationException, new CountingRetryStrategy());
-var result = await sut.HandleAsync();
+using var retryHandler = RetryHandler<Unit>.Of(() => RunFuncAsync(value), e => e is AccessViolationException, new CountingRetryStrategy());
+var result = await retryHandler.HandleAsync();
 ```
 
 #### Retry strategy
