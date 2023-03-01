@@ -361,11 +361,11 @@ The reconnection processing handled by NgoClient is as follows.
 
 - When to run reconnection
   - If a connection failed
-  - Unexpected disconnection to the server
+  - Unexpected disconnection from the server
 - Reconnection processing details
   - If a connection failed
     - Repeat the connection according to the retry strategy.
-  - Unexpected disconnection to the server
+  - Unexpected disconnection from the server
     - Repeat the connection according to the retry strategy.
 
 Use [event notifications](#multiplay-ngo-event) if you want to run processing based on the status of retry processing.
