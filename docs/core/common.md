@@ -77,7 +77,7 @@ classDiagram
     }
     
     class NoRetryStrategy {
-        +NoRetryStrategy()
+        +Instance NoRetryStrategy
     }
 ```
 
