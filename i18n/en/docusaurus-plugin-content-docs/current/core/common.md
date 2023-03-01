@@ -238,7 +238,7 @@ var result = await retryHandler.HandleAsync();
 
 The following retry strategies are provided by default.
 
-- CountingRetryStrategy
+- CountingRetryStrategy 
     - The retry processing is controlled by the retry count.
 - NoRetryStrategy
     - Always no retry.
