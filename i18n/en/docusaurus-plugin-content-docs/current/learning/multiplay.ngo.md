@@ -231,6 +231,9 @@ Since we only need one NgoClient and one NetworkManager in the application, we w
 Modify the `AppScope` script to initialize NgoClient.
 
 ```csharp
+// highlight-start
+using Extreal.Core.Common.Retry;
+// highlight-end
 using Extreal.Core.Logging;
 using Extreal.Core.StageNavigation;
 // highlight-start
@@ -271,7 +274,8 @@ namespace ExtrealCoreLearning.App
 
             // highlight-start
             builder.RegisterComponent(networkManager);
-            builder.Register<NgoClient>(Lifetime.Singleton);
+            builder.Register<NgoClient>(Lifetime.Singleton)
+                .WithParameter(typeof(IRetryStrategy), NoRetryStrategy.Instance);
             // highlight-end
 
             builder.RegisterEntryPoint<AppPresenter>();

@@ -35,6 +35,7 @@ Vivoxは元々存在していた[Vivox Developer Portal](https://developer.vivox
 Vivoxラッパーの仕様は次の通りです。
 
 - Vivoxの機能を使用できます。
+- 通信が切断されたときに再接続できます。
 - Vivoxのクライアント状態をトリガーに処理を追加できます。
 
 ## Architecture
@@ -45,6 +46,7 @@ classDiagram
     VivoxClient --> VivoxAppConfig
     VivoxClient ..> VivoxAuthConfig
     VivoxClient ..> VivoxChannelConfig
+    VivoxClient ..> VivoxConnectionException
     VivoxChannelConfig --> ChatType
     DisposableBase <|-- VivoxClient
 
@@ -60,10 +62,12 @@ classDiagram
         +OnUserDisconnected IObservable
         +OnTextMessageReceived IObservable
         +OnAudioEnergyChanged IObservable
+        +OnConnectRetrying IObservable
+        +OnConnectRetried IObservable
         +VivoxClient(appConfig)
-        +LoginAsync(authConfig) void
+        +LoginAsync(authConfig, retryCancellationToken) void
         +Logout() void
-        +ConnectAsync(channelConfig) void
+        +ConnectAsync(channelConfig, connectCancellationToken) ChannelId
         +Disconnect(channelId) void
         +DisconnectAllChannels() void
         +SendTextMessage(message, channelIds, language, applicationStanzaNamespace, applicationStanzaBody) void
@@ -80,15 +84,16 @@ classDiagram
         +Domain string
         +Issuer string
         +SecretKey string
-        +VivoxAppConfig(apiEndPoint, domain, issuer, secretKey)
+        +VivoxConfig VivoxConfig
+        +LoginRetryStrategy IRetryStrategy
+        +VivoxAppConfig(apiEndPoint, domain, issuer, secretKey, vivoxConfig, loginRetryStrategy)
     }
 
     class VivoxAuthConfig {
         +DisplayName string
         +AccountName string
         +TokenExpirationDuration TimeSpan
-        +Timeout TimeSpan
-        +VivoxAuthConfig(displayName, accountName, tokenExpirationDuration, timeout)
+        +VivoxAuthConfig(displayName, accountName, tokenExpirationDuration)
     }
 
     class ChatType {
@@ -105,8 +110,12 @@ classDiagram
         +Properties Channel3DProperties
         +TransmissionSwitch bool
         +TokenExpirationDuration TimeSpan
-        +Timeout TimeSpan
-        VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch, tokenExpirationDuration, timeout)
+        +VivoxChannelConfig(channelName, chatType, channelType, transmissionSwitch, tokenExpirationDuration)
+    }
+
+    class VivoxConnectionException {
+        +VivoxConnectionException(message)
+        +VivoxConnectionException(message, innerException)
     }
 
     class DisposableBase {
@@ -159,6 +168,13 @@ public class ChatConfig : ScriptableObject
         => new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey);
 }
 ```
+
+:::info
+VivoxAppConfigには接続情報の他に次の設定を行えます。
+- [VivoxConfig](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15)
+- 通信切断時の再接続で使うリトライ戦略
+  - 詳細は[通信切断時に再接続する](#chat-vivox-retry)を参照してください。
+:::
 
 VContainerを使ってVivoxClientを初期化します。
 
@@ -244,7 +260,37 @@ vivoxClient.OnTextMessageReceived
     .AddTo(disposables);
 ```
 
-### Vivoxのクライアント状態をトリガーに処理を追加する
+### 通信が切断されたときに再接続する {#chat-vivox-retry}
+
+VivoxClientは[Common](../core/common.md)が提供するリトライ処理を使って通信切断時の再接続を実現しています。
+リトライ処理を知っている前提で以降の説明をするため、リトライ処理を確認していない方は先に[リトライ処理](../core/common.md#core-common-retry)を確認してください。
+
+VivoxClientはデフォルトで再接続を行いません。
+VivoxAppConfigにリトライ戦略を指定すると再接続を行います。
+
+```csharp
+new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey, loginRetryStrategy: new CountingRetryStrategy());
+```
+
+VivoxClientが行う再接続の処理内容は次の通りです。
+
+- 再接続を実行するタイミング
+  - ログインが失敗した場合
+  - Vivox Unity SDKの[自動接続回復](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#Unity/developer-guide/channels/automatic-connection-recovery/connection-recovery.htm?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CVivox%2520Unity%2520Developer%2520Guide%257CChannels%257CAutomatic%2520connection%2520recovery%257C_____0)が失敗した場合
+    - ログイン後に通信が切断されるとVivox Unity SDKは自動接続回復を30秒間試みます。
+    - 自動接続回復が失敗した場合はVivox Unity SDKによりクライアントはログアウトされます。
+- 再接続の処理内容
+  - ログインが失敗した場合
+    - リトライ戦略に応じてログインを繰り返します。
+  - Vivox Unity SDKの自動接続回復が失敗した場合
+    - リトライ戦略に応じてログインを繰り返します。
+    - ログインが成功した場合は切断前に接続していた全てのチャンネルに接続します。
+
+自動接続回復が失敗した場合はログアウト状態となり、ログインからやり直す必要があるため、VivoxClientの再接続はログイン処理のみを対象としています。
+
+リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#chat-vivox-event)を使用してください。
+
+### Vivoxのクライアント状態をトリガーに処理を追加する {#chat-vivox-event}
 
 VivoxClientは次のイベント通知を設けています。
 
@@ -296,3 +342,16 @@ VivoxClientは次のイベント通知を設けています。
   - パラメータ：参加者と音声の大きさ（タプル）
     - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
+- OnConnectRetrying
+  - タイミング：接続をリトライする直前
+  - タイプ：IObservable
+  - パラメータ：リトライ回数
+    - 1回目は`1`、2回目は`2`となります。
+    - `1`はリトライ戦略の実行開始を意味します。
+- OnConnectRetried
+  - タイミング：接続のリトライが終了した直後
+    - リトライがキャンセルされた場合は通知されません。
+  - タイプ：IObservable
+  - パラメータ：リトライ結果
+    - true：リトライ戦略を実行してリトライが成功した場合
+    - false：リトライ戦略を実行して最終的にリトライが成功しなかった場合
