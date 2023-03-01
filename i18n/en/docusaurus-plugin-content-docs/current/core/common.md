@@ -178,19 +178,19 @@ The conditions for methods to which retry processing can be applied are as follo
 - The target method is one of the following.
     - Synchronous processing with no return value
       ```csharp
-      public void RunAction()
+      void RunAction()
       ```
     - Asynchronous processing without return value
       ```csharp
-      public UniTask RunActionAsync()
+      UniTask RunActionAsync()
       ```
     - Synchronous processing with return value
       ```csharp
-      public TResult RunFunc()
+      TResult RunFunc()
       ```
     - Asynchronous processing with return value
       ```csharp
-      public UniTask<TResult> RunFuncAsync()
+      UniTask<TResult> RunFuncAsync()
       ```
 - Method arguments can be provided or not.
 - Use [UniTask](https://github.com/Cysharp/UniTask) for asynchronous processing.

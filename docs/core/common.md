@@ -178,19 +178,19 @@ RetryHandlerクラスを使うことでメソッドにリトライ処理を適�
 - 次のいずれかの処理を行うメソッドが対象です。
   - 戻り値なしの同期処理
     ```csharp
-    public void RunAction()
+    void RunAction()
     ```
   - 戻り値なしの非同期処理
     ```csharp
-    public UniTask RunActionAsync()
+    UniTask RunActionAsync()
     ```
   - 戻り値ありの同期処理
     ```csharp
-    public TResult RunFunc()
+    TResult RunFunc()
     ```
   - 戻り値ありの非同期処理
     ```csharp
-    public UniTask<TResult> RunFuncAsync()
+    UniTask<TResult> RunFuncAsync()
     ```
 - メソッド引数はありとなしのどちらでも構いません。
 - 非同期処理には[UniTask](https://github.com/Cysharp/UniTask)を使ってください。
