@@ -107,7 +107,7 @@ classDiagram
     
     class UnityDebugLogFormat {
         +Category string
-        +Color Color
+        +ColorRGB string
         +UnityDebugLogFormat(category, color)
     }
 ```
@@ -278,7 +278,7 @@ public class LoggingConfig : ScriptableObject
     public ICollection<string> CategoryFilters => categoryFilters;
 
     public ICollection<UnityDebugLogFormat> LogFormats =>
-        logFormats.Select(logFormat => new UnityDebugLogFormat(logFormat.Category, logFormat.Color)).ToList();
+        logFormats.Select(logFormat => new UnityDebugLogFormat(logFormat.Category, logFormat.Color)).ToArray();
 }
 
 // Initialize using LoggingConfig.

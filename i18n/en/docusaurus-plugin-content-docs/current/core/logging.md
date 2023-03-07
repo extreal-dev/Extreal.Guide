@@ -107,7 +107,7 @@ classDiagram
     
     class UnityDebugLogFormat {
         +Category string
-        +Color Color
+        +ColorRGB string
         +UnityDebugLogFormat(category, color)
     }
 ```
@@ -254,7 +254,7 @@ LoggingManager.Initialize(writer: writer);
 
 #### Example of use in application
 
-If you use these functions in your application, please create the following ScriptableObject for easy configuration on the Unity editor.
+If you use these features in your application, please create the following ScriptableObject for easy configuration on the Unity editor.
 
 ```csharp
 [CreateAssetMenu(
@@ -278,7 +278,7 @@ public class LoggingConfig : ScriptableObject
     public ICollection<string> CategoryFilters => categoryFilters;
 
     public ICollection<UnityDebugLogFormat> LogFormats =>
-        logFormats.Select(logFormat => new UnityDebugLogFormat(logFormat.Category, logFormat.Color)).ToList();
+        logFormats.Select(logFormat => new UnityDebugLogFormat(logFormat.Category, logFormat.Color)).ToArray();
 }
 
 // Initialize using LoggingConfig.
