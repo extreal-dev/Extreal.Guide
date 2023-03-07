@@ -49,6 +49,9 @@ Loggingの仕様は次の通りです。
   - デフォルトのログ出力判定はログレベルのみで判定します。
   - デフォルトではInfo以上のログを出力します。
   - デフォルトのログ出力はUnity標準のDebugクラスで行います。
+- ログカテゴリを使ってログ出力をカスタマイズできます。
+  - ログカテゴリで出力するログを絞り込めます。
+  - Unity標準のDebugクラスで出力するログの色をログカテゴリ毎に指定できます。
 - ログ出力判定に使うログレベルを変更できます。
 - ログ出力判定を変更できます。
 - ログ書き込み（フォーマットや出力先）を変更できます。
@@ -63,6 +66,7 @@ classDiagram
     ELogger ..> ILogWriter
     ILogOutputChecker <|.. LogLevelLogOutputChecker
     ILogWriter <|.. UnityDebugLogWriter
+    UnityDebugLogWriter o-- UnityDebugLogFormat
 
     class LogLevel {
         <<enumeration>>
@@ -94,9 +98,17 @@ classDiagram
     }
 
     class LogLevelLogOutputChecker {
+        +LogLevelLogOutputChecker(categories)
     }
 
     class UnityDebugLogWriter {
+        +UnityDebugLogWriter(formats)
+    }
+    
+    class UnityDebugLogFormat {
+        +Category string
+        +Color Color
+        +UnityDebugLogFormat(category, color)
     }
 ```
 
@@ -206,6 +218,88 @@ if (Logger.IsDebug()) {
 :::tip
 本番運用時に設定するログレベルから判断して常に出力されるログにはログ出力判定は不要です。
 :::
+
+### ログカテゴリを使ってログ出力をカスタマイズする {#core-logging-category}
+
+ログカテゴリを使って次の通りログ出力をカスタマイズできます。
+
+- ログカテゴリで出力するログを絞り込めます。
+- Unity標準のDebugクラスで出力するログの色をログカテゴリ毎に指定できます。
+
+#### ログカテゴリで出力するログを絞り込む
+
+LogLevelLogOutputCheckerクラスを使います。
+指定されたログカテゴリのログのみ出力されます。
+
+```csharp
+var categoryFilters = new List<string> { "XxxClass", "YyyClass", "ZzzClass" };
+var checker = new LogLevelLogOutputChecker(categoryFilters);
+LoggingManager.Initialize(checker: checker);
+```
+
+#### Unity標準のDebugクラスで出力するログの色をログカテゴリ毎に指定する
+
+UnityDebugLogWriterクラスとUnityDebugLogFormatクラスを使います。
+UnityDebugLogFormatを使ってログカテゴリ毎の色を指定します。
+
+```csharp
+var formats = new List<UnityDebugLogFormat>
+{
+    new UnityDebugLogFormat("XxxClass", Color.blue),
+    new UnityDebugLogFormat("ZzzClass", Color.red)
+};
+var writer = new UnityDebugLogWriter(formats);
+LoggingManager.Initialize(writer: writer);
+```
+
+#### アプリケーションでの使用例
+
+これらの機能をアプリケーションで使用する際はUnityエディター上で設定しやすいように次のようなScriptableObjectを作成してください。
+
+```csharp
+[CreateAssetMenu(
+    menuName = "Config/" + nameof(LoggingConfig),
+    fileName = nameof(LoggingConfig))]
+public class LoggingConfig : ScriptableObject
+{
+    [SerializeField] private List<string> categoryFilters;
+    [SerializeField] private List<LogFormat> logFormats;
+
+    [Serializable]
+    public class LogFormat
+    {
+        [SerializeField] private string category;
+        [SerializeField] private Color color;
+
+        public string Category => category;
+        public Color Color => color;
+    }
+
+    public ICollection<string> CategoryFilters => categoryFilters;
+
+    public ICollection<UnityDebugLogFormat> LogFormats =>
+        logFormats.Select(logFormat => new UnityDebugLogFormat(logFormat.Category, logFormat.Color)).ToList();
+}
+
+// Initialize using LoggingConfig.
+public class App : MonoBehaviour
+{
+    [SerializeField] private LoggingConfig loggingConfig;
+
+    private static void InitializeApp()
+    {
+        const LogLevel logLevel = LogLevel.Debug;
+        var checker = new LogLevelLogOutputChecker(loggingConfig.CategoryFilters);
+        var writer = new UnityDebugLogWriter(loggingConfig.LogFormats);
+        LoggingManager.Initialize(logLevel, checker, writer);
+    }
+
+    private void Awake()
+    {
+        InitializeApp();
+    }
+}
+```
 
 ### ログレベルを変更する
 

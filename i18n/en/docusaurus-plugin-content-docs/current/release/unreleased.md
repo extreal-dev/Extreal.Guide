@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-02-23
+2023-03-07
 
 ## Unity version
 
@@ -14,7 +14,7 @@ The following Unity versions have been tested.
 
 ## Modules
 
-- [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.0.0
+- [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.1.0-next.1
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0-next.1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.2
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.2
@@ -31,6 +31,11 @@ The following Unity versions have been tested.
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.190000 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 
 ## Changes
+
+### Extreal.Core.Logging
+#### Changed
+- Added the ability to filter log output by log category. ([Doc](../core/logging.md#core-logging-category), [PR](https://github.com/extreal-dev/Extreal.Core.Logging/pull/20))
+- Added the ability to specify the color of logs output by the Unity standard Debug class for each log category. ([Doc](../core/logging.md#core-logging-category), [PR](https://github.com/extreal-dev/Extreal.Core.Logging/pull/20))
 
 ### Extreal.Core.StageNavigation
 #### Changed
