@@ -49,6 +49,9 @@ Logging specifications are as follows.
   - The default log output checker is based on log level only.
   - The default log output is Info or higher.
   - Default log output is performed by the Unity standard Debug class.
+- You can customize log output using log categories.
+  - You can filter log output by log category.
+  - You can specify the color of the log output in the Unity standard Debug class for each log category.
 - You can change the log level used to determine log output.
 - You can change the log output checker.
 - You can change the log writer (format and output destination).
@@ -63,6 +66,7 @@ classDiagram
     ELogger ..> ILogWriter
     ILogOutputChecker <|.. LogLevelLogOutputChecker
     ILogWriter <|.. UnityDebugLogWriter
+    UnityDebugLogWriter o-- UnityDebugLogFormat
 
     class LogLevel {
         <<enumeration>>
@@ -94,9 +98,17 @@ classDiagram
     }
 
     class LogLevelLogOutputChecker {
+        +LogLevelLogOutputChecker(categories)
     }
 
     class UnityDebugLogWriter {
+        +UnityDebugLogWriter(formats)
+    }
+    
+    class UnityDebugLogFormat {
+        +Category string
+        +ColorRGB string
+        +UnityDebugLogFormat(category, color)
     }
 ```
 
@@ -206,6 +218,88 @@ if (Logger.IsDebug()) {
 :::tip
 Log output determination is not required for logs that are always output based on the log level set for production operation.
 :::
+
+### Customize log output using log categories {#core-logging-category}
+
+Log categories can be used to customize log output as follows.
+
+- You can filter log output by log category.
+- You can specify the color of the log output in the Unity standard Debug class for each log category.
+
+#### Filter log output by log category
+
+Use the LogLevelLogOutputChecker class.
+Only logs of the specified log category will be output.
+
+```csharp
+var categoryFilters = new List<string> { "XxxClass", "YyyClass", "ZzzClass" };
+var checker = new LogLevelLogOutputChecker(categoryFilters);
+LoggingManager.Initialize(checker: checker);
+```
+
+#### Specify the color of the log output in the Unity standard Debug class for each log category
+
+Use the UnityDebugLogWriter and UnityDebugLogFormat classes.
+Use UnityDebugLogFormat to specify colors for each log category.
+
+```csharp
+var formats = new List<UnityDebugLogFormat>
+{
+    new UnityDebugLogFormat("XxxClass", Color.blue),
+    new UnityDebugLogFormat("ZzzClass", Color.red)
+};
+var writer = new UnityDebugLogWriter(formats);
+LoggingManager.Initialize(writer: writer);
+```
+
+#### Example of use in application
+
+If you use these features in your application, please create the following ScriptableObject for easy configuration on the Unity editor.
+
+```csharp
+[CreateAssetMenu(
+    menuName = "Config/" + nameof(LoggingConfig),
+    fileName = nameof(LoggingConfig))]
+public class LoggingConfig : ScriptableObject
+{
+    [SerializeField] private List<string> categoryFilters;
+    [SerializeField] private List<LogFormat> logFormats;
+
+    [Serializable]
+    public class LogFormat
+    {
+        [SerializeField] private string category;
+        [SerializeField] private Color color;
+
+        public string Category => category;
+        public Color Color => color;
+    }
+
+    public ICollection<string> CategoryFilters => categoryFilters;
+
+    public ICollection<UnityDebugLogFormat> LogFormats =>
+        logFormats.Select(logFormat => new UnityDebugLogFormat(logFormat.Category, logFormat.Color)).ToArray();
+}
+
+// Initialize using LoggingConfig.
+public class App : MonoBehaviour
+{
+    [SerializeField] private LoggingConfig loggingConfig;
+
+    private static void InitializeApp()
+    {
+        const LogLevel logLevel = LogLevel.Debug;
+        var checker = new LogLevelLogOutputChecker(loggingConfig.CategoryFilters);
+        var writer = new UnityDebugLogWriter(loggingConfig.LogFormats);
+        LoggingManager.Initialize(logLevel, checker, writer);
+    }
+
+    private void Awake()
+    {
+        InitializeApp();
+    }
+}
+```
 
 ### Change log level
 
