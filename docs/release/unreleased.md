@@ -4,13 +4,13 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-03-07
+2023-03-15
 
 ## Unity version
 
 次のUnityバージョンで動作確認しています。
 
-2021.3.16f1
+2021.3.20f1
 
 ## Modules
 
@@ -19,6 +19,7 @@ sidebar_position: 1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.2
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.2
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.2
+- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.0.0-next.2
 
 ## Dependencies
 
@@ -29,6 +30,8 @@ sidebar_position: 1
   - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.2.0 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
 - Extreal.Integration.Chat.Vivox
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.190400-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
+- Extreal.Integration.AssetWorkflow.Addressables
+  - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) 1.19.19
 
 ## Changes
 
@@ -43,7 +46,7 @@ sidebar_position: 1
 
 ### Extreal.Core.Common
 #### Added
-- モジュールを追加しました。
+- 汎用的な処理を共通機能として提供するモジュールを追加しました。([Doc](../core/common.md))
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を継承/移譲で適用する機能を追加しました。([Doc](../core/common.md#core-common-dp), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
 - リトライ処理をメソッドに適用する機能を追加しました。([Doc](../core/common.md#core-common-retry), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/4))
 
@@ -61,6 +64,10 @@ sidebar_position: 1
 - ログイン(VivoxClientのLoginAsyncメソッド)とチャンネル接続(VivoxClientのConnectAsyncメソッド)の処理失敗をすぐに検知できるように処理失敗を判定する方法をタイムアウトから処理結果を待って判定するように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a183b44b9573c8080de0fe1df004a4fe1b6c2ad8))
   - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
 - ログインしていない状態でチャンネルを切断(VivoxClientのDisconnectメソッド)しても例外が発生しないように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a9147710d6f7ca0d49c7db8e4eca4e92fe6a3388))
+
+### Extreal.Integration.AssetWorkflow.Addressables
+#### Added
+- [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html)をアプリケーションで使いやすくするラッパーを提供するモジュールを追加しました。([Doc](../integration/asset-workflow.addressables.md))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
