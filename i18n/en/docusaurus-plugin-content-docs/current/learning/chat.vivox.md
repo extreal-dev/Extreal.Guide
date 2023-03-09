@@ -9,7 +9,7 @@ In this section, you will learn about the [Vivox wrapper](../integration/chat.vi
 - Approximate learning time
   - 60 min.
 - Unity Version
-  - 2021.3.16f1
+  - 2021.3.20f1
 
 The Vivox wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.
@@ -621,7 +621,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
     public class VoiceChatChannel : ChatChannelBase
     {
         public IObservable<bool> IsMute => isMute.AddTo(Disposables);
-        private ReactiveProperty<bool> isMute = new ReactiveProperty<bool>();
+        private ReactiveProperty<bool> isMute = new ReactiveProperty<bool>(true);
 
         public VoiceChatChannel(VivoxClient vivoxClient, string channelName) : base(vivoxClient, channelName)
         {

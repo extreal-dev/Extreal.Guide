@@ -9,7 +9,7 @@ sidebar_position: 3
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2021.3.16f1
+  - 2021.3.20f1
 
 Vivoxラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
@@ -621,7 +621,7 @@ namespace ExtrealCoreLearning.VoiceChatControl
     public class VoiceChatChannel : ChatChannelBase
     {
         public IObservable<bool> IsMute => isMute.AddTo(Disposables);
-        private ReactiveProperty<bool> isMute = new ReactiveProperty<bool>();
+        private ReactiveProperty<bool> isMute = new ReactiveProperty<bool>(true);
 
         public VoiceChatChannel(VivoxClient vivoxClient, string channelName) : base(vivoxClient, channelName)
         {
