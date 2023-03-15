@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-03-07
+2023-03-15
 
 ## Unity version
 
@@ -19,6 +19,7 @@ The following Unity versions have been tested.
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0-next.2
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.1.0-next.2
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0-next.2
+- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.0.0-next.2
 
 ## Dependencies
 
@@ -29,6 +30,8 @@ The following Unity versions have been tested.
   - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.2.0 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
 - Extreal.Integration.Chat.Vivox
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.190400-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
+- Extreal.Integration.AssetWorkflow.Addressables
+  - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) 1.19.19
 
 ## Changes
 
@@ -61,6 +64,10 @@ The following Unity versions have been tested.
 - Changed the method of detecting processing failures in login (LoginAsync method of VivoxClient) and channel connection (ConnectAsync method of VivoxClient) from timeout to waiting for the processing results to be determined so that processing failures can be detected immediately. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a183b44b9573c8080de0fe1df004a4fe1b6c2ad8))
   - Please refer to the [upgrade guide](#upgrade-guide) as this change affects backward compatibility.
 - Changed so that disconnecting a channel (Disconnect method of VivoxClient) while not logged in will not raise an exception. ([PR](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox/pull/15/commits/a9147710d6f7ca0d49c7db8e4eca4e92fe6a3388))
+
+### Extreal.Integration.AssetWorkflow.Addressables
+#### Added
+- Added the module that provides a wrapper to make [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) easier to use in applications. ([Doc](../integration/asset-workflow.addressables.md))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
