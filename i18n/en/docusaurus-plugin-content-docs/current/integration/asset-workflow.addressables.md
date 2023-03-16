@@ -296,10 +296,10 @@ The following is an instruction on how to apply this feature.
 
 First, set up a build script to encrypt the assets as follows.
 
-- Create a ScriptableObject from the `Extreal>Integration.AssetWorkflow.Addressables.Editor>Encrypt Build Script` in the Create Asset menu.
+- Create a ScriptableObject from the `Extreal > Integration.AssetWorkflow.Addressables.Editor > Encrypt Build Script` in the Create Asset menu.
 - Add the ScriptableObject you created to the `Build and Play Mode Scripts` from the `AddressablesAssetSettings` inspector.
 
-This setting allows you to choose `Build>New Build>Encrypt Build Script` in the `Addressables Group` window.
+This setting allows you to choose `Build > New Build > Encrypt Build Script` in the `Addressables Group` window.
 
 Next, set up the ResourceProvider that decrypts the asset.
 ICryptoStreamFactory must be implemented first.

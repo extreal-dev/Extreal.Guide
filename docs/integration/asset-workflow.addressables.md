@@ -296,10 +296,10 @@ AddressablesのビルドスクリプトとResourceProviderをカスタマイズ�
 
 まず、アセットの暗号化を行うビルドスクリプトを次の手順で設定します。
 
-- アセット作成メニューの`Extreal>Integration.AssetWorkflow.Addressables.Editor>Encrypt Build Script`からScriptableObjectを作成します。
+- アセット作成メニューの`Extreal > Integration.AssetWorkflow.Addressables.Editor > Encrypt Build Script`からScriptableObjectを作成します。
 - `AddressablesAssetSettings`のインスペクタから`Build and Play Mode Scripts`に作成したScriptableObjectを追加します。
 
-この設定により、`Addressables Group`ウィンドウの`Build>New Build>Encrypt Build Script`が選べるようになります。
+この設定により、`Addressables Group`ウィンドウの`Build > New Build > Encrypt Build Script`が選べるようになります。
 
 次に、アセットの復号を行うResourceProviderを設定します。
 先にICryptoStreamFactoryの実装が必要です。
