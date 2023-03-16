@@ -123,3 +123,18 @@ The skills required, depending on the application requirements, are as follows.
 
 - Vivox Unity SDK
   - [Vivox Developer Portal](https://developer.vivox.com/)
+
+### Asset Workflow {#asset-workflow}
+
+#### Skills
+
+- Addressables
+  - Basic asset workflow usage
+
+#### Resources
+
+- Addressables
+  - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html)
+  - [AssetBundleを完全に理解する](https://qiita.com/k7a/items/d27640ac0276214fc850)
+  - [Addressable Assets Systemを完全に理解する](https://qiita.com/k7a/items/b4fd298bcb64dc968ad1)
+
