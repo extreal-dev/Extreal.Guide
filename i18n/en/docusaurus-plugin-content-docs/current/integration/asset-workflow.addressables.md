@@ -290,7 +290,7 @@ These classes are related as follows.
 - Since the cryptographic algorithm to be used and the management of keys vary depending on the security level required by the application, an ICryptoStreamFactory is provided to provide for their processing.
 - To incorporate ICryptoStreamFactory, CryptoAssetBundleProviderBase is provided as a Base class.
 - CryptoAssetBundleProviderBase decrypts assets using ICryptoStreamFactory. (Actually CryptoAssetBundleResource and DoorloadHandlerFileWithDecryption do it)
-- BuildScriptEncryptMode encrypts using ICryptoStreamFactory if the ResourceProvider specified in the Asset Group at build execution is CryptoAssetBundleProviderBase, and Otherwise, encryption is not performed.
+- BuildScriptEncryptMode encrypts using ICryptoStreamFactory if the ResourceProvider specified in the Asset Group at build execution is a class that extends CryptoAssetBundleProviderBase, and Otherwise, encryption is not performed.
 
 The following is an instruction on how to apply this feature.
 
