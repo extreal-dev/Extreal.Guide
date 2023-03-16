@@ -242,7 +242,7 @@ AssetProviderは次のイベント通知を設けています。
 - OnDownloading
     - タイミング：ダウンロードを開始する直前
     - タイプ：IObservable
-    - パラメータ：なし
+    - パラメータ：アセット名
 - OnDownloaded
     - タイミング：ダウンロードした直後（途中経過も含む）
     - タイプ：IObservable

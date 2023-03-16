@@ -242,7 +242,7 @@ AssetProvider has the following event notifications.
 - OnDownloading
   - Timing：Just before downloading
   - Type：IObservable
-  - Parameters：None
+  - Parameters：Asset name
 - OnDownloaded
   - Timing：Immediately after download (including during processing)
   - Type：IObservable
