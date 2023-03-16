@@ -46,7 +46,7 @@ The following Unity versions have been tested.
 
 ### Extreal.Core.Common
 #### Added
-- Modules are added.
+- Added the module that provides general-purpose processing as a common feature. ([Doc](../core/common.md))
 - Added feature to apply [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) by inheritance/delegation. ([Doc](../core/common.md#core-common-dp), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/1))
 - Added ability to apply retry processing to methods. ([Doc](../core/common.md#core-common-retry), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/4))
 

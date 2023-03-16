@@ -15,8 +15,8 @@ The Addressables wrapper provides features to facilitate the creation of downloa
 The goal is to make Addressables introduction smooth by using the Addressables wrapper in your applications.
 
 :::caution
-The  wrapper makes Addressables easier to use, but it does not mean that you only need to know the Addressables wrapper to realize voice/text chat without knowing Addressables.
-The Addressables wrapper compensates for the difficulties and lack of features when using Addressables as it is, but transfers the voice/text chat process to Addressables.
+The  wrapper makes Addressables easier to use, but it does not mean that you only need to know the Addressables wrapper to realize asset workflow without knowing Addressables.
+The Addressables wrapper compensates for the difficulties and lack of features when using Addressables as it is, but transfers the asset workflow process to Addressables.
 Therefore, to use the Addressables wrapper, it is assumed that you know Addressables.
 If you do not know Addressables, please refer to [Learning](../learning/intro.md#asset-workflow) to learn about Addressables.
 This guide assumes you know Addressables.
@@ -183,7 +183,7 @@ Func<UniTask> navigate = async () =>
 assetProvider.DownloadAsync("AssetName", nextFunc: navigate).Forget();
 ```
 
-Use [event notification](#assets-addressables-event) if you want to perform processing based on the download status.
+Use [event notification](#assets-addressables-event) if you want to run processing based on the download status.
 
 Use the LoadAssetAsync method to load an asset.
 
@@ -193,7 +193,7 @@ var prefab = assetDisposable.Result;
 ```
 
 Methods that load assets or scenes return AssetDisposable.
-AssetDisposable is a class that enables the release of loaded assets with IDisposable's Disposable.
+AssetDisposable is a class that enables the release of loaded assets with IDisposable's Dispose.
 AssetDisposable handles an asset in the same way as other classes that implement IDisposable.
 Loaded asset is obtained from the Result property of AssetDisposable.
 
@@ -287,10 +287,10 @@ The following classes are provided.
   - ICryptoStreamFactory
 
 These classes are related as follows.
-- Since the cryptographic algorithm to be used and the management of keys vary depending on the security level required by the application, an ICryptoStreamFactory is provided to provide for their processing.
-- To incorporate ICryptoStreamFactory, CryptoAssetBundleProviderBase is provided as a Base class.
-- CryptoAssetBundleProviderBase decrypts assets using ICryptoStreamFactory. (Actually CryptoAssetBundleResource and DoorloadHandlerFileWithDecryption do it)
-- BuildScriptEncryptMode encrypts using ICryptoStreamFactory if the ResourceProvider specified in the Asset Group at build execution is a class that extends CryptoAssetBundleProviderBase, and Otherwise, encryption is not performed.
+- Since the cryptographic algorithm to be used and the management of keys vary depending on the security level required by the application, an ICryptoStreamFactory is provided to implement for their processing.
+- To embed ICryptoStreamFactory, CryptoAssetBundleProviderBase is provided as a Base class.
+- CryptoAssetBundleProviderBase decrypts assets using ICryptoStreamFactory. (Actually CryptoAssetBundleResource and DownloadHandlerFileWithDecryption do it)
+- BuildScriptEncryptMode encrypts using ICryptoStreamFactory if the ResourceProvider specified in the Asset Group at build execution is a class that extends CryptoAssetBundleProviderBase, and Otherwise, encryption is not executed.
 
 The following is an instruction on how to apply this feature.
 
@@ -301,10 +301,10 @@ First, set up a build script to encrypt the assets as follows.
 
 This setting allows you to choose `Build>New Build>Encrypt Build Script` in the `Addressables Group` window.
 
-Next, set up the ResourceProvider that will decrypt the asset.
+Next, set up the ResourceProvider that decrypts the asset.
 ICryptoStreamFactory must be implemented first.
 Implement ICryptoStreamFactory according to the requirements of your application.
-An example implementation using AES is shown below to show the implementation image.
+An example implementation using AES is shown below to give an idea of the implementation.
 
 ```csharp
 public class CryptoStreamFactory : ICryptoStreamFactory
@@ -363,4 +363,4 @@ public class CryptoAssetBundleProvider : CryptoAssetBundleProviderBase
 }
 ```
 
-Now you can select the class implemented in the `Content Packing & Loading > Advanced Options > Asset Bundle Provider` from the inspector of the `Addressables Asset Group`.
+Now you can select the implemented class as the `Content Packing & Loading > Advanced Options > Asset Bundle Provider` from the inspector of the `Addressables Asset Group`.
