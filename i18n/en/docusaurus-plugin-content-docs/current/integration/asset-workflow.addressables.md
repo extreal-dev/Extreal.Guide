@@ -80,6 +80,8 @@ classDiagram
     IAssetBundleResource <|.. CryptoAssetBundleResource
     DownloadHandlerScript <|-- DownloadHandlerFileWithDecryption
     BuildScriptEncryptMode ..> ICryptoStreamFactory
+    CryptoAssetBundleProviderBase ..> ICryptoStreamFactory
+    CryptoAssetBundleResource ..> ICryptoStreamFactory
     DownloadHandlerFileWithDecryption ..> ICryptoStreamFactory
     CryptoAssetBundleProviderBase ..> CryptoAssetBundleResource
     CryptoAssetBundleResource ..> DownloadHandlerFileWithDecryption
