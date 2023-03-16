@@ -16,7 +16,7 @@ The goal is to make Addressables introduction smooth by using the Addressables w
 
 :::caution
 The  wrapper makes Addressables easier to use, but it does not mean that you only need to know the Addressables wrapper to realize asset workflow without knowing Addressables.
-The Addressables wrapper compensates for the difficulties and lack of features when using Addressables as it is, but transfers the asset workflow process to Addressables.
+The Addressables wrapper compensates for the difficulties and lack of features when using Addressables as it is, but transfers the asset workflow processing to Addressables.
 Therefore, to use the Addressables wrapper, it is assumed that you know Addressables.
 If you do not know Addressables, please refer to [Learning](../learning/intro.md#asset-workflow) to learn about Addressables.
 This guide assumes you know Addressables.
