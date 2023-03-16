@@ -19,7 +19,7 @@ sidebar_position: 6
     - [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)から作成したUnityのフォントアセット
   - Holiday
     - Holidayのアプリケーションで作成するアセット
-  - Holiday.MultiplayCommon
+  - Holiday.Common
     - Holidayのアプリケーションとマルチプレイサーバーに共通するアセット
   - Holiday.MultiplayServer
     - Holidayのマルチプレイサーバーで作成するアセット
@@ -29,6 +29,8 @@ sidebar_position: 6
     - [Mixamo](https://www.mixamo.com/)から作成したUnityのキャラクタモデル
   - Plugins
     - Android向けビルドの設定ファイル
+  - ScriptTemplates
+    - スクリプトテンプレート
   - StarterAssets
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=ja-JP)のインストール先
   - TextMesh Pro
@@ -48,13 +50,22 @@ Holiday以外のディレクトリはサードパーティやUnityの機能利�
 - App
   - アプリケーションのエントリーポイント
   - アプリケーション全体の設定/状態
-  - Common
-    - アプリケーション全体で共通する処理
+  - AssetWorkflow
+    - アセットのダウンロードに共通する処理
+  - Avatars
+    - アバターのプレハブ
+  - Config
+    - アプリケーションの設定
+  - Stages
+    - ステージに共通する処理
 - Controls
   - XxxControl
     - Controlシーン。シーン毎のアセットをまとめて配置
   - Common
     - Controlシーン間で共通する処理
+- Editor
+  - AssetWorkflow
+    - アセットのビルドに共通する処理
 - Screens
   - XxxScreen
     - Screenシーン。シーン毎のアセットをまとめて配置
@@ -166,7 +177,7 @@ VContainerが推奨する方法を採用します。
 - C# Type
   - [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
 - MonoBehaviour
-  - [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
+  - [Property/Field Injection](https://vcontainer.hadashikick.jp/resolving/property-field-injection)
 
 VContainerの推奨理由については[Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)のRECOMMENDATIONを参照してください。
 
@@ -191,16 +202,30 @@ builder.RegisterEntryPoint<AppPresenter>();
 
 [VContainer](https://vcontainer.hadashikick.jp/)ではLifetimeScopeを継承したクラスをアタッチしたオブジェクトをシーンに置き、これが1つのスコープ（1つのコンテナ）を表現します。
 スコープに親のスコープを指定することでオブジェクトの検索を親まで広げることができます。
-Holidayでは親のスコープ指定を使って、Appシーンのオブジェクトを各シーンで使えるようにします。
+Holidayでは親のスコープ指定を使って、共通するシーンのオブジェクトを各シーンで使えるようにします。
+
+Holidayの共通するシーンは次の通りです。
+- Appシーン
+- ClientControlシーン
+  - Vivoxクライアント、NGOクライアントを提供します。
+
 Holidayのスコープ階層は下記になります。
 
 ```text
 Appシーン
 ↑
 各シーン（Controlシーン、Screenシーン、Spaceシーン）
+
+または
+
+Appシーン
+↑
+ClientControlシーン
+↑
+各シーン（Controlシーン、Screenシーン、Spaceシーン）
 ```
 
-各シーンのスコープの親にはAppシーンのスコープを指定してください。
+各シーンのスコープの親には共通するシーンのスコープを指定してください。
 
 ![オブジェクトスコープの親](../img/holiday-object-scope-parent.png)
 
@@ -211,23 +236,44 @@ Dispose Patternの実装を共通化するため、個別にDispose Patternを�
 
 ## Assets
 
-現状は全てのアセットをアプリケーションに含めていますが、コンテンツの容量が増えてきた場合はコンテンツを外部化し必要なコンテンツのみダウンロードしてアプリケーションを使えるようにする想定です。コンテンツのみ変更したいケースやアプリケーションの容量を減らしてダウンロード時間を短くするためです。
+Holidayではコンテンツを外部化し必要なコンテンツをダウンロードしてアプリケーションを使えるようにします。
+コンテンツのみ変更できるようにする、アプリケーションの容量を減らしてダウンロード時間を短くするためです。
 
-Holidayではアセット管理にUnityのAddressablesを使用します。
-Addressablesは次の目的で使用します。
+Holidayではアセット管理に[AssetWorkflow.Addressables](../integration/asset-workflow.addressables.md)を使用します。
 
-- 使用するアセットに名前を付け物理的なパスに依存せずアプリケーションでアセットを取得する
-- アプリケーションのソースコードを変更せずにアセットの取得先をローカルからリモートに切り替える
+アセットグループは次の通りです。
+アセットの初回使用時のみダウンロードされ、以降はキャッシュが使われます。
 
-アセット名のルールは下記とします。
+- AppCommon
+  - アプリケーション全体に共通するアセット
+  - メッセージ/チャット/マルチプレイの設定やアバターの3Dモデルなど
+  - ダウンロードタイミング
+    - アバター選択ステージに遷移する前
+- VirtualSpace
+  - VirtualSpaceステージ用のアセット
+  - バーチャル空間の3Dモデルなど
+  - ダウンロードタイミング
+    - VirtualSpaceステージに遷移する前
+- Duplicate Asset Isolation
+  - 複数のアセットグループに重複するアセット
+  - ダウンロードタイミング
+    - AppCommonと同じ
 
-```text
-タイプ＋名前
+リモートのベースURLは次のルールとし、アプリケーションのバージョン毎にアセットを配置します。
 
-（例）
-AvatarAmy
-AvatarMichelle
 ```
+Remote base URL：
+  https://<host>/<version>/<target>
+Example：
+  https://<host>/1.0.0/Android
+  https://<host>/1.0.0/iOS
+  https://<host>/1.0.0/StandaloneWindows64
+  https://<host>/1.1.0/Android
+  https://<host>/1.1.0/iOS
+  https://<host>/1.1.0/StandaloneWindows64
+```
+
+開発時は`Addressables Groups`の設定で`Play Mode Script`を`Use Asset Database`に指定するとダウンロードせずにプレイできます。
 
 ## Scenes
 
@@ -253,11 +299,12 @@ AvatarMichelle
 ### Base class for Presenter
 
 ステージ遷移時の処理呼び出しは各シーンのPresenterスクリプトに共通する処理となるためBaseクラスを設けています。
-PresenterスクリプトはこのBaseクラスを使ってください。
 
 ```text
 Assets/Holiday/App/Common/StagePresenterBase
 ```
+
+テンプレートを用意しているので`Presenter Template`からPresenterスクリプトを作成してください。
 
 Baseクラスは次の共通処理を提供します。
 
@@ -463,11 +510,9 @@ GameViewの解像度に1080x1920を追加し、Unityエディタ上では2つの
 UIの共通化にはUnityのPrefabを使います。
 Prefabを追加した場合は下記に追記してください。
 
-Prefabのパス
 ```text
-Assets/Holiday/Stages/Common
+Assets/Holiday/Screens/Common
 ```
-
 - ScreenCanvas
   - 画面用のCanvas
   - バックグラウンドの色指定、SafeArea対応が入っています。
@@ -478,13 +523,14 @@ Assets/Holiday/Stages/Common
 - ScreenButton
   - 画面用のボタン
   - フォント、文字の設定が入っています。
+
+```text
+Assets/Holiday/Controls/Common
+```
 - SpaceCanvas
   - 空間用のCanvas
   - SafeArea対応が入っています。
   - SafeAreaの下に画面のUIを配置してください。
-- SpaceTitle
-  - 空間用のタイトル
-  - フォント、文字の設定が入っています。
 - SpaceButton
   - 空間用のボタン
   - フォント、文字の設定が入っています。
@@ -492,3 +538,11 @@ Assets/Holiday/Stages/Common
 ### Canvas
 
 バックグラウンド画面やローディング画面のように画面や空間に重ねて使用する共通画面のCanvasにはSortOrderを指定して前面に表示されるようにしてください。
+
+## Build
+
+ビルド設定をリポジトリに含めているので次の設定のみ変更して本番向けのビルドを行います。
+
+- `Player Settings > Other Settings > Script Compilation`に`HOLIDAY_PROD`シンボルを追加します。
+
+アプリケーションは`Windows`、`Android`、`iOS`、マルチプレイサーバーは`Dedicated Server(Linux)`でビルドします。

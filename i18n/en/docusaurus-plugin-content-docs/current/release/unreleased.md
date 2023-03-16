@@ -69,10 +69,6 @@ The following Unity versions have been tested.
 #### Added
 - Added the module that provides a wrapper to make [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) easier to use in applications. ([Doc](../integration/asset-workflow.addressables.md))
 
-### Extreal.SampleApp.Holiday
-#### Changed
-- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/2))
-
 ## Upgrade guide {#upgrade-guide}
 
 Please update the module versions.

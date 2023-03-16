@@ -7,7 +7,8 @@ sidebar_position: 3
 ## System Structure
 
 Users download and use the application from the each store or AWS S3.
-The application is distributed with assets such as 3D models and connection information to servers.
+Assets such as 3D models and connection information to the server are not included in the application, but are downloaded from S3 when the application is running.
+Only the minimum information required to download assets is included in the application.
 Connect to the SaaS and servers required for processing directly from the application.
 
 ![system structure](../img/holiday-sys-structure.png)
