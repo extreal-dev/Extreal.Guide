@@ -363,4 +363,4 @@ public class CryptoAssetBundleProvider : CryptoAssetBundleProviderBase
 }
 ```
 
-これで`Addressables Asset Group`のインスペクタから`Asset Bundle Provider`に実装したクラスを選べるようになります。
+これで`Addressables Asset Group`のインスペクタから`Content Packing & Loading > Advanced Options > Asset Bundle Provider`にて実装したクラスを選べるようになります。

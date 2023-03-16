@@ -363,4 +363,4 @@ public class CryptoAssetBundleProvider : CryptoAssetBundleProviderBase
 }
 ```
 
-Now you can select the class implemented in the `Asset Bundle Provider` from the inspector of the `Addressables Asset Group`.
+Now you can select the class implemented in the `Content Packing & Loading > Advanced Options > Asset Bundle Provider` from the inspector of the `Addressables Asset Group`.
