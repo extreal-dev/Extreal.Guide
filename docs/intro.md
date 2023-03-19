@@ -165,7 +165,10 @@ Frameworkの各モジュールのリポジトリはUnityパッケージの構成
 Frameworkのモジュールを開発する場合は次のリポジトリを使用してください。
 開発方法はREADMEを参照してください。
 
-- [Extreal.Dev](https://github.com/extreal-dev/Extreal.Dev)
+- AssetWorkflow.Addressables以外のモジュール
+  - [Extreal.Dev](https://github.com/extreal-dev/Extreal.Dev)
+- AssetWorkflow.Addressablesモジュール
+  - [Extreal.Integration.AssetWorkflow.Addressables.Test](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables.Test)
 
 ## About Extreal
 
