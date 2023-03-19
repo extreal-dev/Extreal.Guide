@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-03-15
+2023-03-20
 
 ## Unity version
 
@@ -68,10 +68,6 @@ The following Unity versions have been tested.
 ### Extreal.Integration.AssetWorkflow.Addressables
 #### Added
 - Added the module that provides a wrapper to make [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) easier to use in applications. ([Doc](../integration/asset-workflow.addressables.md))
-
-### Extreal.SampleApp.Holiday
-#### Changed
-- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose) has been applied. ([PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/2))
 
 ## Upgrade guide {#upgrade-guide}
 

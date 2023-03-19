@@ -23,6 +23,7 @@ The following are added to the [Test Type & Test Perspective Catalog](https://fi
 The following aspects are not yet implemented as they will be addressed in the future.
 
 - Behavior when an application transitions to/from the background or loses focus
+- Application memory usage (as each device has a limit on the amount of memory usage that an application can use)
 - Battery drain when using applications
 
 ## Syntax check

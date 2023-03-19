@@ -53,15 +53,25 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - Up/Down stream: 40 Mbps or higher
   - Peripherals
     - Wired earphones with microphone
+- Assets
+  - Assets are not included in the application, and are downloaded at application runtime.
+    - Models such as avatar characters, virtual spaces, etc., and text such as titles, messages, etc.
+    - Asset downloads will display the download size and confirm execution to the user.
 - External Connections
+  - Asset download (S3)
+    - When the network is disconnected, reconnect.
+      - The reconnection status is notified to the user.
+      - If reconnection fails, further reconnection is done by user operation (screen transition).
   - Vivox (SaaS)
-    - Users are notified when the network is disconnected.
+    - When the network is disconnected, the user is notified and reconnected.
+      - The user is notified of the reconnection status.
+      - If reconnection fails and the user wishes to reconnect further, the user can do so by user operation (re-entering the virtual space).
     - All features except text/voice chat can be used.
-    - Reconnection process should not be necessary because the user can reconnect when re-entering the virtual space.
   - Multiplayer server
-    - Users are notified when the network is disconnected.
+    - When the network is disconnected, the user is notified and reconnected.
+      - The user is notified of the reconnection status.
+      - If reconnection fails and the user wishes to reconnect further, the user can do so by user operation (re-entering the virtual space).
     - All features except for the multiplayer feature can be used.
-    - Reconnection processing is not required because the user can reconnect when re-entering the virtual space.
 - Region, Language
   - Japan, Japanese only
 

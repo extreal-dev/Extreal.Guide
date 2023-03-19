@@ -165,7 +165,10 @@ For the purpose of unifying the development environment, a repository for develo
 Please use the following repository when developing modules for Framework.
 Please refer to README for the development method.
 
-- [Extreal.Dev](https://github.com/extreal-dev/Extreal.Dev)
+- Modules except AssetWorkflow.Addressables
+  - [Extreal.Dev](https://github.com/extreal-dev/Extreal.Dev)
+- AssetWorkflow.Addressables module
+  - [Extreal.Integration.AssetWorkflow.Addressables.Test](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables.Test)
 
 ## About Extreal
 

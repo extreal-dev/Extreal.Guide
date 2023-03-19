@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-03-15
+2023-03-20
 
 ## Unity version
 
@@ -68,10 +68,6 @@ sidebar_position: 1
 ### Extreal.Integration.AssetWorkflow.Addressables
 #### Added
 - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html)をアプリケーションで使いやすくするラッパーを提供するモジュールを追加しました。([Doc](../integration/asset-workflow.addressables.md))
-
-### Extreal.SampleApp.Holiday
-#### Changed
-- [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用しました。([PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/2))
 
 ## Upgrade guide {#upgrade-guide}
 

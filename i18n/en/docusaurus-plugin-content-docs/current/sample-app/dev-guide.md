@@ -19,7 +19,7 @@ sidebar_position: 6
     - Unity font assets created from [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)
   - Holiday
     - Assets created in the Holiday application
-  - Holiday.MultiplayCommon
+  - Holiday.Common
     - Assets common to the Holiday application and the multiplayer server
   - Holiday.MultiplayServer
     - Assets created by Holiday's multiplayer server
@@ -29,6 +29,8 @@ sidebar_position: 6
     - Unity character models created from [Mixamo](https://www.mixamo.com/)
   - Plugins
     - Configuration files for Android builds
+  - ScriptTemplates
+    - Script templates
   - StarterAssets
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
   - TextMesh Pro
@@ -48,13 +50,22 @@ We have set up directories for applications, so all other directories have been 
 - App.
   - Application entry point
   - Application-wide settings/status
-  - Common
-    - Processing common to the entire application
+  - AssetWorkflow
+    - Common processing for asset downloads
+  - Avatars
+    - Avatar prefabs
+  - Config
+    - Application settings
+  - Stages
+    - Processing common to the stages
 - Controls
   - XxxControl
     - Control scene. Assets for each scene are placed together.
   - Common
     - Processing common to all Control scenes.
+- Editor
+  - AssetWorkflow
+    - Common processing for asset builds
 - Screens
   - XxxScreen
     - Screen scene. Assets for each scene are placed together.
@@ -166,7 +177,7 @@ VContainer recommends the following methods.
 - C# Type
   - [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection)
 - MonoBehaviour
-  - [Method Injection](https://vcontainer.hadashikick.jp/resolving/method-injection)
+  - [Property/Field Injection](https://vcontainer.hadashikick.jp/resolving/property-field-injection)
 
 See RECOMMENDATION in [Constructor Injection](https://vcontainer.hadashikick.jp/resolving/constructor-injection) for VContainer's recommended reasons.
 
@@ -191,16 +202,30 @@ builder.RegisterEntryPoint<AppPresenter>();
 
 In [VContainer](https://vcontainer.hadashikick.jp/), an object attached to a class that extends LifetimeScope is placed in a scene, which represents one scope (one container).
 By specifying the scope of the parent in the scope, the object search can be extended to the parent.
-Holiday uses the parent scope specification to make objects in the App scene available to each scene.
+Holiday uses the parent scope specification to make objects in the common scene available to each scene.
+
+Common scenes for Holiday are as follows.
+- App scene
+- ClientControl scene
+  - Vivox client and NGO client are provided.
+
 Holiday's scope hierarchy is as follows.
 
 ```text
 App scene
 ↑
 Each scene (Control scene, Screen scene, Space scene)
+
+or
+
+App scene
+↑
+ClientControl scene
+↑
+Each scene (Control scene, Screen scene, Space scene)
 ```
 
-Specify the scope of the App scene as the parent of each scene scope.
+Specify the scope of the common scene as the parent of each scene scope.
 
 ![Parent of object scope](../img/holiday-object-scope-parent.png)
 
@@ -211,23 +236,44 @@ To standardize the implementation of the Dispose Pattern, use the classes provid
 
 ## Assets
 
-Currently, all assets are included in the application, but if the content volume increases, it is assumed that the content will be externalized so that only the necessary content can be downloaded and used in the application. This is to reduce the download time by reducing the size of the application and the case where only the content needs to be changed.
+Holiday externalizes content so that necessary content can be downloaded and used in applications.
+This is to allow only the content to be changed, to reduce the size of the application and to shorten the download time.
 
-Holiday uses Addressables in Unity for asset management.
-Addressables are used for the following purposes.
+Holiday uses [AssetWorkflow.addressables](../integration/asset-workflow.addressables.md) for asset management.
 
-- Name the assets to be used and retrieve them in the application without relying on physical paths
-- Switch from local to remote fetching of assets without modifying the application source code
+The asset groups are as follows.
+The asset is downloaded only the first time it is used, and the cache is used thereafter.
 
-The rules for naming assets are as follows.
+- AppCommon
+  - Assets common to the entire application
+  - Message/chat/multiplayer settings, 3D models of avatars, etc
+  - Download timing
+    - Before transitioning to the avatar selection stage
+- VirtualSpace
+  - Assets for VirtualSpace stage
+  - 3D model of virtual space, etc.
+  - Download timing
+    - Before transitioning to VirtualSpace stage
+- Duplicate Asset Isolation
+  - Duplicate assets in multiple asset groups
+  - Download timing
+    - Same as AppCommon
 
-```text
-Type + Name
+The following rules apply to remote base URLs, and assets are placed for each version of the application.
 
-(Example)
-AvatarAmy
-AvatarMichelle
 ```
+Remote base URL：
+  https://<host>/<version>/<target>
+Example：
+  https://<host>/1.0.0/Android
+  https://<host>/1.0.0/iOS
+  https://<host>/1.0.0/StandaloneWindows64
+  https://<host>/1.1.0/Android
+  https://<host>/1.1.0/iOS
+  https://<host>/1.1.0/StandaloneWindows64
+```
+
+When developing, you can play without downloading by specifying `Use Asset Database` for `Play Mode Script` in the settings of `Addressables Groups`.
 
 ## Scenes
 
@@ -253,11 +299,12 @@ By unifying the way each scene is created, we aim to create an application that 
 ### Base class for Presenter
 
 A base class is provided for the processing calls during stage transitions, as this processing is common to all presenter scripts in each scene.
-Presenter scripts should use this Base class.
 
 ```text
 Assets/Holiday/App/Common/StagePresenterBase
 ```
+
+A template is provided, so please create a presenter script from the `Presenter Template`.
 
 The Base class provides the following common processing.
 
@@ -463,11 +510,9 @@ UIs that share a common design, such as screens and buttons, should be standardi
 Use Unity's Prefab for UI commonization.
 If you have added a Prefab, please add it below.
 
-Path of Prefab
 ```text
-Assets/Holiday/Stages/Common
+Assets/Holiday/Screens/Common
 ```
-
 - ScreenCanvas
   - Canvas for screen
   - Includes background color specification and SafeArea support
@@ -478,13 +523,14 @@ Assets/Holiday/Stages/Common
 - ScreenButton
   - Button for the screen
   - Contains font and character settings
+
+```text
+Assets/Holiday/Controls/Common
+```
 - SpaceCanvas
   - Canvas for space
   - Contains SafeArea support
   - Place the screen UI under the SafeArea
-- SpaceTitle
-  - Title for the space
-  - Contains font and character settings
 - SpaceButton
   - Button for space
   - Contains font and character settings
@@ -492,3 +538,11 @@ Assets/Holiday/Stages/Common
 ### Canvas
 
 Specify SortOrder for the Canvas of common screens that are superimposed on a screen or space, such as background screens and loading screens, so that they are displayed in the front.
+
+## Build
+
+Since the build configuration is included in the repository, only the following settings need to be changed to build for production.
+
+- Add the `HOLIDAY_PROD` symbol to `Player Settings > Other Settings > Script Compilation`.
+
+Applications are built on `Windows`, `Android`, and `iOS`, and multiplayer servers are built on `Dedicated Server(Linux)`.
