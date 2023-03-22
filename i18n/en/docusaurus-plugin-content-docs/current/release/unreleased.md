@@ -100,4 +100,4 @@ The change impact is as follows.
 
 Please take the following actions.
 - If you wish to realize a timeout, implement it on the caller side of each method.
-- Please change the exception that was supplemented at the time of processing failure of each method from TimeoutException to VivoxConnectionException.
+- Please change the exception that was caught on processing failure of each method from TimeoutException to VivoxConnectionException.

@@ -100,4 +100,4 @@ sidebar_position: 1
 
 次の対応を実施してください。
 - タイムアウトを実現したい場合は各メソッドの呼び出し側で実装してください。
-- 各メソッドの処理失敗時に補足していた例外をTimeoutExceptionからVivoxConnectionExceptionに変更してください。
+- 各メソッドの処理失敗時に捕捉していた例外をTimeoutExceptionからVivoxConnectionExceptionに変更してください。
