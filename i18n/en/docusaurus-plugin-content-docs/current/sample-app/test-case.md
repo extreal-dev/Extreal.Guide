@@ -22,7 +22,7 @@ Only tests that require test cases are listed among the test types targeted for 
   - Ability to transition to the virtual space by pressing the Go button
     - The download confirmation screen should be displayed for the first time
       - OK button starts downloading and notifies the user of the download status
-      - Cancel button returns to the title screen
+      - Cancel button returns to the avatar selection screen
 - Virtual space
   - Ability to voice chat
     - Ability to toggle mute
