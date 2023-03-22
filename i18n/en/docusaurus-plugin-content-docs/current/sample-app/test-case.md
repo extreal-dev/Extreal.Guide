@@ -46,7 +46,7 @@ Only tests that require test cases are listed among the test types targeted for 
     - Reconnection is started and the reconnection status (success or failure) is notified
 - If Vivox (SaaS) is not accessible
   - If the client is not connected to the network
-    - User must be notified that access is not available
+    - User is notified that access is not available
     - Reconnection is started and the reconnection status (success or failure) is notified
     - All features other than text/voice chat are available
   - If Vivox (SaaS) fails and cannot respond to clients
@@ -57,6 +57,6 @@ Only tests that require test cases are listed among the test types targeted for 
     - Reconnection is started and the reconnection status (success or failure) is notified
     - All features other than Multiplayer are available
   - If the multiplayer server fails and cannot respond to the client
-    - The user will be notified that access is denied
+    - User is notified that access is not available
     - Reconnection is started and the reconnection status (success or failure) is notified
     - All features other than Multiplayer are available
