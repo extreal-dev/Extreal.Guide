@@ -153,6 +153,54 @@ Set the ChatConfig object to AppScope in the Inspector.
 
 ![AppScope](../img/learning-vivox-appscope-vivoxappconfig.png)
 
+:::info step
+Log into the Vivox server by changing AppPresenter.
+:::
+
+In Vivox, log into the server and then connect to the channel.
+You can log in at any time before connecting to a channel, so do it first.
+
+```csharp
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Extreal.Core.StageNavigation;
+// highlight-start
+using Extreal.Integration.Chat.Vivox;
+// highlight-end
+using VContainer.Unity;
+
+namespace ExtrealCoreLearning.App
+{
+    public class AppPresenter : IAsyncStartable
+    {
+        private StageNavigator<StageName, SceneName> stageNavigator;
+        // highlight-start
+        private VivoxClient vivoxClient;
+
+        public AppPresenter
+        (
+            StageNavigator<StageName, SceneName> stageNavigator,
+            VivoxClient vivoxClient
+        )
+        // highlight-end
+        {
+            this.stageNavigator = stageNavigator;
+            // highlight-start
+            this.vivoxClient = vivoxClient;
+            // highlight-end
+        }
+
+        public async UniTask StartAsync(CancellationToken cancellation)
+        {
+            // highlight-start
+            vivoxClient.LoginAsync(new VivoxAuthConfig(nameof(ExtrealCoreLearning))).Forget();
+            // highlight-end
+            await stageNavigator.ReplaceAsync(StageName.TitleStage);
+        }
+    }
+}
+```
+
 ## Add text chat
 
 Now that VivoxClient is ready, we will add text chat.
@@ -163,7 +211,6 @@ Create a Model script that provides the logic for text chat.
 
 Create it in the ExtrealCoreLearning/TextChatControl directory.
 It provides for joining and leaving the channel, sending and receiving messages.
-When joining a channel, log in if the user is not logged in.
 
 ```csharp
 using System;
@@ -191,33 +238,15 @@ namespace ExtrealCoreLearning.TextChatControl
         {
             this.vivoxClient = vivoxClient;
             this.channelName = channelName;
-            this.vivoxClient.OnChannelSessionAdded
-                .Where(channelId => channelId.Name == this.channelName)
-                .Subscribe(channelId => this.channelId = channelId)
-                .AddTo(disposables);
         }
 
         public async UniTask JoinAsync()
-        {
-            if (!IsLoggedIn)
-            {
-                Login();
-            }
-            await UniTask.WaitUntil(() => IsLoggedIn);
-            vivoxClient.ConnectAsync(new VivoxChannelConfig(channelName, ChatType.TextOnly, transmissionSwitch: false)).Forget();
-        }
-
-        private bool IsLoggedIn
-            => vivoxClient.LoginSession?.State == LoginState.LoggedIn;
-
-        private void Login()
-        {
-            vivoxClient.LoginAsync(new VivoxAuthConfig(nameof(TextChatChannel))).Forget();
-        }
+            => channelId = await vivoxClient.ConnectAsync(
+                new VivoxChannelConfig(channelName, ChatType.TextOnly, transmissionSwitch: false));
 
         public void Leave()
         {
-            if (!IsLoggedIn)
+            if (ChannelId.IsNullOrEmpty(channelId))
             {
                 return;
             }
@@ -225,18 +254,10 @@ namespace ExtrealCoreLearning.TextChatControl
         }
 
         public void SendMessage(string message)
-        {
-            if (!IsLoggedIn)
-            {
-                return;
-            }
-            vivoxClient.SendTextMessage(message, channelId);
-        }
+            => vivoxClient.SendTextMessage(message, channelId);
 
         protected override void ReleaseManagedResources()
-        {
-            disposables.Dispose();
-        }
+            => disposables.Dispose();
     }
 }
 ```
@@ -360,7 +381,6 @@ The common processing is as follows.
 
 - Model script
   - Joining and leaving a channel
-  - When joining a channel, log in if the user is not logged in.
 - Presenter script
   - Creates a TextChatChannel and joins the channel when entering the stage, and leaves the channel when exiting the stage
 
@@ -374,7 +394,6 @@ Create it in the App directory.
 using Cysharp.Threading.Tasks;
 using Extreal.Core.Common.System;
 using Extreal.Integration.Chat.Vivox;
-using ExtrealCoreLearning.TextChatControl;
 using UniRx;
 using VivoxUnity;
 
@@ -392,36 +411,16 @@ namespace ExtrealCoreLearning.App
         {
             VivoxClient = vivoxClient;
             ChannelName = channelName;
-            VivoxClient.OnChannelSessionAdded
-                .Where(channelId => channelId.Name == ChannelName)
-                .Subscribe(channelId => ChannelId = channelId)
-                .AddTo(Disposables);
         }
 
         public async UniTask JoinAsync()
-        {
-            if (!IsLoggedIn)
-            {
-                Login();
-            }
+            => ChannelId = await VivoxClient.ConnectAsync(CreateChannelConfig(ChannelName));
 
-            await UniTask.WaitUntil(() => IsLoggedIn);
-            Connect();
-        }
-
-        protected bool IsLoggedIn
-            => VivoxClient.LoginSession?.State == LoginState.LoggedIn;
-
-        private void Login()
-        {
-            VivoxClient.LoginAsync(new VivoxAuthConfig(nameof(TextChatChannel))).Forget();
-        }
-
-        protected abstract void Connect();
+        protected abstract VivoxChannelConfig CreateChannelConfig(string channelName);
 
         public void Leave()
         {
-            if (!IsLoggedIn)
+            if (ChannelId.IsNullOrEmpty(ChannelId))
             {
                 return;
             }
@@ -430,9 +429,7 @@ namespace ExtrealCoreLearning.App
         }
 
         protected override void ReleaseManagedResources()
-        {
-            Disposables.Dispose();
-        }
+            => Disposables.Dispose();
     }
 }
 ```
@@ -459,20 +456,11 @@ namespace ExtrealCoreLearning.TextChatControl
         {
         }
 
-        protected override void Connect()
-        {
-            VivoxClient.ConnectAsync(new VivoxChannelConfig(ChannelName, ChatType.TextOnly, transmissionSwitch: false)).Forget();
-        }
+        protected override VivoxChannelConfig CreateChannelConfig(string channelName)
+            => new VivoxChannelConfig(channelName, ChatType.TextOnly, transmissionSwitch: false);
 
         public void SendMessage(string message)
-        {
-            if (!IsLoggedIn)
-            {
-                return;
-            }
-
-            VivoxClient.SendTextMessage(message, ChannelId);
-        }
+            => VivoxClient.SendTextMessage(message, ChannelId);
     }
 }
 ```
@@ -624,19 +612,13 @@ namespace ExtrealCoreLearning.VoiceChatControl
         private ReactiveProperty<bool> isMute = new ReactiveProperty<bool>(true);
 
         public VoiceChatChannel(VivoxClient vivoxClient, string channelName) : base(vivoxClient, channelName)
-        {
-            SetMuteAsync(true).Forget();
-        }
+            => SetMuteAsync(true).Forget();
 
-        protected override void Connect()
-        {
-            VivoxClient.ConnectAsync(new VivoxChannelConfig(ChannelName, ChatType.AudioOnly)).Forget();
-        }
+        protected override VivoxChannelConfig CreateChannelConfig(string channelName)
+            => new VivoxChannelConfig(channelName, ChatType.AudioOnly);
 
         public UniTask ToggleMuteAsync()
-        {
-            return SetMuteAsync(!isMute.Value);
-        }
+            => SetMuteAsync(!isMute.Value);
 
         private async UniTask SetMuteAsync(bool muted)
         {
