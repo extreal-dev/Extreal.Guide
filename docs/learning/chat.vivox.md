@@ -157,8 +157,8 @@ namespace ExtrealCoreLearning.App
 AppPresenterを変更してVivoxサーバにログインします。
 :::
 
-Vivoxではサーバにログインしてからチャンネルに接続します。
-チャンネル接続前であればいつログインしても良いので最初にします。
+Vivoxではサーバにログインしてからチャンネルに参加します。
+チャンネルへの参加前であればいつログインしても良いので最初にします。
 
 ```csharp
 using System.Threading;

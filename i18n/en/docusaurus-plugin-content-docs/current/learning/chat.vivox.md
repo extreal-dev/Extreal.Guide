@@ -157,8 +157,8 @@ Set the ChatConfig object to AppScope in the Inspector.
 Log into the Vivox server by changing AppPresenter.
 :::
 
-In Vivox, log into the server and then connect to the channel.
-You can log in at any time before connecting to a channel, so do it first.
+In Vivox, log into the server and then join the channel.
+You can log in at any time before joining a channel, so do it first.
 
 ```csharp
 using System.Threading;
