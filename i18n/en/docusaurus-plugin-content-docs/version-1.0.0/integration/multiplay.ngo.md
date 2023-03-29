@@ -59,7 +59,7 @@ See [Supporting non-default NetworkTransport provided by NGO](#int-ngo-nt) for d
 
 :::info
 Because it is easier to ensure stable performance and security, the NGO wrapper assumes the use of a dedicated server as the NGO architecture.
-For more information on NGO architecture, see [Network Topologies](https://docs-multiplayer.unity3d.com/netcode/current/reference/glossary/network-topologies).
+For more information on NGO architecture, see [Network Topologies](https://docs-multiplayer.unity3d.com/netcode/current/terms-concepts/network-topologies).
 Because it assumes the use of a dedicated server, the NGO wrapper does not provide features for the host.
 If you want to use them, please use NetworkManager directly.
 :::
