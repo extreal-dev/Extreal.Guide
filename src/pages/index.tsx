@@ -72,12 +72,12 @@ export default function Home(): JSX.Element {
                     <Translate
                       id='homepage.feature.country-wide-virtual-sightseeing'
                     >
-                      全国各地をバーチャルで観光＆体験
+                      360°実写観光メタバースアプリBURALIT
                     </Translate>
                   </h4>
                   <p>
                     <div className={styles.youtube}>
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/O8wFOeL-IkQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"></iframe>
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/c446Qe_l8s0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"></iframe>
                     </div>
                   </p>
                 </div>
