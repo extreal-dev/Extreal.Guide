@@ -54,6 +54,7 @@ Frameworkは次の機能を提供しています。
 - Integration
   - [Chat using Vivox](./integration/chat.vivox.md)
   - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
+  - [Asset Workflow using Addressables](./integration/asset-workflow.addressables.md)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 
