@@ -14,6 +14,7 @@ sidebar_position: 3
 
 - [Dispose Pattern](https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose)を適用できます。
 - リトライ処理を適用できます。
+- IObservableにフックを追加できます。
 
 ## Architecture
 
@@ -78,6 +79,16 @@ classDiagram
     
     class NoRetryStrategy {
         +Instance NoRetryStrategy
+    }
+```
+
+### Hook
+
+```mermaid
+classDiagram
+
+    class ObservableExtensions {
+        Hook(this IObservable source, Action hook)$ IDisposable 
     }
 ```
 
@@ -291,3 +302,22 @@ RetryHandlerは次のイベント通知を設けています。
   - パラメータ：リトライ結果
     - true：リトライ戦略を実行してリトライが成功した場合
     - false：リトライ戦略を実行して最終的にリトライが成功しなかった場合
+
+### IObservableにフックを追加する {#core-common-hook}
+
+IObservableを使う場合は通常Subscribeメソッドで通知を受け取ります。
+アプリケーションの操作ログを外部サーバーに送信したい場合など、アプリケーションの本来の購読処理を妨げずにIObservableに処理を追加したいケースがあります。
+アプリケーションの本来の処理を妨げずにIObservableに追加したい処理をフックと呼ぶことにします。
+
+フックでは処理が失敗した場合でもアプリケーションの処理を中断しないように例外処理を行う必要があります。
+IObservableの拡張メソッドとしてフックを追加できるHookメソッドを提供します。
+
+ステージ遷移のタイミングでステージ利用状況（例えば滞在時間など）を送信する実装例です。
+```csharp
+stageNavigator.OnStageTransitioning
+              .Hook(_ => CollectStageUsage())
+              .AddTo(disposables);
+```
+
+Subscribeとは異なり、Hookメソッドで実行した処理で例外が発生しても他の購読処理には影響を与えません。
+Hookで例外が発生したことを開発時に開発者が気付けるように、ログレベルがDebugの場合のみ、例外情報をErrorレベルでログ出力を行います。
