@@ -43,6 +43,10 @@ sidebar_position: 1
 #### Changed
 - NgoConfigのAddressプロパティにドメイン名を指定できるように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
 
+### Extreal.SampleApp.Holiday
+#### Added
+- アプリケーションの利用状況可視化を追加しました。([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
+
 ## Upgrade guide {#upgrade-guide}
 
 モジュールバージョンを更新してください。

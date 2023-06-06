@@ -547,7 +547,7 @@ Since the build configuration is included in the repository, only the following 
 
 Applications are built on `Windows`, `Android`, and `iOS`, and multiplayer servers are built on `Dedicated Server(Linux)`.
 
-## Application usage visualization
+## Application usage visualization {#holiday-devguide-appusage}
 
 ### Requirements
 

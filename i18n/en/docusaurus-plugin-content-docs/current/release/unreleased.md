@@ -43,6 +43,10 @@ The following Unity versions have been tested.
 #### Changed
 - Changed NgoConfig to allow domain name to be specified in the Address property. ([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
 
+### Extreal.SampleApp.Holiday
+#### Added
+- Added application usage visualization. ([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
+
 ## Upgrade guide {#upgrade-guide}
 
 Please update the module versions.

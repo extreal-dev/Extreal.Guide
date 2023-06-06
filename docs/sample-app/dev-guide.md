@@ -547,7 +547,7 @@ Assets/Holiday/Controls/Common
 
 アプリケーションは`Windows`、`Android`、`iOS`、マルチプレイサーバーは`Dedicated Server(Linux)`でビルドします。
 
-## Application usage visualization
+## Application usage visualization {#holiday-devguide-appusage}
 
 ## Requirements
 
