@@ -549,7 +549,7 @@ Assets/Holiday/Controls/Common
 
 ## Application usage visualization {#holiday-devguide-appusage}
 
-## Requirements
+### Requirements
 
 アプリケーションの利用状況可視化では次のログデータを収集し可視化できるようにします。
 
