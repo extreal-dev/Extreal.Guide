@@ -604,7 +604,7 @@ stateDiagram-v2
     direction LR
     User --> App: Play
     App --> Loki: JSON (HTTP API)
-    Grafana --> Loki: Query (Loki )
+    Grafana --> Loki: LogQL (Loki)
     Developer --> Grafana: Visualize
 ```
 
