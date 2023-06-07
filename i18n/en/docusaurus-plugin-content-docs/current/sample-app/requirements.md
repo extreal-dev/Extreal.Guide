@@ -57,6 +57,15 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Assets are not included in the application, and are downloaded at application runtime.
     - Models such as avatar characters, virtual spaces, etc., and text such as titles, messages, etc.
     - Asset downloads will display the download size and confirm execution to the user.
+- Application usage visualization
+  - User usage
+    - Number of unique users
+    - Stay time on stage
+    - Number of text chats sent
+  - Resource usage
+    - Memory usage
+  - Error status
+    - Number of errors
 - External Connections
   - Asset download (S3)
     - When the network is disconnected, reconnect.
@@ -77,12 +86,3 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - All features are available.
 - Region, Language
   - Japan, Japanese only
-- Application usage visualization
-  - User usage
-    - Number of unique users
-    - Stay time on stage
-    - Number of text chats sent
-  - Resource usage
-    - Memory usage
-  - Error status
-    - Number of errors
