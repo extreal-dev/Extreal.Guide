@@ -588,7 +588,7 @@ The following log data can be collected and visualized for application usage vis
 
 - Usage ID: ErrorStatus
 - Send timing: Just before the error log is output
-- Sent data: Error message, error type, stack trace (specified by settings, e.g., 500 characters)
+- Sent data: Error message, error type, exception message, stack trace (specified by settings, e.g., 500 characters)
 - Analytical uses: Number of errors, etc
 
 ### System structure
