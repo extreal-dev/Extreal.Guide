@@ -305,12 +305,12 @@ RetryHandler has the following event notifications.
 
 ### Add hooks to IObservable {#core-common-hook}
 
-When using an IObservable, notifications are usually received via the Subscribe method.
+When using IObservable, notifications are usually received via the Subscribe method.
 In some cases, such as when you want to send the application's operation log to an external server, you may want to add processing to the IObservable without interfering with the application's original subscription processing.
-The processing you want to add to the IObservable without interrupting the original processing of the application is called a hook.
+The processing you want to add to the IObservable without interfering with the application's original processing is called a hook.
 
 Hooks must handle exceptions so that the processing of the application is not interrupted in the event of a processing failure.
-The Hook method is provided as an extension method of IObservable to which hooks can be added.
+The Hook method to which hooks can be added is provided as an extension method of IObservable.
 
 This is an example of an implementation that sends stage usage status (e.g., stay time) at the timing of stage transitions.
 ```csharp
@@ -320,4 +320,4 @@ stageNavigator.OnStageTransitioning
 ```
 
 Unlike Subscribe, an exception raised by a processing executed with the Hook method does not affect other subscription processing.
-To ensure that the developer is aware during development that an exception was raised by Hook, exception information is logged output at the Error level only when the log level is Debug.
+To ensure that the developer is aware during development that an exception was raised by Hook, exception information is logged output with the Error level only when the log level is Debug.

@@ -60,10 +60,10 @@ Holiday is an application aimed at gathering with friends and family to spend ti
 - Application usage visualization
   - User usage
     - Number of unique users
-    - Stay time on stage
+    - Stay time per stage
     - Number of text chats sent
   - Resource usage
-    - Memory usage
+    - Memory usage of the application
   - Error status
     - Number of errors
 - External Connections

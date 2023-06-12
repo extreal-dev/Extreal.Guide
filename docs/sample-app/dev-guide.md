@@ -549,7 +549,7 @@ Assets/Holiday/Controls/Common
 
 ## Application usage visualization {#holiday-devguide-appusage}
 
-### Requirements
+### Specification
 
 アプリケーションの利用状況可視化では次のログデータを収集し可視化できるようにします。
 
@@ -562,7 +562,7 @@ Assets/Holiday/Controls/Common
   - 利用状況を識別するID。
   - 送信タイミング毎にユニークな名前を付けます。
 - ステージ名
-  - 利用状況を取得したタイミングのステージを表すステージ名。
+  - 利用状況を取得したステージを表すステージ名。
 
 #### ユーザーの利用状況
 
@@ -658,7 +658,7 @@ classDiagram
 - ログレベルがErrorの場合はErrorStatusを作成してLokiに送信します。
 - 上記以外のログはUnityDebugLogWriterに委譲します。
 
-#### AppUsageLogUtils
+#### AppUsageUtils
 
 - AppUsageManagerとAppUsageLogWriterに共通する処理を提供します。
 

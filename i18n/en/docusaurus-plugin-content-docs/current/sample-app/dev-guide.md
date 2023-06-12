@@ -549,7 +549,7 @@ Applications are built on `Windows`, `Android`, and `iOS`, and multiplayer serve
 
 ## Application usage visualization {#holiday-devguide-appusage}
 
-### Requirements
+### Specification
 
 The following log data can be collected and visualized for application usage visualization.
 
@@ -562,11 +562,11 @@ The following log data can be collected and visualized for application usage vis
   - An ID that identifies the usage status.
   - Give a unique name for each sending timing.
 - Stage name
-  - Stage name representing the timing stage at which the usage status was obtained.
+  - Stage name representing the stage from which the usage was obtained.
 
 #### User usage
 
-- FirstUse
+- First use
   - Usage ID: FirstUse
   - Send timing: Immediately after generating the client ID
   - Sent data: OS, Device model, Device type, Device ID, Processor type
@@ -648,8 +648,8 @@ classDiagram
 
 - AppUsageManager controls the creation and timing of sent data.
 - AppUsageManager is created in the App scene and starts collecting logs.
-- AppUsageManager uses AppUsageLogWriter to log JSON at the INFO level/AppUsage category.
-- To avoid interfering with the application's original subscription processing, IObservable and [CommonのHook](../core/common.md#core-common-hook) are used to control the timing of sending.
+- AppUsageManager uses AppUsageLogWriter to log JSON with the INFO level/AppUsage category.
+- To avoid interfering with the application's original subscription processing, IObservable and [Common's Hook](../core/common.md#core-common-hook) are used to control the timing of sending.
 
 #### AppUsageLogWriter
 
@@ -658,7 +658,7 @@ classDiagram
 - If the log level is Error, it creates an ErrorStatus and sends it to Loki.
 - Logs other than the above are delegated to UnityDebugLogWriter.
 
-#### AppUsageLogUtils
+#### AppUsageUtils
 
 - AppUsageLogUtils provides processing common to both AppUsageManager and AppUsageLogWriter.
 
