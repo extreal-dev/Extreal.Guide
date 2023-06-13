@@ -16,7 +16,7 @@ The following Unity versions have been tested.
 
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.1.0
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0
-- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.0.0
+- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.2
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.1
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.0.0
@@ -35,9 +35,17 @@ The following Unity versions have been tested.
 
 ## Changes
 
+### Extreal.Core.Common
+#### Added
+- Added feature that allows hooks to be added to IObservable. ([Doc](../core/common.md#core-common-hook), [PR](https://github.com/extreal-dev/Extreal.Core.Common/pull/6))
+
 ### Extreal.Integration.Multiplay.NGO
 #### Changed
 - Changed NgoConfig to allow domain name to be specified in the Address property. ([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
+
+### Extreal.SampleApp.Holiday
+#### Added
+- Added application usage visualization. ([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
 
 ## Upgrade guide {#upgrade-guide}
 

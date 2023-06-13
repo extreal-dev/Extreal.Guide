@@ -60,3 +60,9 @@ Only tests that require test cases are listed among the test types targeted for 
     - User is notified that access is not available
     - Reconnection is started and the reconnection status (success or failure) is notified
     - All features other than Multiplayer are available
+- If the application usage visualization server cannot be accessed
+  - If the client is not connected to the network
+    - No reconnection or user notification.
+    - All features are available.
+  - If the server fails and cannot respond to the client
+    - Not applicable since the client only sends data and does not use the response.

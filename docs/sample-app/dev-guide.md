@@ -546,3 +546,130 @@ Assets/Holiday/Controls/Common
 - `Player Settings > Other Settings > Script Compilation`に`HOLIDAY_PROD`シンボルを追加します。
 
 アプリケーションは`Windows`、`Android`、`iOS`、マルチプレイサーバーは`Dedicated Server(Linux)`でビルドします。
+
+## Application usage visualization {#holiday-devguide-appusage}
+
+### Specification
+
+アプリケーションの利用状況可視化では次のログデータを収集し可視化できるようにします。
+
+#### 共通項目
+
+- クライアントID
+  - クライアントを識別するID。アプリケーション毎にUUIDを生成してクライアントの識別子とします。
+  - クライアントIDはPlayerPrefsに保存します。PlayerPrefsに存在しない場合のみクライアントIDを生成します。
+- 利用状況ID
+  - 利用状況を識別するID。
+  - 送信タイミング毎にユニークな名前を付けます。
+- ステージ名
+  - 利用状況を取得したステージを表すステージ名。
+
+#### ユーザーの利用状況
+
+- 初回利用
+  - 利用状況ID：FirstUse
+  - 送信タイミング：クライアントIDを生成した直後
+  - 送信データ：OS、デバイスモデル、デバイスタイプ、デバイスID、プロセッサータイプ
+  - 分析用途：ユニークユーザー数、利用デバイスなど
+- ステージ利用状況
+  - 利用状況ID：StageUsage
+  - 送信タイミング：ステージから出る直前とアプリケーションが終了する直前
+  - 送信データ：滞在時間、テキストチャット送信数
+  - 分析用途：ステージの滞在時間、テキストチャット送信数など
+
+#### リソースの使用状況
+
+- 利用状況ID：ResourceUsage
+- 送信タイミング：一定間隔（10秒など設定で指定）
+- 送信データ：メモリサイズ、使用済みメモリサイズ、ヒープサイズ、使用済みヒープサイズ
+- 分析用途：メモリ使用量など
+
+#### エラーの発生状況
+
+- 利用状況ID：ErrorStatus
+- 送信タイミング：エラーログが出力される直前
+- 送信データ：エラーメッセージ、エラータイプ、例外メッセージ、スタックトレース（500文字など設定により指定可能）
+- 分析用途：エラー発生数など
+
+### System structure
+
+ログ収集とデータ可視化（ダッシュボード）には次のアプリケーションを使います。
+
+- ログ収集: [Loki](https://grafana.com/oss/loki/) 
+- データ可視化（ダッシュボード）: [Grafana](https://grafana.com/grafana/)
+
+```mermaid
+stateDiagram-v2
+
+    direction LR
+    User --> App: Play
+    App --> Loki: JSON (HTTP API)
+    Grafana --> Loki: LogQL (Loki)
+    Developer --> Grafana: Visualize
+```
+
+これらのアプリケーションは[Docker Compose](https://docs.docker.com/compose/)を使って実行します。
+これらのアプリケーションの実行とダッシュボードの作成方法についてはHolidayの[README](https://github.com/extreal-dev/Extreal.SampleApp.Holiday)を参照してください。
+
+### Application design
+
+アプリケーションからLokiへのログデータ送信には次のクラスを使います。
+
+```mermaid
+classDiagram
+
+    AppScope ..> AppUsageManager: new by VContainer
+    AppPresenter ..> AppUsageManager: CollectAppUsage()
+    AppUsageManager ..> AppUsageLogWriter: LogInfo(JSON)
+    AppUsageUtils <.. AppUsageManager: ToJson(AppUsageBase)
+    AppUsageUtils <.. AppUsageLogWriter: ToJson(AppUsageBase)
+    AppUsageUtils ..> JsonUtility: ToJson(AppUsageBase)
+    JsonUtility ..> AppUsageBase
+    ILogWriter <|.. AppUsageLogWriter
+    ILogWriter <|.. UnityDebugLogWriter
+    AppUsageLogWriter ..> UnityWebRequest: SendRequest()
+    AppUsageLogWriter ..> UnityDebugLogWriter: Log(...)
+    AppUsageBase <|-- FirstUse
+    AppUsageBase <|-- StageUsage
+    AppUsageBase <|-- ResourceUsage
+    AppUsageBase <|-- ErrorStatus
+
+    class AppUsageBase {
+        +ClientId
+        +UsageId
+        +StageName
+    }
+    
+    class AppUsageConfig {
+    }
+```
+
+#### AppUsageManager
+
+- AppUsageManagerが送信データの作成と送信タイミングの制御を行います。
+- AppUsageManagerはAppシーンで作成されログ収集を開始します。
+- AppUsageManagerはAppUsageLogWriterを使ってJSONをINFOレベル/AppUsageカテゴリでログ出力します。
+- アプリケーション本来の購読処理を妨げないように、送信タイミングの制御にはIObservableと[CommonのHook](../core/common.md#core-common-hook)を使います。
+
+#### AppUsageLogWriter
+
+- AppUsageLogWriterはログカテゴリやログレベルに応じて処理します。
+- ログカテゴリがAppUsageの場合はログデータをそのままLokiに送信します。
+- ログレベルがErrorの場合はErrorStatusを作成してLokiに送信します。
+- 上記以外のログはUnityDebugLogWriterに委譲します。
+
+#### AppUsageUtils
+
+- AppUsageManagerとAppUsageLogWriterに共通する処理を提供します。
+
+#### AppUsageBase
+
+- AppUsageBaseは共通項目、AppUsageBaseのサブクラスは利用状況に応じた項目を定義します。
+- JsonUtilityを使ってAppUsageBaseからJSONを作成します。
+
+#### AppUsageConfig
+
+- AppUsageConfigはLokiへのURLやタイムアウト、リソース使用状況の収集間隔など、設定情報を提供します。
+- AppUsageConfigの有効化フィールドをOFFにすると、送信データの作成や送信タイミングの制御など、ログデータ送信に関する全ての処理が実行されません。
+
+ログデータ送信を変更したい場合はAppUsageManager、AppUsageBase（またはサブクラス）の変更を検討してください。

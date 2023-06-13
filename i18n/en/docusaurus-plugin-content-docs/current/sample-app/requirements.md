@@ -57,6 +57,15 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Assets are not included in the application, and are downloaded at application runtime.
     - Models such as avatar characters, virtual spaces, etc., and text such as titles, messages, etc.
     - Asset downloads will display the download size and confirm execution to the user.
+- Application usage visualization
+  - User usage
+    - Number of unique users
+    - Stay time per stage
+    - Number of text chats sent
+  - Resource usage
+    - Memory usage of the application
+  - Error status
+    - Number of errors
 - External Connections
   - Asset download (S3)
     - When the network is disconnected, reconnect.
@@ -72,22 +81,8 @@ Holiday is an application aimed at gathering with friends and family to spend ti
       - The user is notified of the reconnection status.
       - If reconnection fails and the user wishes to reconnect further, the user can do so by user operation (re-entering the virtual space).
     - All features except for the multiplayer feature can be used.
+  - Application usage visualization（Grafana/Loki）
+    - No reconnection or user notification will be made because user play will not be affected.
+    - All features are available.
 - Region, Language
   - Japan, Japanese only
-
-<!--
-    - Multiplayer
-      - Up to a maximum number of people can participate in multiplayer
-        - The user will be shown to everyone
-      - If the maximum number of players is exceeded, the user will be on standby until the number of people on standby is reached and will not be able to participate in multiplayer.
-        - Hide the user itself and be visible up to the maximum number of people
-        - Notify the user that he/she is on standby and not visible to others
-        - When others leave and it is their turn, they can join the multiplayer
-        - Notifies the user that he/she has joined the multiplayer
-      - If the number of people on standby is exceeded, users will not be able to access the stage
-        - Notify users that they cannot access the stage if the number of players is over the limit
-    - Text Chat
-      - Text Chat Available to all users, including those on standby
-    - Voice Chat
-      - Voice Chat Available to all users, including those on standby
--->

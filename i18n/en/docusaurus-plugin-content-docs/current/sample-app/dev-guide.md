@@ -546,3 +546,130 @@ Since the build configuration is included in the repository, only the following 
 - Add the `HOLIDAY_PROD` symbol to `Player Settings > Other Settings > Script Compilation`.
 
 Applications are built on `Windows`, `Android`, and `iOS`, and multiplayer servers are built on `Dedicated Server(Linux)`.
+
+## Application usage visualization {#holiday-devguide-appusage}
+
+### Specification
+
+The following log data can be collected and visualized for application usage visualization.
+
+#### Common items
+
+- Client ID
+  - An ID that identifies the client. A UUID is generated for each application and is used as the identifier for the client.
+  - The client ID is stored in PlayerPrefs. The client ID is generated only if it does not exist in PlayerPrefs.
+- Usage ID
+  - An ID that identifies the usage status.
+  - Give a unique name for each sending timing.
+- Stage name
+  - Stage name representing the stage from which the usage was obtained.
+
+#### User usage
+
+- First use
+  - Usage ID: FirstUse
+  - Send timing: Immediately after generating the client ID
+  - Sent data: OS, Device model, Device type, Device ID, Processor type
+  - Analytical uses: Number of unique users, devices used, etc
+- Stage usage
+  - Usage ID: StageUsage
+  - Send timing: Just before exiting the stage and just before the application is exited
+  - Sent data: Stay time, number of text chats sent
+  - Analytical uses: Stay time on stage, number of text chats sent, etc
+
+#### Resource usage
+
+- Usage ID: ResourceUsage
+- Send timing: Fixed interval (specified by settings, e.g., 10 seconds)
+- Sent data: Memory size, used memory size, heap size, used heap size
+- Analytical uses: Memory usage, etc
+
+#### Error status
+
+- Usage ID: ErrorStatus
+- Send timing: Just before the error log is output
+- Sent data: Error message, error type, exception message, stack trace (specified by settings, e.g., 500 characters)
+- Analytical uses: Number of errors, etc
+
+### System structure
+
+The following applications are used for log collecting and data visualization (dashboards).
+
+- Log collecting: [Loki](https://grafana.com/oss/loki/)
+- data visualization (dashboards): [Grafana](https://grafana.com/grafana/)
+
+```mermaid
+stateDiagram-v2
+
+    direction LR
+    User --> App: Play
+    App --> Loki: JSON (HTTP API)
+    Grafana --> Loki: LogQL (Loki)
+    Developer --> Grafana: Visualize
+```
+
+These applications are run using [Docker Compose](https://docs.docker.com/compose/).
+Please refer to Holiday's [README](https://github.com/extreal-dev/Extreal.SampleApp.Holiday) for instructions on running these applications and creating dashboards.
+
+### Application design
+
+The following classes are used to send log data from the application to Loki
+
+```mermaid
+classDiagram
+
+    AppScope ..> AppUsageManager: new by VContainer
+    AppPresenter ..> AppUsageManager: CollectAppUsage()
+    AppUsageManager ..> AppUsageLogWriter: LogInfo(JSON)
+    AppUsageUtils <.. AppUsageManager: ToJson(AppUsageBase)
+    AppUsageUtils <.. AppUsageLogWriter: ToJson(AppUsageBase)
+    AppUsageUtils ..> JsonUtility: ToJson(AppUsageBase)
+    JsonUtility ..> AppUsageBase
+    ILogWriter <|.. AppUsageLogWriter
+    ILogWriter <|.. UnityDebugLogWriter
+    AppUsageLogWriter ..> UnityWebRequest: SendRequest()
+    AppUsageLogWriter ..> UnityDebugLogWriter: Log(...)
+    AppUsageBase <|-- FirstUse
+    AppUsageBase <|-- StageUsage
+    AppUsageBase <|-- ResourceUsage
+    AppUsageBase <|-- ErrorStatus
+
+    class AppUsageBase {
+        +ClientId
+        +UsageId
+        +StageName
+    }
+    
+    class AppUsageConfig {
+    }
+```
+
+#### AppUsageManager
+
+- AppUsageManager controls the creation and timing of sent data.
+- AppUsageManager is created in the App scene and starts collecting logs.
+- AppUsageManager uses AppUsageLogWriter to log JSON with the INFO level/AppUsage category.
+- To avoid interfering with the application's original subscription processing, IObservable and [Common's Hook](../core/common.md#core-common-hook) are used to control the timing of sending.
+
+#### AppUsageLogWriter
+
+- AppUsageLogWriter processes according to log category and log level.
+- If the log category is AppUsage, it sends the log data to Loki as is.
+- If the log level is Error, it creates an ErrorStatus and sends it to Loki.
+- Logs other than the above are delegated to UnityDebugLogWriter.
+
+#### AppUsageUtils
+
+- AppUsageLogUtils provides processing common to both AppUsageManager and AppUsageLogWriter.
+
+#### AppUsageBase
+
+- AppUsageBase defines common items and AppUsageBase subclasses define items based on usage.
+- Create JSON from AppUsageBase using JsonUtility.
+
+#### AppUsageConfig
+
+- AppUsageConfig provides configuration information such as URLs to Loki, timeouts, and resource usage collection intervals.
+- When the Enable field of AppUsageConfig is turned OFF, all processing related to log data sending, such as creating sent data and controlling the timing of sending, will not be executed.
+
+If you want to change log data sending, consider changing AppUsageManager and AppUsageBase (or subclasses).
