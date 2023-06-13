@@ -620,6 +620,8 @@ classDiagram
 
     AppScope ..> AppUsageManager: new by VContainer
     AppPresenter ..> AppUsageManager: CollectAppUsage()
+    AppUsageManager ..> IAppUsageCollector: Collect(AppUsageManager)
+    IAppUsageCollector <|.. XxxxCollector
     AppUsageManager ..> AppUsageLogWriter: LogInfo(JSON)
     AppUsageUtils <.. AppUsageManager: ToJson(AppUsageBase)
     AppUsageUtils <.. AppUsageLogWriter: ToJson(AppUsageBase)
@@ -629,10 +631,8 @@ classDiagram
     ILogWriter <|.. UnityDebugLogWriter
     AppUsageLogWriter ..> UnityWebRequest: SendRequest()
     AppUsageLogWriter ..> UnityDebugLogWriter: Log(...)
-    AppUsageBase <|-- FirstUse
-    AppUsageBase <|-- StageUsage
-    AppUsageBase <|-- ResourceUsage
-    AppUsageBase <|-- ErrorStatus
+    AppUsageBase <|-- Xxxx
+    Xxxx <.. XxxxCollector: new
 
     class AppUsageBase {
         +ClientId
@@ -646,9 +646,12 @@ classDiagram
 
 #### AppUsageManager
 
-- AppUsageManager controls the creation and timing of sent data.
 - AppUsageManager is created in the App scene and starts collecting logs.
 - AppUsageManager uses AppUsageLogWriter to log JSON with the INFO level/AppUsage category.
+
+#### IAppUsageCollector
+
+- The class that implements IAppUsageCollector controls the creation and timing of sent data.
 - To avoid interfering with the application's original subscription processing, IObservable and [Common's Hook](../core/common.md#core-common-hook) are used to control the timing of sending.
 
 #### AppUsageLogWriter

@@ -620,6 +620,8 @@ classDiagram
 
     AppScope ..> AppUsageManager: new by VContainer
     AppPresenter ..> AppUsageManager: CollectAppUsage()
+    AppUsageManager ..> IAppUsageCollector: Collect(AppUsageManager)
+    IAppUsageCollector <|.. XxxxCollector
     AppUsageManager ..> AppUsageLogWriter: LogInfo(JSON)
     AppUsageUtils <.. AppUsageManager: ToJson(AppUsageBase)
     AppUsageUtils <.. AppUsageLogWriter: ToJson(AppUsageBase)
@@ -629,10 +631,8 @@ classDiagram
     ILogWriter <|.. UnityDebugLogWriter
     AppUsageLogWriter ..> UnityWebRequest: SendRequest()
     AppUsageLogWriter ..> UnityDebugLogWriter: Log(...)
-    AppUsageBase <|-- FirstUse
-    AppUsageBase <|-- StageUsage
-    AppUsageBase <|-- ResourceUsage
-    AppUsageBase <|-- ErrorStatus
+    AppUsageBase <|-- Xxxx
+    Xxxx <.. XxxxCollector: new
 
     class AppUsageBase {
         +ClientId
@@ -646,9 +646,12 @@ classDiagram
 
 #### AppUsageManager
 
-- AppUsageManagerが送信データの作成と送信タイミングの制御を行います。
 - AppUsageManagerはAppシーンで作成されログ収集を開始します。
 - AppUsageManagerはAppUsageLogWriterを使ってJSONをINFOレベル/AppUsageカテゴリでログ出力します。
+
+#### IAppUsageCollector
+
+- IAppUsageCollectorを実装したクラスが送信データの作成と送信タイミングの制御を行います。
 - アプリケーション本来の購読処理を妨げないように、送信タイミングの制御にはIObservableと[CommonのHook](../core/common.md#core-common-hook)を使います。
 
 #### AppUsageLogWriter
@@ -672,4 +675,4 @@ classDiagram
 - AppUsageConfigはLokiへのURLやタイムアウト、リソース使用状況の収集間隔など、設定情報を提供します。
 - AppUsageConfigの有効化フィールドをOFFにすると、送信データの作成や送信タイミングの制御など、ログデータ送信に関する全ての処理が実行されません。
 
-ログデータ送信を変更したい場合はAppUsageManager、AppUsageBase（またはサブクラス）の変更を検討してください。
+ログデータ送信を変更したい場合はAppUsageManager、IAppUsageCollectorを実装したクラス、AppUsageBase（またはサブクラス）の変更を検討してください。
