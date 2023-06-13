@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-04-26
+2023-06-13
 
 ## Unity version
 
@@ -16,7 +16,7 @@ The following Unity versions have been tested.
 
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.1.0
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.1.0
-- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.2
+- [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.3
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.1
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.1.0
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.0.0
