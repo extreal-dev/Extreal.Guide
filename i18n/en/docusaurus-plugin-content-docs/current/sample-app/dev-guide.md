@@ -675,4 +675,4 @@ classDiagram
 - AppUsageConfig provides configuration information such as URLs to Loki, timeouts, and resource usage collection intervals.
 - When the Enable field of AppUsageConfig is turned OFF, all processing related to log data sending, such as creating sent data and controlling the timing of sending, will not be executed.
 
-If you want to change log data sending, consider changing AppUsageManager and AppUsageBase (or subclasses).
+If you want to change log data sending, consider changing AppUsageManager, the class that implements IAppUsageCollector, and AppUsageBase (or subclasses).
