@@ -620,7 +620,9 @@ classDiagram
 
     AppScope ..> AppUsageManager: new by VContainer
     AppPresenter ..> AppUsageManager: CollectAppUsage()
-    AppUsageManager ..> IAppUsageCollector: Collect(AppUsageManager)
+    AppUsageManager ..> IAppUsageCollector: Collect(...)
+    AppUsageManager ..> AppUsageEmitter: Handle()
+    AppUsageEmitter <.. XxxxCollector: Hook(...)
     IAppUsageCollector <|.. XxxxCollector
     AppUsageManager ..> AppUsageLogWriter: LogInfo(JSON)
     AppUsageUtils <.. AppUsageManager: ToJson(AppUsageBase)
@@ -639,7 +641,13 @@ classDiagram
         +UsageId
         +StageName
     }
-    
+
+    class AppUsageEmitter {
+        +OnFirstUsed
+        +OnApplicationExiting
+        +OnErrorOccured
+    }
+
     class AppUsageConfig {
     }
 ```
@@ -653,6 +661,10 @@ classDiagram
 
 - The class that implements IAppUsageCollector controls the creation and timing of sent data.
 - To avoid interfering with the application's original subscription processing, IObservable and [Common's Hook](../core/common.md#core-common-hook) are used to control the timing of sending.
+
+#### AppUsageEmitter
+
+- AppUsageEmitter provides IObservable representing the required timing for sending, such as first use, application exit, etc.
 
 #### AppUsageLogWriter
 

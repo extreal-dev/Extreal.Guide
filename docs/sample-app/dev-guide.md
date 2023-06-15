@@ -620,7 +620,9 @@ classDiagram
 
     AppScope ..> AppUsageManager: new by VContainer
     AppPresenter ..> AppUsageManager: CollectAppUsage()
-    AppUsageManager ..> IAppUsageCollector: Collect(AppUsageManager)
+    AppUsageManager ..> IAppUsageCollector: Collect(...)
+    AppUsageManager ..> AppUsageEmitter: Handle()
+    AppUsageEmitter <.. XxxxCollector: Hook(...)
     IAppUsageCollector <|.. XxxxCollector
     AppUsageManager ..> AppUsageLogWriter: LogInfo(JSON)
     AppUsageUtils <.. AppUsageManager: ToJson(AppUsageBase)
@@ -639,7 +641,13 @@ classDiagram
         +UsageId
         +StageName
     }
-    
+
+    class AppUsageEmitter {
+        +OnFirstUsed
+        +OnApplicationExiting
+        +OnErrorOccured
+    }
+
     class AppUsageConfig {
     }
 ```
@@ -653,6 +661,10 @@ classDiagram
 
 - IAppUsageCollectorを実装したクラスが送信データの作成と送信タイミングの制御を行います。
 - アプリケーション本来の購読処理を妨げないように、送信タイミングの制御にはIObservableと[CommonのHook](../core/common.md#core-common-hook)を使います。
+
+#### AppUsageEmitter
+
+- AppUsageEmitterは初回利用やアプリケーションの終了など、必要な送信タイミングを表すIObservableを提供します。
 
 #### AppUsageLogWriter
 
