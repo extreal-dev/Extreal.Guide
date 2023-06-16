@@ -52,7 +52,7 @@ The specifications of the NGO Wrapper are as follows.
 - You can support any NetworkTransport other than the default one provided by the NGO.
 
 :::info
-The NGO wrapper supports the two transports provided by NGO (Unity Transport and UNet Transport), so no additional action is required if you use these two transports.
+The NGO wrapper supports the default transport provided by NGO (Unity Transport), so no additional action is required if you use the default transport.
 When using a new transport not provided by NGO, the IConnectionSetter used by NgoClient must be changed.
 See [Supporting non-default NetworkTransport provided by NGO](#int-ngo-nt) for details.
 :::
@@ -74,7 +74,6 @@ classDiagram
     NgoClient ..> NgoConfig
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
-    IConnectionSetter <|.. UNetTransportConnectionSetter
     DisposableBase <|-- NgoServer
     DisposableBase <|-- NgoClient
 
@@ -135,9 +134,6 @@ classDiagram
     }
 
     class UnityTransportConnectionSetter {
-    }
-
-    class UNetTransportConnectionSetter {
     }
 
     class DisposableBase {
@@ -206,7 +202,7 @@ NetworkManager needs to be configured the same on server and client, so it shoul
 
 :::info
 If you want to use a new transport not provided by NGO, please refer to [Supporting non-default NetworkTransport provided by NGO](#int-ngo-nt).
-If you use the two transports provided by the NGO (Unity Transport and UNet Transport), no work is required.
+If you use the default transport provided by the NGO (Unity Transport), no work is required.
 :::
 
 ## Usage
@@ -417,7 +413,7 @@ ngoClient.OnConnected.Subscribe(_ =>
 ### Support non-default NetworkTransport provided by NGO {#int-ngo-nt}
 
 NGO can change the transport used for communication.
-The NGO wrapper supports the two transports provided by NGO (Unity Transport and UNet Transport), so if you use these two transports, no additional action is required.
+The NGO wrapper supports the default transport provided by NGO (Unity Transport), so if you use the default transport, no additional action is required.
 If you want to use a new transport that is not provided by NGO, you will need to change the IConnectionSetter used by NgoClient.
 
 Since the part of each transport implementation that holds connection information is not standardized, it is necessary to absorb the differences.
