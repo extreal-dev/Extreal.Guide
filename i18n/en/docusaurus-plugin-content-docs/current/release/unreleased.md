@@ -19,7 +19,7 @@ The following Unity versions have been tested.
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.4
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.3
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0-next.1
-- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.2
+- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.3
 
 ## Dependencies
 
@@ -66,7 +66,7 @@ The following Unity versions have been tested.
 #### Changed
 - Upgraded Unity to 2022.3.
 - Upgraded Addressables to 1.21.12.
-- Applied changes in Addressables to the [build script that encrypt assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto), as the build scripts in Addressables have changed. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
+- Applied changes in Addressables to the [build script that encrypts assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto), as the build scripts in Addressables have changed. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
 
 ### Extreal.SampleApp.Holiday
@@ -83,11 +83,11 @@ Since there are changes that affect backward compatibility, please check the fol
 
 ### Extreal.Integration.Multiplay.NGO
 #### Applications affected by the change
-Applications using UNet Transport, which was provided by an NGO, are affected.
+Applications using UNet Transport, which was provided by NGO, are affected.
 #### Change impact and how to respond
 UNet Transport is no longer supported by NGO.
 
-Please change to use the Unity Transport provided by the NGO.
+Please change to use the Unity Transport provided by NGO.
 
 ### Extreal.Integration.AssetWorkflow.Addressables
 #### Applications affected by the change

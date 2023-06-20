@@ -19,7 +19,7 @@ sidebar_position: 1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.4
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.3
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0-next.1
-- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.2
+- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.3
 
 ## Dependencies
 
@@ -96,4 +96,4 @@ NGOが提供するUnity Transportを使うように変更してください。
 Addressablesのビルドスクリプトが変更され、アセットの暗号化を行うビルドスクリプト (BuildScriptEncryptMode)が動作しなくなりました。
 そのため、アセットの暗号化を行うビルドスクリプトにAddressablesの変更を適用しました。
 
-[アセットの暗号化と複合を行う](../integration/asset-workflow.addressables.md#assets-addressables-crypto)を参照し、アセットの暗号化を行うビルドスクリプトを再設定してください。
+[アセットの暗号化と復号を行う](../integration/asset-workflow.addressables.md#assets-addressables-crypto)を参照し、アセットの暗号化を行うビルドスクリプトを再設定してください。
