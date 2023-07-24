@@ -116,6 +116,16 @@ const config = {
               },
             ],
           },
+          {
+            title: 'Legal',
+            items: [
+              {
+                html: `
+                    <a class="footer__link-item" href="javascript:void(0);" onclick="goTermsOfUse()">Terms of Use</a>
+                `,
+              },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} TIS, Inc. Built with Docusaurus.<br/><small>本サイトに掲載されている商品またはサービスなどの名称は各社の商標または登録商標です。</small>`,
       },
@@ -144,7 +154,9 @@ const config = {
       src: 'https://plausible.io/js/script.js',
       defer: true,
       'data-domain': 'extreal-dev.github.io,all.fintan'
-    }
+    },
+    '/Extreal.Guide/js/custom.js',
+    '/Extreal.Guide/en/js/custom.js',
   ],
 };
 
