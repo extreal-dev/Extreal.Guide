@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-06-20
+2023-07-31
 
 ## Unity version
 
@@ -20,18 +20,22 @@ The following Unity versions have been tested.
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.3
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0-next.1
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.3
+- [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0-next.1
+  - JavaScript: [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common) 1.0.0-next.1
 
 ## Dependencies
 
 - Common
-    - [UniTask](https://github.com/Cysharp/UniTask) 2.3.3 ([MIT License](https://github.com/Cysharp/UniTask/blob/master/LICENSE))
-    - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
+  - [UniTask](https://github.com/Cysharp/UniTask) 2.3.3 ([MIT License](https://github.com/Cysharp/UniTask/blob/master/LICENSE))
+  - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
 - Extreal.Integration.Multiplay.NGO
-    - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.5.1 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
+  - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.5.1 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
 - Extreal.Integration.Chat.Vivox
-    - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.200000-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
+  - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.200000-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 - Extreal.Integration.AssetWorkflow.Addressables
-    - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) 1.21.12 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
+  - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) 1.21.12 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
+- Extreal.Integration.Web.Common
+  - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
 
 ## Changes
 
@@ -68,6 +72,10 @@ The following Unity versions have been tested.
 - Upgraded Addressables to 1.21.12.
 - Applied changes in Addressables to the [build script that encrypts assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto), as the build scripts in Addressables have changed. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
+
+### Extreal.Integration.Web.Common
+#### Added
+- Added feature for easier use of C# and JavaScript integration provided by Unity. ([Doc](../integration/web.common.md))
 
 ### Extreal.SampleApp.Holiday
 #### Added
