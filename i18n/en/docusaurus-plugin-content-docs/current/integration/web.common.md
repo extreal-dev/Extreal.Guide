@@ -7,7 +7,7 @@ sidebar_position: 4
 ## What for?
 
 Unity allows users to create browser-oriented applications using the WebGL platform.
-Browser-oriented applications require calling processing and passing data between Unity (C#) and the browser (JavaScript).
+Browser-oriented applications require calling processing and passing data between Unity(C#) and the browser(JavaScript).
 
 This module makes it easier to use the C# and JavaScript integration mechanism provided by Unity.
 
@@ -21,9 +21,11 @@ This module makes it easier to use the C# and JavaScript integration mechanism p
 ```mermaid
 classDiagram
 
-    WebGLHelper
-    
+    WebGLHelper ..> WebGLHelperConfig
+    WebGLHelper ..> helper
+
     class WebGLHelper {
+        <<C#>>
         +Initialize(webGLHelperConfig)$ void
         +CallAction(name, str1, str2)$ void
         +CallFunction(name, str1, str2)$ string
@@ -31,7 +33,18 @@ classDiagram
     }
     
     class WebGLHelperConfig {
+        <<C#>>
         +IsDebug bool
+    }
+
+    class helper {
+        <<TypeScript>>
+        +addAction(name, action) void
+        +addFunction(name, func) void
+        +callback(name, strParam1, strParam2) void
+        +isDebug boolean
+        +waitUntil(condition, cancel, interval) void
+        +isAsync(func) boolean
     }
 ```
 

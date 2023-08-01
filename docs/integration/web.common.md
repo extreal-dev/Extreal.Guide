@@ -21,9 +21,11 @@ UnityではWebGLプラットフォームを使用してブラウザ向けのア�
 ```mermaid
 classDiagram
 
-    WebGLHelper
-    
+    WebGLHelper ..> WebGLHelperConfig
+    WebGLHelper ..> helper
+
     class WebGLHelper {
+        <<C#>>
         +Initialize(webGLHelperConfig)$ void
         +CallAction(name, str1, str2)$ void
         +CallFunction(name, str1, str2)$ string
@@ -31,7 +33,18 @@ classDiagram
     }
     
     class WebGLHelperConfig {
+        <<C#>>
         +IsDebug bool
+    }
+
+    class helper {
+        <<TypeScript>>
+        +addAction(name, action) void
+        +addFunction(name, func) void
+        +callback(name, strParam1, strParam2) void
+        +isDebug boolean
+        +waitUntil(condition, cancel, interval) void
+        +isAsync(func) boolean
     }
 ```
 

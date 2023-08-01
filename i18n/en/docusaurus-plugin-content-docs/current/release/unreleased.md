@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-07-31
+2023-08-01
 
 ## Unity version
 
@@ -14,6 +14,8 @@ The following Unity versions have been tested.
 
 ## Modules
 
+### Unity
+
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.2.0-next.1
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.2.0-next.1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.4
@@ -21,7 +23,12 @@ The following Unity versions have been tested.
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0-next.1
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.3
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0-next.1
-  - JavaScript: [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common) 1.0.0-next.1
+- [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0-next.1
+
+### npm
+
+- [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common) 1.0.0-next.1
+- [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.0.0-next.1
 
 ## Dependencies
 
@@ -36,6 +43,16 @@ The following Unity versions have been tested.
   - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) 1.21.12 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
 - Extreal.Integration.Web.Common
   - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
+- Extreal.Integration.P2P.WebRTC
+  - Unity
+    - [Collections](https://docs.unity3d.com/Packages/com.unity.collections@1.2/manual/index.html) 1.2.4 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
+    - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
+    - [UniTask](https://github.com/Cysharp/UniTask) 2.3.3 ([MIT License](https://github.com/Cysharp/UniTask/blob/master/LICENSE))
+    - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
+    - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
+    - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
+  - npm
+    - [socket.io-client](https://www.npmjs.com/package/socket.io-client) 4.7.1 ([MIT License](https://github.com/socketio/socket.io-client/blob/main/LICENSE))
 
 ## Changes
 
@@ -76,6 +93,10 @@ The following Unity versions have been tested.
 ### Extreal.Integration.Web.Common
 #### Added
 - Added feature for easier use of C# and JavaScript integration provided by Unity. ([Doc](../integration/web.common.md))
+
+### Extreal.Integration.P2P.WebRTC
+#### Added
+- Added base features to facilitate the creation of P2P using WebRTC. ([Doc](../integration/p2p.webrtc.md))
 
 ### Extreal.SampleApp.Holiday
 #### Added
