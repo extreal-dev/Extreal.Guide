@@ -181,9 +181,23 @@ public class ClientControlScope : LifetimeScope
 }
 ```
 
+WebGLで使う場合はさらにJavaScriptの初期化が必要です。
+
+```typescript
+import { addAction } from "@extreal-dev/extreal.integration.web.common";
+import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";
+
+const peerAdapter = new PeerAdapter();
+peerAdapter.adapt();
+```
+
+:::info
+TypeScriptを使った開発環境はこのモジュールの[サンプル](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts)を参考にしてください。
+:::
+
 ## Usage
 
-### ホスト/クライアントのP2Pを作成する
+### ホスト/クライアントのP2Pを作成する {#p2p-webrtc-host-client}
 
 このモジュールではP2Pの接続を確立するために次の機能を提供します。
 
@@ -398,10 +412,6 @@ class DataChannelClient {
 
 export { DataChannelClient };
 ```
-
-:::info
-TypeScriptを使った開発環境はこのモジュールの[サンプル](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts)を参考にしてください。
-:::
 
 PeerClientProvider関数はPeerAdapterが提供します。
 PeerAdapterは内部でPeerClientを保持し、C#とJavaScriptのPeerClientの連携を定義しています。

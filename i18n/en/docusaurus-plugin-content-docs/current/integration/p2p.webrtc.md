@@ -181,9 +181,23 @@ public class ClientControlScope : LifetimeScope
 }
 ```
 
+WebGLで使う場合はさらにJavaScriptの初期化が必要です。
+
+```typescript
+import { addAction } from "@extreal-dev/extreal.integration.web.common";
+import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";
+
+const peerAdapter = new PeerAdapter();
+peerAdapter.adapt();
+```
+
+:::info
+TypeScriptを使った開発環境はこのモジュールの[サンプル](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts)を参考にしてください。
+:::
+
 ## Usage
 
-### Create host/client P2P
+### Create host/client P2P {#p2p-webrtc-host-client}
 
 This module provides the following features to establish a P2P connection
 
