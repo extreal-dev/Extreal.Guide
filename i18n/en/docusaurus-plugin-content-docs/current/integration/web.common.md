@@ -9,7 +9,7 @@ sidebar_position: 4
 Unity allows users to create browser-oriented applications using the WebGL platform.
 Browser-oriented applications require calling processing and passing data between Unity(C#) and the browser(JavaScript).
 
-This module makes it easier to use the C# and JavaScript integration mechanism provided by Unity.
+This module hides the slightly more complex mechanism of C# and JavaScript integration provided by Unity and provides a WebGL helper for easy C# and JavaScript interaction.
 
 ## Specification
 
@@ -64,20 +64,25 @@ https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 
 ### Dependencies
 
-The Web.Common uses the following packages.
+This module uses the following packages.
 
 #### Unity
 - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)
 
 #### npm
-There are no dependencies.
+- There are no dependencies.
 
 ### Settings
 
-You can set whether or not debug logs are output on the browser side.
-The default is no debug log output.
+The WebGL helper needs to be initialized.
+Please initialize the WebGL helper when you start the application.
 
-If you wish to output debug logs, use WebGLHelper's Initialize method.
+```csharp
+WebGLHelper.Initialize();
+```
+
+The browser can log the status of JavaScript calls.
+The default is to not output logs, so if you want to output logs, specify them in WebGLHelperConfig.
 
 ```csharp
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
@@ -92,28 +97,42 @@ C# to JavaScript calls provide only the following signatures.
 - Function with no return value
   - Arguments: 2 strings
   - Return value: None
+  - Example:
+    ```typescript
+    const action = (param1: string, param2: string): void => {
+        // do something
+    }
+    ```
 - Function with return value
   - Arguments: 2 strings
   - Return value: string
+  - Example:
+    ```typescript
+    const func = (param1: string, param2: string): string => {
+        return "do something";
+    }
+    ```
 
 :::info
 Arguments and return value are strings, so use JSON if you want to handle complex data structures.
 :::
 
-The C# side uses WebGLHelper's CallAction and CallFunction methods.
+The C# side calls JavaScript using WebGLHelper's CallAction/CallFunction.
+Action corresponds to a function without a return value and Function corresponds to a function with a return value.
+The mapping between C# and JavaScript is done by the string target name.
 
 ```csharp
 public class Sample : DisposableBase
 {
     public void DoAction(string param1, string param2)
-        => WebGLHelper.CallAction(nameof(DoAction), param1, param2);
+        => WebGLHelper.CallAction("DoAction", param1, param2);
 
     public string DoFunction(string param1, string param2)
-        => WebGLHelper.CallFunction(nameof(DoFunction), param1, param2);
+        => WebGLHelper.CallFunction("DoFunction", param1, param2);
 }
 ```
 
-On the JavaScript side, use the addAction and addFunction functions.
+The JavaScript side uses addAction/addFunction.
 
 ```typescript
 import { addAction, addFunction } from "@extreal-dev/extreal.integration.web.common";
@@ -137,7 +156,8 @@ Only the following signatures are provided for JavaScript to C# callback.
 Arguments and return value are strings, so use JSON if you want to handle complex data structures.
 :::
 
-The JavaScript side uses the callback function.
+The JavaScript side uses callback.
+The mapping between JavaScript and C# is done by the string target name.
 
 ```typescript
 import { callback } from "@extreal-dev/extreal.integration.web.common";
@@ -145,7 +165,7 @@ import { callback } from "@extreal-dev/extreal.integration.web.common";
 callback("HandleOnCallback", "param1", "param2");
 ```
 
-On the C# side, use the AddCallback method of WebGLHelper.
+The C# side uses WebGLHelper's AddCallback.
 In this example implementation, the callback is received and event notification is sent.
 
 ```csharp

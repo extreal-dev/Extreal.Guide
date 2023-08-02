@@ -184,8 +184,8 @@ classDiagram
 classDiagram
 
     WebGLWebRtcClient ..> WebGLHelper
-    WebGLHelper ..> WebRtcAdapter
-    WebRtcClient <.. WebRtcAdapter
+    WebGLHelper ..> WebRtcClient
+    WebRtcAdapter ..> WebRtcClient 
 
     class WebGLWebRtcClient {
         <<C#>>
@@ -230,7 +230,14 @@ NGOラッパーは次のパッケージを使います。
 
 WebRTCTransportはさらに次のパッケージを使います。
 
+#### Unity
+
 - [Extreal.Integration.P2P.WebRTC](../integration/p2p.webrtc.md)
+- [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html)
+
+#### npm
+
+- [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc)
 
 モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
@@ -282,7 +289,13 @@ NGOが提供しているデフォルトのトランスポート（Unity Transpor
 
 #### WebRTCTransport {#mulitplay-ngo-settings-webrtctransport}
 
-WebRTCTransportを使う場合はNetworkManagerへの設定に加えて、NgoServerとNgoClientでWebRTCClientが使われるように初期化が必要です。
+WebRTCTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
+そのため[P2P.WebRTCのSettings](p2p.webrtc.md#settings)が必要になります。
+P2P.WebRTCを設定した上で次の初期化を追加します。
+
+WebRTCTransportを使う場合はまずNetworkManagerのインスペクタでWebRTCTransportを設定します。
+次にWebRTCTransportにWebRTCClientを設定できるようにNgoServerとNgoClientを初期化します。
+WebRtcTransportConnectionSetter経由でWebRTCClientをWebRTCTransportに設定します。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
@@ -291,7 +304,8 @@ public class ClientControlScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        var peerClient = PeerClientProvider.Provide(assetHelper.PeerConfig);
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var peerClient = PeerClientProvider.Provide(peerConfig);
         builder.RegisterComponent(peerClient);
 
         var webRtcClient = WebRtcClientProvider.Provide(peerClient);
@@ -311,10 +325,7 @@ public class ClientControlScope : LifetimeScope
 ```
 
 WebGLで使う場合はさらにJavaScriptの初期化が必要になります。
-
-WebRTCTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
-そのため[P2P.WebRTCのSettings](p2p.webrtc.md#settings)も必要になります。
-P2P.WebRTCを設定した上で次の初期化を追加してください。
+WebRtcAdapterを作成してadapt関数を呼び出します。
 
 ```typescript
 import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";

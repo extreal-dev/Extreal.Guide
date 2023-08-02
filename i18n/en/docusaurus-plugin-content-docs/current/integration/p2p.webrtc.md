@@ -6,21 +6,21 @@ sidebar_position: 5
 
 ## What for?
 
-P2P(Peer to Peer) is a means of communication with the lowest possible cost.
+P2P(Peer to Peer) is a means of communicating in virtual spaces, etc., with the lowest possible cost.
 
-This module provides the base features to facilitate the creation of P2P using WebRTC.
+P2P can be realized relatively easily by using WebRTC, but since P2P connection establishment is a similar processing, it is provided as a common feature.
+By using this common feature, application-specific P2P can be realized by simply adding data channel and media stream processing.
+
+This module provides base P2P features for Native(C#) and WebGL(JavaScript).
 
 ## Specification
 
-- You can create host/client P2P.
+- You can establish a host/client P2P connection.
 - You can add processing to trigger P2P state.
 - You can add application-specific processing to Native(C#) P2P.
 - You can add application-specific processing to WebGL(JavaScript) P2P
 
 ## Architecture
-
-This module provides P2P for Native(C#) or WebGL(JavaScript).
-PeerClientProvider and PeerClient hide the implementation of the P2P connection, and the application only needs to add application-specific processing such as data channels and media streams to implement P2P.
 
 ### Unity
 
@@ -67,13 +67,18 @@ classDiagram
 ```mermaid
 classDiagram
 
-    WebGLPeerClient ..> PeerClient
+    WebGLPeerClient ..> WebGLHelper  
+    PeerClient <.. WebGLHelper  
     PeerAdapter ..> PeerClient
 
     class WebGLPeerClient {
         <<C#>>
     }
     
+    class WebGLHelper {
+        <<C#>>
+    }
+
     class PeerAdapter {
         <<TypeScript>>
         +adapt() void
@@ -92,9 +97,9 @@ classDiagram
     }
 ```
 
-In P2P, the application and the signaling server cooperate to establish connections between peers.
-This module provides features to establish peer-to-peer connections, assuming the following processing flow.
-When one user becomes a host and another user joins the host, a P2P connection is established with the host and the users already in the host.
+In P2P, the application and the signaling server cooperate to establish a P2P connection.
+In order to establish a P2P connection, this module provides a feature that assumes the following processing flow.
+When one user becomes a host and another user joins the host, a P2P connection is established with the host and the users already joined to the host.
 
 ```mermaid
 sequenceDiagram
@@ -138,7 +143,7 @@ https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC.git
 
 ### Dependencies
 
-P2P.WebRTC uses the following packages.
+This module uses the following packages.
 
 #### Unity
 
@@ -181,7 +186,8 @@ public class ClientControlScope : LifetimeScope
 }
 ```
 
-WebGLで使う場合はさらにJavaScriptの初期化が必要です。
+If you want to use it with WebGL, initialize it further with JavaScript.
+Create a PeerAdapter and call the adapt function.
 
 ```typescript
 import { addAction } from "@extreal-dev/extreal.integration.web.common";
@@ -192,41 +198,38 @@ peerAdapter.adapt();
 ```
 
 :::info
-TypeScriptを使った開発環境はこのモジュールの[サンプル](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts)を参考にしてください。
+For a development environment using TypeScript, please refer to [sample](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts) in this module.
 :::
 
 ## Usage
 
-### Create host/client P2P {#p2p-webrtc-host-client}
+### Establish a host/client P2P connection {#p2p-webrtc-host-client}
 
-This module provides the following features to establish a P2P connection
+This module provides host/client oriented features to establish a P2P connection.
+These features are provided by PeerClient.
 
-- Create a host by specifying a name.
-    - The created user becomes a host.
-- Retrieve a list of hosts and join a host by specifying the host.
-    - P2P connection to the host and also P2P connection to other clients joining the host.
-
-Host creation by specifying a name is performed by PeerClient's StartHostAsync.
+First, create a host by specifying a name.
+The created user becomes the host.
+If the name is duplicated, a HostNameAlreadyExistsException is thrown.
 
 ```csharp
 await peerClient.StartHostAsync("host name");
 ```
 
-The list of hosts is obtained by ListHostsAsync of PeerClient.
-A list of Host classes with Id and Name is returned.
-The Host class Id obtained here is used to join a host.
+The client(user who wants to join a host) gets a list of hosts.
 
 ```csharp
 var hosts = await peerClient.ListHostsAsync();
 ```
 
-Joining the host is achieved by StartClientAsync of PeerClient.
+A list of Hosts with their Id and Name is returned, and the client joins the Host using the Host's Id obtained here.
+The client requests to join a host and establishes a P2P connection with the host and other clients that have already joined the host.
 
 ```csharp
 await peerClient.StartClientAsync(hostId);
 ```
 
-Closing a host or leaving a host calls PeerClient's Stop, which stops the P2P connection.
+When a host is shut down or a client leaves the host, the P2P connection is stopped.
 
 ```csharp
 peerClient.Stop();
@@ -258,11 +261,21 @@ PeerClient has the following event notifications
 ### Add application-specific processing to Native(C#) P2P
 
 PeerClient has hooks that can add processing at the start and end of a P2P connection.
-PeerClient's AddPcCreateHook method is the start hook and AddPcCloseHook method is the end hook.
+
+```csharp
+peerClient.AddPcCreateHook((id, isOffer, rtcPeerConnection) =>
+{
+    // do something
+});
+
+peerClient.AddPcCloseHook((id) =>
+{
+    // do something
+});
+```
 
 These hooks are used to manipulate data channels and media streams to add application-specific features to P2P.
-
-An example implementation for creating a data channel is shown below.
+An example implementation for creating a data channel is as follows.
 
 ```csharp
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -345,13 +358,11 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 
 ### Add application-specific processing to WebGL(JavaScript) P2P
 
-Creating P2P in WebGL(JavaScript) is a bit more involved than in Native(C#) because it requires the coordination of C# and JavaScript.
-
+WebGL(JavaScript) is a bit more extensive than Native(C#) because it requires C# and JavaScript to work together.
 The mechanism is the same as Native(C#), using hooks to add application-specific processing to P2P.
 
 An example implementation for creating a data channel is shown below.
-Get a PeerClient from a function called PeerClientProvider and add hooks using addPcCreateHook and addPcCloseHook.
-How to get the PeerClientProvider function is described below.
+The major difference is that the PeerClient is obtained from the PeerClientProvider function.
 
 ```typescript
 import { PeerClientProvider } from "@extreal-dev/extreal.integration.p2p.webrtc";
@@ -413,21 +424,17 @@ class DataChannelClient {
 export { DataChannelClient };
 ```
 
-:::info
-For a development environment using TypeScript, please refer to [sample](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts) in this module.
-:::
+PeerClientProvider is provided by PeerAdapter, which appeared in [Settings](#settings).
+PeerAdapter holds PeerClient internally and defines the interaction between C# and JavaScript.
 
-PeerClientProvider function is provided by PeerAdapter.
-PeerAdapter holds PeerClient internally and defines the PeerClient integration between C# and JavaScript.
+To do P2P with WebGL, first create a PeerAdapter and call its adapt function.
+Then, use the getPeerClient function of the PeerAdapter to add application-specific processing like the DataChannelClient described earlier.
 
-To perform P2P with WebGL, first create a PeerAdapter and call its adapt function.
-Then, use the PeerAdapter's getPeerClient function to implement application-specific processing like the DataChannelClient described earlier.
+The timing of calling application-specific processing is important here.
+Be careful not to initialize the processing added by the application (in this case, DataChannelClient) before PeerClient in C#.
+The C# PeerClient is initialized at the timing when the Provide method of PeerClientProvider is called.
 
-The timing of the call is important for application-specific processing.
-Be careful not to initialize the processing added by the application (in this case, DataChannelClient) before PeerClient.
-
-Use [Web.Common](web.common.md) to control the call timing from C#.
-In this case, we use the addAction function.
+Use [Web.Common](web.common.md) to control the timing of the call from C#.
 
 ```typescript
 import { addAction } from "@extreal-dev/extreal.integration.web.common";
@@ -442,7 +449,7 @@ addAction("start", () => dataChannelClient = new DataChannelClient(peerAdapter.g
 addAction("clear", () => dataChannelClient.clear);
 ```
 
-Create a caller in C#.
+Create a C# caller.
 Use WebGLHelper in [Web.Common](web.common.md).
 
 ```csharp

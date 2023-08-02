@@ -24,12 +24,14 @@ The following Unity versions have been tested.
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.x
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0-next.x
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0-next.x
+- [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0-next.x
 
 ### npm
 
 - [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common) 1.0.0-next.1
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.0.0-next.1
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.0.0-next.1
+- [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.0.0-next.1
 
 ## Dependencies
 
@@ -54,6 +56,8 @@ The following Unity versions have been tested.
     - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
   - npm
     - [socket.io-client](https://www.npmjs.com/package/socket.io-client) 4.7.1 ([MIT License](https://github.com/socketio/socket.io-client/blob/main/LICENSE))
+- Extreal.Integration.Chat.WebRTC
+  - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 
 ## Changes
 
@@ -99,6 +103,10 @@ The following Unity versions have been tested.
 ### Extreal.Integration.P2P.WebRTC
 #### Added
 - Added base features to facilitate the creation of P2P using WebRTC. ([Doc](../integration/p2p.webrtc.md))
+
+### Extreal.Integration.Chat.WebRTC
+#### Added
+- Added the ability to have text/voice chat via P2P. ([Doc](../integration/chat.webrtc.md))
 
 ### Extreal.SampleApp.Holiday
 #### Added

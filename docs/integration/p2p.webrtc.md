@@ -6,21 +6,21 @@ sidebar_position: 5
 
 ## What for?
 
-コストをできるだけ抑えてコミュニケーションを取る手段としてP2P(Peer to Peer)があります。
+コストをできるだけ抑えてバーチャル空間等でコミュニケーションを取る手段としてP2P(Peer to Peer)があります。
 
-このモジュールではWebRTCを活用したP2Pの作成を容易にするベース機能を提供します。
+WebRTCを活用すると比較的容易にP2Pを実現できますが、P2Pの接続確立は似通った処理になるので共通機能として提供します。
+この共通機能を使うことでデータチャンネルやメディアストリームの処理を追加するのみでアプリケーション固有のP2Pを実現できます。
+
+このモジュールはNative(C#)とWebGL(JavaScript)向けのP2Pのベース機能を提供します。
 
 ## Specification
 
-- ホスト/クライアントのP2Pを作成できます。
+- ホスト/クライアントのP2P接続を確立できます。
 - P2Pの状態をトリガーに処理を追加できます。
 - Native(C#)のP2Pにアプリケーション固有の処理を追加できます。
 - WebGL(JavaScript)のP2Pにアプリケーション固有の処理を追加できます。
 
 ## Architecture
-
-このモジュールはNative(C#)またはWebGL(JavaScript)向けのP2Pを提供します。
-PeerClientProviderとPeerClientがP2P接続の実装を隠蔽し、アプリケーションはデータチャンネルやメディアストリームなど、アプリケーションに固有の処理のみ追加すればP2Pを実現できます。
 
 ### Unity
 
@@ -67,13 +67,18 @@ classDiagram
 ```mermaid
 classDiagram
 
-    WebGLPeerClient ..> PeerClient
+    WebGLPeerClient ..> WebGLHelper  
+    PeerClient <.. WebGLHelper  
     PeerAdapter ..> PeerClient
 
     class WebGLPeerClient {
         <<C#>>
     }
     
+    class WebGLHelper {
+        <<C#>>
+    }
+
     class PeerAdapter {
         <<TypeScript>>
         +adapt() void
@@ -92,9 +97,9 @@ classDiagram
     }
 ```
 
-P2Pではアプリケーションとシグナリングサーバが協調してピア同士の接続を確立します。
-このモジュールではピア同士の接続を確立するため、次の処理フローを想定した機能を提供しています。
-あるユーザーがホストになり、他のユーザーがホストに参加すると、ホスト及びホストに既に参加しているユーザーとP2P接続します。
+P2Pではアプリケーションとシグナリングサーバが協調してP2P接続を確立します。
+このモジュールではP2P接続を確立するため、次の処理フローを想定した機能を提供しています。
+あるユーザーがホストになり、他のユーザーがホストに参加すると、ホスト及びホストに既に参加しているユーザーとP2P接続を確立します。
 
 ```mermaid
 sequenceDiagram
@@ -138,7 +143,7 @@ https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC.git
 
 ### Dependencies
 
-P2P.WebRTCは次のパッケージを使います。
+このモジュールは次のパッケージを使います。
 
 #### Unity
 
@@ -181,7 +186,8 @@ public class ClientControlScope : LifetimeScope
 }
 ```
 
-WebGLで使う場合はさらにJavaScriptの初期化が必要です。
+WebGLで使う場合はさらにJavaScriptで初期化を行います。
+PeerAdapterを作成してadapt関数を呼び出します。
 
 ```typescript
 import { addAction } from "@extreal-dev/extreal.integration.web.common";
@@ -197,36 +203,33 @@ TypeScriptを使った開発環境はこのモジュールの[サンプル](http
 
 ## Usage
 
-### ホスト/クライアントのP2Pを作成する {#p2p-webrtc-host-client}
+### ホスト/クライアントのP2P接続を確立する {#p2p-webrtc-host-client}
 
-このモジュールではP2Pの接続を確立するために次の機能を提供します。
+このモジュールはP2P接続を確立するためにホスト/クライアント向けの機能を提供します。
+これらの機能はPeerClientが提供します。
 
-- 名前を指定してホストを作成します。
-  - 作成したユーザーがホストになります。
-- ホストの一覧を取得し、ホストを指定して参加できます。
-  - ホストとP2P接続するとともに、ホストに参加している他のクライアントともP2P接続します。
-
-名前を指定したホスト作成はPeerClientのStartHostAsyncで行います。
+まず名前を指定してホストを作成します。
+作成したユーザーがホストになります。
+名前が重複した場合はHostNameAlreadyExistsExceptionがスローされます。
 
 ```csharp
 await peerClient.StartHostAsync("host name");
 ```
 
-ホストの一覧取得はPeerClientのListHostsAsyncで行います。
-IdとNameを持ったHostクラスのリストが返ります。
-ここで取得したHostクラスのIdを使ってホストに参加します。
+クライアント（ホストに参加したいユーザー）はホストの一覧を取得します。
 
 ```csharp
 var hosts = await peerClient.ListHostsAsync();
 ```
 
-ホストへの参加はPeerClientのStartClientAsyncで行います。
+IdとNameを持ったHostのリストが返るので、ここで取得したHostのIdを使ってクライアントはホストに参加します。
+参加依頼したクライアントはホストと既にホストに参加している他のクライアントとP2P接続を確立します。
 
 ```csharp
 await peerClient.StartClientAsync(hostId);
 ```
 
-ホストのクローズやホストからの退室ではPeerClientのStopを呼び出し、P2P接続を停止します。
+ホストを停止する場合やクライアントがホストから退室する場合はP2P接続を停止します。
 
 ```csharp
 peerClient.Stop();
@@ -258,10 +261,20 @@ PeerClientは次のイベント通知を設けています。
 ### Native(C#)のP2Pにアプリケーション固有の処理を追加する
 
 PeerClientはP2P接続の開始時と終了時に処理を追加できるフックを設けています。
-PeerClientのAddPcCreateHookメソッドが開始時、AddPcCloseHookメソッドが終了時のフックです。
 
-これらのフックを使ってデータチャンネルやメディアストリームを操作し、アプリケーション固有の機能をP2Pに追加します。
+```csharp
+peerClient.AddPcCreateHook((id, isOffer, rtcPeerConnection) =>
+{
+    // do something
+});
 
+peerClient.AddPcCloseHook((id) =>
+{
+    // do something
+});
+```
+
+これらのフックを使ってデータチャンネルやメディアストリームを操作しアプリケーション固有の機能をP2Pに追加します。
 データチャンネルを作成する場合の実装例は次の通りです。
 
 ```csharp
@@ -345,13 +358,11 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 
 ### WebGL(JavaScript)のP2Pにアプリケーション固有の処理を追加する
 
-WebGL(JavaScript)でのP2Pの作成はC#とJavaScriptの連携が必要になるため、Native(C#)に比べると少し大掛かりなものになります。
-
+WebGL(JavaScript)の場合はC#とJavaScriptの連携が必要になるため、Native(C#)に比べると少し大掛かりなものになります。
 仕組みはNative(C#)と同じでフックを使ってアプリケーション固有の処理をP2Pに追加します。
 
 データチャンネルを作成する場合の実装例は次の通りです。
-PeerClientProviderという関数からPeerClientを取得して、addPcCreateHookとaddPcCloseHookを使ってフックを追加します。
-PeerClientProvider関数の取得方法は後述します。
+PeerClientProviderという関数からPeerClientを取得する部分が大きく異なります。
 
 ```typescript
 import { PeerClientProvider } from "@extreal-dev/extreal.integration.p2p.webrtc";
@@ -413,17 +424,17 @@ class DataChannelClient {
 export { DataChannelClient };
 ```
 
-PeerClientProvider関数はPeerAdapterが提供します。
-PeerAdapterは内部でPeerClientを保持し、C#とJavaScriptのPeerClientの連携を定義しています。
+PeerClientProviderは[Settings](#settings)で登場したPeerAdapterが提供します。
+PeerAdapterは内部でPeerClientを保持し、C#とJavaScriptの相互作用を定義しています。
 
 WebGLでP2Pを行う場合はまずPeerAdapterを作成してadapt関数を呼び出します。
-そしてPeerAdapterのgetPeerClient関数を使って先ほどのDataChannelClientのようにアプリケーション固有の処理を実装します。
+そしてPeerAdapterのgetPeerClient関数を使って先ほどのDataChannelClientのようにアプリケーション固有の処理を追加します。
 
-アプリケーション固有の処理は呼び出すタイミングが重要になります。
-PeerClientより先にアプリケーションで追加した処理（今回であればDataChannelClient）が初期化されないように注意してください。
+ここではアプリケーション固有の処理を呼び出すタイミングが重要になります。
+C#のPeerClientより先にアプリケーションで追加した処理（今回であればDataChannelClient）が初期化されないように注意してください。
+C#のPeerClientはPeerClientProviderのProvideメソッドを呼び出したタイミングで初期化されます。
 
 [Web.Common](web.common.md)を使ってC#からの呼び出しタイミングを制御します。
-今回はaddAction関数を使っています。
 
 ```typescript
 import { addAction } from "@extreal-dev/extreal.integration.web.common";
@@ -438,7 +449,7 @@ addAction("start", () => dataChannelClient = new DataChannelClient(peerAdapter.g
 addAction("clear", () => dataChannelClient.clear);
 ```
 
-C#で呼び出し側を作成します。
+C#の呼び出し側を作成します。
 [Web.Common](web.common.md)のWebGLHelperを使います。
 
 ```csharp

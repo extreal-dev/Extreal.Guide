@@ -184,8 +184,8 @@ classDiagram
 classDiagram
 
     WebGLWebRtcClient ..> WebGLHelper
-    WebGLHelper ..> WebRtcAdapter
-    WebRtcClient <.. WebRtcAdapter
+    WebGLHelper ..> WebRtcClient
+    WebRtcAdapter ..> WebRtcClient 
 
     class WebGLWebRtcClient {
         <<C#>>
@@ -230,7 +230,14 @@ The NGO wrapper uses the following packages.
 
 WebRTCTransport additionally uses the following packages.
 
+#### Unity
+
 - [Extreal.Integration.P2P.WebRTC](../integration/p2p.webrtc.md)
+- [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html)
+
+#### npm
+
+- [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc)
 
 Please refer to [Release](../category/release) for the correspondence between module version and each package version.
 
@@ -282,7 +289,13 @@ If you use the default transport provided by the NGO (Unity Transport), no work 
 
 #### WebRTCTransport {#mulitplay-ngo-settings-webrtctransport}
 
-When using WebRTCTransport, in addition to the settings to NetworkManager, initialization is required so that WebRTCClient is used by NgoServer and NgoClient.
+WebRTCTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
+WebRTC Settings](p2p.webrtc.md#settings) is required.
+Add the following initialization after setting up P2P.WebRTC.
+
+If using WebRTCTransport, first configure WebRTCTransport in the NetworkManager inspector.
+Next, initialize NgoServer and NgoClient so that WebRTCClient can be configured for WebRTCTransport.
+Set WebRTCClient to WebRTCTransport via WebRTCTransportConnectionSetter.
 
 ```csharp
 public class ClientControlScope : LifetimeScope
@@ -291,7 +304,8 @@ public class ClientControlScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        var peerClient = PeerClientProvider.Provide(assetHelper.PeerConfig);
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var peerClient = PeerClientProvider.Provide(peerConfig);
         builder.RegisterComponent(peerClient);
 
         var webRtcClient = WebRtcClientProvider.Provide(peerClient);
@@ -311,6 +325,7 @@ public class ClientControlScope : LifetimeScope
 ```
 
 If used with WebGL, further JavaScript initialization is required.
+Create a WebRtcAdapter and call the adapt function.
 
 WebRTCTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 [WebRTC Settings](p2p.webrtc.md#settings) is also required.
