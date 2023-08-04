@@ -19,26 +19,26 @@ sidebar_position: 6
     - Unity font assets created from [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)
   - Holiday
     - Assets created in the Holiday application
-  - Holiday.Common
-    - Assets common to the Holiday application and the multiplayer server
-  - Holiday.MultiplayServer
-    - Assets created by Holiday's multiplayer server
   - Holiday.PerformanceTest
     - Materials for performance testing in Holiday
   - Mixamo
     - Unity character models created from [Mixamo](https://www.mixamo.com/)
-  - Plugins
-    - Configuration files for Android builds
-  - ScriptTemplates
-    - Script templates
   - StarterAssets
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
   - TextMesh Pro
     - Settings for using TextMesh Pro
   - URP
     - Configuration for using Universal Render Pipeline
+  - WebGLScripts
+    - Assets for WebGL to be created in Holiday application
+  - WebGLTemplates
+    - Template for WebGL for use in Holiday application
 - Packages
   - Unity packages for application development
+- Servers
+  - Server scripts for use in Holiday application
+- WebGLBuild
+  - Script to deliver Holiday application for WebGL at development
 
 We have a directory named starting with Holiday where we store our own assets.
 This is to make it easier to distinguish between assets created by third parties and ourselves.
@@ -50,12 +50,16 @@ We have set up directories for applications, so all other directories have been 
 - App.
   - Application entry point
   - Application-wide settings/status
+  - AppUsage
+    - Processing for application usage visualization
   - AssetWorkflow
     - Common processing for asset downloads
   - Avatars
     - Avatar prefabs
   - Config
     - Application settings
+  - P2P
+    - Processing common to P2P
   - Stages
     - Processing common to the stages
 - Controls

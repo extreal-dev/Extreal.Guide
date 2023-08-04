@@ -265,6 +265,10 @@ AssetProvider has the following event notifications.
 ### Encrypt and decrypt assets {#assets-addressables-crypto}
 
 :::caution
+This feature is not available in WebGL.
+:::
+
+:::caution
 Note that using this feature alone is weak protection for intellectual property.
 
 By using this feature, if someone obtains only encrypted assets, they will not be able to decrypt them.

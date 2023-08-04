@@ -11,8 +11,8 @@ We provide "Holiday" as a sample application equipped with the multiplayer and v
 
 ![holiday](../img/holiday.png)
 
-Holiday has a simple stage structure: title screen -> avatar selection screen -> virtual space.
-In the future, Holiday's features will increase as Extreal's features increase.
+Holiday has a simple stage structure: title screen → avatar selection screen → group selection screen → virtual space.
+Holiday is a P2P(Peer to Peer), and players play as a group by selecting a host or a client on the group selection screen.
 
 Holiday will provide the following contents
 

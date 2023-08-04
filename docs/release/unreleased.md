@@ -113,6 +113,7 @@ sidebar_position: 1
 - アプリケーションの利用状況可視化を追加しました。([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
 #### Changed
 - Unityを2022.3にアップグレードしました。
+- ブラウザ向けのアプリケーション(WebGL)に変更しました。([Doc](../sample-app/requirements.md))
 
 ## Upgrade guide {#upgrade-guide}
 

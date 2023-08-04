@@ -113,6 +113,7 @@ The following Unity versions have been tested.
 - Added application usage visualization. ([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
 #### Changed
 - Upgraded Unity to 2022.3.
+- Changed to browser-oriented application (WebGL). ([Doc](../sample-app/requirements.md))
 
 ## Upgrade guide {#upgrade-guide}
 
