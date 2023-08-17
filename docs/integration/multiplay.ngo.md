@@ -130,18 +130,18 @@ classDiagram
     }
 ```
 
-### WebRTCTransport
+### WebRtcTransport
 
 #### Unity
 
 ```mermaid
 classDiagram
 
-    NetworkTransport <|-- WebRTCTransport
+    NetworkTransport <|-- WebRtcTransport
     IConnectionSetter <|.. WebRtcTransportConnectionSetter
-    WebRtcTransportConnectionSetter ..> WebRTCTransport
+    WebRtcTransportConnectionSetter ..> WebRtcTransport
     WebRtcClientProvider ..> WebRtcClient
-    WebRTCTransport ..> WebRtcClient
+    WebRtcTransport ..> WebRtcClient
     WebRtcClient <|-- NativeWebRtcClient
     WebRtcClient <|-- WebGLWebRtcClient
     NativeWebRtcClient ..> NativePeerClient
@@ -150,7 +150,7 @@ classDiagram
         <<NGO>>
     }
 
-    class WebRTCTransport {
+    class WebRtcTransport {
     }
 
     class IConnectionSetter {
@@ -228,7 +228,7 @@ NGOラッパーは次のパッケージを使います。
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-WebRTCTransportはさらに次のパッケージを使います。
+WebRtcTransportはさらに次のパッケージを使います。
 
 #### Unity
 
@@ -289,15 +289,15 @@ NGOが提供していない新たなトランスポートを使う場合は[NGO�
 NGOが提供しているデフォルトのトランスポート（Unity Transport）を使用する場合は何も作業が必要ありません。
 :::
 
-#### WebRTCTransport {#mulitplay-ngo-settings-webrtctransport}
+#### WebRtcTransport {#mulitplay-ngo-settings-webrtctransport}
 
-WebRTCTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
+WebRtcTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
 そのため[P2P.WebRTCのSettings](p2p.webrtc.md#settings)が必要になります。
 P2P.WebRTCを設定した上で次の初期化を追加します。
 
-WebRTCTransportを使う場合はまずNetworkManagerのインスペクタでWebRTCTransportを設定します。
-次にWebRTCTransportにWebRTCClientを設定できるようにNgoServerとNgoClientを初期化します。
-WebRtcTransportConnectionSetter経由でWebRTCClientをWebRTCTransportに設定します。
+WebRtcTransportを使う場合はまずNetworkManagerのインスペクタでWebRtcTransportを設定します。
+次にWebRtcTransportにWebRTCClientを設定できるようにNgoServerとNgoClientを初期化します。
+WebRtcTransportConnectionSetter経由でWebRTCClientをWebRtcTransportに設定します。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
@@ -586,10 +586,10 @@ ngoClient.AddConnectionSetter(new UnityTransportConnectionSetter());
 
 ### P2P(Host/Client)によるマルチプレイを行う {#mulitplay-ngo-p2p}
 
-WebRTCTransportの設定によりマルチプレイをP2Pで行えます。
+WebRtcTransportの設定によりマルチプレイをP2Pで行えます。
 設定方法は[Settings](./multiplay.ngo.md#mulitplay-ngo-settings-webrtctransport)を参照ください。
 
-WebRTCTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
+WebRtcTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
 ホスト/クライアントの接続確立は[P2P.WebRTCのAPI](p2p.webrtc.md#p2p-webrtc-host-client)を使ってください。
 
 P2Pの接続確立後にNGOの接続を開始する必要があるため、NgoServerとNgoClientの開始タイミングはPeerClientのOnStartedイベントで判断します。

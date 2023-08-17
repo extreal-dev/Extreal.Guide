@@ -130,18 +130,18 @@ classDiagram
     }
 ```
 
-### WebRTCTransport
+### WebRtcTransport
 
 #### Unity
 
 ```mermaid
 classDiagram
 
-    NetworkTransport <|-- WebRTCTransport
+    NetworkTransport <|-- WebRtcTransport
     IConnectionSetter <|.. WebRtcTransportConnectionSetter
-    WebRtcTransportConnectionSetter ..> WebRTCTransport
+    WebRtcTransportConnectionSetter ..> WebRtcTransport
     WebRtcClientProvider ..> WebRtcClient
-    WebRTCTransport ..> WebRtcClient
+    WebRtcTransport ..> WebRtcClient
     WebRtcClient <|-- NativeWebRtcClient
     WebRtcClient <|-- WebGLWebRtcClient
     NativeWebRtcClient ..> NativePeerClient
@@ -150,7 +150,7 @@ classDiagram
         <<NGO>>
     }
 
-    class WebRTCTransport {
+    class WebRtcTransport {
     }
 
     class IConnectionSetter {
@@ -228,7 +228,7 @@ The NGO wrapper uses the following packages.
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-WebRTCTransport additionally uses the following packages.
+WebRtcTransport additionally uses the following packages.
 
 #### Unity
 
@@ -289,15 +289,15 @@ If you want to use a new transport not provided by NGO, please refer to [Support
 If you use the default transport provided by the NGO (Unity Transport), no work is required.
 :::
 
-#### WebRTCTransport {#mulitplay-ngo-settings-webrtctransport}
+#### WebRtcTransport {#mulitplay-ngo-settings-webrtctransport}
 
-WebRTCTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
+WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 WebRTC Settings](p2p.webrtc.md#settings) is required.
 Add the following initialization after setting up P2P.WebRTC.
 
-If using WebRTCTransport, first configure WebRTCTransport in the NetworkManager inspector.
-Next, initialize NgoServer and NgoClient so that WebRTCClient can be configured for WebRTCTransport.
-Set WebRTCClient to WebRTCTransport via WebRTCTransportConnectionSetter.
+If using WebRtcTransport, first configure WebRtcTransport in the NetworkManager inspector.
+Next, initialize NgoServer and NgoClient so that WebRTCClient can be configured for WebRtcTransport.
+Set WebRTCClient to WebRtcTransport via WebRtcTransportConnectionSetter.
 
 ```csharp
 public class ClientControlScope : LifetimeScope
@@ -329,7 +329,7 @@ public class ClientControlScope : LifetimeScope
 If used with WebGL, further JavaScript initialization is required.
 Create a WebRtcAdapter and call the adapt function.
 
-WebRTCTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
+WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 [WebRTC Settings](p2p.webrtc.md#settings) is also required.
 Please add the following initialization after setting up P2P.WebRTC.
 
@@ -590,10 +590,10 @@ ngoClient.AddConnectionSetter(new UnityTransportConnectionSetter());
 
 ### Multiplayer by P2P(Host/Client) {#mulitplay-ngo-p2p}
 
-The WebRTCTransport setting allows for P2P multiplayer.
+The WebRtcTransport setting allows for P2P multiplayer.
 To set it up, go to [Settings](multiplay.ngo.md#multitplay-ngo-settings-webrtctransport).
 
-WebRTCTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
+WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 Use [P2P.WebRTC's API](p2p.webrtc.md#p2p-webrtc-host-client) to establish the host/client connection.
 
 Since the NGO connection must be initiated after the P2P connection is established, the start timing of NgoServer and NgoClient is determined by the OnStarted event of PeerClient.
