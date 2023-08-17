@@ -342,7 +342,7 @@ webRtcAdapter.adapt(peerAdapter.getPeerClient);
 
 ## Usage
 
-### NGOのサーバー/ホスト向けの機能を使用する
+### NGOのサーバー/ホスト向けの機能を使用する {#mulitplay-ngo-server-host} 
 
 NGOのサーバー/ホスト向けの機能はNgoServerが提供します。
 ここではNgoServerの基本的な使い方をいくつか紹介します。

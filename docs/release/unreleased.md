@@ -74,13 +74,16 @@ sidebar_position: 1
 - Unityを2022.3にアップグレードしました。
 
 ### Extreal.Integration.Multiplay.NGO
+#### Added
+- P2P(Host/Client)によるマルチプレイができるWebRTCTransportを追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+
 #### Changed
 - Unityを2022.3にアップグレードしました。
 - NGOを1.5.1にアップグレードしました。
 - NGOにてUNet Transportがサポートされなくなったため、UNet Transportに関連する機能を削除しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/19))
   - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
 - NgoConfigのAddressプロパティにドメイン名を指定できるように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
-- P2P(Host/Client)によるマルチプレイができるWebRTCTransportを追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+- NgoServerにホスト向けの機能を追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-server-host), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed

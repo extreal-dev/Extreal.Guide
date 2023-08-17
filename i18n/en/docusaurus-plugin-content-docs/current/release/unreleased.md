@@ -74,13 +74,16 @@ The following Unity versions have been tested.
 - Upgraded Unity to 2022.3.
 
 ### Extreal.Integration.Multiplay.NGO
+#### Added
+- Added WebRTCTransport for P2P (Host/Client) multiplayer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+
 #### Changed
 - Upgraded Unity to 2022.3.
 - Upgraded NGO to 1.5.1.
 - Removed features related to UNet Transport since it is no longer supported by NGO.([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/19))
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
 - Changed NgoConfig to allow domain name to be specified in the Address property. ([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
-- Added WebRTCTransport for P2P (Host/Client) multiplayer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+- Added features for hosts to NgoServer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-server-host), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed
