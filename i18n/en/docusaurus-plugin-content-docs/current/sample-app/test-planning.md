@@ -61,8 +61,8 @@ This will be done in conjunction with functional test.
   - Run for 1.5 hours with 10 people accessing the virtual space
   - The number of accesses will be secured by a test application
     - The test application will have no UI and only player operation will be performed
-  - Application CPU usage/memory usage is monitored and data is used to determine acceptance criteria.
-  - The server monitors CPU utilization/memory usage and determines passing criteria based on the data
+  - Visually determine the application's acceptance criteria using PC at hand
+  - Application CPU usage/memory usage is monitored and data is used to determine acceptance criteria
 - Pass criteria
   - No frame dropping or stoppage of the application
   - CPU utilization/memory usage of the application must be within a certain range, and there must be no memory leaks or other problems

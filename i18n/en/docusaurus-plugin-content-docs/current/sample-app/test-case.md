@@ -63,12 +63,12 @@ Only tests that require test cases are listed among the test types targeted for 
   - If the client is not connected to the network
     - User is notified that access is not available
     - Text/voice chat and multiplayer are not available due to P2P realization
-  - If the host fails and cannot respond to clients
+  - If the host side fails and cannot respond to clients
     - User is notified that access is not available
     - Text/voice chat and multiplayer are not available due to P2P realization
 - If the application usage visualization server cannot be accessed
   - If the client is not connected to the network
-    - No reconnection or user notification.
-    - All features are available.
+    - No reconnection or user notification
+    - All features are available
   - If the server fails and cannot respond to the client
     - Not applicable since the client only sends data and does not use the response

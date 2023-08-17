@@ -69,7 +69,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
       - The reconnection status is notified to the user.
       - If reconnection fails, further reconnection is done by user operation (screen transition).
   - Text/voice chat and multiplayer (P2P)
-    - Users are notified when the network is disconnected.
+    - When the network is disconnected, the user is notified.
     - Since the system is realized by P2P, all features are not available.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
   - Application usage visualization (Grafana/Loki)
