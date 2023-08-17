@@ -47,7 +47,7 @@ We have set up directories for applications, so all other directories have been 
 
 #### Holiday
 
-- App.
+- App
   - Application entry point
   - Application-wide settings/status
   - AppUsage
@@ -67,9 +67,6 @@ We have set up directories for applications, so all other directories have been 
     - Control scene. Assets for each scene are placed together.
   - Common
     - Processing common to all Control scenes.
-- Editor
-  - AssetWorkflow
-    - Common processing for asset builds
 - Screens
   - XxxScreen
     - Screen scene. Assets for each scene are placed together.
