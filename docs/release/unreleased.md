@@ -115,6 +115,7 @@ sidebar_position: 1
 #### Changed
 - Unityを2022.3にアップグレードしました。
 - ブラウザ向けのアプリケーション(WebGL)に変更しました。([Doc](../sample-app/requirements.md))
+- テキスト/ボイスチャット、マルチプレイをP2Pで実現するように変更しました。([Doc](../sample-app/intro.md))
 
 ## Upgrade guide {#upgrade-guide}
 

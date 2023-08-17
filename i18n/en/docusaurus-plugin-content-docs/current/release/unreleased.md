@@ -115,6 +115,7 @@ The following Unity versions have been tested.
 #### Changed
 - Upgraded Unity to 2022.3.
 - Changed to browser-oriented application (WebGL). ([Doc](../sample-app/requirements.md))
+- Changed text/voice chat and multiplayer to be implemented via P2P. ([Doc](../sample-app/intro.md))
 
 ## Upgrade guide {#upgrade-guide}
 
