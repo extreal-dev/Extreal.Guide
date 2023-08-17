@@ -28,10 +28,12 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Allows users to select Host or Client
   - For host, groups can be created by specifying a group name
   - For client, you can select a group and join the group
+  - Can return to avatar selection screen
 - Virtual Space
   - Voice chat is available
   - Text chat is available
   - Multiplayer is available
+  - Can return to group selection screen
 
 ## Non-functional requirements
 
@@ -46,6 +48,8 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - PC Browser
     - Windows 10
     - Chrome
+  - Internet connection
+    - Up/Down stream: 40 Mbps or higher
 - Assets
   - Assets are not included in the application, and are downloaded at application runtime.
     - Models such as avatar characters, virtual spaces, etc., and text such as titles, messages, etc.
