@@ -107,8 +107,11 @@ sequenceDiagram
     actor Client
     actor ClientsAlreadyJoined
     Host->>Signaling: create host
-    Signaling-->>Host: 200 "Host have been created"
-    Signaling-->>Host: 409 "Host already exists"
+    alt Succeeded
+        Signaling-->>Host: 200 "Host have been created"
+    else Host already exists
+        Signaling-->>Host: 409 "Host already exists"
+    end
     Client->>Signaling: list hosts
     Signaling-->>Client: 200 hosts list or empty list
     Client->>Signaling: message "join"
