@@ -192,7 +192,6 @@ WebGLで使う場合はさらにJavaScriptで初期化を行います。
 PeerAdapterを作成してadapt関数を呼び出します。
 
 ```typescript
-import { addAction } from "@extreal-dev/extreal.integration.web.common";
 import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";
 
 const peerAdapter = new PeerAdapter();

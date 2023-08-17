@@ -192,7 +192,6 @@ If you want to use it with WebGL, initialize it further with JavaScript.
 Create a PeerAdapter and call the adapt function.
 
 ```typescript
-import { addAction } from "@extreal-dev/extreal.integration.web.common";
 import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";
 
 const peerAdapter = new PeerAdapter();
