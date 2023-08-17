@@ -354,7 +354,7 @@ NgoServerはマルチプレイの処理をNetworkManagerに移譲しているの
 ngoServer.StartServerAsync().Forget();
 ```
 
-ホストの開始はStartServerAsyncを使います。
+ホストの開始はStartHostAsyncを使います。
 
 ```csharp
 ngoServer.StartHostAsync(ngoConfig).Forget();

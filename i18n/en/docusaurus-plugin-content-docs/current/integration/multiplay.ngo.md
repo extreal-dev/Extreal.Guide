@@ -329,10 +329,6 @@ public class ClientControlScope : LifetimeScope
 If used with WebGL, further JavaScript initialization is required.
 Create a WebRtcAdapter and call the adapt function.
 
-WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
-[WebRTC Settings](p2p.webrtc.md#settings) is also required.
-Please add the following initialization after setting up P2P.WebRTC.
-
 ```typescript
 import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";
 import { WebRtcAdapter } from "@extreal-dev/extreal.integration.multiplay.ngo.webrtc";
