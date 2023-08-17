@@ -210,7 +210,7 @@ This module provides host/client oriented features to establish a P2P connection
 These features are provided by PeerClient.
 
 First, create a host by specifying a name.
-The created user becomes the host.
+The user who created it becomes the host.
 If the name is duplicated, a HostNameAlreadyExistsException is thrown.
 
 ```csharp
@@ -230,7 +230,7 @@ The client requests to join a host and establishes a P2P connection with the hos
 await peerClient.StartClientAsync(hostId);
 ```
 
-When a host is shut down or a client leaves the host, the P2P connection is stopped.
+If the host is shut down or the client leaves the host, the P2P connection is stopped.
 
 ```csharp
 peerClient.Stop();
@@ -275,7 +275,7 @@ peerClient.AddPcCloseHook((id) =>
 });
 ```
 
-These hooks are used to manipulate data channels and media streams to add application-specific features to P2P.
+These hooks are used to add application-specific functionality to P2P by manipulating data channels and media streams.
 An example implementation for creating a data channel is as follows.
 
 ```csharp

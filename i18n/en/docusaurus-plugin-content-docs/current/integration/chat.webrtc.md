@@ -191,7 +191,7 @@ voiceChatAdapter.adapt(peerAdapter.getPeerClient);
 
 ### Perform P2P text chat
 
-Text chat is realized using [P2P.WebRTC](p2p.webrtc.md) for P2P.
+Text chat uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 Use [P2P.WebRTC's API](p2p.webrtc.md#p2p-webrtc-host-client) to establish P2P connections.
 
 Text chat features are provided by TextChatClient.

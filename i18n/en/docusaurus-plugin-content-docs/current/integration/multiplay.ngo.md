@@ -30,7 +30,7 @@ The specifications of the NGO Wrapper are as follows.
 - You can use features for NGO servers/hosts.
 - You can add processing triggered by NGO server/host state.
 - You can use features for NGO clients.
-- Reconnect when an NGO client disconnects.
+- Reconnect when NGO client communication is disconnected.
 - You can add processing triggered by NGO client state.
 - You can support any NetworkTransport other than the default one provided by the NGO.
 - Multiplayer by P2P(Host/Client).
@@ -292,7 +292,7 @@ If you use the default transport provided by the NGO (Unity Transport), no work 
 #### WebRtcTransport {#mulitplay-ngo-settings-webrtctransport}
 
 WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
-WebRTC Settings](p2p.webrtc.md#settings) is required.
+[WebRTC Settings](p2p.webrtc.md#settings) is required.
 Add the following initialization after setting up P2P.WebRTC.
 
 If using WebRtcTransport, first configure WebRtcTransport in the NetworkManager inspector.
@@ -342,7 +342,7 @@ webRtcAdapter.adapt(peerAdapter.getPeerClient);
 
 ## Usage
 
-### Use NGO features for servers/hosts {#mulitplay-ngo-server-host}
+### Use features for NGO servers/hosts {#mulitplay-ngo-server-host}
 
 Features for NGO servers/hosts are provided by NgoServer.
 Here are some basic instructions on how to use NgoServer.
@@ -397,7 +397,7 @@ private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader me
 }
 ```
 
-### Add processing to trigger NGO servers/hosts state
+### Add a processing triggered by NGO server/host state
 
 NgoServer has the following event notifications.
 
