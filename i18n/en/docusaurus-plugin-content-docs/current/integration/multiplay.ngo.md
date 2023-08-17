@@ -232,11 +232,13 @@ WebRTCTransport additionally uses the following packages.
 
 #### Unity
 
+- [Extreal.Integration.Web.Common](../integration/web.common.md)
 - [Extreal.Integration.P2P.WebRTC](../integration/p2p.webrtc.md)
 - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html)
 
 #### npm
 
+- [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common)
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc)
 
 Please refer to [Release](../category/release) for the correspondence between module version and each package version.
