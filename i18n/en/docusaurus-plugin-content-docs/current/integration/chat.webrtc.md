@@ -129,6 +129,7 @@ This module uses the following packages.
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
+- [Extreal.Integration.Web.Common](../integration/web.common.md)
 - [Extreal.Integration.P2P.WebRTC](../integration/p2p.webrtc.md)
 - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
