@@ -113,7 +113,7 @@ sequenceDiagram
         Signaling-->>Host: 409 "Host already exists"
     end
     Client->>Signaling: list hosts
-    Signaling-->>Client: 200 hosts list or empty list
+    Signaling-->>Client: 200 host list or empty list
     Client->>Signaling: message "join"
     Signaling-->>Host: message "join"
     Host->>Signaling: message "offer"
