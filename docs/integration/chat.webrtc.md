@@ -205,7 +205,8 @@ textChatClient.Send(message);
 
 ```csharp
 textChatClient.OnMessageReceived
-    .Subscribe(message => {
+    .Subscribe(message =>
+    {
         // do something
     })
     .AddTo(disposables);
@@ -234,7 +235,8 @@ voiceChatClient.ToggleMute();
 
 ```csharp
 voiceChatClient.OnMuted
-    .Subscribe(muted => {
+    .Subscribe(muted =>
+    {
         // do something
     })
     .AddTo(disposables);

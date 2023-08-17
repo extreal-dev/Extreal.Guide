@@ -205,7 +205,8 @@ A string message is passed as a parameter.
 
 ```csharp
 textChatClient.OnMessageReceived
-    .Subscribe(message => {
+    .Subscribe(message =>
+    {
         // do something
     })
     .AddTo(disposables);
@@ -234,7 +235,8 @@ The value(bool) after switching to mute is received in the OnMuted event.
 
 ```csharp
 voiceChatClient.OnMuted
-    .Subscribe(muted => {
+    .Subscribe(muted =>
+    {
         // do something
     })
     .AddTo(disposables);
