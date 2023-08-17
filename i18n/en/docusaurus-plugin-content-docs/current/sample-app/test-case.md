@@ -29,8 +29,9 @@ Only tests that require test cases are listed among the test types targeted for 
   - Ability to transition to the virtual space by pressing the Go button
     - The download confirmation screen should be displayed for the first time
       - OK button starts downloading and notifies the user of the download status
-      - Cancel button returns to the avatar selection screen
+      - Cancel button returns to the group selection screen
     - When the maximum number of players is exceeded, users will be notified
+    - Ability to transition to the avatar selection screen by pressing the Back button
 - Virtual space
   - Ability to voice chat
     - Ability to toggle mute
@@ -54,15 +55,15 @@ Only tests that require test cases are listed among the test types targeted for 
 - If the signaling server is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
-    - Multiplayer and text/voice chat are available
+    - Text/voice chat and multiplayer are not available due to P2P realization
   - If the signaling server fails and cannot respond to clients
     - User is notified that access is not available
-    - Text/voice chat and multiplayer are available
+    - Text/voice chat and multiplayer are not available due to P2P realization
 - If the host is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
     - Text/voice chat and multiplayer are not available due to P2P realization
-  - If Vivox (SaaS) fails and cannot respond to clients
+  - If the host fails and cannot respond to clients
     - User is notified that access is not available
     - Text/voice chat and multiplayer are not available due to P2P realization
 - If the application usage visualization server cannot be accessed
