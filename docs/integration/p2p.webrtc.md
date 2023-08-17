@@ -27,8 +27,7 @@ WebRTCを活用すると比較的容易にP2Pを実現できますが、P2Pの�
 ```mermaid
 classDiagram
 
-    PeerClientProvider ..> NativePeerClient
-    PeerClientProvider ..> WebGLPeerClient
+    PeerClientProvider ..> PeerClient
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig

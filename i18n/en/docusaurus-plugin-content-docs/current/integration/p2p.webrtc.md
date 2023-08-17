@@ -27,8 +27,7 @@ This module provides base P2P features for Native(C#) and WebGL(JavaScript).
 ```mermaid
 classDiagram
 
-    PeerClientProvider ..> NativePeerClient
-    PeerClientProvider ..> WebGLPeerClient
+    PeerClientProvider ..> PeerClient
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig
