@@ -296,8 +296,8 @@ WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 Add the following initialization after setting up P2P.WebRTC.
 
 If using WebRtcTransport, first configure WebRtcTransport in the NetworkManager inspector.
-Next, initialize NgoServer and NgoClient so that WebRTCClient can be configured for WebRtcTransport.
-Set WebRTCClient to WebRtcTransport via WebRtcTransportConnectionSetter.
+Next, initialize NgoServer and NgoClient so that WebRtcClient can be configured for WebRtcTransport.
+Set WebRtcClient to WebRtcTransport via WebRtcTransportConnectionSetter.
 
 ```csharp
 public class ClientControlScope : LifetimeScope

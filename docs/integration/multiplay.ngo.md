@@ -296,8 +296,8 @@ WebRtcTransportは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現してい�
 P2P.WebRTCを設定した上で次の初期化を追加します。
 
 WebRtcTransportを使う場合はまずNetworkManagerのインスペクタでWebRtcTransportを設定します。
-次にWebRtcTransportにWebRTCClientを設定できるようにNgoServerとNgoClientを初期化します。
-WebRtcTransportConnectionSetter経由でWebRTCClientをWebRtcTransportに設定します。
+次にWebRtcTransportにWebRtcClientを設定できるようにNgoServerとNgoClientを初期化します。
+WebRtcTransportConnectionSetter経由でWebRtcClientをWebRtcTransportに設定します。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
