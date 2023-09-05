@@ -306,6 +306,7 @@ AddressablesのビルドスクリプトとResourceProviderをカスタマイズ�
 この設定により、`Addressables Group`ウィンドウの`Build > New Build > Encrypt Build Script`が選べるようになります。
 
 次に、アセットの復号を行うResourceProviderを設定します。
+ResourceProviderの設定で関連するクラスを利用するため、`Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders`の命名空間をアアプリケーションの`Assembly Definition References`に追加する必要があります。
 先にICryptoStreamFactoryの実装が必要です。
 アプリケーションの要件に合わせてICryptoStreamFactoryを実装してください。
 実装イメージを伝えるためにAESを使った実装例を示します。
