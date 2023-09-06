@@ -167,10 +167,9 @@ var size = await assetProvider.GetDownloadSizeAsync("AssetName");
 ```
 
 :::caution
-AssetProvider.GetDownloadSizeAsync method returns 0 if the asset is cached,
-However, if you are using 2022.1+ and on a WebGL platform, it will return the file size even if it is cached.
-As posted in [Unity Forum](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/).
-This is due to the update to Unity 2022.1, which changed the behavior of the Addressables.GetDownloadSizeAsync method used internally.
+AssetProvider.GetDownloadSizeAsync method returns 0 if the asset is cached, while the AssetProvider,
+2022.1+ and when used on the WebGL platform, it returns the file size even if the asset is cached.
+This behavior is due to the specification of the Addressables.GetDownloadSizeAsync method. For more information [Unity Forum](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/).
 :::
 
 Use the DownloadAsync method to download assets.
