@@ -169,6 +169,12 @@ var assetProvider = new AssetProvider();
 var size = await assetProvider.GetDownloadSizeAsync("AssetName");
 ```
 
+:::caution
+AssetProvider.GetDownloadSizeAsyncメソッドは、アセットがキャッシュされている場合は0を返しますが、
+2022.1以降かつWebGLプラットフォームで使用した場合、キャッシュされていてもファイルサイズを返します。
+この動作は、Addressables.GetDownloadSizeAsyncメソッドの仕様によるものです。詳細は[Unity Forum](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/)を参照ください。
+:::
+
 アセットのダウンロードにはDownloadAsyncメソッドを使います。
 
 ```csharp
