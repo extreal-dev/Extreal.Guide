@@ -130,7 +130,7 @@ classDiagram
 https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables.git
 ```
 :::info
-アセットの暗号化と復号機能はWebGLで使えないためネームスペースを分け、プラットフォームからWebGLを除外しています。そのためアセットの暗号化と復号機能を使う場合は`Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders`をAssembly Definitionに追加してください。
+アセットの暗号化と復号機能はWebGLで利用できないため、アセンブリを分け、プラットフォームからWebGLを除外しています。そのためアセットの暗号化と復号機能を使う場合は`Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders`をAssembly Definitionに追加してください。
 :::
 
 ### Dependencies
