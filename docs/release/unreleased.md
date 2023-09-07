@@ -96,7 +96,9 @@ sidebar_position: 1
 - Addressablesを1.21.12にアップグレードしました。
 - Addressablesのビルドスクリプトが変更されたため、[アセットの暗号化を行うビルドスクリプト](../integration/asset-workflow.addressables.md#assets-addressables-crypto)にAddressablesの変更を適用しました。([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
   - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
-
+- アセットの暗号化と復号機能はWebGLで利用できないため、WebGLプラットフォーム向けにビルドする際にコンパイルされないように、アセンブリを分け、プラットフォームからWebGLを除外するようにしました。([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/4))
+  - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
+  
 ### Extreal.Integration.Web.Common
 #### Added
 - Unityが提供するC#とJavaScript連携をより簡単に利用できる機能を追加しました。([Doc](../integration/web.common.md))
@@ -135,7 +137,8 @@ NGOが提供するUnity Transportを使うように変更してください。
 #### 変更影響があるアプリケーション
 アセットを暗号化しているアプリケーションに影響があります。
 #### 変更影響と対応方法
-Addressablesのビルドスクリプトが変更され、アセットの暗号化を行うビルドスクリプト (BuildScriptEncryptMode)が動作しなくなりました。
+- Addressablesのビルドスクリプトが変更され、アセットの暗号化を行うビルドスクリプト (BuildScriptEncryptMode)が動作しなくなりました。
 そのため、アセットの暗号化を行うビルドスクリプトにAddressablesの変更を適用しました。
-
-[アセットの暗号化と復号を行う](../integration/asset-workflow.addressables.md#assets-addressables-crypto)を参照し、アセットの暗号化を行うビルドスクリプトを再設定してください。
+  - [アセットの暗号化と復号を行う](../integration/asset-workflow.addressables.md#assets-addressables-crypto)を参照し、アセットの暗号化を行うビルドスクリプトを再設定してください。
+- 暗号化と復号機能のクラスを新しいアセンブリに分離したため、アセットを暗号化しているアプリケーションではコンパイルエラーが出ます。
+  - アセットの暗号化と復号機能を使う場合はアセンブリ定義に`Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders`追加してください。

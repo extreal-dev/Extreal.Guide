@@ -96,6 +96,8 @@ The following Unity versions have been tested.
 - Upgraded Addressables to 1.21.12.
 - Applied changes in Addressables to the [build script that encrypts assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto), as the build scripts in Addressables have changed. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
+- Asset encryption and decryption functionality is not available in WebGL, so we separated out the assembly and excluded WebGL from the platform so that it would not be compiled when building for the WebGL platform. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/4))
+  - This change affects backward compatibility, so please refer to [Upgrade guide](#upgrade-guide).
 
 ### Extreal.Integration.Web.Common
 #### Added
@@ -135,7 +137,8 @@ Please change to use the Unity Transport provided by NGO.
 #### Applications affected by the change
 Applications that encrypt assets are affected.
 #### Change impact and how to respond
-A build script that encrypts assets (BuildScriptEncryptMode) no longer works due to a change in the Addressables build script.
+- A build script that encrypts assets (BuildScriptEncryptMode) no longer works due to a change in the Addressables build script.
 Therefore, we applied the Addressables changes to the build script that encrypts assets.
-
-Refer to [Encrypt and decrypt assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto) and reconfigure the build script that encrypts the asset.
+  - Refer to [Encrypt and decrypt assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto) and reconfigure the build script that encrypts the asset.
+- We separated the encryption and decryption classes into a new assembly, so applications that encrypt assets will have compilation errors.
+  - If you want to use the asset encryption and decryption feature, please add `Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders` to the assembly definition.
