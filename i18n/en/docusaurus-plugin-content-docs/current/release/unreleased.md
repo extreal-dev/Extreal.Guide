@@ -96,7 +96,7 @@ The following Unity versions have been tested.
 - Upgraded Addressables to 1.21.12.
 - Applied changes in Addressables to the [build script that encrypts assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto), as the build scripts in Addressables have changed. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
-- Asset encryption and decryption functionality is not available in WebGL, so we separated out the assembly and excluded WebGL from the platform so that it would not be compiled when building for the WebGL platform. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/4))
+- Asset encryption and decryption feature is not available in WebGL, so we separated out the assembly definition and excluded WebGL from the platform so that it would not be compiled when building for the WebGL platform. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/4))
   - This change affects backward compatibility, so please refer to [Upgrade guide](#upgrade-guide).
 
 ### Extreal.Integration.Web.Common
