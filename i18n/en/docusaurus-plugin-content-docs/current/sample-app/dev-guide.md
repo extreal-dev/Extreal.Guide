@@ -546,7 +546,7 @@ Since the build configuration is included in the repository, only the following 
 
 - Add the `HOLIDAY_PROD` symbol to `Player Settings > Other Settings > Script Compilation`.
 
-Applications are built on `Windows`, `Android`, and `iOS`, and multiplayer servers are built on `Dedicated Server(Linux)`.
+Applications are built on `WebGL`.
 
 ## Application usage visualization {#holiday-devguide-appusage}
 
