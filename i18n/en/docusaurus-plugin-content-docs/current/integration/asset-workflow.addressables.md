@@ -129,6 +129,9 @@ classDiagram
 ```text
 https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables.git
 ```
+:::info
+Asset encryption and decryption feature is not available in WebGL, so we separated out the assembly definition and excluded WebGL from the platform so that it would not be compiled when building for the WebGL platform. Therefore, if you want to use the asset encryption and decryption feature, please add `Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders` to the Assembly Definition.
+:::
 
 ### Dependencies
 
@@ -165,6 +168,12 @@ Use the GetDownloadSizeAsync method to get the download size.
 ```csharp
 var size = await assetProvider.GetDownloadSizeAsync("AssetName");
 ```
+
+:::caution
+AssetProvider.GetDownloadSizeAsync method returns 0 if the asset is cached, while the AssetProvider,
+2022.1+ and when used on the WebGL platform, it returns the file size even if the asset is cached.
+This behavior is due to the specification of the Addressables.GetDownloadSizeAsync method. For more information [Unity Forum](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/).
+:::
 
 Use the DownloadAsync method to download assets.
 
@@ -263,6 +272,10 @@ AssetProvider has the following event notifications.
     - false: If the retry strategy is run and the retry is not successful finally
 
 ### Encrypt and decrypt assets {#assets-addressables-crypto}
+
+:::caution
+This feature is not available in WebGL.
+:::
 
 :::caution
 Note that using this feature alone is weak protection for intellectual property.

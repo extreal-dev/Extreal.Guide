@@ -7,7 +7,6 @@ sidebar_position: 4
 The following are added to the [Test Type & Test Perspective Catalog](https://fintan.jp/page/1456/) to determine test methods and acceptance criteria.
 
 - Review
-- Mobile Applications
 
 ## Review
 
@@ -17,14 +16,6 @@ The following are added to the [Test Type & Test Perspective Catalog](https://fi
   - Approval by at least one person and Resolved for all Conversations are merge requirements
 - Pass Criteria
   - All feedback has been addressed
-
-## Mobile Application
-
-The following aspects are not yet implemented as they will be addressed in the future.
-
-- Behavior when an application transitions to/from the background or loses focus
-- Application memory usage (as each device has a limit on the amount of memory usage that an application can use)
-- Battery drain when using applications
 
 ## Syntax check
 
@@ -52,8 +43,7 @@ This will be done in conjunction with functional test.
 ## Configuration test
 
 - Test Method
-  - Manual testing on Android, iOS and Win
-  - Conducted with wired earphones with microphone
+  - Manual testing on Chrome
   - [test case](./test-case.md#functional-test)
 - Pass Criteria
   - All cases passed, 100% test coverage
@@ -68,14 +58,14 @@ This will be done in conjunction with functional test.
 ## Performance test
 
 - Test Method
-  - Run for 1.5 hours with 90 people accessing the virtual space
+  - Run for 1.5 hours with 10 people accessing the virtual space
   - The number of accesses will be secured by a test application
     - The test application will have no UI and only player operation will be performed
-  - Visually determine the application's acceptance criteria using several devices at hand
-  - The server monitors CPU utilization/memory usage and determines passing criteria based on the data
+  - Visually determine the application's acceptance criteria using PC at hand
+  - Application CPU usage/memory usage is monitored and data is used to determine acceptance criteria
 - Pass criteria
   - No frame dropping or stoppage of the application
-  - CPU utilization/memory usage of the multiplayer server must be within a certain range, and there must be no memory leaks or other problems
+  - CPU utilization/memory usage of the application must be within a certain range, and there must be no memory leaks or other problems
 
 ## Stress test
 
@@ -108,10 +98,9 @@ The following aspects have not yet been implemented as we do not operate in prod
 
 ## Migration test
 
-The following aspects have not yet been implemented as we do not release to the stores (Google Play, Apple Store).
+The following aspects have not yet been implemented as we do not release.
 
 - The next version and the current version must work in the production environment
-  - If released to the store, two versions must run in the production environment, one for review and the other for the current version
 - The version upgrade is available
 
 ## Current vs. new comparison test
@@ -120,4 +109,4 @@ Not applicable.
 
 ## Usability test
 
-Not yet implemented as it is planned to be improved in the future.
+Not implemented due to sample application.

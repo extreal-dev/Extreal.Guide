@@ -6,17 +6,12 @@ sidebar_position: 3
 
 ## System Structure
 
-Users download and use the application from the each store or AWS S3.
-Assets such as 3D models and connection information to the server are not included in the application, but are downloaded from S3 when the application is running.
-Only the minimum information required to download assets is included in the application.
-Connect to the SaaS and servers required for processing directly from the application.
+Users use the application from a browser.
+Assets such as 3D models and connection information to the server are not included in the application, but are downloaded from S3 when the application is run.
+The application connects directly to the server for processing.
+Text/voice chat and multiplayer use P2P to exchange data between applications.
 
 ![system structure](../img/holiday-sys-structure.png)
-
-:::info
-This is a sample application and has not been actually placed in each store or AWS S3.
-We plan to release our know-how, such as support for screening of each store, in the future.
-:::
 
 ## Application Structure
 

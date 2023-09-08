@@ -23,33 +23,23 @@ If you do not know NGO, please refer to [Learning](../learning/intro.md#multipla
 This guide assumes you know NGO.
 :::
 
-:::info
-Example implementations of NGO wrappers for common multiplayer application requirements are provided in [sample applications](../category/sample-application).
-
-At this time, the following requirements have been provided.
-
-- The user can play with an avatar of the user's choice
-- If the maximum number of people in the space is exceeded, users will not be able to enter the room
-
-The following requirements will be added in the future.
-
-- The system allows users to wait until the maximum number of people on standby is exceeded if the maximum number of people in a space is exceeded
-  - The users on standby is hidden, while other users' multiplayer is visible
-- When other users leave the room and take their turn, they can join the multiplayer
-- Users can play avatars offline as well as online
-- Avatars can have objects
-:::
-
 ## Specification
 
 The specifications of the NGO Wrapper are as follows.
 
-- You can use features for NGO servers.
-- You can add processing triggered by NGO server state.
+- You can use features for NGO servers/hosts.
+- You can add processing triggered by NGO server/host state.
 - You can use features for NGO clients.
-- Reconnect when communication is disconnected.
+- Reconnect when NGO client communication is disconnected.
 - You can add processing triggered by NGO client state.
 - You can support any NetworkTransport other than the default one provided by the NGO.
+- Multiplayer by P2P(Host/Client).
+  - Native(C#) and WebGL(JavaScript) support.
+
+:::caution
+Since many of the features for NGO servers/hosts are common, only the different parts are clearly marked as host.
+Please understand that the part described as server also applies to host.
+:::
 
 :::info
 The NGO wrapper supports the default transport provided by NGO (Unity Transport), so no additional action is required if you use the default transport.
@@ -57,21 +47,18 @@ When using a new transport not provided by NGO, the IConnectionSetter used by Ng
 See [Supporting non-default NetworkTransport provided by NGO](#int-ngo-nt) for details.
 :::
 
-:::info
-Because it is easier to ensure stable performance and security, the NGO wrapper assumes the use of a dedicated server as the NGO architecture.
-For more information on NGO architecture, see [Network Topologies](https://docs-multiplayer.unity3d.com/netcode/current/terms-concepts/network-topologies).
-Because it assumes the use of a dedicated server, the NGO wrapper does not provide features for the host.
-If you want to use them, please use NetworkManager directly.
-:::
-
 ## Architecture
+
+### NGO wrapper
 
 ```mermaid
 classDiagram
 
     NetworkManager <.. NgoServer
     NetworkManager <.. NgoClient
+    NgoServer ..> NgoConfig
     NgoClient ..> NgoConfig
+    NgoServer ..> IConnectionSetter
     NgoClient ..> IConnectionSetter
     IConnectionSetter <|.. UnityTransportConnectionSetter
     DisposableBase <|-- NgoServer
@@ -89,6 +76,8 @@ classDiagram
         +OnClientRemoving IObservable
         +ConnectedClients IReadOnlyDictionary
         +NgoServer(networkManager)
+        +AddConnectionSetter(connectionSetter) void
+        +StartHostAsync(ngoConfig, cancellationToken) void
         +StartServerAsync(cancellationToken) void
         +StopServerAsync() void
         +SetConnectionApprovalCallback(connectionApprovalCallback) void
@@ -141,12 +130,92 @@ classDiagram
     }
 ```
 
+### WebRtcTransport
+
+#### Unity
+
+```mermaid
+classDiagram
+
+    NetworkTransport <|-- WebRtcTransport
+    IConnectionSetter <|.. WebRtcTransportConnectionSetter
+    WebRtcTransportConnectionSetter ..> WebRtcTransport
+    WebRtcClientProvider ..> WebRtcClient
+    WebRtcTransport ..> WebRtcClient
+    WebRtcClient <|-- NativeWebRtcClient
+    WebRtcClient <|-- WebGLWebRtcClient
+    NativeWebRtcClient ..> NativePeerClient
+
+    class NetworkTransport {
+        <<NGO>>
+    }
+
+    class WebRtcTransport {
+    }
+
+    class IConnectionSetter {
+        <<interface>>
+    }
+    
+    class WebRtcTransportConnectionSetter {
+    }
+
+    class WebRtcClientProvider {
+        +Provide(peerClient)$ WebRtcClient
+    }
+    
+    class WebRtcClient {
+    }
+    
+    class NativeWebRtcClient {
+    }
+    
+    class WebGLWebRtcClient {
+    }
+    
+    class NativePeerClient {
+        <<extreal>>
+    }
+```
+
+#### JavaScript
+
+```mermaid
+classDiagram
+
+    WebGLWebRtcClient ..> WebGLHelper
+    WebGLHelper ..> WebRtcClient
+    WebRtcAdapter ..> WebRtcClient 
+
+    class WebGLWebRtcClient {
+        <<C#>>
+    }
+    
+    class WebGLHelper {
+        <<C#>>
+    }
+    
+    class WebRtcAdapter {
+        <<TypeScript>>
+    }
+
+    class WebRtcClient {
+        <<TypeScript>>
+    }
+```
+
 ## Installation
 
 ### Package
 
+#### Unity
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
+```
+
+#### npm
+```text
+@extreal-dev/extreal.integration.multiplay.ngo.webrtc
 ```
 
 ### Dependencies
@@ -159,9 +228,24 @@ The NGO wrapper uses the following packages.
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
+WebRtcTransport additionally uses the following packages.
+
+#### Unity
+
+- [Extreal.Integration.Web.Common](../integration/web.common.md)
+- [Extreal.Integration.P2P.WebRTC](../integration/p2p.webrtc.md)
+- [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html)
+
+#### npm
+
+- [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common)
+- [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc)
+
 Please refer to [Release](../category/release) for the correspondence between module version and each package version.
 
 ### Settings
+
+#### NGO wrapper
 
 NgoServer and NgoClient are initialized.
 Initializing NgoServer and NgoClient requires NetworkManager.
@@ -205,11 +289,62 @@ If you want to use a new transport not provided by NGO, please refer to [Support
 If you use the default transport provided by the NGO (Unity Transport), no work is required.
 :::
 
+#### WebRtcTransport {#mulitplay-ngo-settings-webrtctransport}
+
+WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
+[WebRTC Settings](p2p.webrtc.md#settings) is required.
+Add the following initialization after setting up P2P.WebRTC.
+
+If using WebRtcTransport, first configure WebRtcTransport in the NetworkManager inspector.
+Next, initialize NgoServer and NgoClient so that WebRtcClient can be configured for WebRtcTransport.
+Set WebRtcClient to WebRtcTransport via WebRtcTransportConnectionSetter.
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    [SerializeField] private NetworkManager networkManager;
+
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var peerClient = PeerClientProvider.Provide(peerConfig);
+        builder.RegisterComponent(peerClient);
+
+        var webRtcClient = WebRtcClientProvider.Provide(peerClient);
+        var webRtcTransportConnectionSetter = new WebRtcTransportConnectionSetter(webRtcClient);
+
+        var ngoHost = new NgoServer(networkManager);
+        ngoHost.AddConnectionSetter(webRtcTransportConnectionSetter);
+        builder.RegisterComponent(ngoHost);
+
+        var ngoClient = new NgoClient(networkManager, assetHelper.NgoClientConfig.RetryStrategy);
+        ngoClient.AddConnectionSetter(webRtcTransportConnectionSetter);
+        builder.RegisterComponent(ngoClient);
+
+        builder.RegisterEntryPoint<ClientControlPresenter>();
+    }
+}
+```
+
+If used with WebGL, further JavaScript initialization is required.
+Create a WebRtcAdapter and call the adapt function.
+
+```typescript
+import { PeerAdapter } from "@extreal-dev/extreal.integration.p2p.webrtc";
+import { WebRtcAdapter } from "@extreal-dev/extreal.integration.multiplay.ngo.webrtc";
+
+const peerAdapter = new PeerAdapter();
+peerAdapter.adapt();
+
+const webRtcAdapter = new WebRtcAdapter();
+webRtcAdapter.adapt(peerAdapter.getPeerClient);
+```
+
 ## Usage
 
-### Use features for NGO servers
+### Use features for NGO servers/hosts {#mulitplay-ngo-server-host}
 
-The features for NGO servers are provided by NgoServer.
+Features for NGO servers/hosts are provided by NgoServer.
 Here are some basic instructions on how to use NgoServer.
 Since NgoServer transfers the multiplayer processing to NetworkManager, please refer to the NGO documentation for details on each feature.
 
@@ -217,6 +352,12 @@ The server is started using StartServerAsync.
 
 ```csharp
 ngoServer.StartServerAsync().Forget();
+```
+
+The host is started using StartHostAsync.
+
+```csharp
+ngoServer.StartHostAsync(ngoConfig).Forget();
 ```
 
 The server is stopped by StopServerAsync, but StopServerAsync is called in NgoServer's Dispose.
@@ -256,7 +397,7 @@ private async void PlayerSpawnMessageHandler(ulong clientId, FastBufferReader me
 }
 ```
 
-### Add a processing triggered by NGO server state
+### Add a processing triggered by NGO server/host state
 
 NgoServer has the following event notifications.
 
@@ -341,7 +482,7 @@ ngoClient.OnConnected.Subscribe(_ =>
 }).AddTo(compositeDisposable);
 ```
 
-### Reconnect when communication is disconnected {#multiplay-ngo-retry}
+### Reconnect when NGO client communication is disconnected {#multiplay-ngo-retry}
 
 NgoClient uses the retry processing provided by [Common](../core/common.md) to reconnect when communication is disconnected.
 The following description assumes that you are familiar with the retry processing, so if you have not checked the retry processing, please check the [retry processing](../core/common.md#core-common-retry) first.
@@ -441,4 +582,24 @@ Set the implemented class with NgoClient's AddConnectionSetter.
 
 ```csharp
 ngoClient.AddConnectionSetter(new UnityTransportConnectionSetter());
+```
+
+### Multiplayer by P2P(Host/Client) {#mulitplay-ngo-p2p}
+
+The WebRtcTransport setting allows for P2P multiplayer.
+To set it up, go to [Settings](multiplay.ngo.md#multitplay-ngo-settings-webrtctransport).
+
+WebRtcTransport uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
+Use [P2P.WebRTC's API](p2p.webrtc.md#p2p-webrtc-host-client) to establish the host/client connection.
+
+Since the NGO connection must be initiated after the P2P connection is established, the start timing of NgoServer and NgoClient is determined by the OnStarted event of PeerClient.
+
+```csharp
+peerClient.OnStarted
+    .Subscribe(_ => ngoServer.StartHostAsync(ngoConfig).Forget())
+    .AddTo(disposables);
+
+peerClient.OnStarted
+    .Subscribe(_ => ngoClient.ConnectAsync(ngoConfig).Forget())
+    .AddTo(disposables);
 ```
