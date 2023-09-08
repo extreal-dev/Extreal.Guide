@@ -75,7 +75,7 @@ sidebar_position: 1
 
 ### Extreal.Integration.Multiplay.NGO
 #### Added
-- P2P(Host/Client)によるマルチプレイができるWebRTCTransportを追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+- P2P(Host/Client)によるマルチプレイができるWebRtcTransportを追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
 
 #### Changed
 - Unityを2022.3にアップグレードしました。

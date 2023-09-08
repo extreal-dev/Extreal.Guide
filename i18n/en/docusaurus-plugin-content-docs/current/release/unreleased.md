@@ -75,7 +75,7 @@ The following Unity versions have been tested.
 
 ### Extreal.Integration.Multiplay.NGO
 #### Added
-- Added WebRTCTransport for P2P (Host/Client) multiplayer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+- Added WebRtcTransport for P2P (Host/Client) multiplayer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
 
 #### Changed
 - Upgraded Unity to 2022.3.
