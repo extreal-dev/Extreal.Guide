@@ -130,7 +130,7 @@ classDiagram
 https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables.git
 ```
 :::info
-Asset encryption and decryption functions cannot be used with WebGL, so we separate the assemblies and exclude WebGL from the platform. Therefore, if you want to use the asset encryption and decryption functions, please add `Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders` to the Assembly Definition.
+Asset encryption and decryption feature cannot be used with WebGL, so we separate the Assembly Definition and exclude WebGL from the platform. Therefore, if you want to use the asset encryption and decryption feature, please add `Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders` to the Assembly Definition.
 :::
 
 ### Dependencies
