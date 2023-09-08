@@ -275,7 +275,7 @@ peerClient.AddPcCloseHook((id) =>
 });
 ```
 
-These hooks are used to add application-specific functionality to P2P by manipulating data channels and media streams.
+These hooks are used to add application-specific features to P2P by manipulating data channels and media streams.
 An example implementation for creating a data channel is as follows.
 
 ```csharp
