@@ -140,5 +140,5 @@ Applications that encrypt assets are affected.
 - A build script that encrypts assets (BuildScriptEncryptMode) no longer works due to a change in the Addressables build script.
 Therefore, we applied the Addressables changes to the build script that encrypts assets.
   - Refer to [Encrypt and decrypt assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto) and reconfigure the build script that encrypts the asset.
-- We separated the encryption and decryption classes into a new assembly, so applications that encrypt assets will have compilation errors.
+- Asset encryption and decryption feature is not available in WebGL, so we separated out the assembly definition and excluded WebGL from the platform so that it would not be compiled when building for the WebGL platform. Therefore, applications that encrypt assets will have compilation errors.
   - If you want to use the asset encryption and decryption feature, please add `Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders` to the assembly definition.
