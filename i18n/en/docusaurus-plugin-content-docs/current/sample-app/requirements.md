@@ -29,6 +29,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Text chat is available
   - Multiplayer is available
   - Can return to avatar selection screen
+- Can switch different spaces
 
 ## Non-functional requirements
 

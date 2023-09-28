@@ -32,7 +32,7 @@ Only tests that require test cases are listed among the test types targeted for 
     - Ability to move and jump
   - Ability to return to the avatar selection screen
   - When the maximum number of players is exceeded, users will be notified and return to the avatar selection screen
-
+- Can switch different spaces
 ## Configuration test
 
 - Same as [functional test](#functional-test).
@@ -66,3 +66,6 @@ Only tests that require test cases are listed among the test types targeted for 
     - All features are available.
   - If the server fails and cannot respond to the client
     - Not applicable since the client only sends data and does not use the response.
+- If panoramatic videos or images cannot be played
+  - Users will be notified that panoramatic videos/images are unavailable.
+  - Features other than panoramatic videos and images can be used.
