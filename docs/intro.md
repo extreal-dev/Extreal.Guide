@@ -55,6 +55,9 @@ Frameworkは次の機能を提供しています。
   - [Chat using Vivox](./integration/chat.vivox.md)
   - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
   - [Asset Workflow using Addressables](./integration/asset-workflow.addressables.md)
+  - [Common for Web](./integration/web.common.md)
+  - [P2P using WebRTC](./integration/p2p.webrtc.md)
+  - [Chat using WebRTC](./integration/chat.webrtc.md)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 

@@ -19,26 +19,26 @@ sidebar_position: 6
     - [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)から作成したUnityのフォントアセット
   - Holiday
     - Holidayのアプリケーションで作成するアセット
-  - Holiday.Common
-    - Holidayのアプリケーションとマルチプレイサーバーに共通するアセット
-  - Holiday.MultiplayServer
-    - Holidayのマルチプレイサーバーで作成するアセット
   - Holiday.PerformanceTest
     - Holidayのパフォーマンステスト向けの資材
   - Mixamo
     - [Mixamo](https://www.mixamo.com/)から作成したUnityのキャラクタモデル
-  - Plugins
-    - Android向けビルドの設定ファイル
-  - ScriptTemplates
-    - スクリプトテンプレート
   - StarterAssets
     - [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=ja-JP)のインストール先
   - TextMesh Pro
     - TextMesh Proを使うための設定
   - URP
     - Universal Render Pipelineを使うための設定
+  - WebGLScripts
+    - Holidayのアプリケーションで作成するWebGL向けのアセット
+  - WebGLTemplates
+    - Holidayのアプリケーションで使用するWebGL向けのテンプレート
 - Packages
   - アプリケーション開発で使用するUnityパッケージ
+- Servers
+  - Holidayのアプリケーションで使用するサーバーのスクリプト
+- WebGLBuild
+  - 開発時にWebGL向けのHolidayのアプリケーションを配信するスクリプト
 
 自分達で作成したアセットの格納場所としてHolidayから始まる名前を付けたディレクトリを設けています。
 サードパーティを元に作成したアセットと自分達で作成したアセットを見分けやすくするためです。
@@ -50,12 +50,16 @@ Holiday以外のディレクトリはサードパーティやUnityの機能利�
 - App
   - アプリケーションのエントリーポイント
   - アプリケーション全体の設定/状態
+  - AppUsage
+    - アプリケーションの利用状況可視化向けの処理
   - AssetWorkflow
     - アセットのダウンロードに共通する処理
   - Avatars
     - アバターのプレハブ
   - Config
     - アプリケーションの設定
+  - P2P
+    - P2Pに共通する処理
   - Stages
     - ステージに共通する処理
 - Controls
@@ -63,9 +67,6 @@ Holiday以外のディレクトリはサードパーティやUnityの機能利�
     - Controlシーン。シーン毎のアセットをまとめて配置
   - Common
     - Controlシーン間で共通する処理
-- Editor
-  - AssetWorkflow
-    - アセットのビルドに共通する処理
 - Screens
   - XxxScreen
     - Screenシーン。シーン毎のアセットをまとめて配置
@@ -545,7 +546,7 @@ Assets/Holiday/Controls/Common
 
 - `Player Settings > Other Settings > Script Compilation`に`HOLIDAY_PROD`シンボルを追加します。
 
-アプリケーションは`Windows`、`Android`、`iOS`、マルチプレイサーバーは`Dedicated Server(Linux)`でビルドします。
+アプリケーションは`WebGL`でビルドします。
 
 ## Application usage visualization {#holiday-devguide-appusage}
 

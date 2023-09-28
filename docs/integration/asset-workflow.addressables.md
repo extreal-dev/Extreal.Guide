@@ -129,6 +129,9 @@ classDiagram
 ```text
 https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables.git
 ```
+:::info
+アセットの暗号化と復号機能はWebGLで利用できないため、WebGLプラットフォーム向けにビルドする際にコンパイルされないようにAssembly Definitionを分け、プラットフォームからWebGLを除外しています。そのためアセットの暗号化と復号機能を使う場合は`Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders`をAssembly Definitionに追加してください。
+:::
 
 ### Dependencies
 
@@ -165,6 +168,12 @@ var assetProvider = new AssetProvider();
 ```csharp
 var size = await assetProvider.GetDownloadSizeAsync("AssetName");
 ```
+
+:::caution
+AssetProvider.GetDownloadSizeAsyncメソッドは、アセットがキャッシュされている場合は0を返しますが、
+2022.1以降かつWebGLプラットフォームで使用した場合、キャッシュされていてもファイルサイズを返します。
+この動作は、Addressables.GetDownloadSizeAsyncメソッドの仕様によるものです。詳細は[Unity Forum](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/)を参照ください。
+:::
 
 アセットのダウンロードにはDownloadAsyncメソッドを使います。
 
@@ -265,6 +274,10 @@ AssetProviderは次のイベント通知を設けています。
 ### アセットの暗号化と復号を行う {#assets-addressables-crypto}
 
 :::caution
+WebGLではこの機能を使用できません。
+:::
+
+:::caution
 この機能を使うだけでは知的財産保護としては弱いので注意してください。
 
 この機能を使うことで暗号化されたアセットのみを手に入れた場合は復号できません。
@@ -302,6 +315,7 @@ AddressablesのビルドスクリプトとResourceProviderをカスタマイズ�
 この設定により、`Addressables Group`ウィンドウの`Build > New Build > Encrypt Build Script`が選べるようになります。
 
 次に、アセットの復号を行うResourceProviderを設定します。
+ResourceProviderの設定で関連するクラスを利用するため、`Extreal.Integration.AssetWorkflow.Addressables.Custom.ResourceProviders`の命名空間をアアプリケーションの`Assembly Definition References`に追加する必要があります。
 先にICryptoStreamFactoryの実装が必要です。
 アプリケーションの要件に合わせてICryptoStreamFactoryを実装してください。
 実装イメージを伝えるためにAESを使った実装例を示します。
