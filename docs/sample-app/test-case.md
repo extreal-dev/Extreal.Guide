@@ -8,6 +8,13 @@ sidebar_position: 5
 
 ## Functional test
 
+:::caution
+ダウンロード確認画面は初回のみ表示されるように実装していますが、Unity Forum DiscussionによるとAddressablesの不具合により毎回ダウンロード確認画面が表示されます。
+初回ダウンロードのアセットがキャッシュされているため2回目からはダウンロードはすぐに終わります。
+
+[In 2022.2.xx WebGL builds, GetDownloadSizeAsync does not reflect the cache.](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/)
+:::
+
 - タイトル画面
   - タイトルが表示されること
   - Goボタンでアバター選択画面に移動できること

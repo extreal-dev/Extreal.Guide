@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-09-xx
+2023-10-xx
 
 ## Unity version
 
@@ -43,7 +43,7 @@ The following Unity versions have been tested.
 - Extreal.Integration.Chat.Vivox
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm) 15.1.200000-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 - Extreal.Integration.AssetWorkflow.Addressables
-  - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) 1.21.12 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
+  - [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html) 1.21.17 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
 - Extreal.Integration.Web.Common
   - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
 - Extreal.Integration.P2P.WebRTC
@@ -93,7 +93,7 @@ The following Unity versions have been tested.
 ### Extreal.Integration.AssetWorkflow.Addressables
 #### Changed
 - Upgraded Unity to 2022.3.
-- Upgraded Addressables to 1.21.12.
+- Upgraded Addressables to 1.21.17.
 - Applied changes in Addressables to the [build script that encrypts assets](../integration/asset-workflow.addressables.md#assets-addressables-crypto), as the build scripts in Addressables have changed. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/3))
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
 - Asset encryption and decryption feature is not available in WebGL, so we separated out the assembly definition and excluded WebGL from the platform so that it would not be compiled when building for the WebGL platform. ([PR](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables/pull/4))

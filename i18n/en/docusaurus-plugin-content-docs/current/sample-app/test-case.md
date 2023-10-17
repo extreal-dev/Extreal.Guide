@@ -8,6 +8,13 @@ Only tests that require test cases are listed among the test types targeted for 
 
 ## Functional test
 
+:::caution
+The download confirmation screen is implemented so that it appears only the first time, but according to the Unity Forum Discussion, a bug in the Addressables causes the download confirmation screen to appear every time.
+The first time the asset is downloaded, it is cached, so the download is immediate the second time around.
+
+[In 2022.2.xx WebGL builds, GetDownloadSizeAsync does not reflect the cache.](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/)
+:::
+
 - Title Screen
   - The title should be displayed
   - Ability to transition to the avatar selection screen by pressing the Go button
