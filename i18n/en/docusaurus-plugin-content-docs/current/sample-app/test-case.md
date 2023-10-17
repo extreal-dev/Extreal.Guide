@@ -46,6 +46,7 @@ The first time the asset is downloaded, it is cached, so the download is immedia
     - Message appears on the screen when typing a message
   - Ability to play multiplayer
     - Ability to move and jump
+  - Ability to switch space.
   - Ability to return to the group selection screen
 
 ## Configuration test
@@ -79,3 +80,5 @@ The first time the asset is downloaded, it is cached, so the download is immedia
     - All features are available
   - If the server fails and cannot respond to the client
     - Not applicable since the client only sends data and does not use the response
+- If the server from which the 360-degree video/images used for the background of the space are downloaded is not accessible
+  - User is notified that access is not available

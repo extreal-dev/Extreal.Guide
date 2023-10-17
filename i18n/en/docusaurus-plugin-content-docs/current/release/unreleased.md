@@ -114,10 +114,12 @@ The following Unity versions have been tested.
 ### Extreal.SampleApp.Holiday
 #### Added
 - Added application usage visualization. ([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
+- Added the ability to switch spaces within a virtual space. ([Doc](../sample-app/requirements.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/13))
+
 #### Changed
 - Upgraded Unity to 2022.3.
-- Changed to browser-oriented application (WebGL). ([Doc](../sample-app/requirements.md))
-- Changed text/voice chat and multiplayer to be implemented via P2P. ([Doc](../sample-app/intro.md))
+- Changed to browser-oriented application (WebGL). ([Doc](../sample-app/requirements.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
+- Changed text/voice chat and multiplayer to be implemented via P2P. ([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
 
 ## Upgrade guide {#upgrade-guide}
 

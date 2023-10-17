@@ -114,10 +114,12 @@ sidebar_position: 1
 ### Extreal.SampleApp.Holiday
 #### Added
 - アプリケーションの利用状況可視化を追加しました。([Doc](../sample-app/dev-guide.md#holiday-devguide-appusage), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/8))
+- バーチャル空間内で空間を切り替えられる機能を追加しました。([Doc](../sample-app/requirements.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/13))
+
 #### Changed
 - Unityを2022.3にアップグレードしました。
-- ブラウザ向けのアプリケーション(WebGL)に変更しました。([Doc](../sample-app/requirements.md))
-- テキスト/ボイスチャット、マルチプレイをP2Pで実現するように変更しました。([Doc](../sample-app/intro.md))
+- ブラウザ向けのアプリケーション(WebGL)に変更しました。([Doc](../sample-app/requirements.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
+- テキスト/ボイスチャット、マルチプレイをP2Pで実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
 
 ## Upgrade guide {#upgrade-guide}
 
