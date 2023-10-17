@@ -206,7 +206,7 @@ peerAdapter.adapt();
 ```
 
 :::info
-For a development environment using TypeScript, please refer to [sample](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts) in this module.
+For a development environment using TypeScript, please refer to [sample](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts~) in this module.
 :::
 
 ## Usage
