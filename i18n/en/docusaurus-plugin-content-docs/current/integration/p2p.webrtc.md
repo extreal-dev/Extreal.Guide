@@ -129,6 +129,13 @@ sequenceDiagram
     Client->>Signaling: followed by "answer" to "done" but omitted
 ```
 
+:::info
+This module uses Vanilla ICE, which has simple logic, for WebRTC route information gathering.
+Vanilla ICE waits for all the route information gathering to be completed, so it may take a long time (e.g., 40 seconds) depending on the network environment.
+Since there is a high possibility that a connection can be established without waiting for all the routing information to be gathered, this module provides a timeout for Vanilla ICE to stop route information gathering after a short period of time.
+The default is 5 seconds. this timeout can be changed using PeerConfig.
+:::
+
 ## Installation
 
 ### Package
@@ -248,6 +255,12 @@ PeerClient has the following event notifications
             - Immediately after all of the following conditions are met
                 - Receives "done" from the host
                 - IceConnectionState becomes Connected or Completed
+    - Type: IObservable
+    - Parameters: None
+- OnStartFailed
+    - Timing: Immediately after host or client failed to start
+        - If the start processing times out, the start is assumed to have failed.
+        - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
     - Type: IObservable
     - Parameters: None
 - OnConnectFailed
