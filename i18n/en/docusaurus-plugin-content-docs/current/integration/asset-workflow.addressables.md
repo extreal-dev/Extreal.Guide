@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## What for?
 
-We provide a wrapper that makes [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) easier to use in applications.
+We provide a wrapper that makes [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html) easier to use in applications.
 
 We will call this feature, which wraps Addressables, the Addressables wrapper.
 
@@ -139,7 +139,7 @@ The Addressables wrapper uses the following packages.
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
-- [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html)
+- [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 

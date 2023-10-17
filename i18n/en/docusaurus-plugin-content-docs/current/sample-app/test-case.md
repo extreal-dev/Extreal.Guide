@@ -8,6 +8,13 @@ Only tests that require test cases are listed among the test types targeted for 
 
 ## Functional test
 
+:::caution
+The download confirmation screen is implemented so that it appears only the first time, but according to the Unity Forum Discussion, a bug in the Addressables causes the download confirmation screen to appear every time.
+The first time the asset is downloaded, it is cached, so the download is immediate the second time around.
+
+[In 2022.2.xx WebGL builds, GetDownloadSizeAsync does not reflect the cache.](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/)
+:::
+
 - Title Screen
   - The title should be displayed
   - Ability to transition to the avatar selection screen by pressing the Go button
@@ -24,6 +31,7 @@ Only tests that require test cases are listed among the test types targeted for 
   - Ability to select host or client
   - If host is selected
     - Ability to enter a group name
+    - Error message should appear if the group name already exists
   - When client is selected
     - Ability to select a group
   - Ability to transition to the virtual space by pressing the Go button
@@ -39,6 +47,7 @@ Only tests that require test cases are listed among the test types targeted for 
     - Message appears on the screen when typing a message
   - Ability to play multiplayer
     - Ability to move and jump
+  - Ability to switch space.
   - Ability to return to the group selection screen
 
 ## Configuration test
@@ -72,3 +81,5 @@ Only tests that require test cases are listed among the test types targeted for 
     - All features are available
   - If the server fails and cannot respond to the client
     - Not applicable since the client only sends data and does not use the response
+- If the server from which the 360-degree video/images used for the background of the space are downloaded is not accessible
+  - User is notified that access is not available

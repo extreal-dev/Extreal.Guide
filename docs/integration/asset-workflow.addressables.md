@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## What for?
 
-[Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html)をアプリケーションで使いやすくするラッパーを提供します。
+[Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html)をアプリケーションで使いやすくするラッパーを提供します。
 
 Addressablesをラップしているこの機能をAddressablesラッパーと呼ぶことにします。
 
@@ -139,7 +139,7 @@ Addressablesラッパーは次のパッケージを使います。
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
-- [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html)
+- [Addressables](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 

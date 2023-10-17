@@ -8,6 +8,13 @@ sidebar_position: 5
 
 ## Functional test
 
+:::caution
+ダウンロード確認画面は初回のみ表示されるように実装していますが、Unity Forum DiscussionによるとAddressablesの不具合により毎回ダウンロード確認画面が表示されます。
+初回ダウンロードのアセットがキャッシュされているため2回目からはダウンロードはすぐに終わります。
+
+[In 2022.2.xx WebGL builds, GetDownloadSizeAsync does not reflect the cache.](https://forum.unity.com/threads/in-2022-2-xx-webgl-builds-getdownloadsizeasync-does-not-reflect-the-cache.1440877/)
+:::
+
 - タイトル画面
   - タイトルが表示されること
   - Goボタンでアバター選択画面に移動できること
@@ -24,6 +31,7 @@ sidebar_position: 5
   - ホストまたはクライアントを選択できること
   - ホストを選択した場合
     - グループ名を入力できること
+    - グループ名が既に存在する場合はエラーメッセージが表示されること
   - クライアントを選択した場合
     - グループを選択できること
   - Goボタンでバーチャル空間に移動できること
@@ -39,6 +47,7 @@ sidebar_position: 5
     - メッセージを打ち込むと画面に表示されること
   - マルチプレイができること
     - 移動とジャンプができること
+  - 空間を切り替えられること
   - グループ選択画面に戻れること
 
 ## Configuration test
@@ -72,3 +81,5 @@ sidebar_position: 5
     - 全ての機能が使用できること
   - サーバで障害が発生しクライアントに応答できない場合
     - クライアントからデータ送信するのみで応答は使用しないため対象外
+- 空間の背景に使う360度動画/画像のダウンロード先のサーバーにアクセスできない場合
+  - アクセスできないことがユーザーに通知されること

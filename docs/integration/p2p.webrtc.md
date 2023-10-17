@@ -129,6 +129,13 @@ sequenceDiagram
     Client->>Signaling: followed by "answer" to "done" but omitted
 ```
 
+:::info
+このモジュールではWebRTCの経路情報収集にロジックが単純なVanilla ICEを採用しています。
+Vanilla ICEでは全ての経路情報収集が完了するのを待つため、ネットワーク環境によっては経路情報収集に長い時間（例えば40秒）を要する場合があります。
+全ての経路情報収集を待たなくても接続できる可能性が高いため、このモジュールではVanilla ICEにタイムアウトを設け、短い時間で経路情報収集を止めています。
+デフォルトは5秒です。PeerConfigを使ってこのタイムアウトを変更できます。
+:::
+
 ## Installation
 
 ### Package
@@ -199,7 +206,7 @@ peerAdapter.adapt();
 ```
 
 :::info
-TypeScriptを使った開発環境はこのモジュールの[サンプル](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts)を参考にしてください。
+TypeScriptを使った開発環境はこのモジュールの[サンプル](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/tree/main/Samples~/MVS/WebGLScripts~)を参考にしてください。
 :::
 
 ## Usage
@@ -247,7 +254,13 @@ PeerClientは次のイベント通知を設けています。
     - クライアント
       - 次の条件を全て満たした直後
         - ホストから"done"を受信
-        - IceConnectionStateがConnectedまたはCompletedになる
+        - ホストとのIceConnectionStateがConnectedまたはCompletedになる
+  - タイプ：IObservable
+  - パラメータ：なし
+- OnStartFailed
+  - タイミング：ホストまたはクライアントが開始失敗した直後
+    - 開始処理がタイムアウトした場合に開始失敗と判断します。
+    - タイムアウトのデフォルトは15秒です。PeerConfigを使ってタイムアウトを変更できます。
   - タイプ：IObservable
   - パラメータ：なし
 - OnConnectFailed

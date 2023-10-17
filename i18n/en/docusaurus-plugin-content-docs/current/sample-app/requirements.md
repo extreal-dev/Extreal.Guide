@@ -33,6 +33,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Voice chat is available
   - Text chat is available
   - Multiplayer is available
+  - Can switch space
   - Can return to group selection screen
 
 ## Non-functional requirements
@@ -75,5 +76,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Application usage visualization (Grafana/Loki)
     - No reconnection or user notification will be made because user play will not be affected.
     - All features are available.
+  - Download 360-degree videos/images for use in the background of the space (S3)
+    - When the network is disconnected, the user is notified.
 - Region, Language
   - Japan, Japanese only
