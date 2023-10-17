@@ -31,6 +31,7 @@ The first time the asset is downloaded, it is cached, so the download is immedia
   - Ability to select host or client
   - If host is selected
     - Ability to enter a group name
+    - Error message should appear if the group name already exists
   - When client is selected
     - Ability to select a group
   - Ability to transition to the virtual space by pressing the Go button
