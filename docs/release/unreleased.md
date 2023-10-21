@@ -17,7 +17,7 @@ sidebar_position: 1
 ### Unity
 
 - [Extreal.Core.Logging](https://github.com/extreal-dev/Extreal.Core.Logging) 1.2.0-next.1
-- [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.2.0-next.x
+- [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.2.0-next.1
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0-next.4
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.x
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0-next.1
