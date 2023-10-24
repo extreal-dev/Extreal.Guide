@@ -88,7 +88,7 @@ sidebar_position: 1
 ### Extreal.Integration.Chat.Vivox
 #### Changed
 - Unityを2022.3にアップグレードしました。
-- Vivoxを15.1.200000-pre.1にアップグレードしました。
+- Vivoxを15.1.210100-pre.1にアップグレードしました。
 
 ### Extreal.Integration.AssetWorkflow.Addressables
 #### Changed

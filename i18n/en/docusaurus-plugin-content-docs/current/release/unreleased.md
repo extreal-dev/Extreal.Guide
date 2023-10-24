@@ -88,7 +88,7 @@ The following Unity versions have been tested.
 ### Extreal.Integration.Chat.Vivox
 #### Changed
 - Upgraded Unity to 2022.3.
-- Upgraded Vivox to 15.1.200000-pre.1.
+- Upgraded Vivox to 15.1.210100-pre.1.
 
 ### Extreal.Integration.AssetWorkflow.Addressables
 #### Changed
