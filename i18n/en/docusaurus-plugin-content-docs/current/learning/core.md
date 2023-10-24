@@ -9,7 +9,7 @@ In this section, you will learn about [Core](../category/core).
 - Approximate learning time
   - 60 min
 - Unity Version
-  - 2021.3.20f1
+  - 2022.3.20f1
 
 You will start by creating a project and introducing Core features, as well as VContainer and UniRx, to build the application architecture assumed by Extreal.
 
@@ -23,7 +23,7 @@ Create a new project from Unity Hub.
 
 ![create project](../img/learning-core-create-project.png)
 
-- Editor version: `2021.3.20f1`
+- Editor version: `2022.3.20f1`
 - Template: `3D`
 - Project name: `ExtrealCoreLearning`
 
@@ -192,7 +192,7 @@ First, add a title screen.
   ![Title Screen Canvas](../img/learning-core-stagenavigation-canvas.png)
   - Canvas Scaler
     - UI Scale Mode: `Scale With Screen Size`
-- Add an `Image` under the Canvas. Make the following settings in the inspector
+- Add an `Image` under the Canvas. Make the following settings in the `Image`'s inspector
   ![Title Screen Image](../img/learning-core-stagenavigation-image.png)
   - Rect Transform
     - Anchor Presets
