@@ -22,10 +22,10 @@ The following Unity versions have been tested.
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0-next.9
 - [Extreal.Integration.Multiplay.NGO.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.WebRTC) 1.0.0-next.1
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0-next.1
-- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.x
-- [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0-next.x
-- [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0-next.x
-- [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0-next.x
+- [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0-next.6
+- [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0-next.5
+- [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0-next.10
+- [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0-next.6
 
 ### npm
 
@@ -41,6 +41,8 @@ The following Unity versions have been tested.
   - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
 - Extreal.Integration.Multiplay.NGO
   - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.5.1 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
+- Extreal.Integration.Multiplay.NGO.WebRTC
+  - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 - Extreal.Integration.Chat.Vivox
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm) 15.1.210100-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 - Extreal.Integration.AssetWorkflow.Addressables
@@ -75,9 +77,6 @@ The following Unity versions have been tested.
 - Upgraded Unity to 2022.3.
 
 ### Extreal.Integration.Multiplay.NGO
-#### Added
-- Added WebRtcTransport for P2P (Host/Client) multiplayer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
-
 #### Changed
 - Upgraded Unity to 2022.3.
 - Upgraded NGO to 1.5.1.
@@ -85,6 +84,10 @@ The following Unity versions have been tested.
   - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
 - Changed NgoConfig to allow domain name to be specified in the Address property. ([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
 - Added features for hosts to NgoServer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-server-host), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+
+### Extreal.Integration.Multiplay.NGO.WebRTC
+#### Added
+- Added WebRtcTransport for P2P (Host/Client) multiplayer. ([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed

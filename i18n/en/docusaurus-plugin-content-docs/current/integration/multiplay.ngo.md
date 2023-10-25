@@ -33,7 +33,7 @@ The specifications of the NGO Wrapper are as follows.
 - Reconnect when NGO client communication is disconnected.
 - You can add processing triggered by NGO client state.
 - You can support any NetworkTransport other than the default one provided by the NGO.
-- Multiplayer by P2P(Host/Client).
+- Multiplayer by P2P(Host/Client). (WebRtcTransport)
   - Native(C#) and WebGL(JavaScript) support.
 
 :::caution
@@ -209,18 +209,30 @@ classDiagram
 ### Package
 
 #### Unity
+
+Using the NGO Wrapper
+
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 ```
 
+Using WebRtcTransport
+
+```text
+https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.WebRTC.git
+```
+
 #### npm
+
+Using WebRtcTransport
+
 ```text
 @extreal-dev/extreal.integration.multiplay.ngo.webrtc
 ```
 
 ### Dependencies
 
-The NGO wrapper uses the following packages.
+Using the NGO Wrapper
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
@@ -228,7 +240,7 @@ The NGO wrapper uses the following packages.
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-WebRtcTransport additionally uses the following packages.
+Using WebRtcTransport
 
 #### Unity
 

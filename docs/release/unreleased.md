@@ -41,6 +41,8 @@ sidebar_position: 1
   - [UniRx](https://github.com/neuecc/UniRx) 7.1.0 ([MIT License](https://github.com/neuecc/UniRx/blob/master/LICENSE))
 - Extreal.Integration.Multiplay.NGO
   - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.5.1 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
+- Extreal.Integration.Multiplay.NGO.WebRTC
+  - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 - Extreal.Integration.Chat.Vivox
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm) 15.1.210100-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 - Extreal.Integration.AssetWorkflow.Addressables
@@ -75,9 +77,6 @@ sidebar_position: 1
 - Unityを2022.3にアップグレードしました。
 
 ### Extreal.Integration.Multiplay.NGO
-#### Added
-- P2P(Host/Client)によるマルチプレイができるWebRtcTransportを追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
-
 #### Changed
 - Unityを2022.3にアップグレードしました。
 - NGOを1.5.1にアップグレードしました。
@@ -85,6 +84,10 @@ sidebar_position: 1
   - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
 - NgoConfigのAddressプロパティにドメイン名を指定できるように変更しました。([PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/18))
 - NgoServerにホスト向けの機能を追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-server-host), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
+
+### Extreal.Integration.Multiplay.NGO.WebRTC
+#### Added
+- P2P(Host/Client)によるマルチプレイができるWebRtcTransportを追加しました。([Doc](../integration/multiplay.ngo.md#mulitplay-ngo-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO/pull/21))
 
 ### Extreal.Integration.Chat.Vivox
 #### Changed
