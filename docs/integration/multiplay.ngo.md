@@ -33,7 +33,7 @@ NGOラッパーの仕様は次の通りです。
 - NGOのクライアントの通信が切断されたときに再接続できます。
 - NGOのクライアント状態をトリガーに処理を追加できます。
 - NGOが提供するデフォルト以外のNetworkTransportにも対応できます。
-- P2P(Host/Client)によるマルチプレイができます。
+- P2P(Host/Client)によるマルチプレイができます。(WebRtcTransport)
   - Native(C#)とWebGL(JavaScript)に対応しています。
 
 :::caution
@@ -209,18 +209,30 @@ classDiagram
 ### Package
 
 #### Unity
+
+NGOラッパーを使う場合
+
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.git
 ```
 
+WebRtcTransportを使う場合
+
+```text
+https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.WebRTC.git
+```
+
 #### npm
+
+WebRtcTransportを使う場合
+
 ```text
 @extreal-dev/extreal.integration.multiplay.ngo.webrtc
 ```
 
 ### Dependencies
 
-NGOラッパーは次のパッケージを使います。
+NGOラッパーを使う場合
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
@@ -228,7 +240,7 @@ NGOラッパーは次のパッケージを使います。
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-WebRtcTransportはさらに次のパッケージを使います。
+WebRtcTransportを使う場合
 
 #### Unity
 
