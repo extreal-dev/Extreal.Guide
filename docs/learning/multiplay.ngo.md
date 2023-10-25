@@ -9,7 +9,7 @@ sidebar_position: 3
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2021.3.20f1
+  - 2022.3.20f1
 
 NGOラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
@@ -293,7 +293,7 @@ namespace ExtrealCoreLearning.App
 :::
 
 NGOで同期するプレハブはNetworkManagerに設定する必要があります。
-`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブの`NetworkPlayer`をNetworkManagerの`NetworkPrefabs`に設定します。
+`ExtrealCoreLearning.MultiplayCommon`ディレクトリにあるプレイヤープレハブが入った`NetworkPrefabsList`をNetworkManagerの`NetworkPrefabsLists`に設定します。
 
 ![Network prefab](../img/learning-ngo-networkmanager-playerprefab.png)
 
