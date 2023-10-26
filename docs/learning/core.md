@@ -9,7 +9,7 @@ sidebar_position: 2
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2022.3.20f1
+  - 2022.3.2f1
 
 プロジェクトの作成からCoreの機能を導入していき、VContainerやUniRxも導入しExtrealが想定するアプリケーションアーキテクチャを構築します。
 
@@ -23,7 +23,7 @@ Unity Hubから新しいプロジェクトを作成します。
 
 ![プロジェクト作成](../img/learning-core-create-project.png)
 
-- エディターバージョン: `2022.3.20f1`
+- エディターバージョン: `2022.3.2f1`
 - テンプレート: `3D`
 - プロジェクト名: `ExtrealCoreLearning`
 
