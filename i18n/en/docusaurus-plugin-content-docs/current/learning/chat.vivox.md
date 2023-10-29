@@ -9,7 +9,7 @@ In this section, you will learn about the [Vivox wrapper](../integration/chat.vi
 - Approximate learning time
   - 60 min.
 - Unity Version
-  - 2021.3.20f1
+  - 2022.3.2f1
 
 The Vivox wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.

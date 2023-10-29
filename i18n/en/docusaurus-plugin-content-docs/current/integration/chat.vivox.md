@@ -137,7 +137,7 @@ The Vivox wrapper uses the following packages.
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
-- [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm)
+- [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
@@ -171,7 +171,7 @@ public class ChatConfig : ScriptableObject
 
 :::info
 Additionally to the connection information, VivoxAppConfig contains the following settings.
-- [VivoxConfig](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15)
+- [VivoxConfig](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15)
 - Retry strategy used in reconnecting after communication disconnection
   - See [Reconnect when communication is disconnected](#chat-vivox-retry) for details.
 :::
@@ -276,7 +276,7 @@ The reconnection processing handled by VivoxClient is as follows.
 
 - When to run reconnection
   - If login failed
-  - If Vivox Unity SDK [automatic connection recovery](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#Unity/developer-guide/channels/automatic-connection-recovery/connection-recovery.htm?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CVivox%2520Unity%2520Developer%2520Guide%257CChannels%257CAutomatic%2520connection%2520recovery%257C_____0) failed
+  - If Vivox Unity SDK [automatic connection recovery](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#Unity/developer-guide/channels/automatic-connection-recovery/connection-recovery.htm?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CVivox%2520Unity%2520Developer%2520Guide%257CChannels%257CAutomatic%2520connection%2520recovery%257C_____0) failed
     - If communication is lost after login, Vivox Unity SDK will try to recover the connection automatically for 30 seconds.
     - If the automatic connection recovery failed, the client will be logged out by Vivox Unity SDK.
 - Reconnection processing details
@@ -306,42 +306,42 @@ VivoxClient has the following event notifications.
   - Timing: Immediately after the recovery state changes on unexpected network disconnection
   - Type: IObservable
   - Parameters: Recovery state
-    - [ConnectionRecoveryState](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/namespace_vivox_unity.html#a21771ea5086c36c42452bc29059ec379%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CUnity%20API%20Reference%20Manual%7C_____4)
+    - [ConnectionRecoveryState](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/namespace_vivox_unity.html#a21771ea5086c36c42452bc29059ec379%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CUnity%20API%20Reference%20Manual%7C_____4)
 - OnChannelSessionAdded
   - Timing: Immediately after a channel is added
   - Type: IObservable
   - Parameters: ID of the added channel
-    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
+    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnChannelSessionRemoved
   - Timing: Immediately after a channel is removed
   - Type: IObservable
   - Parameters: ID of the removed channel
-    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
+    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnUserConnected
   - Timing: Immediately after a participant connects to the channel.
     - The user who originated the event is also notified of this event.
   - Type: IObservable
   - Parameters: Participant who connected to the channel.
-    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - The IsSelf property of IParticipant determines if the participant is the user itself who entered the channel.
 - OnUserDisconnected
   - Timing: Immediately after a participant disconnects from the channel.
     - The user who originated the event is also notified of this event.
   - Type: IObservable
   - Parameters: Participant who disconnected from the room
-    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - The IsSelf property of IParticipant determines if the participant is the user itself who left the channel.
 - OnTextMessageReceived
   - Timing: Immediately after a message is received on the channel
   - Type: IObservable
   - Parameters: Incoming message
-    - [IChannelTextMessage](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33)
+    - [IChannelTextMessage](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33)
 - OnAudioEnergyChanged
   - Timing: Immediately after a change in the participant's audio loudness
   - Type: IObservable
   - Parameters: Participant and audio volume (tuple)
-    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
-    - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
 - OnConnectRetrying
   - Timing：Just before retrying the connection
   - Type：IObservable

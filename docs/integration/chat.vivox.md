@@ -137,7 +137,7 @@ Vivoxラッパーは次のパッケージを使います。
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
-- [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm)
+- [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
@@ -171,7 +171,7 @@ public class ChatConfig : ScriptableObject
 
 :::info
 VivoxAppConfigには接続情報の他に次の設定を行えます。
-- [VivoxConfig](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15)
+- [VivoxConfig](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15)
 - 通信切断時の再接続で使うリトライ戦略
   - 詳細は[通信切断時に再接続する](#chat-vivox-retry)を参照してください。
 :::
@@ -276,7 +276,7 @@ VivoxClientが行う再接続の処理内容は次の通りです。
 
 - 再接続を実行するタイミング
   - ログインが失敗した場合
-  - Vivox Unity SDKの[自動接続回復](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#Unity/developer-guide/channels/automatic-connection-recovery/connection-recovery.htm?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CVivox%2520Unity%2520Developer%2520Guide%257CChannels%257CAutomatic%2520connection%2520recovery%257C_____0)が失敗した場合
+  - Vivox Unity SDKの[自動接続回復](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#Unity/developer-guide/channels/automatic-connection-recovery/connection-recovery.htm?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CVivox%2520Unity%2520Developer%2520Guide%257CChannels%257CAutomatic%2520connection%2520recovery%257C_____0)が失敗した場合
     - ログイン後に通信が切断されるとVivox Unity SDKは自動接続回復を30秒間試みます。
     - 自動接続回復が失敗した場合はVivox Unity SDKによりクライアントはログアウトされます。
 - 再接続の処理内容
@@ -306,42 +306,42 @@ VivoxClientは次のイベント通知を設けています。
   - タイミング：予期しないネットワーク切断時のリカバリ状態が変化した直後
   - タイプ：IObservable
   - パラメータ：リカバリ状態
-    - [ConnectionRecoveryState](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/namespace_vivox_unity.html#a21771ea5086c36c42452bc29059ec379%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CUnity%20API%20Reference%20Manual%7C_____4)
+    - [ConnectionRecoveryState](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/namespace_vivox_unity.html#a21771ea5086c36c42452bc29059ec379%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CUnity%20API%20Reference%20Manual%7C_____4)
 - OnChannelSessionAdded
   - タイミング：チャンネルが追加された直後
   - タイプ：IObservable
   - パラメータ：追加されたチャンネルのID
-    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
+    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnChannelSessionRemoved
   - タイミング：チャンネルが削除された直後
   - タイプ：IObservable
   - パラメータ：削除されたチャンネルのID
-    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
+    - [ChannelId](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_channel_id.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____5)
 - OnUserConnected
   - タイミング：チャンネルに参加者が入室した直後
     - イベント発生元になったユーザーにもこのイベントが通知されます。
   - タイプ：IObservable
   - パラメータ：入室した参加者
-    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - 参加者がチャンネルに入室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
 - OnUserDisconnected
   - タイミング：チャンネルから参加者が退室した直後
     - イベント発生元になったユーザーにもこのイベントが通知されます。
   - タイプ：IObservable
   - パラメータ：退室した参加者
-    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
     - 参加者がチャンネルから退室したユーザー自身かどうかはIParticipantのIsSelfプロパティで判定します。
 - OnTextMessageReceived
   - タイミング：チャンネルにメッセージが着信した直後
   - タイプ：IObservable
   - パラメータ：着信したメッセージ
-    - [IChannelTextMessage](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33)
+    - [IChannelTextMessage](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33)
 - OnAudioEnergyChanged
   - タイミング：参加者の音声の大きさに変化があった直後
   - タイプ：IObservable
   - パラメータ：参加者と音声の大きさ（タプル）
-    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
-    - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_190000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
+    - [IParticipant](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant.html%3FTocPath%3DVivox%2520Unity%2520SDK%2520documentation%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7C_____31)
+    - [AudioEnergy](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_participant_properties.html#ac14ea71429adc8e41eaa22af478296ee%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____40)
 - OnConnectRetrying
   - タイミング：接続をリトライする直前
   - タイプ：IObservable

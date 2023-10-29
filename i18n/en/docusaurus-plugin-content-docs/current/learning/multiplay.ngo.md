@@ -9,7 +9,7 @@ In this section, you will learn about the [NGO wrapper](../integration/multiplay
 - Approximate learning time
   - 60 min.
 - Unity Version
-  - 2021.3.20f1
+  - 2022.3.2f1
 
 The NGO wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.
@@ -293,7 +293,7 @@ Set the player prefab to NetworkManager.
 :::
 
 The prefabs to be synchronized by the NGO must be configured in the NetworkManager.
-Set the player prefab `NetworkPlayer` in the `ExtrealCoreLearning.MultiplayCommon` directory to `NetworkPrefabs` in NetworkManager.
+Set the `NetworkPrefabsLists` containing player prefabs in the `ExtrealCoreLearning.MultiplayCommon` directory to `NetworkPrefabsLists` in the NetworkManager.
 
 ![Network prefab](../img/learning-ngo-networkmanager-playerprefab.png)
 

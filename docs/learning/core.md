@@ -9,7 +9,7 @@ sidebar_position: 2
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2021.3.20f1
+  - 2022.3.2f1
 
 プロジェクトの作成からCoreの機能を導入していき、VContainerやUniRxも導入しExtrealが想定するアプリケーションアーキテクチャを構築します。
 
@@ -23,7 +23,7 @@ Unity Hubから新しいプロジェクトを作成します。
 
 ![プロジェクト作成](../img/learning-core-create-project.png)
 
-- エディターバージョン: `2021.3.20f1`
+- エディターバージョン: `2022.3.2f1`
 - テンプレート: `3D`
 - プロジェクト名: `ExtrealCoreLearning`
 
@@ -192,7 +192,7 @@ Assembly DefinitionにUniTaskとUniRxも設定します。
   ![タイトル画面Canvas](../img/learning-core-stagenavigation-canvas.png)
   - Canvas Scaler
     - UI Scale Mode: `Scale With Screen Size`
-- Canvasの下に`Image`を追加します。インスペクタで次の設定をします。
+- Canvasの配下に`Image`を追加します。`Image`のインスペクタで次の設定をします。
   ![タイトル画面Image](../img/learning-core-stagenavigation-image.png)
   - Rect Transform
     - Anchor Presets
@@ -202,11 +202,11 @@ Assembly DefinitionにUniTaskとUniRxも設定します。
   - Image
     - Color
       - Hexadecimal: `FF6F61`
-- Imageの下に`Text - TextMeshPro`を追加します。
+- Imageの配下に`Text - TextMeshPro`を追加します。
   - `Extreal Core Learning`というタイトルを作ります。
   - サイズやポジションは自由に決めてください。
   - TMP Importerが表示されたら`Import TMP Essentials`を選択します。TextMeshProの初回利用時のみTMP Importerが表示されます。インポートされたらTMP Importerを閉じます。
-- Imageの下に`Button - TextMeshPro`を追加します。
+- Imageの配下に`Button - TextMeshPro`を追加します。
   - `Go`というボタンを作ります。
   - こちらもサイズやポジションは自由に決めてください。
 
