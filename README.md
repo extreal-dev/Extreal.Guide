@@ -95,7 +95,7 @@ Add the heading "Do XXX" indicating the usage scenario to make it easier to find
 
 ## How to Release
 
-- Update the version number on the Unreleased page.
+- Update the title, release date and the version number on the Unreleased page.
   - `docs/release/unreleased.md`
   - `i18n/en/docusaurus-plugin-content-docs/current/release/unreleased.md`
 - Rename the Unreleased page to the released version.
