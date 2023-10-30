@@ -92,3 +92,14 @@ Add the heading "Do XXX" indicating the usage scenario to make it easier to find
 - Create a branch from the latest development branch and submit a Pull Request.
 - As we have set up a Pull Request template, fill it out and let us know the status of your Pull Request.
 - When you have completed your work, request a review from us.
+
+## How to Release
+
+- Update the version number on the Unreleased page.
+  - `docs/release/unreleased.md`
+  - `i18n/en/docusaurus-plugin-content-docs/current/release/unreleased.md`
+- Rename the Unreleased page to the released version.
+  - `docs/release/unreleased.md`
+  - `i18n/en/docusaurus-plugin-content-docs/current/release/unreleased.md`
+- Tagging a new version
+  - https://docusaurus.io/docs/versioning#tagging-a-new-version
