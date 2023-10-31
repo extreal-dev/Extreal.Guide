@@ -55,7 +55,7 @@ const FeatureList: FeatureItem[] = [
           例えばアプリケーションの利用状況を可視化する機能などです。
         </Translate>
         <div>
-          <b>Available from June 2023</b>
+          <b><Link to="/sample-app/dev-guide#holiday-devguide-appusage">Learn more</Link></b>
         </div>
       </>
     ),
