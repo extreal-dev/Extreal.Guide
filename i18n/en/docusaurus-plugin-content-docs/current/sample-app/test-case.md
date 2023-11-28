@@ -61,20 +61,27 @@ The first time the asset is downloaded, it is cached, so the download is immedia
     - Reconnection is started and the reconnection status (success or failure) is notified
   - If the server at the asset download destination fails and cannot respond to clients
     - Reconnection is started and the reconnection status (success or failure) is notified
+- If the Redis server is not accessible
+  - If the client is not connected to the network
+    - User is notified that access is not available
+    - All features are available except for multiplayer
+  - If the Redis server fails and cannot respond to clients
+    - User is notified that access is not available
+    - All features are available except for multiplayer
 - If the signaling server is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
-    - Text/voice chat and multiplayer are not available due to P2P realization
+    - All features are available except for text/voice chat
   - If the signaling server fails and cannot respond to clients
     - User is notified that access is not available
-    - Text/voice chat and multiplayer are not available due to P2P realization
+    - All features are available except for text/voice chat
 - If the host is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
-    - Text/voice chat and multiplayer are not available due to P2P realization
+    - All features are available except for text/voice chat
   - If the host side fails and cannot respond to clients
     - User is notified that access is not available
-    - Text/voice chat and multiplayer are not available due to P2P realization
+    - All features are available except for text/voice chat
 - If the application usage visualization server cannot be accessed
   - If the client is not connected to the network
     - No reconnection or user notification

@@ -42,7 +42,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Each event will be held for one hour, with a set schedule and event announcement
   - The server is started/stopped each time the event is held
 - Number of users
-  - 10 users per group
+  - 100 users per group
     - If the maximum number of users is exceeded, users are notified on the group selection screen.
   - No limit on number of groups
 - Usage environment
@@ -69,9 +69,13 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - When the network is disconnected, reconnect.
       - The reconnection status is notified to the user.
       - If reconnection fails, further reconnection is done by user operation (screen transition).
-  - Text/voice chat and multiplayer (P2P)
+  - Multiplayer (Redis Pub/Sub)
     - When the network is disconnected, the user is notified.
-    - Since the system is realized by P2P, all features are not available.
+    - All features are available except for multiplayer.
+    - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
+  - Text/voice chat (P2P)
+    - When the network is disconnected, the user is notified.
+    - All features are available except for text/voice chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
   - Application usage visualization (Grafana/Loki)
     - No reconnection or user notification will be made because user play will not be affected.

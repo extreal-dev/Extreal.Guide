@@ -12,7 +12,7 @@ We provide "Holiday" as a sample application equipped with the multiplayer and v
 ![holiday](../img/holiday.png)
 
 Holiday has a simple stage structure: title screen → avatar selection screen → group selection screen → virtual space.
-Holiday is a P2P(Peer to Peer), and players play as a group by selecting a host or a client on the group selection screen.
+Holiday employs Redis Pub/Sub (Publish/Subscribe), where you select a host or client on the group selection screen and play in a group.
 
 Holiday will provide the following contents
 
