@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-12-18
+2024-01-30
 
 ## Unity version
 
@@ -21,20 +21,23 @@ The following Unity versions have been tested.
 - [Extreal.Core.Common](https://github.com/extreal-dev/Extreal.Core.Common) 1.1.0
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.2.0
 - [Extreal.Integration.Multiplay.NGO.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO.WebRTC) 1.0.0
-- [Extreal.Integration.Multiplay.RedisPubSub](https://github.com/extreal-dev/Extreal.Integration.Multiplay.RedisPubSub) 1.0.0-Next.1
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.2.0
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.1.0
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0
+- [Extreal.Integration.Multiplay.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
+- [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-Next.1
+- [Extreal.Integration.Messaging.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
+- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-Next.1
 
 ### npm
 
 - [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common) 1.0.0
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.0.0
-- [@extreal-dev/extreal.integration.multiplay.pubsub](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.pubsub) 1.0.0
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.0.0
+- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-Next.1
 
 ## Dependencies
 
@@ -45,9 +48,6 @@ The following Unity versions have been tested.
   - [Netcode for GameObjects](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects) 1.5.1 ([MIT License](https://github.com/Unity-Technologies/com.unity.netcode.gameobjects/blob/develop/LICENSE.md))
 - Extreal.Integration.Multiplay.NGO.WebRTC
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
-- Extreal.Integration.Multiplay.RedisPubSub
-  - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
-  - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 - Extreal.Integration.Chat.Vivox
   - [Vivox Unity SDK](https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm) 15.1.210100-pre.1 ([Unity Package Distribution License](https://unity.com/legal/licenses/unity-package-distribution-license))
 - Extreal.Integration.AssetWorkflow.Addressables
@@ -64,20 +64,41 @@ The following Unity versions have been tested.
     - [socket.io-client](https://www.npmjs.com/package/socket.io-client) 4.7.1 ([MIT License](https://github.com/socketio/socket.io-client/blob/main/LICENSE))
 - Extreal.Integration.Chat.WebRTC
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
+- Extreal.Integration.Messaging.Redis
+  - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
+  - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 
 ## Changes
 
-### Extreal.Integration.Multiplay.RedisPubSub
+### Extreal.Integration.Multiplay.Common
 
 #### Added
 
-- Added the ability to play massively multiplayer with Redis Pub/Sub. ([Doc](../integration/multiplay.redis-pubsub.md))
+- Added common features used in multiplayer. ([Doc](../integration/multiplay.common.md))
+
+### Extreal.Integration.Multiplay.Messaging
+
+#### Added
+
+- Added MessagingTransport for multiplayer using Messaging. ([Doc](../integration/multiplay.common.md))
+
+### Extreal.Integration.Messaging.Common
+
+#### Added
+
+- Added common features used for sending and receiving group messages. ([Doc](../integration/messaging.common.md))
+
+### Extreal.Integration.Messaging.Redis
+
+#### Added
+
+- Added the feature to send/receive messages by Pub/Sub in Redis. ([Doc](../integration/messaging.common.md))
 
 ### Extreal.SampleApp.Holiday
 
 #### Changed
 
-- Changed to enable multiplayer with Redis Pub/Sub. ([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
+- Changed the multiplayer method to be selectable between Redis Pub/Sub and P2P. ([Doc](../sample-app/intro.md))
 
 ## Upgrade guide {#upgrade-guide}
 

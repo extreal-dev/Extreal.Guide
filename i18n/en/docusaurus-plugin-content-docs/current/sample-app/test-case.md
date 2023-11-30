@@ -28,6 +28,7 @@ The first time the asset is downloaded, it is cached, so the download is immedia
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
   - Ability to transition to the group selection screen by pressing the Go button
 - Group selection screen
+  - Ability to select Massively or Light
   - Ability to select host or client
   - If host is selected
     - Ability to enter a group name
@@ -72,16 +73,20 @@ The first time the asset is downloaded, it is cached, so the download is immedia
   - If the client is not connected to the network
     - User is notified that access is not available
     - All features are available except for text/voice chat
+      - If Light is selected, all features are unavailable
   - If the signaling server fails and cannot respond to clients
     - User is notified that access is not available
     - All features are available except for text/voice chat
+      - If Light is selected, all features are unavailable
 - If the host is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
     - All features are available except for text/voice chat
+      - If Light is selected, all features are unavailable
   - If the host side fails and cannot respond to clients
     - User is notified that access is not available
     - All features are available except for text/voice chat
+      - If Light is selected, all features are unavailable
 - If the application usage visualization server cannot be accessed
   - If the client is not connected to the network
     - No reconnection or user notification

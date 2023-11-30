@@ -25,6 +25,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - Armature of [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
 - Group selection screen
+  - Allows users to select Massively or Light
   - Allows users to select Host or Client
   - For host, groups can be created by specifying a group name
   - For client, you can select a group and join the group
@@ -42,8 +43,11 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Each event will be held for one hour, with a set schedule and event announcement
   - The server is started/stopped each time the event is held
 - Number of users
-  - 100 users per group
-    - If the maximum number of users is exceeded, users are notified on the group selection screen.
+  - Massively
+    - 100 users per group
+  - Light
+    - 10 users per group
+  - If the maximum number of users is exceeded, users are notified on the group selection screen.
   - No limit on number of groups
 - Usage environment
   - PC Browser
@@ -73,9 +77,10 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - When the network is disconnected, the user is notified.
     - All features are available except for multiplayer.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
-  - Text/voice chat (P2P)
+  - Multiplayer, text/voice chat (P2P)
     - When the network is disconnected, the user is notified.
     - All features are available except for text/voice chat.
+      - If Light is selected, all features are unavailable.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
   - Application usage visualization (Grafana/Loki)
     - No reconnection or user notification will be made because user play will not be affected.
