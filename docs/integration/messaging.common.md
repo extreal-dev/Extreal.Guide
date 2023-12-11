@@ -12,7 +12,11 @@ sidebar_position: 9
 
 ## Specification
 
-- グループに参加することができます。
+- 存在するルーム一覧を取得できます。
+- ルームに参加することができます。
+  - ルームを新たに作成することができます。
+- ルームを削除することができます。
+- ルーム内にメッセージを送信することができます。
 - クライアントの状態をトリガーに処理を追加できます。
 - バックエンドとの通信方式を切り替えることができます。
 
@@ -39,10 +43,10 @@ classDiagram
         +OnMessageReceived IObservable
         +SetTransport(messagingTransport) void
         +ListRoomsAsync() List
-        +ConnectAsync(messagingConnectionConfig) UniTask
-        +DisconnectAsync() UniTask
-        +DeleteRoomAsync() UniTask
-        +SendMessageAsync(message, to) UniTask
+        +ConnectAsync(messagingConnectionConfig) void
+        +DisconnectAsync() void
+        +DeleteRoomAsync() void
+        +SendMessageAsync(message, to) void
     }
     
     class IExtrealMessagingTransport {
@@ -54,11 +58,11 @@ classDiagram
         +OnUserConnected IObservable
         +OnUserDisconnecting IObservable
         +OnMessageReceived IObservable
-        +SendMessageAsync(message, to)  UniTask
+        +SendMessageAsync(message, to)  void
         +ListRoomsAsync()  List
-        +ConnectAsync(messagingConnectionConfig)  UniTask
-        +DisconnectAsync()  UniTask
-        +DeleteRoomAsync()  UniTask
+        +ConnectAsync(messagingConnectionConfig)  void
+        +DisconnectAsync()  void
+        +DeleteRoomAsync()  void
     }
     
     class MessagingConnectionConfig {
