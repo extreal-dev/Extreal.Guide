@@ -15,19 +15,20 @@ sidebar_position: 6
 - ネットワーク上で共有するオブジェクトをスポーンできます。
 - プレイヤーへの入力情報を同期できます。
 - メッセージの送受信ができます。
-- ExtrealMultiplayClient: マルチプレイ機能を実現するための中心となるクラス。
-- NetworkObject: ネットワーク上で共有される各オブジェクト。
-- NetworkClient: 個々のプレイヤー情報を表します。
-- IExtrealMultiplayTransport: ネットワーク通信のためのインターフェース。
 
 ## Architecture
 
 ```mermaid
 classDiagram
-    IExtrealMultiplayTransport <|-- ExtrealMultiplayClient
+    ExtrealMultiplayClient ..> MultiplayPlayerInput
+    ExtrealMultiplayClient ..> MultiplayConnectionConfig
+
+    IExtrealMultiplayTransport <-- ExtrealMultiplayClient
+    IExtrealMultiplayTransport ..> MultiplayConnectionConfig
     IDisposable <|.. IExtrealMultiplayTransport
     NetworkClient <-- ExtrealMultiplayClient
-    NetworkObject <-- ExtrealMultiplayClient
+
+    MultiplayPlayerInput --> MultiplayPlayerInputValues
 
     class ExtrealMultiplayClient {
         +OnConnected IObservable
@@ -39,41 +40,20 @@ classDiagram
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
         +SetTransport(transport) void
-        +ListRoomsAsync() List~Room~
+        +ListRoomsAsync() List
         +ConnectAsync(connectionConfig) void
         +Disconnect() void
         +DeleteRoomAsync() void
         +SpawnPlayer(position, rotation, parent, message) GameObject
         +SpawnObject(objectPrefab, position, rotation, parent, message) GameObject
-        +SendMessage(toUserIdentity, message, command) void
+        +SendMessage(message, to) void
     }
 
     class NetworkClient {
-        +UserIdentity string
+        +UserId string
         +PlayerObject GameObject
-        +NetworkObjects List~GameObject~
-        +NetworkClient(userIdentity)
-        +SetPlayerObject(playerObject) void
-        +AddNetworkObject(networkObject) void
-
-    }
-
-    class NetworkObject {
-        +ObjectGuid string
-        +GameObjectHash GameObject
-        +Position Vector3
-        +Rotation Quaternion
-        +CreatedAt DateTime
-        +UpdatedAt DateTime
-        +NetworkObject(gameObjectHash, position, rotation) void
-        +OnBeforeSerialize() void
-        +OnAfterDeserialize() void
-        +CheckWhetherToSendData() void
-        +Updated() void
-        +GetTransformFrom(transform) void
-        +ApplyValuesTo(input) void
-        +GetValuesFrom(input) void
-
+        +NetworkObjects IReadOnlyList
+        +NetworkClient(userId)
     }
 
     class IExtrealMultiplayTransport {
@@ -86,19 +66,33 @@ classDiagram
         +OnUserConnected IObservable
         +OnUserDisconnected IObservable
         +OnObjectSpawned IObservable
-        +OnMessageReceived IObservable
         +EnqueueRequest(message, to) void
         +ResponseQueueCount() void
         +DequeueResponse() (string, string)
         +UpdateAsync() void
         +ConnectAsync(connectionConfig) void
         +DisconnectAsync() void
-        +ListRoomsAsync() List~Room~
+        +ListRoomsAsync() List
         +DeleteRoomAsync() void
     }
 
+    class MultiplayPlayerInput {
+        +Values MultiplayPlayerInputValues
+        +SetMove(newMoveDirection) void
+        +SetValues(values) void
+    }
+
+    class MultiplayPlayerInputValues {
+        +Move Vector2
+        +SetMove(move) Vector2
+        +CheckWhetherToSendData() bool
+    }
+
+    class MultiplayConnectionConfig {
+    }
+
     class IDisposable {
-        <<.Net, interface>>
+        <<interface>>
     }
     
 ```

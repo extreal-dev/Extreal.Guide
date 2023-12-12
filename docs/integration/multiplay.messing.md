@@ -11,35 +11,17 @@ sidebar_position: 8
 ## Specification
 
 - Messagingによるマルチプレイができます。
-- MessagingMultiplayTransport: メッセージングを用いたマルチプレイの通信を実現するクラス。
+
 ## Architecture
 
 ```mermaid
 classDiagram
 
     IExtrealMultiplayTransport <|.. MessagingMultiplayTransport
-    ExtrealMessagingClient <-- MessagingMultiplayTransport
     DisposableBase <|-- MessagingMultiplayTransport
+    MessagingMultiplayTransport --> ExtrealMessagingClient
 
     class MessagingMultiplayTransport {
-        +IsConnected　bool
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnected IObservable
-        +OnMessageReceived IObservable
-        +MessagingMultiplayTransport(messagingTransport)
-        +EnqueueRequest(message, to) void
-        +ResponseQueueCount() int
-        +DequeueResponse(userIdentity, message) void
-
-        +UpdateAsync() void
-        +ListRoomsAsync() List~Room~
-        +ConnectAsync(connectionConfig) void
-        +DisconnectAsync() void
-        +DeleteRoomAsync() void
     }
 
     class IExtrealMultiplayTransport {

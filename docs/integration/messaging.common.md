@@ -19,17 +19,16 @@ sidebar_position: 9
 - ルーム内にメッセージを送信することができます。
 - クライアントの状態をトリガーに処理を追加できます。
 - バックエンドとの通信方式を切り替えることができます。
-- ExtrealMessagingClient: メッセージングに関するクライアント側の主要な機能を提供します。
-- IExtrealMessagingTransport: メッセージングの通信層のインターフェースです。
 
 ## Architecture
 
 ```mermaid
 classDiagram
 
-    IExtrealMessagingTransport <|.. ExtrealMessagingClient 
+    IExtrealMessagingTransport <-- ExtrealMessagingClient
+    IDisposable <|-- IExtrealMessagingTransport
     DisposableBase <|-- ExtrealMessagingClient 
-    IDisposable <|.. IExtrealMessagingTransport
+
 
     class ExtrealMessagingClient {
         +IsConnected bool
@@ -70,7 +69,7 @@ classDiagram
     }
 
     class IDisposable {
-        <<.Net, interface>>
+        <<interface>>
     }
 ```
 

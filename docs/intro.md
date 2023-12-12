@@ -53,11 +53,17 @@ Frameworkは次の機能を提供しています。
   - [Common](./core/common.md)
 - Integration
   - [Chat using Vivox](./integration/chat.vivox.md)
-  - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
   - [Asset Workflow using Addressables](./integration/asset-workflow.addressables.md)
   - [Common for Web](./integration/web.common.md)
   - [P2P using WebRTC](./integration/p2p.webrtc.md)
   - [Chat using WebRTC](./integration/chat.webrtc.md)
+  - [Messaging for Common](./integration/messaging.common.md)
+  - Messaging using Redis
+  - [Multiplay](./img/fw-arch.png)
+    - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
+    - [Multiplay for Common](./integration/messaging.redis.md)
+    - Multiplay using Messaging
+
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 
