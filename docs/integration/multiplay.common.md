@@ -1,14 +1,13 @@
-﻿---
-sidebar_position: 7
+---
+sidebar_position: 6
 ---
 
 # Common for Multiplay
 
 ## What for?
 
-マルチプレイの機能を実現するために、メッセージング以外の要素を共通化したライブラリを提供します。
+マルチプレイの機能を実現するために、プレイヤーの入退室、スポーン、同期の部分を共通化したライブラリを提供します。
 
-ネットワーク接続管理、トランスポート層のカスタマイズ、オブジェクト同期、メッセージングシステムを提供し、開発者がマルチプレイ環境を効率的に構築できるよう支援します。
 ## Specification
 
 - ネットワーク接続方法を変更できます。
@@ -16,27 +15,19 @@ sidebar_position: 7
 - ネットワーク上で共有するオブジェクトをスポーンできます。
 - プレイヤーへの入力情報を同期できます。
 - メッセージの送受信ができます。
+- ExtrealMultiplayClient: マルチプレイ機能を実現するための中心となるクラス。
+- NetworkObject: ネットワーク上で共有される各オブジェクト。
+- NetworkClient: 個々のプレイヤー情報を表します。
+- IExtrealMultiplayTransport: ネットワーク通信のためのインターフェース。
 
 ## Architecture
 
 ```mermaid
 classDiagram
-
-    ExtrealMultiplayClient ..> MultiplayMessage
-    ExtrealMultiplayClient ..> MultiplayMessageCommand
-    ExtrealMultiplayClient ..> MultiplayPlayerInput
-    ExtrealMultiplayClient ..> MultiplayConnectionConfig
-    IExtrealMultiplayTransport ..> MultiplayMessage
-    IExtrealMultiplayTransport ..> MultiplayConnectionConfig
-    IExtrealMultiplayTransport ..> Room
-    NetworkObject <-- MultiplayMessage
-    MultiplayMessageCommand <-- MultiplayMessage
-
+    IExtrealMultiplayTransport <|-- ExtrealMultiplayClient
+    IDisposable <|.. IExtrealMultiplayTransport
     NetworkClient <-- ExtrealMultiplayClient
     NetworkObject <-- ExtrealMultiplayClient
-    IExtrealMultiplayTransport <-- ExtrealMultiplayClient
-    MultiplayPlayerInputValues <-- MultiplayPlayerInput
-
 
     class ExtrealMultiplayClient {
         +OnConnected IObservable
@@ -47,23 +38,22 @@ classDiagram
         +OnUserDisconnected IObservable
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
-        +SetTransport(transport)
-        +ListRoomsAsync(connectionConfig) List<Room>
-        +ConnectAsync(connectionConfig) bool
+        +SetTransport(transport) void
+        +ListRoomsAsync() List~Room~
+        +ConnectAsync(connectionConfig) void
         +Disconnect() void
-        +DeleteRoomAsync() bool
-        +SpawnPlayer() GameObject
-        +SpawnObject() GameObject
-        +SendMessage(message, command) void
+        +DeleteRoomAsync() void
+        +SpawnPlayer(position, rotation, parent, message) GameObject
+        +SpawnObject(objectPrefab, position, rotation, parent, message) GameObject
         +SendMessage(toUserIdentity, message, command) void
     }
 
     class NetworkClient {
         +UserIdentity string
         +PlayerObject GameObject
-        +NetworkObjects List<GameObject>
+        +NetworkObjects List~GameObject~
         +NetworkClient(userIdentity)
-        +SetPlayerObjectZ(playerObject) void
+        +SetPlayerObject(playerObject) void
         +AddNetworkObject(networkObject) void
 
     }
@@ -99,61 +89,16 @@ classDiagram
         +OnMessageReceived IObservable
         +EnqueueRequest(message, to) void
         +ResponseQueueCount() void
-        +DequeueResponse() (string, MultiplayMessage)
+        +DequeueResponse() (string, string)
         +UpdateAsync() void
         +ConnectAsync(connectionConfig) void
         +DisconnectAsync() void
-        +ListRoomsAsync(connectionConfig) List<Room>
+        +ListRoomsAsync() List~Room~
         +DeleteRoomAsync() void
     }
 
-    class MultiplayMessage {
-        +MultiplayMessageCommand MultiplayMessageCommand
-        +NetworkObjectInfo NetworkObject
-        +NetworkObjectInfos NetworkObject[]
-        +Message string
+    class IDisposable {
+        <<.Net, interface>>
     }
-
-    class MultiplayMessageCommand {
-        None
-        Join
-        AvatarName
-        Create
-        Update
-        UserConnected
-        UserInitialized
-        Message
-    }
-
-    class ConnectionConfig {
-        +Url string
-        +ConnectionConfig(url)
-    }
-
-    class Room {
-        +Id string
-        +Name string
-        +Room(id, name)
-    }
-
-    class MultiplayPlayerInput {
-        +Values MultiplayPlayerInputValues
-        +Name string
-        +SetMove(newMoveDirection) void
-        +SetValues(values) void
-    }
-
-    class MultiplayPlayerInputValues {
-        +Move Vector2
-        +SetMove(move) Vector2
-        +CheckWhetherToSendData() bool
-    }
-
-    class MultiplayConnectionConfig {
-        +MultiplayMessageCommand MultiplayMessageCommand
-        +NetworkObject NetworkObject
-        +NetworkObjects NetworkObject[]
-        +Message string
-        +MultiplayMessage(multiplayMessageCommand, networkObjectInfo, networkObjectInfos, message)
-    }
+    
 ```

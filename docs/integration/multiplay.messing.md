@@ -11,24 +11,15 @@ sidebar_position: 8
 ## Specification
 
 - Messagingによるマルチプレイができます。
-
+- MessagingMultiplayTransport: メッセージングを用いたマルチプレイの通信を実現するクラス。
 ## Architecture
 
 ```mermaid
 classDiagram
 
-    MessagingMultiplayTransport ..> MessagingMultiplayConnectionConfig
-    MessagingMultiplayTransport ..> MultiplayConnectionConfig
-    MessagingMultiplayTransport ..> Room
-    MessagingMultiplayTransport ..> MultiplayMessageCommand
-    MessagingMultiplayTransport ..|> IExtrealMultiplayTransport
-
-    IExtrealMultiplayTransport <-- MessagingMultiplayTransport
+    IExtrealMultiplayTransport <|.. MessagingMultiplayTransport
     ExtrealMessagingClient <-- MessagingMultiplayTransport
-    MultiplayMessage <-- MessagingMultiplayTransport
-    DisposableBase <-- MessagingMultiplayTransport
-
-
+    DisposableBase <|-- MessagingMultiplayTransport
 
     class MessagingMultiplayTransport {
         +IsConnected　bool
@@ -40,35 +31,26 @@ classDiagram
         +OnUserDisconnected IObservable
         +OnMessageReceived IObservable
         +MessagingMultiplayTransport(messagingTransport)
-        +EnqueueRequest(message, to)
+        +EnqueueRequest(message, to) void
         +ResponseQueueCount() int
         +DequeueResponse(userIdentity, message) void
 
         +UpdateAsync() void
-        +ListRoomsAsync() void
+        +ListRoomsAsync() List~Room~
         +ConnectAsync(connectionConfig) void
         +DisconnectAsync() void
         +DeleteRoomAsync() void
     }
 
     class IExtrealMultiplayTransport {
+        <<extreal>>
     }
 
     class DisposableBase {
-    }
-
-    class MultiplayMessage {
-    }
-
-    class MultiplayMessageCommand {
+        <<extreal>>
     }
 
     class ExtrealMessagingClient {
-    }
-
-
-    class MessagingMultiplayConnectionConfig {
-        +MessagingConnectionConfig MessagingConnectionConfig
-        +MessagingMultiplayConnectionConfig(connectionConfig)
+        <<extreal>>
     }
 ```

@@ -13,7 +13,8 @@ sidebar_position: 10
 ## Specification
 
 - Redis Pub/Subによるメッセージングができます。
-
+- RedisMessagingTransportProvider: Redis Pub/Subに基づくメッセージングトランスポートを提供するファクトリークラスです。異なるプラットフォーム向け（NativeとWebGL）のRedisMessagingTransportインスタンスを生成します。
+- RedisMessagingTransport: Redis Pub/Subによるメッセージングのための基本クラスです。このクラスはIExtrealMessagingTransportインターフェースを実装し、共通の通信機能を提供します。
 ## Architecture
 
 ### Unity
@@ -21,8 +22,7 @@ sidebar_position: 10
 ```mermaid
 classDiagram
 
-    RedisMessagingTransportProvider ..> RedisMessagingTransport
-    RedisMessagingTransportProvider ..> RedisMessagingConfig
+    RedisMessagingTransportProvider --> RedisMessagingTransport
     RedisMessagingTransport <|-- NativeRedisMessagingTransport
     RedisMessagingTransport <|-- WebGLRedisMessagingTransport
     IExtrealMessagingTransport <|.. RedisMessagingTransport
@@ -32,19 +32,16 @@ classDiagram
         +Provide(redisMessagingConfig)$ TextChatClient
     }
     
-    class RedisMessagingConfig {
-        +Url string
-        +SocketIOOptions SocketIOOptions
-        +RedisMessagingConfig(url, socketIOOptions)
-    }
-    
     class RedisMessagingTransport {
+        +RedisMessagingTransport(messagingConfig)
     }
     
     class NativeRedisMessagingTransport {
+        +NativeRedisMessagingTransport(messagingConfig) 
     }
     
     class WebGLRedisMessagingTransport {
+        +WebGLRedisMessagingTransport(messagingConfig)
     }
 
     class IExtrealMessagingTransport {
