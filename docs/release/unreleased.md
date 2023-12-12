@@ -27,7 +27,6 @@ sidebar_position: 1
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0
 - [Extreal.Integration.Multiplay.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
-- [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-Next.1
 - [Extreal.Integration.Messaging.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
 - [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-Next.1
 
@@ -75,12 +74,6 @@ sidebar_position: 1
 #### Added
 
 - マルチプレイで使用する共通機能を追加しました。([Doc](../integration/multiplay.common.md))
-
-### Extreal.Integration.Multiplay.Messaging
-
-#### Added
-
-- Messagingを使用したマルチプレイができるMessagingTransportを追加しました。([Doc](../integration/multiplay.common.md))
 
 ### Extreal.Integration.Messaging.Common
 
