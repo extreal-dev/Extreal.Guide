@@ -19,17 +19,18 @@ Extrealでは特定のプレイヤーが集まってゲームをプレイする�
 
 ```mermaid
 classDiagram
-    ExtrealMultiplayClient ..> MultiplayPlayerInput
-    ExtrealMultiplayClient ..> MultiplayConnectionConfig
+    MultiplayClient ..> MultiplayPlayerInput
+    MultiplayClient ..> MessagingConnectionConfig
 
-    IExtrealMultiplayTransport <-- ExtrealMultiplayClient
-    IExtrealMultiplayTransport ..> MultiplayConnectionConfig
-    IDisposable <|.. IExtrealMultiplayTransport
-    NetworkClient <-- ExtrealMultiplayClient
+    QueuingMessagingClient <-- MultiplayClient
+    NetworkClient <-- MultiplayClient
 
     MultiplayPlayerInput --> MultiplayPlayerInputValues
 
-    class ExtrealMultiplayClient {
+    class MultiplayClient {
+        +LocalClient NetworkClient
+        +ConnectedClients IReadOnlyDictionary
+
         +OnConnected IObservable
         +OnDisconnecting IObservable
         +OnUnexpectedDisconnected IObservable
@@ -38,7 +39,8 @@ classDiagram
         +OnUserDisconnected IObservable
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
-        +SetTransport(transport) void
+
+        +SetMessagingClient(messagingClient) void
         +ConnectAsync(connectionConfig) void
         +Disconnect() void
         +SpawnPlayer(position, rotation, parent, message) GameObject
@@ -53,22 +55,8 @@ classDiagram
         +NetworkClient(userId)
     }
 
-    class IExtrealMultiplayTransport {
-        <<interface>>
-        +IsConnected bool
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnected IObservable
-        +OnObjectSpawned IObservable
-        +EnqueueRequest(message, to) void
-        +ResponseQueueCount() void
-        +DequeueResponse() (string, string)
-        +UpdateAsync() void
-        +ConnectAsync(connectionConfig) void
-        +DisconnectAsync() void
+    class QueuingMessagingClient {
+        <<extreal>>
     }
 
     class MultiplayPlayerInput {
@@ -83,13 +71,9 @@ classDiagram
         +CheckWhetherToSendData() bool
     }
 
-    class MultiplayConnectionConfig {
+    class MessagingConnectionConfig {
+        <<extreal>>
     }
-
-    class IDisposable {
-        <<interface>>
-    }
-    
 ```
 
 ## Installation
@@ -123,7 +107,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 ```csharp
 public class ClientControlScope : LifetimeScope
 {
-    [SerializeField] private ExtrealMultiplayClient extrealMultiplayClient;
+    [SerializeField] private MultiplayClient extrealMultiplayClient;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -157,7 +141,7 @@ extrealMultiplayClient.SetTransport(messagingMultiplayTransport);
 ```csharp
 // 入室
 var messagingConnectionConfig = new MessagingConnectionConfig(appState.GroupName, assetHelper.NgoHostConfig.MaxCapacity);
-var multiplayConnectionConfig = new MessagingMultiplayConnectionConfig(messagingConnectionConfig);
+var multiplayConnectionConfig = new MessagingMessagingConnectionConfig(messagingConnectionConfig);
 await extrealMultiplayClient.ConnectAsync(multiplayConnectionConfig);
 
 // 退室
