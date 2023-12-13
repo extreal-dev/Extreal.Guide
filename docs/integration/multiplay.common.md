@@ -143,7 +143,7 @@ var connectionConfig = new MessagingConnectionConfig(groupName);
 await extrealMultiplayClient.ConnectAsync(connectionConfig);
 
 // Leave the group
-extrealMultiplayClient.Disconnect();
+extrealMultiplayClient.DisconnectAsync();
 ```
 
 ### 同期するオブジェクトをスポーンする
