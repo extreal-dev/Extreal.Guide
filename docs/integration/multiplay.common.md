@@ -1,17 +1,16 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # Common for Multiplay
 
 ## What for?
-
-マルチプレイの機能を実現するために、プレイヤーの入退室、スポーン、同期の部分を共通化したライブラリを提供します。
+Extrealでは特定のプレイヤーが集まってゲームをプレイする独立したスペースをグループと呼ぶことにします。
+[Multiplay.NGO](multiplay.ngo.md)と別に、バックエンドとの通信方式を切り替えられるように、マルチプレイのスポーン、同期の部分を共通化したライブラリを提供します。
 
 ## Specification
 
 - ネットワーク接続方法を変更できます。
-- グループへの入退室ができます。
 - ネットワーク上で共有するオブジェクトをスポーンできます。
 - プレイヤーへの入力情報を同期できます。
 - メッセージの送受信ができます。
@@ -40,10 +39,8 @@ classDiagram
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
         +SetTransport(transport) void
-        +ListRoomsAsync() List
         +ConnectAsync(connectionConfig) void
         +Disconnect() void
-        +DeleteRoomAsync() void
         +SpawnPlayer(position, rotation, parent, message) GameObject
         +SpawnObject(objectPrefab, position, rotation, parent, message) GameObject
         +SendMessage(message, to) void
@@ -72,8 +69,6 @@ classDiagram
         +UpdateAsync() void
         +ConnectAsync(connectionConfig) void
         +DisconnectAsync() void
-        +ListRoomsAsync() List
-        +DeleteRoomAsync() void
     }
 
     class MultiplayPlayerInput {
