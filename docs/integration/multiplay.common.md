@@ -188,38 +188,38 @@ public class HolidayPlayerInput : MultiplayPlayerInput
 ```
 
 ```csharp
-    [Serializable]
-    public class HolidayPlayerInputValues : MultiplayPlayerInputValues
+[Serializable]
+public class HolidayPlayerInputValues : MultiplayPlayerInputValues
+{
+    private Vector2 preMove;
+    private bool isMoveChanged;
+
+    public bool Jump => jump;
+    [SerializeField] private bool jump;
+    private bool preJump;
+    private bool isJumpChanged;
+
+    public override void SetMove(Vector2 move)
     {
-        private Vector2 preMove;
-        private bool isMoveChanged;
-
-        public bool Jump => jump;
-        [SerializeField] private bool jump;
-        private bool preJump;
-        private bool isJumpChanged;
-
-        public override void SetMove(Vector2 move)
-        {
-            preMove = Move;
-            base.SetMove(move);
-            isMoveChanged = preMove != Move;
-        }
-
-        public void SetJump(bool jump)
-        {
-            preJump = this.jump;
-            this.jump = jump;
-            isJumpChanged = preJump != this.jump;
-        }
-
-        public override bool CheckWhetherToSendData()
-        {
-            var ret = isMoveChanged || isJumpChanged;
-            isMoveChanged =  isJumpChanged = false;
-            return ret;
-        }
+        preMove = Move;
+        base.SetMove(move);
+        isMoveChanged = preMove != Move;
     }
+
+    public void SetJump(bool jump)
+    {
+        preJump = this.jump;
+        this.jump = jump;
+        isJumpChanged = preJump != this.jump;
+    }
+
+    public override bool CheckWhetherToSendData()
+    {
+        var ret = isMoveChanged || isJumpChanged;
+        isMoveChanged =  isJumpChanged = false;
+        return ret;
+    }
+}
 
 ```
 
@@ -227,18 +227,18 @@ public class HolidayPlayerInput : MultiplayPlayerInput
 メッセージ送信はSendMessageメソッドを使います。
 
 ```csharp
-    multiplayClient.SendMessage(message, userId)
+multiplayClient.SendMessage(message, userId)
 ```
 
 メッセージ受信はOnMessageReceivedイベントを使います。 パラメータとしてユーザ識別子とJSONのメッセージが渡ってきます。
 
 ```csharp
-    multiplayClient.OnMessageReceived
-    .Subscribe(HandleReceivedMessage)
-    .AddTo(disposables);
+multiplayClient.OnMessageReceived
+.Subscribe(HandleReceivedMessage)
+.AddTo(disposables);
 
-    private void HandleReceivedMessage((string userId, string messageJson) tuple)
-    {
-       // do something
-    }
+private void HandleReceivedMessage((string userId, string messageJson) tuple)
+{
+    // do something
+}
 ```
