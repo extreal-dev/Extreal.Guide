@@ -13,11 +13,20 @@ sidebar_position: 5
 
 ## Specification
 
-- グループの管理ができます。
-- グループでメッセージを送受信できます。
+- グループを管理できます。
+- グループにメッセージを送信できます。
 - キューイングを行うことができます。
 - クライアントの状態をトリガーに処理を追加できます。
-- バックエンドとの通信方式を切り替えることができます。
+
+:::info
+このモジュールは通信に使用するトランスポートを変更できます。
+Extrealではデフォルトで以下のトランスポートを提供しています。
+
+- [Messaging for Redis](./messaging.redis.md)
+
+上記以外の通信方式を使用したい場合はIMessagingTransportを実装する必要があります。
+実装方法は上記モジュールを参照してください。
+:::
 
 ## Architecture
 
@@ -32,6 +41,12 @@ classDiagram
     MessagingClient --> IMessagingTransport
     MessagingClient --> MessagingConnectionConfig
     QueuingMessagingClient --> MessagingClient
+
+    class GroupManager {
+        SetTransport(transport) void
+        ListGroupsAsync() List
+        DeleteGroupAsync() void
+    }
     
     class MessagingClient {
         IsConnected bool
@@ -74,12 +89,6 @@ classDiagram
         MessagingConnectionConfig(groupName, maxCapacity)
     }
 
-    class GroupManager {
-        SetTransport(transport) void
-        ListGroupsAsync() List
-        DeleteGroupAsync() void
-    }
-
     class QueuingMessagingClient {
         IsConnected bool
         ConnectedUsers IReadOnlyList
@@ -90,11 +99,11 @@ classDiagram
         OnUserConnected IObservable
         OnUserDisconnecting IObservable
 
-        QueuingMessagingClient(MessagingClient messagingClient)
-        EnqueueRequest(string message, string to = default) void
+        QueuingMessagingClient(messagingClient)
+        EnqueueRequest(message, to) void
         ResponseQueueCount() int
-        DequeueResponse() (from, message)
-        ConnectAsync(MessagingConnectionConfig connectionConfig) void
+        DequeueResponse() from, message
+        ConnectAsync(connectionConfig) void
         DisconnectAsync() void
     }
     
@@ -125,7 +134,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
 ### Settings
 
 MessagingClientを初期化します。
-MessagingClientを初期化にはIMessagingTransportを実装したクラスのインスタンスが必要です。
+MessagingClientの初期化にはIMessagingTransportを実装したクラスのインスタンスが必要です。
 IMessagingTransportを実装したクラスのインスタンスは初期化しているものとします。
 
 ```csharp
@@ -143,3 +152,101 @@ var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
 ```
 
 ## Usage
+
+### グループを管理する
+
+GroupManagerクラスを使用することでグループを管理できます。
+
+存在するグループ一覧を取得するためにはListGroupsAsyncを使います。
+
+```csharp
+var groups = await groupManager.ListGroupsAsync();
+```
+
+いま接続しているグループを削除するためにはDeleteGroupAsyncを使います。
+
+```csharp
+await groupManager.DeleteGroupAsync()
+```
+
+### グループにメッセージを送信する
+
+MessagingClientクラスを使用することでグループにメッセージを送信できます。
+
+まずグループ名を指定してグループに接続します。
+存在しないグループ名を指定した場合は新しくグループが作成されます。
+
+```csharp
+var connectionConfig = new MessagingConnectionConfig("groupName");
+await messagingClient.ConnectAsync(connectionConfig);
+```
+
+送信したい相手を指定してメッセージを送信します。
+相手を省略した場合はグループ全体に送信します。
+
+```csharp
+await messagingClient.SendMessageAsync("message", "toUserId");
+```
+
+最後にグループから切断します。
+
+```csharp
+await messagingClient.DisconnectAsync();
+```
+
+### キューイングを行う
+
+QueuingMessagingClientを使用することでメッセージをキューイングできます。
+
+送信したい相手を指定してメッセージをキューに追加します。
+相手を省略した場合はグループ全体に送信します。
+
+```csharp
+queuingMessagingClient.EnqueuRequest("message", "toUserId");
+```
+
+受信したメッセージをハンドリングします。
+
+```csharp
+while (queuingMessagingClient.ResponseQueueCount() > 0)
+{
+    (var from, var message) = queuingMessagingClient.DequeueResponse();
+    // Handle message
+}
+```
+
+### クライアントの状態をトリガーに処理を追加する
+
+QueuingMessagingClientは次のイベント通知を設けています。
+
+- OnConnected
+  - タイミング：グループに接続した直後
+  - タイプ：IObservable
+  - パラメータ：自分のユーザID
+- OnDisconnecting
+  - タイミング：グループから切断する直前
+  - タイプ：IObservable
+  - パラメータ：切断する理由
+- OnUnexpectedDisconnected
+  - タイミング：予期していないサーバー切断が発生した直後
+  - タイプ：IObservable
+  - パラメータ：切断された理由
+- OnConnectionApprovalRejected
+  - タイミング：接続承認が拒否された直後
+  - タイプ：IObservable
+  - パラメータ：なし
+- OnUserConnected
+  - タイミング：ユーザが接続した直後
+  - タイプ：IObservable
+  - パラメータ：接続したユーザID
+- OnUserDisconnecting
+  - タイミング：ユーザが切断する直前
+  - タイプ：IObservable
+  - パラメータ：切断するユーザID
+
+MessagingClientは上記に加えて次のイベント通知を設けています。
+
+- OnMessageReceived
+  - タイミング：メッセージを受信した直後
+  - タイプ：IObservable
+  - パラメータ：メッセージを送信したユーザのIDおよびメッセージ
