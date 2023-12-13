@@ -5,16 +5,20 @@ sidebar_position: 6
 # Common for Multiplay
 
 ## What for?
-[Multiplay.NGO](multiplay.ngo.md)を利用しマッシブマルチプレイを実現する場合では、サーバに膨大な負荷をかけ、コストが高くなります。
+マルチプレイ機能を実装する際には、プレイヤーの状態（位置情報や動きなど）を同期させる必要があります。
+
+この同期処理は[NGOラッパー](multiplay.ngo.md)を利用し実現する場合、ホスト/サーバーが中心となって行われます。そのため、大規模なマルチプレイを実現する場合、ホスト/サーバーに膨大な負荷がかかり、コストが高くなります。
 
 このライブラリでは低コストでマッシブマルチプレイができるように、以下の特徴を持った機能を提供します。
-- サーバコストが減らすように、同期するオブジェクトをクライアント側でスポーンします。
-- [Messaging.Common](messaging.common.md)を利用し、バックエンドとの通信方式を変更できます。
+- ホスト/サーバーへの負荷を減らすように、同期情報をクライアント側で更新します。
+- ホスト/サーバーが[NGOラッパー](multiplay.ngo.md)以外の外部ライブラリから構築します。
+- ホスト/サーバーとの通信方式を変更（[Messaging.Common](messaging.common.md)を利用）できます。
 
 ## Specification
 
-- バックエンドとの通信方式を変更できます。
-- 同期するオブジェクトをクライアント側でスポーンします。
+- 通信方式を変更できます。
+- グループへの入退室ができます。
+- 同期するオブジェクトをスポーンできます。
 - プレイヤーへの入力情報を同期できます。
 - メッセージの送受信ができます。
 
@@ -45,7 +49,7 @@ classDiagram
 
         +SetMessagingClient(messagingClient) void
         +ConnectAsync(connectionConfig) void
-        +Disconnect() void
+        +DisconnectAsync() void
         +SpawnPlayer(position, rotation, parent, message) GameObject
         +SpawnObject(objectPrefab, position, rotation, parent, message) GameObject
         +SendMessage(message, to) void
@@ -115,52 +119,51 @@ public class ClientControlScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        // 例としてMessaging.Redisを使用した場合の通信方式を記載します
-        var redisMessagingConfig = new RedisMessagingConfig("http://localhost:3030", new SocketIOOptions { EIO = EngineIO.V4 });
-        var redisMessagingTransport = RedisMessagingTransportProvider.Provide(redisMessagingConfig);
-
-        var messagingClient = new MessagingClient();
-        messagingClient.SetTransport(redisMessagingTransport);
-
-        var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
+        // After initializing QueuingMessagingClient in Messaging.Common
         multiplayClient.SetMessagingClient(queuingMessagingClient);
 
         builder.RegisterComponent(multiplayClient);
-        builder.RegisterEntryPoint<ClientControlPresenter>();
     }
 }
 ```
 
 ## Usage
 
-### ネットワーク接続方法を変更
+### 通信方式を変更する
 
-MessagingMultiplayTransportをトランスポートにセットします。
-
-```csharp
-extrealMultiplayClient.SetTransport(messagingMultiplayTransport);
-```
+通信方式の変更は[Messaging.Common](messaging.common.md)を使って実現しています。
+[Messaging.CommonのUsage](messaging.common.md#Usage)を参照してください。
 
 ### グループへの入退室を行う
-
+参加するグループ名はMessagingConnectionConfigで指定します。
 
 ```csharp
-// 入室
-var messagingConnectionConfig = new MessagingConnectionConfig(appState.GroupName, assetHelper.NgoHostConfig.MaxCapacity);
-var multiplayConnectionConfig = new MessagingMessagingConnectionConfig(messagingConnectionConfig);
-await extrealMultiplayClient.ConnectAsync(multiplayConnectionConfig);
+// Join a group
+var connectionConfig = new MessagingConnectionConfig(groupName);
+await extrealMultiplayClient.ConnectAsync(connectionConfig);
 
-// 退室
+// Leave the group
 extrealMultiplayClient.Disconnect();
 ```
 
-### ネットワーク上で共有するオブジェクトをスポーンする
+### 同期するオブジェクトをスポーンする
+SpawnPlayerメソッドを使って、全プレイヤーをスポーンします。
 
 ```csharp
-extrealMultiplayClient.SpawnPlayer(message: appState.Avatar.AssetName)
+extrealMultiplayClient.SpawnPlayer()
+```
+SpawnObjectメソッドを使って、プレイヤー以外のオブジェクトをスポーンします。
+
+```csharp
+extrealMultiplayClient.SpawnObject()
 ```
 
 ### プレイヤーへの入力情報を同期する
+同期されるオブジェクトにアタッチされたMultiplayerInputのValuesの値を同期しています。
+
+同期されたValuesをSetValuesメソッドを使ってローカルオブジェクトに適用します。
+
+他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
 
 ```csharp
 public class HolidayPlayerInput : MultiplayPlayerInput
@@ -168,58 +171,56 @@ public class HolidayPlayerInput : MultiplayPlayerInput
     public override MultiplayPlayerInputValues Values => HolidayValues;
     public HolidayPlayerInputValues HolidayValues { get; } = new HolidayPlayerInputValues();
 
-    public Vector2 Look => look;
-    [SerializeField] private Vector2 look;
-
     public override void SetMove(Vector2 newMoveDirection)
         => HolidayValues.SetMove(newMoveDirection);
 
-    public void SetLook(Vector2 newLookDirection)
-        => look = newLookDirection;
-
-    public void SetSprint(bool newSprint)
-        => HolidayValues.SetSprint(newSprint);
-
     public void SetJump(bool newJump)
         => HolidayValues.SetJump(newJump);
-
-    public void SetInputFieldTyping(bool newValue)
-        => HolidayValues.SetInputFieldTyping(newValue);
 
     public override void SetValues(MultiplayPlayerInputValues values)
     {
         var holidayValues = values as HolidayPlayerInputValues;
 
         base.SetValues(holidayValues);
-        SetSprint(holidayValues.Sprint);
         SetJump(holidayValues.Jump);
-        SetInputFieldTyping(holidayValues.InputFieldTyping);
     }
 }
 ```
 
 ```csharp
-public class GetPlayerInput : MonoBehaviour
-{
-    [SerializeField] private HolidayPlayerInput input;
+    [Serializable]
+    public class HolidayPlayerInputValues : MultiplayPlayerInputValues
+    {
+        private Vector2 preMove;
+        private bool isMoveChanged;
 
-    private void Update()
-        => input.SetInputFieldTyping(
-            EventSystem.current.currentSelectedGameObject != null
-            && EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() != null);
+        public bool Jump => jump;
+        [SerializeField] private bool jump;
+        private bool preJump;
+        private bool isJumpChanged;
 
-    public void OnMove(InputValue value)
-        => input.SetMove(value.Get<Vector2>());
+        public override void SetMove(Vector2 move)
+        {
+            preMove = Move;
+            base.SetMove(move);
+            isMoveChanged = preMove != Move;
+        }
 
-    public void OnLook(InputValue value)
-        => input.SetLook(value.Get<Vector2>());
+        public void SetJump(bool jump)
+        {
+            preJump = this.jump;
+            this.jump = jump;
+            isJumpChanged = preJump != this.jump;
+        }
 
-    public void OnSprint(InputValue value)
-        => input.SetSprint(value.isPressed);
+        public override bool CheckWhetherToSendData()
+        {
+            var ret = isMoveChanged || isJumpChanged;
+            isMoveChanged =  isJumpChanged = false;
+            return ret;
+        }
+    }
 
-    public void OnJump(InputValue value)
-        => input.SetJump(value.isPressed);
-}
 ```
 
 ### メッセージの送受信を行う
