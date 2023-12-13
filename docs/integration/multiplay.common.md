@@ -233,9 +233,7 @@ multiplayClient.SendMessage(message, userId)
 メッセージ受信はOnMessageReceivedイベントを使います。 パラメータとしてユーザ識別子とJSONのメッセージが渡ってきます。
 
 ```csharp
-multiplayClient.OnMessageReceived
-.Subscribe(HandleReceivedMessage)
-.AddTo(disposables);
+multiplayClient.OnMessageReceived.Subscribe(HandleReceivedMessage).AddTo(disposables);
 
 private void HandleReceivedMessage((string userId, string messageJson) tuple)
 {
