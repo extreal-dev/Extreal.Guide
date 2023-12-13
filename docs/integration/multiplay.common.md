@@ -5,13 +5,16 @@ sidebar_position: 6
 # Common for Multiplay
 
 ## What for?
-Extrealでは特定のプレイヤーが集まってゲームをプレイする独立したスペースをグループと呼ぶことにします。
-[Multiplay.NGO](multiplay.ngo.md)と別に、バックエンドとの通信方式を切り替えられるように、マルチプレイのスポーン、同期の部分を共通化したライブラリを提供します。
+[Multiplay.NGO](multiplay.ngo.md)を利用しマッシブマルチプレイを実現する場合では、サーバに膨大な負荷をかけ、コストが高くなります。
+
+このライブラリでは低コストでマッシブマルチプレイができるように、以下の特徴を持った機能を提供します。
+- サーバコストが減らすように、同期するオブジェクトをクライアント側でスポーンします。
+- [Messaging.Common](messaging.common.md)を利用し、バックエンドとの通信方式を変更できます。
 
 ## Specification
 
-- ネットワーク接続方法を変更できます。
-- ネットワーク上で共有するオブジェクトをスポーンできます。
+- バックエンドとの通信方式を変更できます。
+- 同期するオブジェクトをクライアント側でスポーンします。
 - プレイヤーへの入力情報を同期できます。
 - メッセージの送受信ができます。
 
@@ -93,6 +96,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
+- [Extreal.Integration.Messaging.Common](messaging.common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
@@ -107,19 +111,21 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 ```csharp
 public class ClientControlScope : LifetimeScope
 {
-    [SerializeField] private MultiplayClient extrealMultiplayClient;
+    [SerializeField] private MultiplayClient multiplayClient;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        // 例としてMessaging using Redisを使用する場合を記載します
-        var redisMessagingTransport = RedisMessagingTransportProvider.Provide(
-            new RedisMessagingConfig("http://localhost:3030", new SocketIOOptions { EIO = EngineIO.V4 }));
+        // 例としてMessaging.Redisを使用した場合の通信方式を記載します
+        var redisMessagingConfig = new RedisMessagingConfig("http://localhost:3030", new SocketIOOptions { EIO = EngineIO.V4 });
+        var redisMessagingTransport = RedisMessagingTransportProvider.Provide(redisMessagingConfig);
 
-        var messagingMultiplayTransport = new MessagingMultiplayTransport(redisMessagingTransport);
+        var messagingClient = new MessagingClient();
+        messagingClient.SetTransport(redisMessagingTransport);
 
-        extrealMultiplayClient.SetTransport(messagingMultiplayTransport);
+        var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
+        multiplayClient.SetMessagingClient(queuingMessagingClient);
 
-        builder.RegisterComponent(extrealMultiplayClient);
+        builder.RegisterComponent(multiplayClient);
         builder.RegisterEntryPoint<ClientControlPresenter>();
     }
 }
@@ -217,3 +223,21 @@ public class GetPlayerInput : MonoBehaviour
 ```
 
 ### メッセージの送受信を行う
+メッセージ送信はSendMessageメソッドを使います。
+
+```csharp
+    multiplayClient.SendMessage(message, userId)
+```
+
+メッセージ受信はOnMessageReceivedイベントを使います。 パラメータとしてユーザ識別子とJSONのメッセージが渡ってきます。
+
+```csharp
+    multiplayClient.OnMessageReceived
+    .Subscribe(HandleReceivedMessage)
+    .AddTo(disposables);
+
+    private void HandleReceivedMessage((string userId, string messageJson) tuple)
+    {
+       // do something
+    }
+```
