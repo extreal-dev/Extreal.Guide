@@ -7,16 +7,15 @@ sidebar_position: 5
 ## What for?
 
 グループでメッセージのやり取りをする機能の共通部分を提供します。
+
 この共通機能を使うことで自由にバックエンドとの通信方式を切り替えることができるようになります。
 また使い方次第でマルチプレイにおける同期メッセージのやりとりやテキストチャットなど様々な用途に活用できます。
 
 ## Specification
 
-- 存在するルーム一覧を取得できます。
-- ルームに参加することができます。
-  - ルームを新たに作成することができます。
-- ルームを削除することができます。
-- ルーム内にメッセージを送信することができます。
+- グループの管理ができます。
+- グループでメッセージを送受信できます。
+- キューイングを行うことができます。
 - クライアントの状態をトリガーに処理を追加できます。
 - バックエンドとの通信方式を切り替えることができます。
 
@@ -25,43 +24,78 @@ sidebar_position: 5
 ```mermaid
 classDiagram
 
-    IExtrealMessagingTransport <-- ExtrealMessagingClient
-    IDisposable <|-- IExtrealMessagingTransport
-    DisposableBase <|-- ExtrealMessagingClient 
+    DisposableBase <|-- GroupManager
+    DisposableBase <|-- MessagingClient
+    DisposableBase <|-- QueuingMessagingClient
+    IDisposable <|-- IMessagingTransport
+    GroupManager --> IMessagingTransport
+    MessagingClient --> IMessagingTransport
+    MessagingClient --> MessagingConnectionConfig
+    QueuingMessagingClient --> MessagingClient
+    
+    class MessagingClient {
+        IsConnected bool
+        ConnectedUsers IReadOnlyList
+        OnConnected IObservable
+        OnDisconnecting IObservable
+        OnUnexpectedDisconnected IObservable
+        OnConnectionApprovalRejected IObservable
+        OnUserConnected IObservable
+        OnUserDisconnecting IObservable
+        OnMessageReceived IObservable
 
-
-    class ExtrealMessagingClient {
-        +IsConnected bool
-        +ConnectedUsers IReadOnlyList
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnecting IObservable
-        +OnMessageReceived IObservable
-        +SetTransport(messagingTransport) void
-        +ListRoomsAsync() List
-        +ConnectAsync(messagingConnectionConfig) void
-        +DisconnectAsync() void
-        +DeleteRoomAsync() void
-        +SendMessageAsync(message, to) void
+        SetTransport(messagingTransport) void
+        ConnectAsync(connectionConfig) void
+        DisconnectAsync() void
+        SendMessageAsync(message, to) void
     }
     
-    class IExtrealMessagingTransport {
-        +IsConnected bool
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnecting IObservable
-        +OnMessageReceived IObservable
-        +SendMessageAsync(message, to)  void
-        +ListRoomsAsync()  List
-        +ConnectAsync(messagingConnectionConfig)  void
-        +DisconnectAsync()  void
-        +DeleteRoomAsync()  void
+    class IMessagingTransport {
+        IsConnected bool
+        OnConnected IObservable
+        OnDisconnecting IObservable
+        OnUnexpectedDisconnected IObservable
+        OnConnectionApprovalRejected IObservable
+        OnUserConnected IObservable
+        OnUserDisconnecting IObservable
+        OnMessageReceived IObservable
+
+        SendMessageAsync(message, to) void
+        ListGroupsAsync() List
+        ConnectAsync(connectionConfig) void
+        DisconnectAsync() void
+        DeleteGroupAsync() void
+    }
+
+    class MessagingConnectionConfig {
+        GroupName string
+        MaxCapacity int
+
+        MessagingConnectionConfig(groupName, maxCapacity)
+    }
+
+    class GroupManager {
+        SetTransport(transport) void
+        ListGroupsAsync() List
+        DeleteGroupAsync() void
+    }
+
+    class QueuingMessagingClient {
+        IsConnected bool
+        ConnectedUsers IReadOnlyList
+        OnConnected IObservable
+        OnDisconnecting IObservable
+        OnUnexpectedDisconnected IObservable
+        OnConnectionApprovalRejected IObservable
+        OnUserConnected IObservable
+        OnUserDisconnecting IObservable
+
+        QueuingMessagingClient(MessagingClient messagingClient)
+        EnqueueRequest(string message, string to = default) void
+        ResponseQueueCount() int
+        DequeueResponse() (from, message)
+        ConnectAsync(MessagingConnectionConfig connectionConfig) void
+        DisconnectAsync() void
     }
     
     class DisposableBase {
@@ -90,14 +124,22 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
 
 ### Settings
 
-ExtrealMessagingClientにトランスポートをセットします。
-例としてMessaging using Redisを使用する場合を記載します。
+MessagingClientを初期化します。
+MessagingClientを初期化にはIMessagingTransportを実装したクラスのインスタンスが必要です。
+IMessagingTransportを実装したクラスのインスタンスは初期化しているものとします。
 
 ```csharp
-var redisMessagingConfig = new RedisMessagingConfig("http://localhost:3030", new SocketIOOptions { EIO = EngineIO.V4 });
-var RedisMessagingTransport = RedisMessagingTransportProvider.Provide(redisMessagingConfig);
-var messagingClient = new ExtrealMessagingClient();
-messagingClient.SetTransport(messagingTransport); // コンストラクタで渡した方が良さそう
+var messagingClient = new MessagingClient();
+messagingClient.SetTransport(messagingTransport); // Let messagingTransport be an instance of a class that implements IMessagingTransport 
+```
+
+GroupManagerやQueuingMessagingClientを使用したい場合はこれらも初期化します。
+
+```csharp
+var groupManager = new GroupManager();
+groupManager.SetTransport(messagingTransport);
+
+var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
 ```
 
 ## Usage
