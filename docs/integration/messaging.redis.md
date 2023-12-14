@@ -39,9 +39,10 @@ classDiagram
     }
     
     class RedisMessagingConfig {
-        Url string
-        SocketIOOptions SocketIOOptions
-        RedisMessagingConfig(url, options)
+        +Url string
+        +SocketIOOptions SocketIOOptions
+        
+        +RedisMessagingConfig(url, options)
     }
     
     class NativeRedisMessagingTransport {

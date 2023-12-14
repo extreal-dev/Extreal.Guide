@@ -43,68 +43,68 @@ classDiagram
     QueuingMessagingClient --> MessagingClient
 
     class GroupManager {
-        SetTransport(transport) void
-        ListGroupsAsync() List
-        DeleteGroupAsync() void
+        +SetTransport(transport) void
+        +ListGroupsAsync() List
+        +DeleteGroupAsync() void
     }
     
     class MessagingClient {
-        IsConnected bool
-        ConnectedUsers IReadOnlyList
-        OnConnected IObservable
-        OnDisconnecting IObservable
-        OnUnexpectedDisconnected IObservable
-        OnConnectionApprovalRejected IObservable
-        OnUserConnected IObservable
-        OnUserDisconnecting IObservable
-        OnMessageReceived IObservable
+        +IsConnected bool
+        +ConnectedUsers IReadOnlyList
+        +OnConnected IObservable
+        +OnDisconnecting IObservable
+        +OnUnexpectedDisconnected IObservable
+        +OnConnectionApprovalRejected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnecting IObservable
+        +OnMessageReceived IObservable
 
-        SetTransport(messagingTransport) void
-        ConnectAsync(connectionConfig) void
-        DisconnectAsync() void
-        SendMessageAsync(message, to) void
+        +SetTransport(messagingTransport) void
+        +ConnectAsync(connectionConfig) void
+        +DisconnectAsync() void
+        +SendMessageAsync(message, to) void
     }
     
     class IMessagingTransport {
-        IsConnected bool
-        OnConnected IObservable
-        OnDisconnecting IObservable
-        OnUnexpectedDisconnected IObservable
-        OnConnectionApprovalRejected IObservable
-        OnUserConnected IObservable
-        OnUserDisconnecting IObservable
-        OnMessageReceived IObservable
+        +IsConnected bool
+        +OnConnected IObservable
+        +OnDisconnecting IObservable
+        +OnUnexpectedDisconnected IObservable
+        +OnConnectionApprovalRejected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnecting IObservable
+        +OnMessageReceived IObservable
 
-        SendMessageAsync(message, to) void
-        ListGroupsAsync() List
-        ConnectAsync(connectionConfig) void
-        DisconnectAsync() void
-        DeleteGroupAsync() void
+        +SendMessageAsync(message, to) void
+        +ListGroupsAsync() List
+        +ConnectAsync(connectionConfig) void
+        +DisconnectAsync() void
+        +DeleteGroupAsync() void
     }
 
     class MessagingConnectionConfig {
-        GroupName string
-        MaxCapacity int
+        +GroupName string
+        +MaxCapacity int
 
-        MessagingConnectionConfig(groupName, maxCapacity)
+        +MessagingConnectionConfig(groupName, maxCapacity)
     }
 
     class QueuingMessagingClient {
-        IsConnected bool
-        ConnectedUsers IReadOnlyList
-        OnConnected IObservable
-        OnDisconnecting IObservable
-        OnUnexpectedDisconnected IObservable
-        OnConnectionApprovalRejected IObservable
-        OnUserConnected IObservable
-        OnUserDisconnecting IObservable
+        +IsConnected bool
+        +ConnectedUsers IReadOnlyList
+        +OnConnected IObservable
+        +OnDisconnecting IObservable
+        +OnUnexpectedDisconnected IObservable
+        +OnConnectionApprovalRejected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnecting IObservable
 
-        QueuingMessagingClient(messagingClient)
-        EnqueueRequest(message, to) void
-        ResponseQueueCount() int
-        DequeueResponse() from, message
-        ConnectAsync(connectionConfig) void
-        DisconnectAsync() void
+        +QueuingMessagingClient(messagingClient)
+        +EnqueueRequest(message, to) void
+        +ResponseQueueCount() int
+        +DequeueResponse() from, message
+        +ConnectAsync(connectionConfig) void
+        +DisconnectAsync() void
     }
     
     class DisposableBase {
