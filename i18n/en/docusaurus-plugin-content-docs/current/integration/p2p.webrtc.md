@@ -41,11 +41,15 @@ classDiagram
         +OnStarted IObservable
         +OnConnectFailed IObservable
         +OnDisconnected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnected IObservable
         +IsRunning bool
+        +SocketId string
         +StartHostAsync(name) void
         +ListHostsAsync() List
         +StartClientAsync(hostId) void
         +Stop() void
+        +getSocketId() string
     }
     
     class PeerConfig {
@@ -256,7 +260,7 @@ PeerClient has the following event notifications
                 - Receives "done" from the host
                 - IceConnectionState becomes Connected or Completed
     - Type: IObservable
-    - Parameters: None
+    - Parameters: My SocketID
 - OnStartFailed
     - Timing: Immediately after host or client failed to start
         - If the start processing times out, the start is assumed to have failed.
@@ -271,6 +275,14 @@ PeerClient has the following event notifications
     - Timing: Immediately after a host or client connected to the signaling server is disconnected
     - Type: IObservable
     - Parameters: Reason for disconnection
+- OnUserConnected
+    - Timing：Immediately after connecting or immediately after another user connects
+    - Type：IObservable
+    - Parameters：SocketID of the connected user
+- OnUserDisconnected
+    - Timing：Immediately after another user disconnects
+    - Type：IObservable
+    - Parameters：SocketID of the disconnected user
 
 ### Add application-specific processing to Native(C#) P2P
 
