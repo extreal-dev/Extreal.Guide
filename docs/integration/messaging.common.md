@@ -25,7 +25,7 @@ Extrealではデフォルトで以下のトランスポートを提供してい�
 - [Messaging for Redis](./messaging.redis.md)
 
 上記以外の通信方式を使用したい場合はIMessagingTransportを実装する必要があります。
-実装方法は上記モジュールを参照してください。
+実装方法は上記モジュールを参考にしてください。
 :::
 
 ## Architecture
@@ -130,6 +130,8 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
 - [Extreal.Core.Common](../core/common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
+
+モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
 ### Settings
 
@@ -250,3 +252,12 @@ MessagingClientは上記に加えて次のイベント通知を設けていま�
   - タイミング：メッセージを受信した直後
   - タイプ：IObservable
   - パラメータ：メッセージを送信したユーザのIDおよびメッセージ
+
+:::info
+OnDisconnectingとOnUnexpectedDisconnectedで受け取れるパラメータはトランスポートで実装しています。
+詳細は各モジュールを参照してください。
+
+Extrealで提供しているデフォルトのトランスポートを再掲します。
+
+- [Messaging for Redis](./messaging.redis.md)
+:::
