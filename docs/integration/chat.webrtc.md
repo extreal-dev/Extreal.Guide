@@ -55,7 +55,11 @@ classDiagram
 
     class VoiceChatClient {
         +OnMuted IObservable
+        +OnAudioLevelChanged IObservable
+        +HasMicrophone() bool
         +ToggleMute() void
+        +SetInVolume(volume) void
+        +SetOutVolume(volume) void
         +Clear() void
     }
     
@@ -249,4 +253,41 @@ voiceChatClient.OnMuted
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialMute: false);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+入力音量調整にはSetInVolumeメソッドを使います。
+
+```csharp
+voiceChatClient.SetInVolume(volume);
+```
+
+入力音量の初期値を指定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialInVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+出力音量調整にはSetOutVolumeメソッドを使います。
+
+```csharp
+voiceChatClient.SetOutVolume(volume);
+```
+
+出力音量の初期値を指定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+発話音量はOnAudioLevelChangedイベントで受け取ることができます。
+
+```csharp
+voiceChatClient.OnAudioLevelChanged
+    .Subscribe(audioLevelList =>
+    {
+        // do something
+    })
+    .AddTo(disposables);
 ```

@@ -55,7 +55,11 @@ classDiagram
 
     class VoiceChatClient {
         +OnMuted IObservable
+        +OnAudioLevelChanged IObservable
+        +HasMicrophone() bool
         +ToggleMute() void
+        +SetInVolume(volume) void
+        +SetOutVolume(volume) void
         +Clear() void
     }
     
@@ -249,4 +253,41 @@ If you want to specify the default value for mute, specify it in VoiceChatConfig
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialMute: false);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+Use the SetInVolume method to adjust the input volume.
+
+```csharp
+voiceChatClient.SetInVolume(volume);
+```
+
+If you want to specify the default value for the input volume, specify it in VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialInVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+Use the SetOutVolume method to adjust the output volume.
+
+```csharp
+voiceChatClient.SetOutVolume(volume);
+```
+
+If you want to specify the default value for the output volume, specify it in VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+If the audio level changes, the ID and audio level pair is received in the OnAudioLevelChanged event.
+
+```csharp
+voiceChatClient.OnAudioLevelChanged
+    .Subscribe(audioLevelList =>
+    {
+        // do something
+    })
+    .AddTo(disposables);
 ```
