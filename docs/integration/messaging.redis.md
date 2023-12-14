@@ -25,7 +25,8 @@ classDiagram
     RedisMessagingTransportProvider --> RedisMessagingTransport
     RedisMessagingTransport <|-- NativeRedisMessagingTransport
     RedisMessagingTransport <|-- WebGLRedisMessagingTransport
-    RedisMessagingTransport --> RedisMessagingConfig
+    NativeRedisMessagingTransport --> RedisMessagingConfig
+    WebGLRedisMessagingTransport --> RedisMessagingConfig
     IMessagingTransport <|.. RedisMessagingTransport
     DisposableBase <|-- RedisMessagingTransport
 
@@ -35,14 +36,14 @@ classDiagram
     
     class RedisMessagingTransport {
         <<abstract>>
-        +RedisMessagingTransport(messagingConfig)
+        +RedisMessagingTransport()
     }
     
     class RedisMessagingConfig {
         +Url string
         +SocketIOOptions SocketIOOptions
         
-        +RedisMessagingConfig(url, options)
+        +RedisMessagingConfig(url, socketIOOptions)
     }
     
     class NativeRedisMessagingTransport {
