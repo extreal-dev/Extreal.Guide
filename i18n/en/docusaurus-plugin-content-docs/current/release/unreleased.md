@@ -62,8 +62,15 @@ The following Unity versions have been tested.
 
 ## Changes
 ### Extreal.Integration.Web.Common
+#### Added
+- Add the ability to adjust the microphone volume in voice chat. ([Doc](../integration/chat.webrtc.md))
+- Add the ability to adjust other people's volume in voice chat. ([Doc](../integration/chat.webrtc.md))
+- Add the ability to get the speaking volume in voice chat. ([Doc](../integration/chat.webrtc.md))
+
 #### Changed
 - Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+- Removed unnecessary objects existed in the sample ClientControl scene. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+- Changed voice chat to listen-only when microphone is unavailable. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
 ## Upgrade guide {#upgrade-guide}
 
