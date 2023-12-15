@@ -20,6 +20,8 @@ sidebar_position: 5
 
 :::info
 このモジュールは通信に使用するトランスポートを変更できます。
+トランスポートの設定の仕方は[Settings](#settings)を参照してください。
+
 Extrealではデフォルトで以下のトランスポートを提供しています。
 
 - [Messaging for Redis](./messaging.redis.md)
