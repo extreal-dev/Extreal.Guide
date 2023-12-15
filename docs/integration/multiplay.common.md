@@ -113,7 +113,6 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 このモジュールは[Messaging.Common](messaging.common.md)を使ってMultiplayを実現しています。
 そのため[Messaging.CommonのSettings](messaging.common.md#settings)が必要になります。
 
-
 ```csharp
 public class ClientControlScope : LifetimeScope
 {
@@ -166,9 +165,10 @@ extrealMultiplayClient.SpawnObject(spawnObject)
 
 同期されたValuesはSetValuesメソッドを使ってローカルオブジェクトに適用します。
 
-他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
+#### 同期する入力情報を拡張する方法
+Move以外に他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
 
-CheckWhetherToSendDataメソッドで同期する/しないの制御もできます。
+例えば、'Jump'という入力情報を同期したい場合、以下を参考にしてください。
 
 ```csharp
 public class HolidayPlayerInput : MultiplayPlayerInput
@@ -217,7 +217,17 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
         this.jump = jump;
         isJumpChanged = preJump != this.jump;
     }
+}
+```
 
+#### 同期するかどうかを制御する方法
+CheckWhetherToSendDataメソッドで行います。
+入力情報で'Move'と'Jump'が変化した場合にのみ同期する例を示します。
+
+```csharp
+[Serializable]
+public class HolidayPlayerInputValues : MultiplayPlayerInputValues
+{
     public override bool CheckWhetherToSendData()
     {
         var ret = isMoveChanged || isJumpChanged;
@@ -225,8 +235,8 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
         return ret;
     }
 }
-
 ```
+
 
 ### メッセージの送受信を行う
 メッセージ送信はSendMessageメソッドを使います。
@@ -252,7 +262,7 @@ private void HandleReceivedMessage((string userId, string message) tuple)
 }
 ```
 ### クライアントの状態をトリガーに処理を追加できます。
-[Messaging.Commonのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
+[Messaging.Commonのイベント通知](messaging.common.mdクライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
 
 - OnObjectSpawned
   - タイミング：同期するオブジェクトをスポーンした直後
