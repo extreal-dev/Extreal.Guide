@@ -156,8 +156,7 @@ extrealMultiplayClient.SpawnPlayer()
 SpawnObjectメソッドを使ってレイヤー以外のオブジェクトをスポーンします。
 
 ```csharp
-// After initializing a GameObject to spawn
-extrealMultiplayClient.SpawnObject(spawnObject)
+extrealMultiplayClient.SpawnObject(objectToBeSpawned)
 ```
 
 ### プレイヤーへの入力情報を同期する
