@@ -129,6 +129,13 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 ### Settings
 
+#### Redisサーバ
+
+Redisサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
+[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/RedisServer~)を参照してRedisサーバを準備してください。
+
+#### アプリケーション
+
 Providerを使ってトランスポートを作成します。
 
 ```csharp
