@@ -262,7 +262,7 @@ private void HandleReceivedMessage((string userId, string message) tuple)
 }
 ```
 ### クライアントの状態をトリガーに処理を追加できます。
-[Messaging.Commonのイベント通知](messaging.common.mdクライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
+[Messaging.Commonのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
 
 - OnObjectSpawned
   - タイミング：同期するオブジェクトをスポーンした直後
