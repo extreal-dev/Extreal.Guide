@@ -36,7 +36,7 @@ classDiagram
 
     class MultiplayClient {
         +LocalClient NetworkClient
-        +ConnectedClients IReadOnlyDictionary
+        +ConnectedUsers IReadOnlyDictionary
 
         +OnConnected IObservable
         +OnDisconnecting IObservable
