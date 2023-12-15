@@ -23,6 +23,7 @@ sidebar_position: 6
 - 同期するオブジェクトをスポーンできます。
 - プレイヤーへの入力情報を同期できます。
 - メッセージの送受信ができます。
+- クライアントの状態をトリガーに処理を追加できます。
 
 ## Architecture
 
@@ -242,3 +243,10 @@ private void HandleReceivedMessage((string userId, string messageJson) tuple)
     // do something
 }
 ```
+### クライアントの状態をトリガーに処理を追加できます。
+[Messaging.Commonのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
+
+- OnObjectSpawned
+  - タイミング：同期するオブジェクトをスポーンした直後
+  - タイプ：IObservable
+  - パラメータ：接続したユーザID、スポーンしたオブジェクト、送信されたメッセージ
