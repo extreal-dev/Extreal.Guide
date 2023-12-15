@@ -163,11 +163,13 @@ extrealMultiplayClient.SpawnObject(spawnObject)
 ```
 
 ### プレイヤーへの入力情報を同期する
-同期されるオブジェクトにアタッチされたMultiplayerInputのValuesの値を同期しています。
+同期されるオブジェクトにアタッチされたMultiplayPlayerInputのValuesの値を同期しています。
 
-同期されたValuesをSetValuesメソッドを使ってローカルオブジェクトに適用します。
+同期されたValuesはSetValuesメソッドを使ってローカルオブジェクトに適用します。
 
 他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
+
+CheckWhetherToSendDataメソッドで同期する/しないの制御もできます。
 
 ```csharp
 public class HolidayPlayerInput : MultiplayPlayerInput
