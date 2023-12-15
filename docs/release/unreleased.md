@@ -3,6 +3,9 @@ sidebar_position: 1
 ---
 
 # Unreleased
+
+2023-12-15
+
 ## Unity version
 
 次のUnityバージョンで動作確認しています。
@@ -61,3 +64,9 @@ sidebar_position: 1
 ### Extreal.Integration.Web.Common
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+
+## Upgrade guide {#upgrade-guide}
+
+モジュールバージョンを更新してください。
+
+後方互換に影響がある変更があるため、下記を確認して該当するアプリケーションは対応してください。
