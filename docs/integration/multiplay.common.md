@@ -148,12 +148,12 @@ extrealMultiplayClient.DisconnectAsync();
 ```
 
 ### 同期するオブジェクトをスポーンする
-SpawnPlayerメソッドを使って、プレイヤーをスポーンします。
+SpawnPlayerメソッドを使ってプレイヤーをスポーンします。
 
 ```csharp
 extrealMultiplayClient.SpawnPlayer()
 ```
-SpawnObjectメソッドを使って、プレイヤー以外のオブジェクトをスポーンします。
+SpawnObjectメソッドを使ってレイヤー以外のオブジェクトをスポーンします。
 
 ```csharp
 // After initializing a GameObject to spawn
