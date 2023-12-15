@@ -135,7 +135,7 @@ public class ClientControlScope : LifetimeScope
 ### 通信方式を変更する
 
 通信方式の変更は[Messaging.Common](messaging.common.md)を使って実現しています。
-[Messaging.CommonのUsage](messaging.common.md#Usage)を参照してください。
+[Messaging.CommonのSpecification](messaging.common.md#Specification)を参照してください。
 
 ### グループへの入退室を行う
 参加するグループ名はMessagingConnectionConfigで指定します。
