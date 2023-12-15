@@ -286,6 +286,10 @@ PeerClient has the following event notifications
 
 ### Add application-specific processing to Native(C#) P2P
 
+:::caution
+Processing continues even if errors occur during Create/Close of PeerConnection.
+:::
+
 PeerClient has hooks that can add processing at the start and end of a P2P connection.
 
 ```csharp
@@ -383,6 +387,10 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 ```
 
 ### Add application-specific processing to WebGL(JavaScript) P2P
+
+:::caution
+Processing continues even if errors occur during Create/Close of PeerConnection.
+:::
 
 WebGL(JavaScript) is a bit more extensive than Native(C#) because it requires C# and JavaScript to work together.
 The mechanism is the same as Native(C#), using hooks to add application-specific processing to P2P.

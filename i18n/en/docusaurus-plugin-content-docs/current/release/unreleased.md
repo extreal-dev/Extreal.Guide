@@ -4,6 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
+2023-12-15
 
 ## Unity version
 
@@ -62,4 +63,8 @@ The following Unity versions have been tested.
 ## Changes
 ### Extreal.Integration.Web.Common
 #### Changed
-- Changed so that SocketID can be obtained as an event during P2P communication. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Guide/pull/58))
+- Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+
+## Upgrade guide {#upgrade-guide}
+
+Please update the module versions.

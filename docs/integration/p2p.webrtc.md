@@ -286,6 +286,10 @@ PeerClientは次のイベント通知を設けています。
 
 ### Native(C#)のP2Pにアプリケーション固有の処理を追加する
 
+:::caution
+PeerConnectionのCreate/Close時にエラーが発生した場合でも、処理が継続されます。
+:::
+
 PeerClientはP2P接続の開始時と終了時に処理を追加できるフックを設けています。
 
 ```csharp
@@ -383,6 +387,10 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 ```
 
 ### WebGL(JavaScript)のP2Pにアプリケーション固有の処理を追加する
+
+:::caution
+PeerConnectionのCreate/Close時にエラーが発生した場合でも、処理が継続されます。
+:::
 
 WebGL(JavaScript)の場合はC#とJavaScriptの連携が必要になるため、Native(C#)に比べると少し大掛かりなものになります。
 仕組みはNative(C#)と同じでフックを使ってアプリケーション固有の処理をP2Pに追加します。
