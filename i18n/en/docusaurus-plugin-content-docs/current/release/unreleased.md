@@ -68,5 +68,3 @@ The following Unity versions have been tested.
 ## Upgrade guide {#upgrade-guide}
 
 Please update the module versions.
-
-Since there are changes that affect backward compatibility, please check the following and respond to the applicable applications.
