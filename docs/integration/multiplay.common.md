@@ -244,25 +244,10 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 ```csharp
 multiplayClient.SendMessage(message, userId)
 ```
+メッセージ受信は[MessagingClientの受信イベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)で実現しています。
 
-メッセージ受信はOnMessageReceivedイベントを使います。 パラメータとしてユーザ識別子とJSONのメッセージが渡ってきます。
-
-```csharp
-multiplayClient.SendMessage(message, userId)
-```
-
-メッセージ受信はOnMessageReceivedイベントを使います。 パラメータとしてユーザ識別子とメッセージが渡ってきます。
-
-```csharp
-multiplayClient.OnMessageReceived.Subscribe(HandleReceivedMessage).AddTo(disposables);
-
-private void HandleReceivedMessage((string userId, string message) tuple)
-{
-    // do something
-}
-```
-### クライアントの状態をトリガーに処理を追加できます。
-[Messaging.Commonのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
+### クライアントの状態をトリガーに処理を追加できます
+[MessagingClientのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
 
 - OnObjectSpawned
   - タイミング：同期するオブジェクトをスポーンした直後
