@@ -5,12 +5,14 @@ sidebar_position: 6
 # Common for Multiplay
 
 ## What for?
+
 マルチプレイ機能を実現する際には、プレイヤーの状態（位置情報や動きなど）を同期させる必要があります。
 
 この同期処理は[NGOラッパー](multiplay.ngo.md)を利用し実現する場合、ホスト/サーバーが中心となって行われます。
 そのため、大規模なマルチプレイを実現する場合、ホスト/サーバーに膨大な負荷がかかり、高いマシンスペックが必要になります。
 
 このライブラリでは低コストで大規模なマルチプレイができるように、以下の特徴を持った機能を提供します。
+
 - サーバーへの負荷を減らすように、同期情報をクライアント側で更新します。
 - サーバーを[NGOラッパー](multiplay.ngo.md)以外の外部ライブラリから構築します。
 - サーバーとの通信方式を変更できます。
@@ -45,7 +47,7 @@ classDiagram
         +OnUnexpectedDisconnected IObservable
         +OnConnectionApprovalRejected IObservable
         +OnUserConnected IObservable
-        +OnUserDisconnected IObservable
+        +OnUserDisconnecting IObservable
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
 
@@ -71,7 +73,7 @@ classDiagram
     class MultiplayPlayerInput {
         +Values MultiplayPlayerInputValues
         +SetMove(newMoveDirection) void
-        +SetValues(values) void
+        +ApplyValues(synchronizedValues) void
     }
 
     class MultiplayPlayerInputValues {
@@ -90,6 +92,7 @@ classDiagram
 ### Package
 
 #### Unity
+
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 ```
@@ -136,6 +139,7 @@ public class ClientControlScope : LifetimeScope
 [Messaging.CommonのSpecification](messaging.common.md#Specification)を参照してください。
 
 ### グループへの入退室を行う
+
 参加するグループ名はMessagingConnectionConfigで指定します。
 
 ```csharp
@@ -148,6 +152,7 @@ extrealMultiplayClient.DisconnectAsync();
 ```
 
 ### 同期するオブジェクトをスポーンする
+
 SpawnPlayerメソッドを使ってプレイヤーをスポーンします。
 
 ```csharp
@@ -160,10 +165,12 @@ extrealMultiplayClient.SpawnObject(objectToBeSpawned)
 ```
 
 ### プレイヤーへの入力情報を同期する
+
 同期されるオブジェクトにアタッチされたMultiplayPlayerInputのValuesの値を同期しています。
 同期されたValuesはSetValuesメソッドを使ってローカルオブジェクトに適用します。
 
 #### 同期する入力情報を拡張する方法
+
 Move以外に他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
 
 例えば、Jumpという入力情報を同期したい場合、以下を参考にしてください。
@@ -219,6 +226,7 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 ```
 
 #### 同期するかどうかを制御する方法
+
 オブジェクトのPotionとRotationが変化したときは常に同期されます。
 そうでない場合、CheckWhetherToSendDataメソッドで制御できます。
 入力情報でMoveとJumpが変化した場合にのみ同期する例を示します。
@@ -236,8 +244,8 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 }
 ```
 
-
 ### メッセージの送信を行う
+
 メッセージ送信はSendMessageメソッドを使います。
 
 ```csharp
@@ -245,6 +253,7 @@ multiplayClient.SendMessage(message, userId)
 ```
 
 ### クライアントの状態をトリガーに処理を追加できます
+
 [Common for Messaging](messaging.common.md)を利用してイベント通知しています。
 詳細は[MessagingClientのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
 

@@ -61,7 +61,7 @@ classDiagram
         +OnUserDisconnecting IObservable
         +OnMessageReceived IObservable
 
-        +SetTransport(messagingTransport) void
+        +SetTransport(transport) void
         +ConnectAsync(connectionConfig) void
         +DisconnectAsync() void
         +SendMessageAsync(message, to) void
