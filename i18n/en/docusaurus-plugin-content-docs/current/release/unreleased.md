@@ -71,6 +71,9 @@ The following Unity versions have been tested.
 
 ### Extreal.Integration.Multiplay.Common
 
+#### Changed
+- Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+
 #### Added
 
 - Added common features used in multiplayer. ([Doc](../integration/multiplay.common.md))

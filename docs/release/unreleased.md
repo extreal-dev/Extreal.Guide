@@ -69,6 +69,9 @@ sidebar_position: 1
 
 ## Changes
 
+#### Changed
+- PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+
 ### Extreal.Integration.Multiplay.Common
 
 #### Added
