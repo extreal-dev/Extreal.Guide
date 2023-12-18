@@ -166,7 +166,7 @@ extrealMultiplayClient.SpawnObject(objectToBeSpawned)
 #### 同期する入力情報を拡張する方法
 Move以外に他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
 
-例えば、'Jump'という入力情報を同期したい場合、以下を参考にしてください。
+例えば、Jumpという入力情報を同期したい場合、以下を参考にしてください。
 
 ```csharp
 public class HolidayPlayerInput : MultiplayPlayerInput
@@ -219,8 +219,9 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 ```
 
 #### 同期するかどうかを制御する方法
-CheckWhetherToSendDataメソッドで行います。
-入力情報で'Move'と'Jump'が変化した場合にのみ同期する例を示します。
+オブジェクトのPotionとRotationが変化したときは常に同期されます。
+そうでない場合、CheckWhetherToSendDataメソッドで制御できます。
+入力情報でMoveとJumpが変化した場合にのみ同期する例を示します。
 
 ```csharp
 [Serializable]
