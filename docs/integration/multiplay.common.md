@@ -161,7 +161,6 @@ extrealMultiplayClient.SpawnObject(objectToBeSpawned)
 
 ### プレイヤーへの入力情報を同期する
 同期されるオブジェクトにアタッチされたMultiplayPlayerInputのValuesの値を同期しています。
-
 同期されたValuesはSetValuesメソッドを使ってローカルオブジェクトに適用します。
 
 #### 同期する入力情報を拡張する方法
@@ -230,7 +229,7 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
     public override bool CheckWhetherToSendData()
     {
         var ret = isMoveChanged || isJumpChanged;
-        isMoveChanged =  isJumpChanged = false;
+        isMoveChanged = isJumpChanged = false;
         return ret;
     }
 }
