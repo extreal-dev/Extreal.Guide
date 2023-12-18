@@ -21,7 +21,7 @@ sidebar_position: 6
 - グループへの入退室ができます。
 - 同期するオブジェクトをスポーンできます。
 - プレイヤーへの入力情報を同期できます。
-- メッセージの送受信ができます。
+- メッセージの送信ができます。
 - クライアントの状態をトリガーに処理を追加できます。
 
 ## Architecture
@@ -237,16 +237,18 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 ```
 
 
-### メッセージの送受信を行う
+### メッセージの送信を行う
 メッセージ送信はSendMessageメソッドを使います。
 
 ```csharp
 multiplayClient.SendMessage(message, userId)
 ```
-メッセージ受信は[MessagingClientの受信イベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)で実現しています。
 
 ### クライアントの状態をトリガーに処理を追加できます
-[MessagingClientのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)以外に、次のイベント通知を設けています。
+[Common for Messaging](messaging.common.md)を利用してイベント通知しています。
+詳細は[MessagingClientのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
+
+MultiplayClientは上記に加えて次のイベント通知を設けています。
 
 - OnObjectSpawned
   - タイミング：同期するオブジェクトをスポーンした直後
