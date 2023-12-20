@@ -61,14 +61,23 @@ sidebar_position: 1
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 
 ## Changes
+
 ### Extreal.Integration.Web.Common
+
+#### Changed
+
+- PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+
+### Extreal.Integration.Chat.WebRTC
+
 #### Added
+
 - ボイスチャットでマイク音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
 - ボイスチャットで他の人の音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
 - ボイスチャットで発話音量を取得する機能を追加しました。([Doc](../integration/chat.webrtc.md))
 
 #### Changed
-- PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+
 - サンプルのClientControlシーンに存在していた不要なオブジェクトを削除しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 - マイクが使用できない場合、ボイスチャットで聞くのみになるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
