@@ -8,12 +8,12 @@ sidebar_position: 4
 
 グループでメッセージのやり取りをする機能の共通部分を提供します。
 
-このモジュールは通信に使用するトランスポートを変更できます。
-トランスポートの設定の仕方は[Settings](#settings)を参照してください。
+このモジュールはメッセージングの実現方法を変更できます。
+実現方法の設定は[Settings](#settings)を参照してください。
 
-Extrealではデフォルトで以下のトランスポートを提供しています。
+Extrealではデフォルトで以下のメッセージンの実現方法を提供しています。
 
-- [Messaging for Redis](./messaging.redis.md)
+- [Messaging using Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
 
 この機能は、マルチプレイやテキストチャットなど、参加者同士でメッセージのやりとりを行う機能に活用できます。
 
@@ -23,100 +23,68 @@ Extrealではデフォルトで以下のトランスポートを提供してい�
 - グループに参加できます。
 - グループにメッセージを送信できます。
 - グループからメッセージを受信できます。
+- グループから離脱できます。
 - メッセージを扱うタイミングを制御（キューイング）できます。
 - クライアントの状態をトリガーに処理を追加できます。
-- グループから離脱できます。
 
-:::info
-上記以外の通信方式を使用したい場合はIMessagingTransportを実装する必要があります。
-実装方法は上記モジュールを参考にしてください。
-:::
+
 
 ## Architecture
 
 ```mermaid
 classDiagram
 
-    DisposableBase <|-- GroupManager
     DisposableBase <|-- MessagingClient
     DisposableBase <|-- QueuingMessagingClient
-    IDisposable <|-- IMessagingTransport
-    GroupManager --> IMessagingTransport
-    MessagingClient --> IMessagingTransport
-    MessagingClient --> MessagingConnectionConfig
     QueuingMessagingClient --> MessagingClient
-
-    class GroupManager {
-        +SetTransport(transport) void
-        +ListGroupsAsync() List
-        +DeleteGroupAsync() void
-    }
     
     class MessagingClient {
-        +IsConnected bool
-        +ConnectedUsers IReadOnlyList
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnecting IObservable
+        <<abstract>>
+        +IsJoinedGroup bool
+        +JoinedUsers IReadOnlyList
+        +OnJoined IObservable
+        +OnLeaving IObservable
+        +OnUnexpectedLeft IObservable
+        +OnJoiningApprovalRejected IObservable
+        +OnUserJoined IObservable
+        +OnUserLeaving IObservable
         +OnMessageReceived IObservable
 
-        +SetTransport(transport) void
-        +ConnectAsync(connectionConfig) void
-        +DisconnectAsync() void
-        +SendMessageAsync(message, to) void
-    }
-    
-    class IMessagingTransport {
-        +IsConnected bool
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnecting IObservable
-        +OnMessageReceived IObservable
+        +MessagingClient()
 
-        +SendMessageAsync(message, to) void
         +ListGroupsAsync() List
-        +ConnectAsync(connectionConfig) void
-        +DisconnectAsync() void
-        +DeleteGroupAsync() void
-    }
-
-    class MessagingConnectionConfig {
-        +GroupName string
-        +MaxCapacity int
-
-        +MessagingConnectionConfig(groupName, maxCapacity)
+        +CreateGroupAsync(groupConfig) void
+        +DeleteGroupAsync(groupName) void
+        +JoinAsync(connectionConfig) void
+        +LeaveAsync() void
+        +SendMessageAsync(message, to) void
     }
 
     class QueuingMessagingClient {
-        +IsConnected bool
-        +ConnectedUsers IReadOnlyList
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnecting IObservable
+        +IsJoinedGroup bool
+        +JoinedUsers IReadOnlyList
+        +OnJoined IObservable
+        +OnLeaving IObservable
+        +OnUnexpectedLeft IObservable
+        +OnJoiningApprovalRejected IObservable
+        +OnUserJoined IObservable
+        +OnUserLeaving IObservable
 
         +QueuingMessagingClient(messagingClient)
+
         +EnqueueRequest(message, to) void
         +ResponseQueueCount() int
         +DequeueResponse() from, message
-        +ConnectAsync(connectionConfig) void
-        +DisconnectAsync() void
+
+        +ListGroupsAsync() List
+        +CreateGroupAsync(groupConfig) void
+        +DeleteGroupAsync(groupName) void
+        +JoinAsync(connectionConfig) void
+        +LeaveAsync() void
     }
     
     class DisposableBase {
         <<extreal>>
-    }
-
-    class IDisposable {
-        <<interface>>
     }
 ```
 
@@ -126,6 +94,10 @@ classDiagram
 
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
+```
+RedisMessagingClientを利用する場合
+```text
+https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 ```
 
 ### Dependencies
@@ -139,65 +111,99 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
 
 ### Settings
 
-MessagingClientを初期化します。
-MessagingClientの初期化にはIMessagingTransportを実装したクラスのインスタンスが必要です。
-IMessagingTransportを実装したクラスのインスタンスは初期化しているものとします。
+MessagingClientを実装したメッセージングクライアントの作成が必要です。
+
+以下にRedisを使用したメッセージングの例を示します。
+
+#### メッセージングサーバ
+
+メッセージンサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
+[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/RedisServer~)を参照してメッセージンサーバを準備してください。
+
+#### アプリケーション
+
+Providerを使ってRedisのメッセージングクライアントを作成します。
 
 ```csharp
-var messagingClient = new MessagingClient();
-messagingClient.SetTransport(messagingTransport); // Let messagingTransport be an instance of a class that implements IMessagingTransport 
+var redisMessagingConfig = new RedisMessagingConfig("url", "socketIOOptions");
+var redisMessagingClient = RedisMessagingClientProvider.Provide(redisMessagingConfig);
 ```
 
-GroupManagerやQueuingMessagingClientを使用したい場合はこれらも初期化します。
+WebGLで使う場合、JavaScriptの初期化が必要になります。
+Adapterを作成してadapt関数を呼び出します。
+
+```typescript
+import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
+
+const redisMessagingAdapter = new RedisMessagingTransportAdapter();
+redisMessagingTransportAdapter.adapt();
+```
+
+QueuingMessagingClientを使用したい場合はこれも初期化します。
 
 ```csharp
-var groupManager = new GroupManager();
-groupManager.SetTransport(messagingTransport);
-
-var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
+var queuingMessagingClient = new QueuingMessagingClient(redisMessagingClient);
 ```
 
 ## Usage
 
-### グループを管理する
+### グループを作成する
 
-GroupManagerクラスを使用することでグループを管理できます。
+グループを作成するためにはCreateGroupAsyncを使います。
+
+```csharp
+var groupConfig = new GroupConfig("groupName", maxCapacity);
+await messagingClient.CreateGroupAsync(groupConfig);
+```
 
 存在するグループ一覧を取得するためにはListGroupsAsyncを使います。
 
 ```csharp
-var groups = await groupManager.ListGroupsAsync();
+var groups = await messagingClient.ListGroupsAsync();
 ```
-
-いま接続しているグループを削除するためにはDeleteGroupAsyncを使います。
+グループを削除するためにはDeleteGroupAsyncを使います。
 
 ```csharp
-await groupManager.DeleteGroupAsync()
+await messagingClient.DeleteGroupAsync("groupName")
+```
+
+### グループに参加する
+
+グループに参加するためにはJoinAsyncを使います。
+
+```csharp
+var connectionConfig = new MessagingJoiningConfig("groupName");
+await messagingClient.JoinAsync(connectionConfig);
 ```
 
 ### グループにメッセージを送信する
 
-MessagingClientクラスを使用することでグループにメッセージを送信できます。
+参加しているグループに送信するためにはSendMessageAsyncを使います。
 
-まずグループ名を指定してグループに接続します。
-存在しないグループ名を指定した場合は新しくグループが作成されます。
-
-```csharp
-var connectionConfig = new MessagingConnectionConfig("groupName");
-await messagingClient.ConnectAsync(connectionConfig);
-```
-
-送信したい相手を指定してメッセージを送信します。
+送信したい相手があれば対象を指定してメッセージを送信できます。
 相手を省略した場合はグループ全体に送信します。
 
 ```csharp
 await messagingClient.SendMessageAsync("message", "toUserId");
 ```
 
-最後にグループから切断します。
+### グループからメッセージを受信する
+
+グループから受信するためにはOnMessageReceivedのイベント通知を使います。
 
 ```csharp
-await messagingClient.DisconnectAsync();
+messagingClient.OnMessageReceived.Subscribe((userId, message) =>
+  {
+    // Do something
+  }
+);
+```
+
+### グループから離脱する
+グループから離脱するためにはLeaveAsyncを使います。
+
+```csharp
+await messagingClient.LeaveAsync();
 ```
 
 ### キューイングを行う
@@ -208,7 +214,7 @@ QueuingMessagingClientを使用することでメッセージをキューイン�
 相手を省略した場合はグループ全体に送信します。
 
 ```csharp
-queuingMessagingClient.EnqueuRequest("message", "toUserId");
+queuingMessagingClient.EnqueueRequest("message", "toUserId");
 ```
 
 受信したメッセージをハンドリングします。
@@ -223,45 +229,33 @@ while (queuingMessagingClient.ResponseQueueCount() > 0)
 
 ### クライアントの状態をトリガーに処理を追加する
 
-QueuingMessagingClientは次のイベント通知を設けています。
+MessagingClient/QueuingMessagingClientは次のイベント通知を設けています。
 
-- OnConnected
-  - タイミング：グループに接続した直後
+- OnJoined
+  - タイミング：グループに参加した直後
   - タイプ：IObservable
   - パラメータ：自分のユーザID
-- OnDisconnecting
-  - タイミング：グループから切断する直前
+- OnLeaving
+  - タイミング：グループから離脱する直前
   - タイプ：IObservable
   - パラメータ：切断する理由
-- OnUnexpectedDisconnected
+- OnUnexpectedLeft
   - タイミング：予期していないサーバー切断が発生した直後
   - タイプ：IObservable
   - パラメータ：切断された理由
-- OnConnectionApprovalRejected
-  - タイミング：接続承認が拒否された直後
+- OnJoiningApprovalRejected
+  - タイミング：参加承認が拒否された直後
   - タイプ：IObservable
   - パラメータ：なし
-- OnUserConnected
-  - タイミング：ユーザが接続した直後
+- OnUserJoined
+  - タイミング：ユーザが参加した直後
   - タイプ：IObservable
   - パラメータ：接続したユーザID
-- OnUserDisconnecting
-  - タイミング：ユーザが切断する直前
+- OnUserLeaving
+  - タイミング：ユーザが離脱する直前
   - タイプ：IObservable
   - パラメータ：切断するユーザID
-
-MessagingClientは上記に加えて次のイベント通知を設けています。
-
 - OnMessageReceived
   - タイミング：メッセージを受信した直後
   - タイプ：IObservable
   - パラメータ：メッセージを送信したユーザのIDおよびメッセージ
-
-:::info
-OnDisconnectingとOnUnexpectedDisconnectedで受け取れるパラメータはトランスポートで実装しています。
-詳細は各モジュールを参照してください。
-
-Extrealで提供しているデフォルトのトランスポートを再掲します。
-
-- [Messaging for Redis](./messaging.redis.md)
-:::
