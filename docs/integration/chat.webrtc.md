@@ -281,7 +281,7 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
-発話音量はOnAudioLevelChangedイベントで受け取ることができます。
+発話音量の変化時に、IDと発話音量のペアをOnAudioLevelChangedイベントで受け取ることができます。
 
 ```csharp
 voiceChatClient.OnAudioLevelChanged
