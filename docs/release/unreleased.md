@@ -61,7 +61,7 @@ sidebar_position: 1
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 
 ## Changes
-### Extreal.Integration.Web.Common
+### Extreal.Integration.P2P.WebRTC
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2P通信時にSocketIDをイベントとして取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Guide/pull/58))
