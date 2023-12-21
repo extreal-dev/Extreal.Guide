@@ -216,6 +216,10 @@ MessagingClientを実装したメッセージングクライアントの実現�
 #### メッセージングサーバ
 
 メッセージンサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
+
+サーバ・クライアント間はSocket.IOで接続し、Pub/SubはRedisのアダプターで実現しています。
+詳細は[Redis adapter](https://socket.io/docs/v4/redis-adapter/)および[Rooms](https://socket.io/docs/v4/rooms/)を参照してください。
+
 [README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/RedisServer~)を参照してメッセージンサーバを準備してください。
 
 #### アプリケーション
