@@ -64,7 +64,7 @@ The following Unity versions have been tested.
 ### Extreal.Integration.P2P.WebRTC
 #### Changed
 - Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
-- Changed so that SocketID can be obtained as an event during P2P communication. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Guide/pull/58))
+- Changed so that SocketID can be obtained as an event during P2P communication. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ## Upgrade guide {#upgrade-guide}
 

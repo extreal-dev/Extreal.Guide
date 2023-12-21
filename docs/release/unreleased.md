@@ -64,7 +64,7 @@ sidebar_position: 1
 ### Extreal.Integration.P2P.WebRTC
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
-- P2P通信時にSocketIDをイベントとして取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Guide/pull/58))
+- P2P通信時にSocketIDをイベントとして取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ## Upgrade guide {#upgrade-guide}
 
