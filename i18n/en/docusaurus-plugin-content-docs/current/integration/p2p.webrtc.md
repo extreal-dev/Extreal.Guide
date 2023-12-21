@@ -44,7 +44,6 @@ classDiagram
         +OnUserConnected IObservable
         +OnUserDisconnected IObservable
         +IsRunning bool
-        +SocketId string
         +StartHostAsync(name) void
         +ListHostsAsync() List
         +StartClientAsync(hostId) void
