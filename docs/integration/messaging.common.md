@@ -6,14 +6,16 @@ sidebar_position: 4
 
 ## What for?
 
-グループでメッセージのやり取りをする機能の共通部分を提供します。
+グループでメッセージのやり取りをする機能を提供します。
 
-このモジュールはメッセージングの実現方法を変更できます。
+Extrealではこの機能を提供するものを[メッセージングクライアント](https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git)と呼ぶことにします。
+
+メッセージングクライアントを利用してメッセージングの実現方法を変更できます。
 実現方法の設定は[Settings](#settings)を参照してください。
 
 Extrealではデフォルトで以下のメッセージンの実現方法を提供しています。
 
-- [Messaging using Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
+- [Redisを使用したメッセージングクライアントの実現](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
 
 この機能は、マルチプレイやテキストチャットなど、参加者同士でメッセージのやりとりを行う機能に活用できます。
 
@@ -27,10 +29,9 @@ Extrealではデフォルトで以下のメッセージンの実現方法を提�
 - メッセージを扱うタイミングを制御（キューイング）できます。
 - クライアントの状態をトリガーに処理を追加できます。
 
-
-
 ## Architecture
 
+### メッセージングクライアント
 ```mermaid
 classDiagram
 
@@ -87,33 +88,130 @@ classDiagram
         <<extreal>>
     }
 ```
+### Redisを使用したメッセージングクライアントの実現
 
+#### Unity
+
+```mermaid
+classDiagram
+    RedisMessagingClientProvider --> RedisMessagingClient
+    RedisMessagingClient <|-- NativeRedisMessagingClient
+    RedisMessagingClient <|-- WebGLRedisMessagingClient
+    NativeRedisMessagingClient --> RedisMessagingConfig
+    WebGLRedisMessagingClient --> RedisMessagingConfig
+    MessagingClient <|-- RedisMessagingClient
+    DisposableBase <|-- RedisMessagingClient
+
+    class RedisMessagingClientProvider {
+        +Provide(redisMessagingConfig)$ RedisMessagingClient
+    }
+    
+    class RedisMessagingClient {
+        <<abstract>>
+        +RedisMessagingClient()
+    }
+    
+    class RedisMessagingConfig {
+        +Url string
+        +SocketIOOptions SocketIOOptions
+        
+        +RedisMessagingConfig(url, socketIOOptions)
+    }
+    
+    class NativeRedisMessagingClient {
+        +NativeRedisMessagingClient(messagingConfig) 
+    }
+    
+    class WebGLRedisMessagingClient {
+        +WebGLRedisMessagingClient(messagingConfig)
+    }
+
+    class MessagingClient {
+        <<extreal, abstract>>
+    }
+
+    class DisposableBase {
+        <<extreal>>
+    }
+```
+
+#### JavaScript
+
+```mermaid
+classDiagram
+
+    WebGLRedisMessagingClient ..> WebGLHelper
+    WebGLHelper ..> RedisMessagingClient
+    RedisMessagingClientAdapter ..> RedisMessagingClient
+    
+    class WebGLHelper {
+        <<C#>>
+    }
+
+    class WebGLRedisMessagingClient {
+        <<C#>>
+    }
+
+    class RedisMessagingClientAdapter {
+        <<TypeScript>>
+    }
+    
+    class RedisMessagingClient {
+        <<TypeScript>>
+    }
+```
 ## Installation
 
 ### Package
 
+#### メッセージングクライアント
+
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
 ```
-RedisMessagingClientを利用する場合
+#### Redisを使用したメッセージングクライアントの実現を利用する場合
+
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 ```
 
 ### Dependencies
 
+メッセージングクライアントは次のパッケージを使います。
+
+##### Unity
+
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
+#### Redisを使用したメッセージングクライアントの実現を利用する場合
+
+##### Unity
+
+- [Extreal.Core.Logging](../core/logging.md)
+- [Extreal.Core.Common](../core/common.md)
+- [Extreal.Integration.Web.Common](../integration/web.common.md)
+- [Extreal.Integration.Messaging.Common](../integration/messaging.common.md)
+- [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
+- [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)
+- [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp)
+
+##### npm
+
+- [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common)
+- [socket.io-client](https://www.npmjs.com/package/socket.io-client)
+
+
 モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
 
 ### Settings
 
-MessagingClientを実装したメッセージングクライアントの作成が必要です。
+MessagingClientを実装したメッセージングクライアントの実現が必要です。
 
-以下にRedisを使用したメッセージングの例を示します。
+以下にRedisを使用したメッセージングクライアントの実現の例を示します。
 
 #### メッセージングサーバ
 
@@ -135,8 +233,8 @@ Adapterを作成してadapt関数を呼び出します。
 ```typescript
 import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
 
-const redisMessagingAdapter = new RedisMessagingTransportAdapter();
-redisMessagingTransportAdapter.adapt();
+const redisMessagingAdapter = new RedisMessagingClientAdapter();
+redisMessagingClientAdapter.adapt();
 ```
 
 QueuingMessagingClientを使用したい場合はこれも初期化します。
@@ -189,14 +287,15 @@ await messagingClient.SendMessageAsync("message", "toUserId");
 
 ### グループからメッセージを受信する
 
-グループから受信するためにはOnMessageReceivedのイベント通知を使います。
+グループから受信するためにはOnMessageReceivedイベント通知を使います。
 
 ```csharp
-messagingClient.OnMessageReceived.Subscribe((userId, message) =>
-  {
-    // Do something
-  }
-);
+messagingClient.OnMessageReceived.Subscribe(HandleReceivedMessage);
+
+private void HandleReceivedMessage((string userId, string message) tuple)
+{
+  // Handle message
+}
 ```
 
 ### グループから離脱する
@@ -216,8 +315,9 @@ QueuingMessagingClientを使用することでメッセージをキューイン�
 ```csharp
 queuingMessagingClient.EnqueueRequest("message", "toUserId");
 ```
+QueuingMessagingClientでは、MessagingClientのOnMessageReceivedのイベント通知に受信したメッセージをキューに追加しています。
 
-受信したメッセージをハンドリングします。
+キューから受信したメッセージをハンドリングします。
 
 ```csharp
 while (queuingMessagingClient.ResponseQueueCount() > 0)
