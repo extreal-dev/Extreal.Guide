@@ -253,8 +253,6 @@ public class HolidayPlayerInputValues : PlayerInputValues
 }
 ```
 
-
-
 ### クライアントの状態をトリガーに処理を追加できます
 
 [Messaging](messaging.md)を利用してイベント通知しています。
