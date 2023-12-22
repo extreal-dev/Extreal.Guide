@@ -2,88 +2,97 @@
 sidebar_position: 5
 ---
 
-# Common for Multiplay
+# Multiplay using Messaging
 
 ## What for?
 
-マルチプレイ機能を実現する際には、プレイヤーの状態（位置情報や動きなど）を同期させる必要があります。
+マルチプレイ機能を実現する際には、プレイヤー状態（位置情報や動きなど）を同期させる必要があります。
 
-この同期処理は[NGOラッパー](multiplay.ngo.md)を利用し実現する場合、ホスト/サーバーが中心となって行われます。
-そのため、大規模なマルチプレイを実現する場合、ホスト/サーバーに膨大な負荷がかかり、高いマシンスペックが必要になります。
+[NGOラッパー](multiplay.ngo.md)のベースとなるNetcode for GameObjectsは単一のサーバプロセス内でプレイヤー状態を集中管理しています。
+このような設計は、スケールアウト（サーバの能力を拡張して処理能力を増やすこと）を難しくしています。
 
-このライブラリでは低コストで大規模なマルチプレイができるように、以下の特徴を持った機能を提供します。
+RedisのPub/Subのようなメッセージングを採用することで、複数のチャンネルをプロセス内で管理できる構造を実現し、分散処理が容易になります。
+これにより、スケールアウトがより簡単に行えるようになり、結果として運用コストの削減が可能になります。
 
-- サーバーへの負荷を減らすように、同期情報をクライアント側で更新します。
-- サーバーを[NGOラッパー](multiplay.ngo.md)以外の外部ライブラリから構築します。
-- サーバーとの通信方式を変更できます。
+Extrealではプレイヤーが集まってマルチプレイを行うセッションをグループと呼ぶことにします。
+このライブラリではメッセージングを使ってグループでマルチプレイできるようにします。
+
+メッセージングを使ったスケールアウトしやすい構成をマルチプレイに活用することで、低コストかつ大規模なマルチプレイヤを実現できます。
 
 ## Specification
 
-- 通信方式を変更できます。
 - グループへの入退室ができます。
-- 同期するオブジェクトをスポーンできます。
-- プレイヤーへの入力情報を同期できます。
-- メッセージの送信ができます。
+- グループでマルチプレイできます。
+- グループでメッセージの受送信ができます。
+- 同期するプレイヤーの動きを追加できます。
 - クライアントの状態をトリガーに処理を追加できます。
 
 ## Architecture
 
 ```mermaid
 classDiagram
-    MultiplayClient ..> MultiplayPlayerInput
-    MultiplayClient ..> MessagingConnectionConfig
+    MultiplayClient ..> PlayerInput
+    MultiplayClient ..> MultiplayJoiningConfig
 
     QueuingMessagingClient <-- MultiplayClient
     NetworkClient <-- MultiplayClient
+    MessagingJoiningConfig <-- MultiplayJoiningConfig
+    INetworkObjectsProvider <|.. MultiplayClient
 
-    MultiplayPlayerInput --> MultiplayPlayerInputValues
+    PlayerInput --> PlayerInputValues
 
     class MultiplayClient {
         +LocalClient NetworkClient
-        +ConnectedUsers IReadOnlyDictionary
+        +JoinedUsers IReadOnlyDictionary
 
-        +OnConnected IObservable
-        +OnDisconnecting IObservable
-        +OnUnexpectedDisconnected IObservable
-        +OnConnectionApprovalRejected IObservable
-        +OnUserConnected IObservable
-        +OnUserDisconnecting IObservable
+        +OnJoined IObservable
+        +OnLeaving IObservable
+        +OnUnexpectedLeft IObservable
+        +OnJoiningApprovalRejected IObservable
+        +OnUserJoined IObservable
+        +OnUserLeaving IObservable
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
 
-        +SetMessagingClient(messagingClient) void
-        +ConnectAsync(connectionConfig) void
-        +DisconnectAsync() void
-        +SpawnPlayer(position, rotation, parent, message) GameObject
+        +MultiplayClient(queuingMessagingClient, networkObjectsProvider)
+        +JoinAsync(connectionConfig) void
+        +LeaveAsync() void
         +SpawnObject(objectPrefab, position, rotation, parent, message) GameObject
         +SendMessage(message, to) void
     }
 
     class NetworkClient {
         +UserId string
-        +PlayerObject GameObject
         +NetworkObjects IReadOnlyList
         +NetworkClient(userId)
+    }
+
+    class INetworkObjectsProvider {
+        <<interface>>
     }
 
     class QueuingMessagingClient {
         <<extreal>>
     }
 
-    class MultiplayPlayerInput {
-        +Values MultiplayPlayerInputValues
+    class PlayerInput {
+        +Values PlayerInputValues
         +SetMove(newMoveDirection) void
         +ApplyValues(synchronizedValues) void
     }
 
-    class MultiplayPlayerInputValues {
+    class PlayerInputValues {
         +Move Vector2
         +SetMove(move) Vector2
         +CheckWhetherToSendData() bool
     }
 
-    class MessagingConnectionConfig {
-        <<extreal>>
+    class MultiplayJoiningConfig {
+        +MessagingJoiningConfig MessagingJoiningConfig
+    }
+
+    class MessagingJoiningConfig {
+        <<interface>>
     }
 ```
 
@@ -113,30 +122,23 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 
 ### Settings
 
-このモジュールは[Messaging.Common](messaging.common.md)を使ってMultiplayを実現しています。
-そのため[Messaging.CommonのSettings](messaging.common.md#settings)が必要になります。
+このモジュールは[Messaging](messaging.common.md)を使ってMultiplayを実現しています。
+そのため[MessagingのSettings](messaging.common.md#settings)が必要になります。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
 {
-    [SerializeField] private MultiplayClient multiplayClient;
+    private MultiplayClient multiplayClient;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        // After initializing QueuingMessagingClient in Messaging.Common
-        multiplayClient.SetMessagingClient(queuingMessagingClient);
-
-        builder.RegisterComponent(multiplayClient);
+        // After initializing QueuingMessagingClient and NetworkObjectsProvider
+        multiplayClient = new MultiplayClient(queuingMessagingClient, networkObjectsProvider)
     }
 }
 ```
 
 ## Usage
-
-### 通信方式を変更する
-
-通信方式の変更は[Messaging.Common](messaging.common.md)を使って実現しています。
-[Messaging.CommonのSpecification](messaging.common.md#Specification)を参照してください。
 
 ### グループへの入退室を行う
 
@@ -144,54 +146,72 @@ public class ClientControlScope : LifetimeScope
 
 ```csharp
 // Join a group
-var connectionConfig = new MessagingConnectionConfig(groupName);
-await extrealMultiplayClient.ConnectAsync(connectionConfig);
+var messagingConfig = new MessagingJoiningConfig("groupName");
+var connectionConfig = new MultiplayJoiningConfig(messagingConfig);
+await multiplayClient.JoinAsync(connectionConfig);
 
 // Leave the group
-extrealMultiplayClient.DisconnectAsync();
+multiplayClient.LeaveAsync();
 ```
 
-### 同期するオブジェクトをスポーンする
-
-SpawnPlayerメソッドを使ってプレイヤーをスポーンします。
+### グループでマルチプレイを行う
+グループに参加した後に、プレイヤーをスポーンしてマルチプレイを行います。
+SpawnObjectメソッドを使ってプレイヤーをスポーンします。
 
 ```csharp
-extrealMultiplayClient.SpawnPlayer()
+multiplayClient.SpawnObject(playerObjectToBeSpawned)
 ```
-SpawnObjectメソッドを使ってレイヤー以外のオブジェクトをスポーンします。
+プレイヤー以外のオブジェクトのスポーンもできます。
 
 ```csharp
-extrealMultiplayClient.SpawnObject(objectToBeSpawned)
+multiplayClient.SpawnObject(objectToBeSpawned)
 ```
 
-### プレイヤーへの入力情報を同期する
+### グループでメッセージの受送信を行う
 
-同期されるオブジェクトにアタッチされたMultiplayPlayerInputのValuesの値を同期しています。
-同期されたValuesはSetValuesメソッドを使ってローカルオブジェクトに適用します。
+参加しているグループに送信するためにはSendMessageを使います。
 
-#### 同期する入力情報を拡張する方法
-
-Move以外に他の入力情報を同期したい場合、MultiplayPlayerInputとMultiplayPlayerInputValuesを継承したクラスを作成し、Valuesにセットするようにします。
-
-例えば、Jumpという入力情報を同期したい場合、以下を参考にしてください。
+送信したい相手があれば対象を指定してメッセージを送信できます。
+相手を省略した場合はグループ全体に送信します。
 
 ```csharp
-public class HolidayPlayerInput : MultiplayPlayerInput
+await multiplayClient.SendMessage("message", "toUserId");
+```
+
+グループから受信するためにはOnMessageReceivedイベント通知を使います。
+
+```csharp
+multiplayClient.OnMessageReceived.Subscribe(HandleReceivedMessage);
+
+private void HandleReceivedMessage((string userId, string message) tuple)
 {
-    public override MultiplayPlayerInputValues Values => HolidayValues;
-    public HolidayPlayerInputValues HolidayValues { get; } = new HolidayPlayerInputValues();
+  // Handle message
+}
+```
 
-    public override void SetMove(Vector2 newMoveDirection)
-        => HolidayValues.SetMove(newMoveDirection);
+### 同期するプレイヤーの動きを追加する
+
+プレイヤーの動きはPlayerInputのValuesで同期しています。
+デフォルトではMoveの動きのみ同期しています。
+
+Moveの動き以外に他の動きを同期したい場合、PlayerInputとPlayerInputValuesを継承したクラスを作成してValuesにセットするようにします。
+
+例えば、Jumpという動きを同期したい場合、以下を参考にしてください。
+
+```csharp
+public class HolidayPlayerInput : PlayerInput
+{
+    public override PlayerInputValues Values => HolidayValues;
+    public HolidayPlayerInputValues HolidayValues { get; } = new HolidayPlayerInputValues();
 
     public void SetJump(bool newJump)
         => HolidayValues.SetJump(newJump);
 
-    public override void SetValues(MultiplayPlayerInputValues values)
+    public override void ApplyValues(PlayerInputValues values)
     {
         var holidayValues = values as HolidayPlayerInputValues;
 
-        base.SetValues(holidayValues);
+        base.ApplyValues(holidayValues);
         SetJump(holidayValues.Jump);
     }
 }
@@ -199,22 +219,12 @@ public class HolidayPlayerInput : MultiplayPlayerInput
 
 ```csharp
 [Serializable]
-public class HolidayPlayerInputValues : MultiplayPlayerInputValues
+public class HolidayPlayerInputValues : PlayerInputValues
 {
-    private Vector2 preMove;
-    private bool isMoveChanged;
-
     public bool Jump => jump;
     [SerializeField] private bool jump;
     private bool preJump;
     private bool isJumpChanged;
-
-    public override void SetMove(Vector2 move)
-    {
-        preMove = Move;
-        base.SetMove(move);
-        isMoveChanged = preMove != Move;
-    }
 
     public void SetJump(bool jump)
     {
@@ -225,15 +235,14 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 }
 ```
 
-#### 同期するかどうかを制御する方法
-
-オブジェクトのPotionとRotationが変化したときは常に同期されます。
+プレイヤー状態はPotionとRotationが変化したときは常に同期されます。
 そうでない場合、CheckWhetherToSendDataメソッドで制御できます。
-入力情報でMoveとJumpが変化した場合にのみ同期する例を示します。
+
+MoveとJumpの動きが変化した場合にのみ同期する例を示します。
 
 ```csharp
 [Serializable]
-public class HolidayPlayerInputValues : MultiplayPlayerInputValues
+public class HolidayPlayerInputValues : PlayerInputValues
 {
     public override bool CheckWhetherToSendData()
     {
@@ -244,17 +253,11 @@ public class HolidayPlayerInputValues : MultiplayPlayerInputValues
 }
 ```
 
-### メッセージの送信を行う
 
-メッセージ送信はSendMessageメソッドを使います。
-
-```csharp
-multiplayClient.SendMessage(message, userId)
-```
 
 ### クライアントの状態をトリガーに処理を追加できます
 
-[Common for Messaging](messaging.common.md)を利用してイベント通知しています。
+[Messaging](messaging.common.md)を利用してイベント通知しています。
 詳細は[MessagingClientのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
 
 MultiplayClientは上記に加えて次のイベント通知を設けています。
