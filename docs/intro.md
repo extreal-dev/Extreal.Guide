@@ -53,12 +53,11 @@ Frameworkは次の機能を提供しています。
   - [Common](./core/common.md)
 - Integration
   - [Asset Workflow using Addressables](./integration/asset-workflow.addressables.md)
-  - [Chat using WebRTC](./integration/chat.webrtc.md)
   - [Chat using Vivox](./integration/chat.vivox.md)
-  - [Common for Messaging](./integration/messaging.common.md)
-  - [Multiplay for Common](./integration/messaging.redis.md)
+  - [Chat using WebRTC](./integration/chat.webrtc.md)
+  - [Messaging](./integration/messaging.common.md)
+  - [Multiplay using Messaging](./integration/messaging.redis.md)
   - [Common for Web](./integration/web.common.md)
-  - [Messaging using Redis](./integration/messaging.common.md)
   - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
   - [P2P using WebRTC](./integration/p2p.webrtc.md)
 
