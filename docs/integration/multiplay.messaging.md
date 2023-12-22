@@ -114,7 +114,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
-- [Extreal.Integration.Messaging.Common](messaging.common.md)
+- [Extreal.Integration.Messaging.Common](messaging.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
@@ -122,8 +122,8 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 
 ### Settings
 
-このモジュールは[Messaging](messaging.common.md)を使ってMultiplayを実現しています。
-そのため[MessagingのSettings](messaging.common.md#settings)が必要になります。
+このモジュールは[Messaging](messaging.md)を使ってMultiplayを実現しています。
+そのため[MessagingのSettings](messaging.md#settings)が必要になります。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
@@ -257,8 +257,8 @@ public class HolidayPlayerInputValues : PlayerInputValues
 
 ### クライアントの状態をトリガーに処理を追加できます
 
-[Messaging](messaging.common.md)を利用してイベント通知しています。
-詳細は[MessagingClientのイベント通知](messaging.common.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
+[Messaging](messaging.md)を利用してイベント通知しています。
+詳細は[MessagingClientのイベント通知](messaging.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
 
 MultiplayClientは上記に加えて次のイベント通知を設けています。
 

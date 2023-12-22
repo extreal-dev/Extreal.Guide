@@ -74,15 +74,15 @@ sidebar_position: 1
 
 ### Extreal.Integration.Multiplay.Common
 #### Added
-- マルチプレイで使用する共通機能を追加しました。([Doc](../integration/multiplay.common.md))
+- マルチプレイで使用する共通機能を追加しました。([Doc](../integration/multiplay.messaging.md))
 
 ### Extreal.Integration.Messaging.Common
 #### Added
-- グループのメッセージ送受信で使用する共通機能を追加しました。([Doc](../integration/messaging.common.md))
+- グループのメッセージ送受信で使用する共通機能を追加しました。([Doc](../integration/messaging.md))
 
 ### Extreal.Integration.Messaging.Redis
 #### Added
-- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.common.md))
+- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
