@@ -78,7 +78,6 @@ The following Unity versions have been tested.
 
 #### Changed
 
-- Removed unnecessary objects existed in the sample ClientControl scene. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 - Changed voice chat to listen-only when microphone is unavailable. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
 ## Upgrade guide {#upgrade-guide}

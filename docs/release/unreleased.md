@@ -78,7 +78,6 @@ sidebar_position: 1
 
 #### Changed
 
-- サンプルのClientControlシーンに存在していた不要なオブジェクトを削除しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 - マイクが使用できない場合、ボイスチャットで聞くのみになるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
 ## Upgrade guide {#upgrade-guide}
