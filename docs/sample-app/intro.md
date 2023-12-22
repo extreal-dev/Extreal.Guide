@@ -12,7 +12,7 @@ Extrealが目指していることの1つに人々が集まってコミュニケ
 ![holiday](../img/holiday.png)
 
 Holidayはタイトル画面→アバター選択画面→グループ選択画面→バーチャル空間というシンプルなステージ構成になっています。
-HolidayはRedisのPub/Sub(Publish/Subscribe)およびP2P(Peer to Peer)を採用しており、グループ選択画面でホストまたはクライアントを選んでグループでプレイします。
+HolidayではボイスチャットはP2P(Peer to Peer)を採用しており、グループ選択画面でホストまたはクライアントを選んでグループでプレイします。
 
 Holidayでは次のコンテンツを提供します。
 
