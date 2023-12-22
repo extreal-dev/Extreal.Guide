@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-01-30
+2023-12-22
 
 ## Unity version
 
@@ -26,9 +26,9 @@ sidebar_position: 1
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0
-- [Extreal.Integration.Multiplay.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
-- [Extreal.Integration.Messaging.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
-- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-Next.1
+- [Extreal.Integration.Multiplay.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-next.1
+- [Extreal.Integration.Messaging.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-next.1
+- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-next.1
 
 ### npm
 
@@ -36,7 +36,7 @@ sidebar_position: 1
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.0.0
-- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-Next.1
+- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-next.1
 
 ## Dependencies
 
@@ -68,34 +68,25 @@ sidebar_position: 1
   - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 
 ## Changes
-
+### Extreal.Integration.P2P.WebRTC
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 
 ### Extreal.Integration.Multiplay.Common
-
 #### Added
-
 - マルチプレイで使用する共通機能を追加しました。([Doc](../integration/multiplay.common.md))
 
 ### Extreal.Integration.Messaging.Common
-
 #### Added
-
 - グループのメッセージ送受信で使用する共通機能を追加しました。([Doc](../integration/messaging.common.md))
 
 ### Extreal.Integration.Messaging.Redis
-
 #### Added
-
 - RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.common.md))
 
 ### Extreal.SampleApp.Holiday
-
 #### Changed
-
 - マルチプレイの方式をRedisのPub/SubとP2Pで選択できるように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
 
 ## Upgrade guide {#upgrade-guide}
-
 モジュールバージョンを更新してください。

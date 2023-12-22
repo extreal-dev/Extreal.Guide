@@ -26,9 +26,9 @@ sidebar_position: 1
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0
-- [Extreal.Integration.Multiplay.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
-- [Extreal.Integration.Messaging.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-Next.1
-- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-Next.1
+- [Extreal.Integration.Multiplay.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-next.1
+- [Extreal.Integration.Messaging.Common](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common) 1.0.0-next.1
+- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-next.1
 
 ### npm
 
@@ -36,7 +36,7 @@ sidebar_position: 1
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.0.0
-- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-Next.1
+- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-next.1
 
 ## Dependencies
 
