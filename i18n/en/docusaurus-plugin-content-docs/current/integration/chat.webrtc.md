@@ -281,6 +281,13 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
+If you want to specify how often the speech volume is acquired, specify it in VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
 If the audio level changes, the ID and audio level pair is received in the OnAudioLevelChanged event.
 
 ```csharp

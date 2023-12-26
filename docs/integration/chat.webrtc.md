@@ -281,6 +281,13 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
+発話音量の取得頻度を指定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
 発話音量の変化時に、IDと発話音量のペアをOnAudioLevelChangedイベントで受け取ることができます。
 
 ```csharp
