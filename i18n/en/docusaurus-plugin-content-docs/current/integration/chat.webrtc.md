@@ -281,20 +281,22 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
+### Add a processing triggered by VoiceChat Client state
+
+VoiceChatClient has the following event notifications.
+
+- OnAudioLevelChanged
+  - Timing: When there is a change in audio level at each specified frequency
+  - Type: IObservable
+  - Parameters: ID and audio level pairs
+
+:::info
+If the audio level of one of the participants changes, data for all participants will be sent, so data for participants whose audio level has not changed will also be acquired.
+:::
+
 If you want to specify how often the speech volume is acquired, specify it in VoiceChatConfig.
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
-```
-
-If the audio level changes, the ID and audio level pair is received in the OnAudioLevelChanged event.
-
-```csharp
-voiceChatClient.OnAudioLevelChanged
-    .Subscribe(audioLevelList =>
-    {
-        // do something
-    })
-    .AddTo(disposables);
 ```

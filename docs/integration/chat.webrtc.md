@@ -281,20 +281,22 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
+### ボイスチャットのクライアントの状態をトリガーに処理を追加する
+
+VoiceChatClientは次のイベント通知を設けています。
+
+- OnAudioLevelChanged
+  - タイミング：指定した頻度ごとに、発話音量の変化があったとき
+  - タイプ：IObservable
+  - パラメータ：IDと発話音量のペア
+
+:::info
+参加者のうち誰か1人の発話音量が変化すると全員分のデータが送られるため、発話音量が変化していない参加者のデータも取得されます。
+:::
+
 発話音量の取得頻度を指定したい場合はVoiceChatConfigで指定します。
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
-```
-
-発話音量の変化時に、IDと発話音量のペアをOnAudioLevelChangedイベントで受け取ることができます。
-
-```csharp
-voiceChatClient.OnAudioLevelChanged
-    .Subscribe(audioLevelList =>
-    {
-        // do something
-    })
-    .AddTo(disposables);
 ```
