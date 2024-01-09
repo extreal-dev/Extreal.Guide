@@ -275,7 +275,7 @@ PeerClientは次のイベント通知を設けています。
   - タイプ：IObservable
   - パラメータ：切断された理由
 - OnUserConnected
-  - タイミング：自分の接続直後または他のユーザが接続した直後
+  - タイミング：他のユーザと接続した直後
   - タイプ：IObservable
   - パラメータ：接続したユーザのSocketID
 - OnUserDisconnected
