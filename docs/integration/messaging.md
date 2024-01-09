@@ -8,7 +8,7 @@ sidebar_position: 4
 
 グループでメッセージのやり取りをする機能を提供します。
 
-Extrealではこの機能を提供するものを[メッセージングクライアント](https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git)と呼ぶことにします。
+Extrealではこの機能を提供するものを[メッセージングクライアント](https://github.com/extreal-dev/Extreal.Integration.Messaging.git)と呼ぶことにします。
 
 メッセージングクライアントを利用してメッセージングの実現方法を変更できます。
 実現方法の設定は[Settings](#settings)を参照してください。
@@ -167,7 +167,7 @@ classDiagram
 #### メッセージングクライアント
 
 ```text
-https://github.com/extreal-dev/Extreal.Integration.Messaging.Common.git
+https://github.com/extreal-dev/Extreal.Integration.Messaging.git
 ```
 #### Redisを使用したメッセージングクライアントの実現を利用する場合
 
@@ -193,7 +193,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
 - [Extreal.Integration.Web.Common](../integration/web.common.md)
-- [Extreal.Integration.Messaging.Common](../integration/messaging.md)
+- [Extreal.Integration.Messaging](../integration/messaging.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)

@@ -103,7 +103,7 @@ classDiagram
 #### Unity
 
 ```text
-https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
+https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging.git
 ```
 
 ### Dependencies
@@ -114,7 +114,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Common.git
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
-- [Extreal.Integration.Messaging.Common](messaging.md)
+- [Extreal.Integration.Messaging](messaging.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
