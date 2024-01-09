@@ -251,37 +251,37 @@ peerClient.Stop();
 PeerClient has the following event notifications
 
 - OnStarted
-    - Timing: Immediately after the host or client starts
-        - Host
-            - Immediately after the host is created
-        - Client
-            - Immediately after all of the following conditions are met
-                - Receives "done" from the host
-                - IceConnectionState becomes Connected or Completed
-    - Type: IObservable
-    - Parameters: My SocketID
+  - Timing: Immediately after the host or client starts
+    - Host
+      - Immediately after the host is created
+    - Client
+      - Immediately after all of the following conditions are met
+        - Receives "done" from the host
+        - IceConnectionState becomes Connected or Completed
+  - Type: IObservable
+  - Parameters: My SocketID
 - OnStartFailed
-    - Timing: Immediately after host or client failed to start
-        - If the start processing times out, the start is assumed to have failed.
-        - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
-    - Type: IObservable
-    - Parameters: None
+  - Timing: Immediately after host or client failed to start
+    - If the start processing times out, the start is assumed to have failed.
+    - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
+  - Type: IObservable
+  - Parameters: None
 - OnConnectFailed
-    - Timing: Immediately after the host or client has failed to connect to the signaling server
-    - Type: IObservable
-    - Parameters: Reason for connection failure
+  - Timing: Immediately after the host or client has failed to connect to the signaling server
+  - Type: IObservable
+  - Parameters: Reason for connection failure
 - OnDisconnected
-    - Timing: Immediately after a host or client connected to the signaling server is disconnected
-    - Type: IObservable
-    - Parameters: Reason for disconnection
+  - Timing: Immediately after a host or client connected to the signaling server is disconnected
+  - Type: IObservable
+  - Parameters: Reason for disconnection
 - OnUserConnected
-    - Timing：Immediately after connecting with another user
-    - Type：IObservable
-    - Parameters：SocketID of the connected user
+  - Timing：Immediately after connecting with another user
+  - Type：IObservable
+  - Parameters：SocketID of the connected user
 - OnUserDisconnected
-    - Timing：Immediately after another user disconnects
-    - Type：IObservable
-    - Parameters：SocketID of the disconnected user
+  - Timing：Immediately after another user disconnects
+  - Type：IObservable
+  - Parameters：SocketID of the disconnected user
 
 ### Add application-specific processing to Native(C#) P2P
 
