@@ -275,7 +275,8 @@ PeerClient has the following event notifications
   - Type: IObservable
   - Parameters: Reason for disconnection
 - OnUserConnected
-  - Timing：Immediately after connecting with another user
+  - Timing：Immediately after another user connects
+    - Connected users receive events from each other. Therefore, newly connected users will receive events for all users already connected.
   - Type：IObservable
   - Parameters：SocketID of the connected user
 - OnUserDisconnected
