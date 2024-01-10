@@ -259,7 +259,7 @@ PeerClient has the following event notifications
         - Receives "done" from the host
         - IceConnectionState becomes Connected or Completed
   - Type: IObservable
-  - Parameters: My SocketID
+  - Parameters: User's own SocketID
 - OnStartFailed
   - Timing: Immediately after host or client failed to start
     - If the start processing times out, the start is assumed to have failed.

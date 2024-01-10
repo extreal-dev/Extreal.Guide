@@ -259,7 +259,7 @@ PeerClientは次のイベント通知を設けています。
         - ホストから"done"を受信
         - ホストとのIceConnectionStateがConnectedまたはCompletedになる
   - タイプ：IObservable
-  - パラメータ：自分のSocketID
+  - パラメータ：ユーザー自身のSocketID
 - OnStartFailed
   - タイミング：ホストまたはクライアントが開始失敗した直後
     - 開始処理がタイムアウトした場合に開始失敗と判断します。
