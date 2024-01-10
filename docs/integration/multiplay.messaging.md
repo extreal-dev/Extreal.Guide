@@ -142,13 +142,13 @@ public class ClientControlScope : LifetimeScope
 
 ### グループへの入退室を行う
 
-参加するグループ名はMessagingConnectionConfigで指定します。
+参加するグループ名はMessagingJoiningConfigで指定します。
 
 ```csharp
 // Join a group
-var messagingConfig = new MessagingJoiningConfig("groupName");
-var connectionConfig = new MultiplayJoiningConfig(messagingConfig);
-await multiplayClient.JoinAsync(connectionConfig);
+var messagingJoiningConfig = new MessagingJoiningConfig("groupName");
+var multiplayJoiningConfig = new MultiplayJoiningConfig(messagingJoiningConfig);
+await multiplayClient.JoinAsync(multiplayJoiningConfig);
 
 // Leave the group
 multiplayClient.LeaveAsync();
@@ -207,12 +207,12 @@ public class HolidayPlayerInput : PlayerInput
     public void SetJump(bool newJump)
         => HolidayValues.SetJump(newJump);
 
-    public override void ApplyValues(PlayerInputValues values)
+    public override void ApplyValues(PlayerInputValues synchronizedValues)
     {
-        var holidayValues = values as HolidayPlayerInputValues;
+        var synchronizedHolidayValues = synchronizedValues as HolidayPlayerInputValues;
 
-        base.ApplyValues(holidayValues);
-        SetJump(holidayValues.Jump);
+        base.ApplyValues(synchronizedHolidayValues);
+        SetJump(synchronizedHolidayValues.Jump);
     }
 }
 ```

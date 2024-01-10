@@ -227,7 +227,7 @@ MessagingClientを実装したメッセージングクライアントの実現�
 Providerを使ってRedisのメッセージングクライアントを作成します。
 
 ```csharp
-var redisMessagingConfig = new RedisMessagingConfig("url", "socketIOOptions");
+var redisMessagingConfig = new RedisMessagingConfig("url", socketIOOptions);
 var redisMessagingClient = RedisMessagingClientProvider.Provide(redisMessagingConfig);
 ```
 
@@ -266,7 +266,7 @@ var groups = await messagingClient.ListGroupsAsync();
 グループを削除するためにはDeleteGroupAsyncを使います。
 
 ```csharp
-await messagingClient.DeleteGroupAsync("groupName")
+await messagingClient.DeleteGroupAsync("groupName");
 ```
 
 ### グループに参加する
