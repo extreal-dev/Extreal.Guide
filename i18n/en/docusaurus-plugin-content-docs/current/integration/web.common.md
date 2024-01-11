@@ -192,7 +192,7 @@ public class Sample : DisposableBase
 
 ### Suppress trace logs of JavaScript call
 
-[If you specify to output logs when initializing the WebGL helper](#settings), it will print a log every time [JavaScript is called from C#](#call-javascript-from-csharp) and every time [JavaScript calls back to C#](#callback-from-javascript-to-csharp).
+If you specify to output logs when [initializing the WebGL helper](#settings), it will print a log every time [JavaScript is called from C#](#call-javascript-from-csharp) and every time [JavaScript calls back to C#](#callback-from-javascript-to-csharp).
 
 By using suppressTraceLog, you can suppress log output for specific function calls or callbacks.
 If the argument string matches the target name specified in addAction/addFunction/callback, log output for that function call or callback will be suppressed.
