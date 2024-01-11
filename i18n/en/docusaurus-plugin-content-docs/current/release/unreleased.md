@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-12-15
+2024-01-11
 
 ## Unity version
 
@@ -62,6 +62,8 @@ The following Unity versions have been tested.
 
 ## Changes
 ### Extreal.Integration.Web.Common
+#### Added
+- Added the ability to suppress logs for specified function calls and callbacks when log output for function calls and callbacks is enabled.([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
 #### Changed
 - Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 

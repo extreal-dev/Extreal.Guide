@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-12-15
+2024-01-11
 
 ## Unity version
 
@@ -62,6 +62,8 @@ sidebar_position: 1
 
 ## Changes
 ### Extreal.Integration.Web.Common
+#### Added
+- 関数呼び出しとコールバック時のログ出力有効時に、指定した関数呼び出しとコールバックのログを抑制する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 
