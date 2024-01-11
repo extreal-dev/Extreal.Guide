@@ -45,6 +45,7 @@ classDiagram
         +isDebug boolean
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
+        +suppressTraceLog(string) void
     }
 ```
 
@@ -72,7 +73,7 @@ https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 #### npm
 - 依存するものはありません。
 
-### Settings
+### Settings {#settings}
 
 WebGLヘルパーの初期化が必要です。
 アプリケーションの起動時にWebGLヘルパーの初期化を行ってください。
@@ -90,7 +91,7 @@ WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
 
 ## Usage
 
-### C#からJavaScriptを呼び出す
+### C#からJavaScriptを呼び出す {#call-javascript-from-csharp}
 
 C#からJavaScriptの呼び出しは次のシグネチャのみ提供しています。
 
@@ -146,7 +147,7 @@ addFunction("DoFunction", (str1, str2) => {
 });
 ```
 
-### JavaScriptからC#にコールバックする
+### JavaScriptからC#にコールバックする {#callback-from-javascript-to-csharp}
 
 JavaScriptからC#へのコールバックは次のシグネチャのみ提供しています。
 
@@ -187,4 +188,17 @@ public class Sample : DisposableBase
 
     protected override void ReleaseManagedResources() => onCallback.Dispose();
 }
+```
+
+### JavaScriptの呼び出し状況のトレースログを抑制する
+
+[WebGLヘルパーの初期化](#settings)でログを出力するように指定した場合、すべての[C#からのJavaScriptの呼び出し時](#call-javascript-from-csharp)と[JavaScriptからのC#へのコールバック時](#callback-from-javascript-to-csharp)にログが出力されます。
+
+suppressTraceLogを使うことで、特定の関数呼び出しまたはコールバックのログ出力を抑制することができます。
+引数に指定した文字列がaddAction/addFunction/callbackで指定したターゲット名と一致した場合、その関数呼び出しまたはコールバックのログ出力が抑制されます。
+
+```typescript
+import { suppressTraceLog } from "@extreal-dev/extreal.integration.web.common";
+
+suppressTraceLog("ActionOrFunctionOrCallbackNameToSuppressLog");
 ```
