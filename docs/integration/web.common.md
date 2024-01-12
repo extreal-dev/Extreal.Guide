@@ -45,7 +45,7 @@ classDiagram
         +isDebug boolean
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
-        +suppressTraceLog(string) void
+        +suppressTraceLog(name) void
     }
 ```
 
