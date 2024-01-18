@@ -275,14 +275,14 @@ PeerClient has the following event notifications
   - Type: IObservable
   - Parameters: Reason for disconnection
 - OnUserConnected
-  - Timing：Immediately after another user connects
+  - Timing: Immediately after another user connects
     - Connected users receive events from each other. Therefore, newly connected users will receive as many events as all users already connected.
-  - Type：IObservable
-  - Parameters：Client ID of the connected user
+  - Type: IObservable
+  - Parameters: Client ID of the connected user
 - OnUserDisconnected
-  - Timing：Immediately after another user disconnects
-  - Type：IObservable
-  - Parameters：Client ID of the disconnected user
+  - Timing: Immediately after another user disconnects
+  - Type: IObservable
+  - Parameters: Client ID of the disconnected user
 
 ### Add application-specific processing to Native(C#) P2P
 
