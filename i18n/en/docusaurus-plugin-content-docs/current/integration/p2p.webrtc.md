@@ -259,7 +259,7 @@ PeerClient has the following event notifications
         - Receives "done" from the host
         - IceConnectionState becomes Connected or Completed
   - Type: IObservable
-  - Parameters: User's own SocketID
+  - Parameters: User's own Client ID
 - OnStartFailed
   - Timing: Immediately after host or client failed to start
     - If the start processing times out, the start is assumed to have failed.
@@ -278,11 +278,11 @@ PeerClient has the following event notifications
   - Timing：Immediately after another user connects
     - Connected users receive events from each other. Therefore, newly connected users will receive as many events as all users already connected.
   - Type：IObservable
-  - Parameters：SocketID of the connected user
+  - Parameters：Client ID of the connected user
 - OnUserDisconnected
   - Timing：Immediately after another user disconnects
   - Type：IObservable
-  - Parameters：SocketID of the disconnected user
+  - Parameters：Client ID of the disconnected user
 
 ### Add application-specific processing to Native(C#) P2P
 
