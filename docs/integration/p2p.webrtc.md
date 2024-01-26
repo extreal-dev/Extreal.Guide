@@ -31,6 +31,7 @@ classDiagram
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig
+    PeerConfig <|-- WebGLPeerConfig
 
     class PeerClientProvider {
         +Provide(peerConfig)$ PeerClient
@@ -60,6 +61,10 @@ classDiagram
     }
     
     class WebGLPeerClient {
+    }
+
+    class WebGLPeerConfig {
+        +WebGLSocketOptions WebGLSocketOptions
     }
 ```
 
@@ -499,3 +504,32 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
     }
 }
 ```
+
+### スティッキーセッションの有効化
+
+WebGLで使う場合にスティッキーセッションを有効にするには、PeerClientの作成時に追加の設定が必要です。
+WebGLSocketOptionsを指定したWebGLPeerConfigを使用することで、スティッキーセッションを有効にすることが可能です。
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var webGLPeerConfig = new WebGLPeerConfig(
+            peerConfig,
+            new WebGLSocketOptions(withCredentials: true)
+        );
+        var peerClient = PeerClientProvider.Provide(webGLPeerConfig);
+        builder.RegisterComponent(peerClient);
+    }
+}
+```
+
+:::info
+C#で使う場合は設定の必要はありません。
+:::
+
+:::caution
+サーバー側の設定については[Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/)を参照してください。
+:::

@@ -31,6 +31,7 @@ classDiagram
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig
+    PeerConfig <|-- WebGLPeerConfig
 
     class PeerClientProvider {
         +Provide(peerConfig)$ PeerClient
@@ -61,6 +62,10 @@ classDiagram
     }
     
     class WebGLPeerClient {
+    }
+
+    class WebGLPeerConfig {
+        +WebGLSocketOptions WebGLSocketOptions
     }
 ```
 
@@ -499,3 +504,32 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
     }
 }
 ```
+
+### Enable sticky session
+
+To enable sticky sessions when used with WebGL, additional configuration is required when creating the PeerClient.
+It is possible to enable sticky sessions using WebGLSocketOptions.
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var webGLPeerConfig = new WebGLPeerConfig(
+            peerConfig,
+            new WebGLSocketOptions(withCredentials: true)
+        );
+        var peerClient = PeerClientProvider.Provide(webGLPeerConfig);
+        builder.RegisterComponent(peerClient);
+    }
+}
+```
+
+:::info
+When using with C#, no settings are necessary.
+:::
+
+:::caution
+Please refer to [Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/) for server-side configuration.
+:::
