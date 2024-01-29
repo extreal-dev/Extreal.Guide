@@ -290,10 +290,6 @@ VoiceChatClient has the following event notifications.
   - Type: IObservable
   - Parameters: ID and audio level pairs
 
-:::info
-If the audio level of one of the participants changes, data for all participants will be sent, so data for participants whose audio level has not changed will also be acquired.
-:::
-
 If you want to specify how often the speech volume is acquired, specify it in VoiceChatConfig.
 
 ```csharp
