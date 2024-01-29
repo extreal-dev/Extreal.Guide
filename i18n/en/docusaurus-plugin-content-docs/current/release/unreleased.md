@@ -61,9 +61,10 @@ The following Unity versions have been tested.
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 
 ## Changes
-### Extreal.Integration.Web.Common
+### Extreal.Integration.P2P.WebRTC
 #### Changed
 - Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+- Changed so that the ID of your own client and connected or disconnected clients can be obtained, so that each P2P client can be identified. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ### Extreal.Integration.Chat.WebRTC
 #### Added

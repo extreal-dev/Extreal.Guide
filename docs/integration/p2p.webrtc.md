@@ -41,6 +41,8 @@ classDiagram
         +OnStarted IObservable
         +OnConnectFailed IObservable
         +OnDisconnected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnected IObservable
         +IsRunning bool
         +StartHostAsync(name) void
         +ListHostsAsync() List
@@ -93,6 +95,7 @@ classDiagram
         +listHosts(handle) void
         +startClientAsync(hostId) void
         +stop() void
+        +getSocketId() string
     }
 ```
 
@@ -256,7 +259,7 @@ PeerClientは次のイベント通知を設けています。
         - ホストから"done"を受信
         - ホストとのIceConnectionStateがConnectedまたはCompletedになる
   - タイプ：IObservable
-  - パラメータ：なし
+  - パラメータ：ユーザー自身のクライアントID
 - OnStartFailed
   - タイミング：ホストまたはクライアントが開始失敗した直後
     - 開始処理がタイムアウトした場合に開始失敗と判断します。
@@ -271,6 +274,15 @@ PeerClientは次のイベント通知を設けています。
   - タイミング：シグナリングサーバに接続中のホストまたはクライアントが切断された直後
   - タイプ：IObservable
   - パラメータ：切断された理由
+- OnUserConnecting
+  - タイミング：他のユーザーと接続する直前
+    - 接続するユーザー同士がお互いにイベントを受け取ります。そのため新たに接続するユーザーは、既に接続している全てのユーザー数のイベントを受け取ります。
+  - タイプ：IObservable
+  - パラメータ：接続するユーザーのクライアントID
+- OnUserDisconnecting
+  - タイミング：他のユーザーと切断する直前
+  - タイプ：IObservable
+  - パラメータ：切断するユーザーのクライアントID
 
 ### Native(C#)のP2Pにアプリケーション固有の処理を追加する
 
