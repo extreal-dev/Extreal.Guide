@@ -94,11 +94,11 @@ classDiagram
 
 ```mermaid
 classDiagram
-    RedisMessagingClientProvider --> RedisMessagingClient
+    RedisMessagingClientProvider ..> RedisMessagingClient
     RedisMessagingClient <|-- NativeRedisMessagingClient
     RedisMessagingClient <|-- WebGLRedisMessagingClient
-    NativeRedisMessagingClient --> RedisMessagingConfig
-    WebGLRedisMessagingClient --> RedisMessagingConfig
+    NativeRedisMessagingClient ..> RedisMessagingConfig
+    WebGLRedisMessagingClient ..> RedisMessagingConfig
     MessagingClient <|-- RedisMessagingClient
     DisposableBase <|-- RedisMessagingClient
 
