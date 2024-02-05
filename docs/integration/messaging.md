@@ -193,7 +193,6 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
 - [Extreal.Integration.Web.Common](../integration/web.common.md)
-- [Extreal.Integration.Messaging](../integration/messaging.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)
