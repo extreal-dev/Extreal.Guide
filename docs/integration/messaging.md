@@ -8,14 +8,14 @@ sidebar_position: 4
 
 グループでメッセージのやり取りをする機能を提供します。
 
-Extrealではこの機能を提供するものを[メッセージングクライアント](https://github.com/extreal-dev/Extreal.Integration.Messaging.git)と呼ぶことにします。
+Extrealではこの機能を提供するものを[メッセージング](https://github.com/extreal-dev/Extreal.Integration.Messaging.git)と呼ぶことにします。
 
-メッセージングクライアントを利用してメッセージングの実現方法を変更できます。
+'MessagingClient'を利用してメッセージングの実現方法を変更できます。
 実現方法の設定は[Settings](#settings)を参照してください。
 
-Extrealではデフォルトで以下のメッセージンの実現方法を提供しています。
+Extrealではデフォルトで以下のメッセージングの実現方法を提供しています。
 
-- [Redisを使用したメッセージングクライアントの実現](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
+- [Redisを使用したメッセージングの実現](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
 
 この機能は、マルチプレイやテキストチャットなど、参加者同士でメッセージのやりとりを行う機能に活用できます。
 
@@ -31,7 +31,7 @@ Extrealではデフォルトで以下のメッセージンの実現方法を提�
 
 ## Architecture
 
-### メッセージングクライアント
+### メッセージング
 ```mermaid
 classDiagram
 
@@ -88,7 +88,7 @@ classDiagram
         <<extreal>>
     }
 ```
-### Redisを使用したメッセージングクライアントの実現
+### Redisを使用したメッセージングの実現
 
 #### Unity
 
@@ -164,12 +164,12 @@ classDiagram
 
 ### Package
 
-#### メッセージングクライアント
+#### メッセージング
 
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.git
 ```
-#### Redisを使用したメッセージングクライアントの実現を利用する場合
+#### Redisを使用したメッセージングの実現を利用する場合
 
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
@@ -177,7 +177,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 ### Dependencies
 
-メッセージングクライアントは次のパッケージを使います。
+メッセージングは次のパッケージを使います。
 
 ##### Unity
 
@@ -186,7 +186,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-#### Redisを使用したメッセージングクライアントの実現を利用する場合
+#### Redisを使用したメッセージングの実現を利用する場合
 
 ##### Unity
 
@@ -209,22 +209,22 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 ### Settings
 
-MessagingClientを実装したメッセージングクライアントの実現が必要です。
+MessagingClientを実装したメッセージングの実現が必要です。
 
-以下にRedisを使用したメッセージングクライアントの実現の例を示します。
+以下にRedisを使用したメッセージングの実現の例を示します。
 
 #### メッセージングサーバ
 
-メッセージンサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
+メッセージングサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
 
 サーバ・クライアント間はSocket.IOで接続し、Pub/SubはRedisのアダプターで実現しています。
 詳細は[Redis adapter](https://socket.io/docs/v4/redis-adapter/)および[Rooms](https://socket.io/docs/v4/rooms/)を参照してください。
 
-[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/RedisServer~)を参照してメッセージンサーバを準備してください。
+[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/RedisServer~)を参照してメッセージングサーバを準備してください。
 
 #### アプリケーション
 
-Providerを使ってRedisのメッセージングクライアントを作成します。
+Providerを使って'RedisMessagingClient'を作成します。
 
 ```csharp
 var redisMessagingConfig = new RedisMessagingConfig("url", socketIOOptions);
