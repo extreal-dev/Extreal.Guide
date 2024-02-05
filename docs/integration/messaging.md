@@ -25,7 +25,7 @@ Extrealではデフォルトで以下のメッセージングの実現方法を�
 - グループに参加できます。
 - グループにメッセージを送信できます。
 - グループからメッセージを受信できます。
-- グループから離脱できます。
+- グループから抜けることができます。
 - メッセージを扱うタイミングを制御（キューイング）できます。
 - クライアントの状態をトリガーに処理を追加できます。
 
@@ -302,8 +302,8 @@ private void HandleReceivedMessage((string userId, string message) tuple)
 }
 ```
 
-### グループから離脱する
-グループから離脱するためにはLeaveAsyncを使います。
+### グループから抜ける
+グループから抜けるためにはLeaveAsyncを使います。
 
 ```csharp
 await messagingClient.LeaveAsync();
@@ -340,7 +340,7 @@ MessagingClient/QueuingMessagingClientは次のイベント通知を設けてい
   - タイプ：IObservable
   - パラメータ：自分のユーザID
 - OnLeaving
-  - タイミング：グループから離脱する直前
+  - タイミング：グループから抜ける直前
   - タイプ：IObservable
   - パラメータ：切断する理由
 - OnUnexpectedLeft
@@ -356,7 +356,7 @@ MessagingClient/QueuingMessagingClientは次のイベント通知を設けてい
   - タイプ：IObservable
   - パラメータ：接続したユーザID
 - OnUserLeaving
-  - タイミング：ユーザが離脱する直前
+  - タイミング：ユーザが抜ける直前
   - タイプ：IObservable
   - パラメータ：切断するユーザID
 - OnMessageReceived
