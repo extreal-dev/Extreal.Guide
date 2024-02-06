@@ -223,7 +223,7 @@ MessagingClientを実装したメッセージングの実現が必要です。
 
 #### アプリケーション
 
-Providerを使って'RedisMessagingClient'を作成します。
+RedisMessagingClientProviderを使って'RedisMessagingClient'を作成します。
 
 ```csharp
 var redisMessagingConfig = new RedisMessagingConfig("url", socketIOOptions);
