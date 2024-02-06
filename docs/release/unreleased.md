@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-12-15
+2024-02-07
 
 ## Unity version
 
@@ -65,6 +65,12 @@ sidebar_position: 1
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
+
+### Extreal.Integration.Web.Common
+
+#### Added
+
+- WebGLでのビデオ再生をJavaScriptに委譲する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ## Upgrade guide {#upgrade-guide}
 
