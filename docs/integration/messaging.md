@@ -103,7 +103,7 @@ classDiagram
     DisposableBase <|-- RedisMessagingClient
 
     class RedisMessagingClientProvider {
-        +Provide(redisMessagingConfig)$ RedisMessagingClient
+        +Provide(messagingConfig)$ RedisMessagingClient
     }
     
     class RedisMessagingClient {
@@ -226,8 +226,8 @@ MessagingClientを実装したメッセージングの実現が必要です。
 RedisMessagingClientProviderを使ってRedisMessagingClientを作成します。
 
 ```csharp
-var redisMessagingConfig = new RedisMessagingConfig("url", socketIOOptions);
-var redisMessagingClient = RedisMessagingClientProvider.Provide(redisMessagingConfig);
+var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
+var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
 ```
 
 WebGLで使う場合、JavaScriptの初期化が必要になります。
@@ -236,14 +236,14 @@ RedisMessagingAdapterを作成してadapt関数を呼び出します。
 ```typescript
 import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
 
-const redisMessagingAdapter = new RedisMessagingClientAdapter();
-redisMessagingClientAdapter.adapt();
+const messagingAdapter = new RedisMessagingClientAdapter();
+messagingAdapter.adapt();
 ```
 
 QueuingMessagingClientを使用したい場合はこれも初期化します。
 
 ```csharp
-var queuingMessagingClient = new QueuingMessagingClient(redisMessagingClient);
+var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
 ```
 
 ## Usage
