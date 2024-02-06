@@ -223,7 +223,7 @@ MessagingClientを実装したメッセージングの実現が必要です。
 
 #### アプリケーション
 
-RedisMessagingClientProviderを使って'RedisMessagingClient'を作成します。
+RedisMessagingClientProviderを使ってRedisMessagingClientを作成します。
 
 ```csharp
 var redisMessagingConfig = new RedisMessagingConfig("url", socketIOOptions);
@@ -231,7 +231,7 @@ var redisMessagingClient = RedisMessagingClientProvider.Provide(redisMessagingCo
 ```
 
 WebGLで使う場合、JavaScriptの初期化が必要になります。
-Adapterを作成してadapt関数を呼び出します。
+RedisMessagingAdapterを作成してadapt関数を呼び出します。
 
 ```typescript
 import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
