@@ -15,7 +15,7 @@ Extrealではこの機能を提供するものを[メッセージング](https:/
 
 Extrealではデフォルトで以下のメッセージングの実現方法を提供しています。
 
-- [Redisを使用したメッセージングの実現](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
+- [Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
 
 この機能は、マルチプレイやテキストチャットなど、参加者同士でメッセージのやりとりを行う機能に活用できます。
 
@@ -88,7 +88,7 @@ classDiagram
         <<extreal>>
     }
 ```
-### Redisを使用したメッセージングの実現
+### Redis
 
 #### Unity
 
@@ -169,7 +169,7 @@ classDiagram
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.git
 ```
-#### Redisを使用したメッセージングの実現を利用する場合
+#### Redis
 
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
@@ -186,7 +186,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-#### Redisを使用したメッセージングの実現を利用する場合
+#### Redis
 
 ##### Unity
 
@@ -210,7 +210,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 MessagingClientを実装したメッセージングの実現が必要です。
 
-以下にRedisを使用したメッセージングの実現の例を示します。
+以下にRedisを使用した例を示します。
 
 #### メッセージングサーバ
 
