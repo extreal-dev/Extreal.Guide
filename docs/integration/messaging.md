@@ -387,7 +387,7 @@ MessagingClient/QueuingMessagingClientは次のイベント通知を設けてい
   - タイプ：IObservable
   - パラメータ：切断された理由
 - OnJoiningApprovalRejected
-  - タイミング：参加承認が拒否された直後
+  - タイミング：参加が拒否された直後
   - タイプ：IObservable
   - パラメータ：なし
 - OnUserJoined
