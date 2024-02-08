@@ -269,60 +269,52 @@ messagingAdapter.adapt();
 
 ## Usage
 
-### グループを作成する
+### グループでメッセージをやりとりする
 
-グループを作成するためにはCreateGroupAsyncを使います。
+グループでメッセージをやりとりする機能はMessagingClientが提供します。
 
-```csharp
-var groupConfig = new GroupConfig("groupName", maxCapacity);
-await messagingClient.CreateGroupAsync(groupConfig);
-```
-
-存在するグループ一覧を取得するためにはListGroupsAsyncを使います。
+現在存在するグループ一覧を取得するためにはListGroupsAsyncを使います。
 
 ```csharp
 var groups = await messagingClient.ListGroupsAsync();
 ```
-グループを削除するためにはDeleteGroupAsyncを使います。
+
+Nameを持ったGroupのリストが返るので、ここで取得したGroupのNameを使ってグループに参加します。
+取得したGroupのNameに含まれないグループ名を使用した場合は新たにグループが作成されます。
 
 ```csharp
-await messagingClient.DeleteGroupAsync("groupName");
+var joiningConfig = new MessagingJoiningConfig("groupName");
+await messagingClient.JoinAsync(joiningConfig);
 ```
 
-### グループに参加する
-
-グループに参加するためにはJoinAsyncを使います。
+メッセージを送信するためにはSendMessageAsyncを使います。
+引数にクライアントIDを渡すことで送信先を指定することができます。
+クライアントIDはJoinedClientsプロパティから取得できます。
 
 ```csharp
-var connectionConfig = new MessagingJoiningConfig("groupName");
-await messagingClient.JoinAsync(connectionConfig);
+var toClientId = messageClient.JoinedClients.First();
+await messagingClient.SendMessageAsync("message", toClientId);
 ```
 
-### グループにメッセージを送信する
-
-参加しているグループに送信するためにはSendMessageAsyncを使います。
-
-送信したい相手があれば対象を指定してメッセージを送信できます。
-相手を省略した場合はグループ全体に送信します。
+クライアントIDを省略した場合はグループ全体にメッセージを送信できます。
 
 ```csharp
-await messagingClient.SendMessageAsync("message", "toUserId");
+await messagingClient.SendMessageAsync("message");
 ```
 
-### グループからメッセージを受信する
-
-グループから受信するためにはOnMessageReceivedイベント通知を使います。
+受信したメッセージはOnMessageReceivedイベントから受け取れます。
 
 ```csharp
-messagingClient.OnMessageReceived.Subscribe(HandleReceivedMessage);
+messagingClient.OnMessageReceived
+    .Subscribe(HandleReceivedMessage)
+    .AddTo(disposables);
 
-private void HandleReceivedMessage((string userId, string message) tuple)
+private void HandleReceivedMessage((string clientId, string message) tuple)
 {
   // Handle message
 }
 ```
 
-### グループから抜ける
 グループから抜けるためにはLeaveAsyncを使います。
 
 ```csharp
