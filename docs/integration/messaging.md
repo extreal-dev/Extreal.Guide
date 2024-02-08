@@ -321,19 +321,46 @@ private void HandleReceivedMessage((string clientId, string message) tuple)
 await messagingClient.LeaveAsync();
 ```
 
-### キューイングを行う
+### メッセージを送受信するタイミングを制御（キューイング）する
 
-QueuingMessagingClientを使用することでメッセージをキューイングできます。
-
-送信したい相手を指定してメッセージをキューに追加します。
-相手を省略した場合はグループ全体に送信します。
+キューイングの機能はQueuingMessagingClientが提供します。
+QueuingMessagingClientはMessagingClientのラッパークラスです。
+キューイング機能を使用したい場合はQueuingMessagingClientを初期化します。
 
 ```csharp
-queuingMessagingClient.EnqueueRequest("message", "toUserId");
-```
-QueuingMessagingClientでは、MessagingClientのOnMessageReceivedのイベント通知に受信したメッセージをキューに追加しています。
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
+        var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+        var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
+        builder.RegisterComponent(queuingMessagingClient);
 
-キューから受信したメッセージをハンドリングします。
+        builder.RegisterEntryPoint<ClientControlPresenter>();
+    }
+}
+```
+
+QueuingMessagingClientでは送信するメッセージと受信したメッセージをそれぞれリクエストキューとレスポンスキューに保持することで送受信のタイミングを制御しています。
+
+メッセージを送信したい場合はメッセージをリクエストキューに追加します。
+引数にクライアントIDを渡すことで送信先を指定することができます。
+クライアントIDはJoinedClientsプロパティから取得できます。
+
+```csharp
+var toClientId = messageClient.JoinedClients.First();
+await queuingMessagingClient.EnqueueRequest("message", toClientId);
+```
+
+クライアントIDを省略した場合はグループ全体にメッセージを送信できます。
+
+```csharp
+await queuingMessagingClient.EnqueueRequest("message");
+```
+
+受信したメッセージはレスポンスキューから受け取ります。
+レスポンスキューに入っているメッセージの個数はResponseQueueCountで確認できます。
 
 ```csharp
 while (queuingMessagingClient.ResponseQueueCount() > 0)
