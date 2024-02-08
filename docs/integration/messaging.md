@@ -42,35 +42,29 @@ classDiagram
     
     class MessagingClient {
         <<abstract>>
-        +IsJoinedGroup bool
-        +JoinedUsers IReadOnlyList
+        +JoinedClients IReadOnlyList
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
         +OnJoiningApprovalRejected IObservable
-        +OnUserJoined IObservable
-        +OnUserLeaving IObservable
+        +OnClientJoined IObservable
+        +OnClientLeaving IObservable
         +OnMessageReceived IObservable
 
-        +MessagingClient()
-
         +ListGroupsAsync() List
-        +CreateGroupAsync(groupConfig) void
-        +DeleteGroupAsync(groupName) void
         +JoinAsync(connectionConfig) void
         +LeaveAsync() void
         +SendMessageAsync(message, to) void
     }
 
     class QueuingMessagingClient {
-        +IsJoinedGroup bool
-        +JoinedUsers IReadOnlyList
+        +JoinedClients IReadOnlyList
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
         +OnJoiningApprovalRejected IObservable
-        +OnUserJoined IObservable
-        +OnUserLeaving IObservable
+        +OnClientJoined IObservable
+        +OnClientLeaving IObservable
 
         +QueuingMessagingClient(messagingClient)
 
@@ -79,8 +73,6 @@ classDiagram
         +DequeueResponse() from, message
 
         +ListGroupsAsync() List
-        +CreateGroupAsync(groupConfig) void
-        +DeleteGroupAsync(groupName) void
         +JoinAsync(connectionConfig) void
         +LeaveAsync() void
     }
@@ -172,15 +164,23 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.git
 ```
 #### Redis
 
+##### Unity
+
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
+```
+
+##### npm
+
+```text
+@extreal-dev/extreal.integration.messaging.redis
 ```
 
 ### Dependencies
 
 メッセージングは次のパッケージを使います。
 
-##### Unity
+#### メッセージング
 
 - [Extreal.Core.Logging](../core/logging.md)
 - [Extreal.Core.Common](../core/common.md)
@@ -196,8 +196,8 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 - [Extreal.Integration.Web.Common](../integration/web.common.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
-- [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)
 - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp)
+- [Newtonsoft.Json](https://www.newtonsoft.com/json)
 
 ##### npm
 
