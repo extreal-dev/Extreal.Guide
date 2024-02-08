@@ -209,26 +209,52 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 ### Settings
 
-MessagingClientを実装したメッセージングの実現が必要です。
+アプリ要件に合わせてRedisやLiveKitなどのメッセージングの通信側の実装を準備します。
+ここではExtrealでデフォルトで提供しているRedisについて記載します。
+通信側の実装をカスタマイズしたい場合はRedisの実装を参考にして下さい。
 
-以下にRedisを使用した例を示します。
+メッセージングに使用するサーバをメッセージングサーバと呼ぶことにします。
 
 #### メッセージングサーバ
 
 メッセージングサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
 
-サーバ・クライアント間はSocket.IOで接続し、Pub/SubはRedisのアダプターで実現しています。
+実装としてはHTTPサーバを立てており、サーバ・クライアント間はSocket.IOで接続しています。
+グループでのメッセージングはSocket.IOの内部でRedisのPub/Subを使用することで実現しています。
 詳細は[Redis adapter](https://socket.io/docs/v4/redis-adapter/)および[Rooms](https://socket.io/docs/v4/rooms/)を参照してください。
 
-[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~)を参照してメッセージングサーバを準備してください。
+メッセージングサーバを立ち上げる際に1グループあたりの最大人数を設定します。
+最大人数を超えてクライアントがグループに参加しようとした場合はそのクライアントの参加を拒否します。
+1グループあたりの最大人数は[compose.yaml](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~/compose.yaml)ファイル内のMESSAGING_MAX_CAPACITYで指定します。
+
+```yaml
+environment:
+    # If "on" is logging, otherwise is not. In production, set it to "off".
+    MESSAGING_LOGGING: ${MESSAGING_LOGGING:-on}
+    # Capacity of one room
+    MESSAGING_MAX_CAPACITY: ${MESSAGING_MAX_CAPACITY:-80} # Change here
+    # In production, change it to suit the environment.
+    MESSAGING_CORS_ORIGIN: ${MESSAGING_CORS_ORIGIN:-*}
+```
+
+メッセージングサーバの立ち上げ方は[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~)を参照してください。
 
 #### アプリケーション
 
 RedisMessagingClientProviderを使ってRedisMessagingClientを作成します。
 
 ```csharp
-var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
-var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
+        var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+        builder.RegisterComponent<MessagingClient>(messagingClient);
+
+        builder.RegisterEntryPoint<ClientControlPresenter>();
+    }
+}
 ```
 
 WebGLで使う場合、JavaScriptの初期化が必要になります。
@@ -237,14 +263,8 @@ RedisMessagingAdapterを作成してadapt関数を呼び出します。
 ```typescript
 import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
 
-const messagingAdapter = new RedisMessagingClientAdapter();
+const messagingAdapter = new RedisMessagingAdapter();
 messagingAdapter.adapt();
-```
-
-QueuingMessagingClientを使用したい場合はこれも初期化します。
-
-```csharp
-var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
 ```
 
 ## Usage
