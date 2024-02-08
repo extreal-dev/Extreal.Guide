@@ -6,18 +6,16 @@ sidebar_position: 4
 
 ## What for?
 
-グループでメッセージのやり取りをする機能を提供します。
+バーチャル空間等ではマルチプレイやテキストチャットなど、メッセージをグループでやりとりしたい場合が多くあります。
 
-Extrealではこの機能を提供するものを[メッセージング](https://github.com/extreal-dev/Extreal.Integration.Messaging.git)と呼ぶことにします。
+メッセージをグループでやりとりする際に使用するAPIは似通ったものになるため共通部分を提供します。
+このモジュールを使うことでRedisやLiveKitなど通信側の実装をアプリ要件に合わせて自由に変更できるようになります。
 
-'MessagingClient'を利用してメッセージングの実現方法を変更できます。
-実現方法の設定は[Settings](#settings)を参照してください。
+Extrealではこのモジュールで提供する機能を[メッセージング](https://github.com/extreal-dev/Extreal.Integration.Messaging.git)と呼ぶことにします。
 
 Extrealではデフォルトで以下のメッセージングの実現方法を提供しています。
 
 - [Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
-
-この機能は、マルチプレイやテキストチャットなど、参加者同士でメッセージのやりとりを行う機能に活用できます。
 
 ## Specification
 
