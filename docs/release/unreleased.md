@@ -10,7 +10,7 @@ sidebar_position: 1
 
 次のUnityバージョンで動作確認しています。
 
-2022.3.2f1
+2022.3.17f1
 
 ## Modules
 
@@ -71,6 +71,7 @@ sidebar_position: 1
 ### Extreal.Integration.P2P.WebRTC
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+- P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ### Extreal.Integration.Multiplay.Messaging
 #### Added

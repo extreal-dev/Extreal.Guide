@@ -4,13 +4,13 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-01-30
+2024-02-09
 
 ## Unity version
 
-次のUnityバージョンで動作確認しています。
+The following Unity versions have been tested.
 
-2022.3.2f1
+2022.3.17f1
 
 ## Modules
 
@@ -68,34 +68,11 @@ sidebar_position: 1
   - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 
 ## Changes
-
+### Extreal.Integration.P2P.WebRTC
 #### Changed
-- PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
-
-### Extreal.Integration.Multiplay.Messaging
-
-#### Added
-
-- マルチプレイで使用する共通機能を追加しました。([Doc](../integration/multiplay.messaging.md))
-
-### Extreal.Integration.Messaging
-
-#### Added
-
-- グループのメッセージ送受信で使用する共通機能を追加しました。([Doc](../integration/messaging.md))
-
-### Extreal.Integration.Messaging.Redis
-
-#### Added
-
-- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md))
-
-### Extreal.SampleApp.Holiday
-
-#### Changed
-
-- マルチプレイの方式をRedisのPub/SubとP2Pで選択できるように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
+- Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+- Changed so that the ID of your own client and connected or disconnected clients can be obtained, so that each P2P client can be identified. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ## Upgrade guide {#upgrade-guide}
 
-モジュールバージョンを更新してください。
+Please update the module versions.

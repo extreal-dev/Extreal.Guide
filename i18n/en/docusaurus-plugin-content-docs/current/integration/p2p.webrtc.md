@@ -41,11 +41,14 @@ classDiagram
         +OnStarted IObservable
         +OnConnectFailed IObservable
         +OnDisconnected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnected IObservable
         +IsRunning bool
         +StartHostAsync(name) void
         +ListHostsAsync() List
         +StartClientAsync(hostId) void
         +Stop() void
+        +getSocketId() string
     }
     
     class PeerConfig {
@@ -248,29 +251,38 @@ peerClient.Stop();
 PeerClient has the following event notifications
 
 - OnStarted
-    - Timing: Immediately after the host or client starts
-        - Host
-            - Immediately after the host is created
-        - Client
-            - Immediately after all of the following conditions are met
-                - Receives "done" from the host
-                - IceConnectionState becomes Connected or Completed
-    - Type: IObservable
-    - Parameters: None
+  - Timing: Immediately after the host or client starts
+    - Host
+      - Immediately after the host is created
+    - Client
+      - Immediately after all of the following conditions are met
+        - Receives "done" from the host
+        - IceConnectionState becomes Connected or Completed
+  - Type: IObservable
+  - Parameters: User's own Client ID
 - OnStartFailed
-    - Timing: Immediately after host or client failed to start
-        - If the start processing times out, the start is assumed to have failed.
-        - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
-    - Type: IObservable
-    - Parameters: None
+  - Timing: Immediately after host or client failed to start
+    - If the start processing times out, the start is assumed to have failed.
+    - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
+  - Type: IObservable
+  - Parameters: None
 - OnConnectFailed
-    - Timing: Immediately after the host or client has failed to connect to the signaling server
-    - Type: IObservable
-    - Parameters: Reason for connection failure
+  - Timing: Immediately after the host or client has failed to connect to the signaling server
+  - Type: IObservable
+  - Parameters: Reason for connection failure
 - OnDisconnected
-    - Timing: Immediately after a host or client connected to the signaling server is disconnected
-    - Type: IObservable
-    - Parameters: Reason for disconnection
+  - Timing: Immediately after a host or client connected to the signaling server is disconnected
+  - Type: IObservable
+  - Parameters: Reason for disconnection
+- OnUserConnecting
+  - Timing: Immediately before another user connects
+    - Connected users receive events from each other. Therefore, newly connected users will receive as many events as all users already connected.
+  - Type: IObservable
+  - Parameters: Client ID of the user to connect
+- OnUserDisconnecting
+  - Timing: Immediately before another user disconnects
+  - Type: IObservable
+  - Parameters: Client ID of the user to disconnect
 
 ### Add application-specific processing to Native(C#) P2P
 
