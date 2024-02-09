@@ -1,0 +1,404 @@
+---
+sidebar_position: 4
+---
+
+# Messaging
+
+## What for?
+
+バーチャル空間等ではマルチプレイやテキストチャットなど、メッセージをグループでやりとりしたい場合が多くあります。
+
+メッセージをグループでやりとりする際に使用するAPIは似通ったものになるため共通部分を提供します。
+このモジュールを使うことでRedisやLiveKitなど通信側の実装をアプリ要件に合わせて自由に変更できるようになります。
+
+Extrealではこのモジュールで提供する機能を[メッセージング](https://github.com/extreal-dev/Extreal.Integration.Messaging.git)と呼ぶことにします。
+
+Extrealではデフォルトで以下のメッセージングの実現方法を提供しています。
+
+- [Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git)
+
+## Specification
+
+- グループでメッセージをやりとりできます。
+- メッセージを送受信するタイミングを制御（キューイング）できます。
+- クライアントの状態をトリガーに処理を追加できます。
+- Redisによるメッセージングができます。（Redis）
+  - Native(C#)とWebGL(JavaScript)に対応しています。
+
+:::tip
+マルチプレイを実現する際など、短時間で多くのメッセージをやり取りする場合は通信負荷の高い状態が続きます。
+そのような場合にキューイングを使用することで通信負荷を低減できます。
+:::
+
+## Architecture
+
+### メッセージング
+```mermaid
+classDiagram
+
+    DisposableBase <|-- MessagingClient
+    DisposableBase <|-- QueuingMessagingClient
+    QueuingMessagingClient --> MessagingClient
+    
+    class MessagingClient {
+        <<abstract>>
+        +JoinedClients IReadOnlyList
+        +OnJoined IObservable
+        +OnLeaving IObservable
+        +OnUnexpectedLeft IObservable
+        +OnJoiningApprovalRejected IObservable
+        +OnClientJoined IObservable
+        +OnClientLeaving IObservable
+        +OnMessageReceived IObservable
+
+        +ListGroupsAsync() List
+        +JoinAsync(connectionConfig) void
+        +LeaveAsync() void
+        +SendMessageAsync(message, to) void
+    }
+
+    class QueuingMessagingClient {
+        +JoinedClients IReadOnlyList
+        +OnJoined IObservable
+        +OnLeaving IObservable
+        +OnUnexpectedLeft IObservable
+        +OnJoiningApprovalRejected IObservable
+        +OnClientJoined IObservable
+        +OnClientLeaving IObservable
+
+        +QueuingMessagingClient(messagingClient)
+
+        +EnqueueRequest(message, to) void
+        +ResponseQueueCount() int
+        +DequeueResponse() from, message
+
+        +ListGroupsAsync() List
+        +JoinAsync(connectionConfig) void
+        +LeaveAsync() void
+    }
+    
+    class DisposableBase {
+        <<extreal>>
+    }
+```
+### Redis
+
+#### Unity
+
+```mermaid
+classDiagram
+    RedisMessagingClientProvider ..> RedisMessagingClient
+    RedisMessagingClient <|-- NativeRedisMessagingClient
+    RedisMessagingClient <|-- WebGLRedisMessagingClient
+    NativeRedisMessagingClient ..> RedisMessagingConfig
+    WebGLRedisMessagingClient ..> RedisMessagingConfig
+    MessagingClient <|-- RedisMessagingClient
+    DisposableBase <|-- RedisMessagingClient
+
+    class RedisMessagingClientProvider {
+        +Provide(messagingConfig)$ RedisMessagingClient
+    }
+    
+    class RedisMessagingClient {
+        <<abstract>>
+        +RedisMessagingClient()
+    }
+    
+    class RedisMessagingConfig {
+        +Url string
+        +SocketIOOptions SocketIOOptions
+        
+        +RedisMessagingConfig(url, socketIOOptions)
+    }
+    
+    class NativeRedisMessagingClient {
+        +NativeRedisMessagingClient(messagingConfig) 
+    }
+    
+    class WebGLRedisMessagingClient {
+        +WebGLRedisMessagingClient(messagingConfig)
+    }
+
+    class MessagingClient {
+        <<extreal, abstract>>
+    }
+
+    class DisposableBase {
+        <<extreal>>
+    }
+```
+
+#### JavaScript
+
+```mermaid
+classDiagram
+
+    WebGLRedisMessagingClient ..> WebGLHelper
+    WebGLHelper ..> RedisMessagingClient
+    RedisMessagingClientAdapter ..> RedisMessagingClient
+    
+    class WebGLHelper {
+        <<C#>>
+    }
+
+    class WebGLRedisMessagingClient {
+        <<C#>>
+    }
+
+    class RedisMessagingClientAdapter {
+        <<TypeScript>>
+    }
+    
+    class RedisMessagingClient {
+        <<TypeScript>>
+    }
+```
+## Installation
+
+### Package
+
+#### メッセージング
+
+```text
+https://github.com/extreal-dev/Extreal.Integration.Messaging.git
+```
+#### Redis
+
+##### Unity
+
+```text
+https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
+```
+
+##### npm
+
+```text
+@extreal-dev/extreal.integration.messaging.redis
+```
+
+### Dependencies
+
+メッセージングは次のパッケージを使います。
+
+#### メッセージング
+
+- [Extreal.Core.Logging](../core/logging.md)
+- [Extreal.Core.Common](../core/common.md)
+- [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
+
+#### Redis
+
+##### Unity
+
+- [Extreal.Core.Logging](../core/logging.md)
+- [Extreal.Core.Common](../core/common.md)
+- [Extreal.Integration.Web.Common](../integration/web.common.md)
+- [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
+- [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp)
+- [Newtonsoft.Json](https://www.newtonsoft.com/json)
+
+##### npm
+
+- [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common)
+- [socket.io-client](https://www.npmjs.com/package/socket.io-client)
+
+
+モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
+
+### Settings
+
+アプリ要件に合わせてRedisやLiveKitなどのメッセージングの通信側の実装を準備します。
+ここではExtrealでデフォルトで提供しているRedisについて記載します。
+通信側の実装をカスタマイズしたい場合はRedisの実装を参考にして下さい。
+
+メッセージングに使用するサーバをメッセージングサーバと呼ぶことにします。
+
+#### メッセージングサーバ
+
+メッセージングサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
+
+実装としてはHTTPサーバを立てており、サーバ・クライアント間はSocket.IOで接続しています。
+グループでのメッセージングはSocket.IOの内部でRedisのPub/Subを使用することで実現しています。
+詳細は[Redis adapter](https://socket.io/docs/v4/redis-adapter/)および[Rooms](https://socket.io/docs/v4/rooms/)を参照してください。
+
+メッセージングサーバを立ち上げる際に1グループあたりの最大人数を設定します。
+最大人数を超えてクライアントがグループに参加しようとした場合はそのクライアントの参加を拒否します。
+1グループあたりの最大人数は[compose.yaml](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~/compose.yaml)ファイル内のMESSAGING_MAX_CAPACITYで指定します。
+
+```yaml
+environment:
+    # If "on" is logging, otherwise is not. In production, set it to "off".
+    MESSAGING_LOGGING: ${MESSAGING_LOGGING:-on}
+    # Capacity of one room
+    MESSAGING_MAX_CAPACITY: ${MESSAGING_MAX_CAPACITY:-80} # Change here
+    # In production, change it to suit the environment.
+    MESSAGING_CORS_ORIGIN: ${MESSAGING_CORS_ORIGIN:-*}
+```
+
+メッセージングサーバの立ち上げ方は[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~)を参照してください。
+
+#### アプリケーション
+
+RedisMessagingClientProviderを使ってRedisMessagingClientを作成します。
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
+        var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+        builder.RegisterComponent<MessagingClient>(messagingClient);
+
+        builder.RegisterEntryPoint<ClientControlPresenter>();
+    }
+}
+```
+
+WebGLで使う場合、JavaScriptの初期化が必要になります。
+RedisMessagingAdapterを作成してadapt関数を呼び出します。
+
+```typescript
+import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
+
+const messagingAdapter = new RedisMessagingAdapter();
+messagingAdapter.adapt();
+```
+
+## Usage
+
+### グループでメッセージをやりとりする {#messaging-among-group}
+
+グループでメッセージをやりとりする機能はMessagingClientが提供します。
+
+現在存在するグループ一覧を取得するためにはListGroupsAsyncを使います。
+
+```csharp
+var groups = await messagingClient.ListGroupsAsync();
+```
+
+Nameを持ったGroupのリストが返るので、ここで取得したGroupのNameを使ってグループに参加します。
+取得したGroupのNameに含まれないグループ名を使用した場合は新たにグループが作成されます。
+
+```csharp
+var joiningConfig = new MessagingJoiningConfig("groupName");
+await messagingClient.JoinAsync(joiningConfig);
+```
+
+メッセージを送信するためにはSendMessageAsyncを使います。
+引数にクライアントIDを渡すことで送信先を指定することができます。
+クライアントIDはJoinedClientsプロパティから取得できます。
+
+```csharp
+var toClientId = messageClient.JoinedClients.First();
+await messagingClient.SendMessageAsync("message", toClientId);
+```
+
+クライアントIDを省略した場合はグループ全体にメッセージを送信できます。
+
+```csharp
+await messagingClient.SendMessageAsync("message");
+```
+
+受信したメッセージはOnMessageReceivedイベントから受け取れます。
+
+```csharp
+messagingClient.OnMessageReceived
+    .Subscribe(HandleReceivedMessage)
+    .AddTo(disposables);
+
+private void HandleReceivedMessage((string clientId, string message) tuple)
+{
+  // Handle message
+}
+```
+
+グループから抜けるためにはLeaveAsyncを使います。
+
+```csharp
+await messagingClient.LeaveAsync();
+```
+
+### メッセージを送受信するタイミングを制御（キューイング）する
+
+キューイングの機能はQueuingMessagingClientが提供します。
+QueuingMessagingClientはMessagingClientのラッパークラスです。
+キューイング機能を使用したい場合はQueuingMessagingClientを初期化します。
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
+        var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+        var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
+        builder.RegisterComponent(queuingMessagingClient);
+
+        builder.RegisterEntryPoint<ClientControlPresenter>();
+    }
+}
+```
+
+QueuingMessagingClientでは送信するメッセージと受信したメッセージをそれぞれリクエストキューとレスポンスキューに保持することで送受信のタイミングを制御しています。
+
+メッセージを送信したい場合はメッセージをリクエストキューに追加します。
+引数にクライアントIDを渡すことで送信先を指定することができます。
+クライアントIDはJoinedClientsプロパティから取得できます。
+
+```csharp
+var toClientId = messageClient.JoinedClients.First();
+await queuingMessagingClient.EnqueueRequest("message", toClientId);
+```
+
+クライアントIDを省略した場合はグループ全体にメッセージを送信できます。
+
+```csharp
+await queuingMessagingClient.EnqueueRequest("message");
+```
+
+受信したメッセージはレスポンスキューから受け取ります。
+レスポンスキューに入っているメッセージの個数はResponseQueueCountで確認できます。
+
+```csharp
+while (queuingMessagingClient.ResponseQueueCount() > 0)
+{
+    (var from, var message) = queuingMessagingClient.DequeueResponse();
+    // Handle message
+}
+```
+
+### クライアントの状態をトリガーに処理を追加する
+
+MessagingClient/QueuingMessagingClientは次のイベント通知を設けています。
+
+- OnJoined
+  - タイミング：グループに参加した直後
+  - タイプ：IObservable
+  - パラメータ：自分のユーザID
+- OnLeaving
+  - タイミング：グループから抜ける直前
+  - タイプ：IObservable
+  - パラメータ：切断する理由
+- OnUnexpectedLeft
+  - タイミング：予期していないサーバー切断が発生した直後
+  - タイプ：IObservable
+  - パラメータ：切断された理由
+- OnJoiningApprovalRejected
+  - タイミング：参加が拒否された直後
+  - タイプ：IObservable
+  - パラメータ：なし
+- OnUserJoined
+  - タイミング：ユーザが参加した直後
+  - タイプ：IObservable
+  - パラメータ：参加したユーザID
+- OnUserLeaving
+  - タイミング：ユーザが抜ける直前
+  - タイプ：IObservable
+  - パラメータ：切断するユーザID
+- OnMessageReceived
+  - タイミング：メッセージを受信した直後
+  - タイプ：IObservable
+  - パラメータ：メッセージを送信したユーザのIDおよびメッセージ

@@ -58,7 +58,8 @@ This will be done in conjunction with functional test.
 ## Performance test
 
 - Test Method
-  - Run for 1.5 hours with 10 people accessing the virtual space
+  - Select Massively and run for 1.5 hours with Massively selected and 100 people accessing the virtual space
+  - Select Light and run for 1.5 hours with Massively selected and 10 people accessing the virtual space
   - The number of accesses will be secured by a test application
     - The test application will have no UI and only player operation will be performed
   - Visually determine the application's acceptance criteria using PC at hand

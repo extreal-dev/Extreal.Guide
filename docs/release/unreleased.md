@@ -4,13 +4,13 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-02-07
+2024-02-09
 
 ## Unity version
 
 次のUnityバージョンで動作確認しています。
 
-2022.3.2f1
+2022.3.17f1
 
 ## Modules
 
@@ -26,6 +26,9 @@ sidebar_position: 1
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.0.0
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.0.0
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.0.0
+- [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.4
+- [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.3
+- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-next.4
 - [Extreal.Integration.SFU.OME](https://github.com/extreal-dev/Extreal.Integration.SFU.OME) 1.0.0-next.1
 - [Extreal.Integration.Chat.OME](https://github.com/extreal-dev/Extreal.Integration.Chat.OME) 1.0.0-next.1
 
@@ -35,6 +38,7 @@ sidebar_position: 1
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.0.0
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.0.0
+- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-next.1
 - [@extreal-dev/extreal.integration.sfu.ome](https://www.npmjs.com/package/@extreal-dev/extreal.integration.sfu.ome) 1.0.0-next.1
 - [@extreal-dev/extreal.integration.chat.ome](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.ome) 1.0.0-next.1
 
@@ -63,6 +67,9 @@ sidebar_position: 1
     - [socket.io-client](https://www.npmjs.com/package/socket.io-client) 4.7.1 ([MIT License](https://github.com/socketio/socket.io-client/blob/main/LICENSE))
 - Extreal.Integration.Chat.WebRTC
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
+- Extreal.Integration.Messaging.Redis
+  - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
+  - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 - Extreal.Integration.SFU.OME
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.6 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
   - [NativeWebSocket](https://github.com/endel/NativeWebSocket) 1.1.4 ([Apache License 2.0](https://github.com/endel/NativeWebSocket/blob/master/LICENSE))
@@ -75,6 +82,18 @@ sidebar_position: 1
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
+### Extreal.Integration.Multiplay.Messaging
+#### Added
+- [Messaging](../integration/messaging.md)によるマルチプレイができる機能を追加しました。([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
+
+### Extreal.Integration.Messaging
+#### Added
+- メッセージをグループでやりとりするベース機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
+
+### Extreal.Integration.Messaging.Redis
+#### Added
+- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/pull/1))
+
 ### Extreal.Integration.SFU.OME
 #### Added
 - OMEを活用したSFUの作成を容易にするベース機能を追加しました。([Doc](../integration/sfu.ome.md))
@@ -83,6 +102,10 @@ sidebar_position: 1
 #### Added
 - SFUによるボイスチャットができる機能を追加しました。([Doc](../integration/chat.ome.md))
 
-## Upgrade guide {#upgrade-guide}
+### Extreal.SampleApp.Holiday
+#### Changed
+- スペースごとにマルチプレイをするように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- テキストチャット、マルチプレイを[Messaging](../integration/messaging.md)で実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 
+## Upgrade guide {#upgrade-guide}
 モジュールバージョンを更新してください。
