@@ -196,14 +196,21 @@ private void HandleReceivedMessage((string userId, string message) tuple)
 }
 ```
 
-### 同期するプレイヤーの動きを追加する
+### 同期するオブジェクトの動きを追加する
 
-プレイヤーの動きはPlayerInputのValuesで同期しています。
-デフォルトではMoveの動きのみ同期しています。
+:::info
+オブジェクトをスポーンさせると位置(Position)と回転(Rotation)は自動で同期されます。
+:::
 
-Moveの動き以外に他の動きを同期したい場合、PlayerInputとPlayerInputValuesを継承したクラスを作成してValuesにセットするようにします。
+マルチプレイする際にはアニメーションなど、オブジェクトの位置と回転以外の動きも同期したい場合が多くあります。
+このモジュールではアプリ使用者からの入力を同期することでこれを実現しています。
 
-例えば、Jumpという動きを同期したい場合、以下を参考にしてください。
+アプリ使用者からの入力はPlayerInputのValuesで同期しています。
+デフォルトでは水平方向の入力(Move)のみ同期します。
+
+Move以外に他の入力も同期したい場合、PlayerInputとPlayerInputValuesを継承したクラスを作成してValuesにセットします。
+
+例えばJumpという入力を同期する場合を示します。
 
 ```csharp
 public class HolidayPlayerInput : PlayerInput
@@ -225,32 +232,45 @@ public class HolidayPlayerInput : PlayerInput
 ```
 
 ```csharp
-[Serializable]
 public class HolidayPlayerInputValues : PlayerInputValues
 {
-    public bool Jump => jump;
-    [SerializeField] private bool jump;
-    private bool preJump;
-    private bool isJumpChanged;
+    [SuppressMessage("Usage", "CC0047")] public bool Jump { get; set; }
 
     public void SetJump(bool jump)
-    {
-        preJump = this.jump;
-        this.jump = jump;
-        isJumpChanged = preJump != this.jump;
-    }
+        => Jump = jump;
 }
 ```
 
-プレイヤー状態はPotionとRotationが変化したときは常に同期されます。
-そうでない場合、CheckWhetherToSendDataメソッドで制御できます。
+アプリ使用者からの入力は一定時間ごとに同期されます。
+入力が変わるごとに同期したい場合など、同期するタイミングを制御したい場合はCheckWhetherToSendDataメソッドを使用することで実現できます。
 
-MoveとJumpの動きが変化した場合にのみ同期する例を示します。
+MoveかJumpのいずれかが変化した場合に同期する例を示します。
 
 ```csharp
 [Serializable]
 public class HolidayPlayerInputValues : PlayerInputValues
 {
+    private Vector2 preMove;
+    private bool isMoveChanged;
+
+    [SuppressMessage("Usage", "CC0047")] public bool Jump { get; set; }
+    private bool preJump;
+    private bool isJumpChanged;
+
+    public override void SetMove(Vector2 move)
+    {
+        preMove = Move;
+        base.SetMove(move);
+        isMoveChanged = preMove != Move;
+    }
+
+    public void SetJump(bool jump)
+    {
+        preJump = Jump;
+        Jump = jump;
+        isJumpChanged = preJump != Jump;
+    }
+
     public override bool CheckWhetherToSendData()
     {
         var ret = isMoveChanged || isJumpChanged;
@@ -259,6 +279,11 @@ public class HolidayPlayerInputValues : PlayerInputValues
     }
 }
 ```
+
+:::warn
+最後にアプリ使用者からの入力を同期した時から一定時間が経過したら自動でまた入力を同期するようになっています。
+CheckWhetherToSendDataメソッドの戻り値を常にfalseにしていても一定時間ごとには入力は同期されます。
+:::
 
 ### クライアントの状態をトリガーに処理を追加できます
 
