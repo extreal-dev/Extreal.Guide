@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2023-12-22
+2024-02-09
 
 ## Unity version
 
@@ -74,19 +74,20 @@ sidebar_position: 1
 
 ### Extreal.Integration.Multiplay.Messaging
 #### Added
-- マルチプレイで使用する共通機能を追加しました。([Doc](../integration/multiplay.messaging.md))
+- [Messaging](../integration/messaging.md)によるマルチプレイができる機能を追加しました。([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
 
 ### Extreal.Integration.Messaging
 #### Added
-- グループのメッセージ送受信で使用する共通機能を追加しました。([Doc](../integration/messaging.md))
+- メッセージをグループでやりとりするベース機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
 
 ### Extreal.Integration.Messaging.Redis
 #### Added
-- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md))
+- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/pull/1))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
-- マルチプレイの方式をRedisのPub/SubとP2Pで選択できるように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/11))
+- スペースごとにマルチプレイをするように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- テキストチャット、マルチプレイを[Messaging](../integration/messaging.md)で実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 
 ## Upgrade guide {#upgrade-guide}
 モジュールバージョンを更新してください。
