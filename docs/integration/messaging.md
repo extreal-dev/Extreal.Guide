@@ -393,7 +393,7 @@ MessagingClient/QueuingMessagingClientは次のイベント通知を設けてい
 - OnUserJoined
   - タイミング：ユーザが参加した直後
   - タイプ：IObservable
-  - パラメータ：接続したユーザID
+  - パラメータ：参加したユーザID
 - OnUserLeaving
   - タイミング：ユーザが抜ける直前
   - タイプ：IObservable
