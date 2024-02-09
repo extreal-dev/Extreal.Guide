@@ -8,7 +8,7 @@ sidebar_position: 8
 
 コストをできるだけ抑えてバーチャル空間等で大規模なコミュニケーションを取る手段としてSFU(Selected Forwarding Unit)があります。
 
-OvenMediaEngine(OME)を活用すると比較的容易にSFUを実現できますが、SFUの接続確立は似通った処理になるので共通機能として提供します。
+[OME(OvenMediaEngine)](https://airensoft.gitbook.io/ovenmediaengine/)を活用すると比較的容易にSFUを実現できますが、SFUの接続確立は似通った処理になるので共通機能として提供します。
 この共通機能を使うことでデータチャンネルやメディアストリームの処理を追加するのみでアプリケーション固有のSFUを実現できます。
 
 このモジュールはNative(C#)とWebGL(JavaScript)向けのSFUのベース機能を提供します。
