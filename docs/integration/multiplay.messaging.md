@@ -120,7 +120,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging.git
 
 ### Settings
 
-このモジュールは[Messaging](messaging.md)を使ってMultiplayを実現しています。
+このモジュールは[Messaging](messaging.md)を使ってマルチプレイを実現しています。
 そのため[MessagingのSettings](messaging.md#settings)が必要になります。
 
 ```csharp
