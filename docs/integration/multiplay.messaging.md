@@ -172,20 +172,22 @@ multiplayClient.SpawnObject(playerObjectToBeSpawned)
 multiplayClient.SpawnObject(objectToBeSpawned)
 ```
 
-### グループでメッセージの受送信を行う
+### グループ内でメッセージを送受信する
 
-参加しているグループに送信するためにはSendMessageを使います。
+リアクションの同期など、マルチプレイしているグループ内でメッセージを送受信したい場合がありますが、このモジュールではこの機能は[Messaging](./messaging.md)に委譲しています。
+この機能の詳細はMessagingの[グループでメッセージをやりとりする方法](./messaging.md#messaging-among-group)を参照してください。
 
-送信したい相手があれば対象を指定してメッセージを送信できます。
-相手を省略した場合はグループ全体に送信します。
-
-```csharp
-await multiplayClient.SendMessage("message", "toUserId");
-```
-
-グループから受信するためにはOnMessageReceivedイベント通知を使います。
+このモジュールではこの機能は次のようにして使用します。
 
 ```csharp
+// Send message to a specified destination
+var toClientId = messageClient.JoinedClients.First();
+await messagingClient.SendMessageAsync("message", toClientId);
+
+// Send message to entire group
+await messagingClient.SendMessageAsync("message");
+
+// Receive message
 multiplayClient.OnMessageReceived.Subscribe(HandleReceivedMessage);
 
 private void HandleReceivedMessage((string userId, string message) tuple)
