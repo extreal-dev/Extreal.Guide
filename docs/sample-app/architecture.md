@@ -10,7 +10,7 @@ sidebar_position: 3
 3Dモデルなどのアセットやサーバーへの接続情報はアプリケーションに含めず、アプリケーションの実行時にS3からダウンロードします。
 アプリケーションは直接処理に必要なサーバに接続します。
 テキストチャットとマルチプレイはMessagingサーバを通してデータをやり取りします。
-ボイスチャットはP2Pを使ってアプリケーション間でデータをやりとりします。
+ボイスチャットは[OME(OvenMediaEngine)](https://airensoft.gitbook.io/ovenmediaengine/)サーバを通してデータをやりとりします。
 
 ![system structure](../img/holiday-sys-structure.png)
 
