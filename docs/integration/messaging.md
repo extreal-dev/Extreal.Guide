@@ -269,7 +269,7 @@ messagingAdapter.adapt();
 
 ## Usage
 
-### グループでメッセージをやりとりする
+### グループでメッセージをやりとりする {#messaging-among-group}
 
 グループでメッセージをやりとりする機能はMessagingClientが提供します。
 
