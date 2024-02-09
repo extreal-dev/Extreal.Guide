@@ -280,7 +280,7 @@ public class HolidayPlayerInputValues : PlayerInputValues
 }
 ```
 
-:::warn
+:::caution
 最後にアプリ使用者からの入力を同期した時から一定時間が経過したら自動でまた入力を同期するようになっています。
 CheckWhetherToSendDataメソッドの戻り値を常にfalseにしていても一定時間ごとには入力は同期されます。
 :::
