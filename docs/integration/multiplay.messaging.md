@@ -40,28 +40,29 @@ classDiagram
 
     class MultiplayClient {
         +LocalClient NetworkClient
-        +JoinedUsers IReadOnlyDictionary
+        +JoinedClients IReadOnlyDictionary
 
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
         +OnJoiningApprovalRejected IObservable
-        +OnUserJoined IObservable
-        +OnUserLeaving IObservable
+        +OnClientJoined IObservable
+        +OnClientLeaving IObservable
         +OnObjectSpawned IObservable
         +OnMessageReceived IObservable
 
-        +MultiplayClient(queuingMessagingClient, networkObjectsProvider)
-        +JoinAsync(connectionConfig) void
+        +MultiplayClient(messagingClient, networkObjectsProvider)
+        +ListGroupsAsync() UniTask
+        +JoinAsync(joiningConfig) void
         +LeaveAsync() void
         +SpawnObject(objectPrefab, position, rotation, parent, message) GameObject
         +SendMessage(message, to) void
     }
 
     class NetworkClient {
-        +UserId string
+        +ClientId string
         +NetworkObjects IReadOnlyList
-        +NetworkClient(userId)
+        +NetworkClient(clientId)
     }
 
     class INetworkObjectsProvider {
