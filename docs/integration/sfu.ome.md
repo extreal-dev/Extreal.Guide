@@ -284,11 +284,92 @@ omeClient.AddSubscribePcCloseHook((id) =>
 });
 ```
 
-これらのフックを使ってデータチャンネルやメディアストリームを操作しアプリケーション固有の機能をSFUに追加します。
-データチャンネルを作成する場合の実装例は次の通りです。
+これらのフックを使ってメディアストリームを操作しアプリケーション固有の機能をSFUに追加します。
+オーディオストリームを追加する場合の実装例は次の通りです。
 
 ```csharp
-// TODO: Bring codes from MVS
+using System.Collections.Generic;
+using System.Linq;
+using Extreal.Core.Logging;
+using Unity.WebRTC;
+using UnityEngine;
+
+namespace Extreal.Integration.SFU.OME.MVS.ClientControl
+{
+    public class NativeAudioStreamClient : AudioStreamClient
+    {
+        private static readonly ELogger Logger = LoggingManager.GetLogger(nameof(NativeAudioStreamClient));
+
+        private (AudioSource inAudio, AudioStreamTrack inTrack, MediaStream inStream) inResource;
+        private readonly Dictionary<string, (AudioSource outAudio, MediaStream outStream)> outResources = new Dictionary<string, (AudioSource, MediaStream)>();
+
+        private readonly Transform audioSourceContainer;
+
+        public NativeAudioStreamClient(NativeOmeClient omeClient)
+        {
+            audioSourceContainer = new GameObject(nameof(audioSourceContainer)).transform;
+            Object.DontDestroyOnLoad(audioSourceContainer);
+
+            omeClient.AddPublishPcCreateHook(CreatePublishPc);
+            omeClient.AddSubscribePcCreateHook(CreateSubscribePc);
+            omeClient.AddPublishPcCloseHook(ClosePublishPc);
+            omeClient.AddSubscribePcCloseHook(CloseSubscribePc);
+        }
+
+        private void CreatePublishPc(string clientId, OmeRTCPeerConnection pc)
+        {
+            inResource.inAudio = new GameObject("InAudio").AddComponent<AudioSource>();
+            inResource.inAudio.transform.SetParent(audioSourceContainer);
+
+            inResource.inTrack = new AudioStreamTrack(inResource.inAudio)
+            {
+                Loopback = false
+            };
+            inResource.inStream = new MediaStream();
+            pc.AddTrack(inResource.inTrack, inResource.inStream);
+        }
+
+        private void CreateSubscribePc(string clientId, OmeRTCPeerConnection pc) =>
+            pc.OnTrack = (RTCTrackEvent e) =>
+                {
+                    if (Logger.IsDebug())
+                    {
+                        Logger.LogDebug($"OnTrack: Kind={e.Track.Kind}");
+                    }
+                };
+
+        private void ClosePublishPc(string clientId)
+        {
+            if (inResource.inAudio != null)
+            {
+                inResource.inAudio.Stop();
+                Object.Destroy(inResource.inAudio.gameObject);
+            }
+            if (inResource.inTrack != null)
+            {
+                inResource.inTrack.Dispose();
+            }
+            if (inResource.inStream != null)
+            {
+                inResource.inStream.GetTracks().ToList().ForEach(track => track.Stop());
+                inResource.inStream.Dispose();
+            }
+            inResource = (default, default, default);
+        }
+
+        private void CloseSubscribePc(string clientId)
+        {
+        }
+
+        protected override void DoReleaseManagedResources()
+        {
+            if (audioSourceContainer != null && audioSourceContainer.gameObject != null)
+            {
+                Object.Destroy(audioSourceContainer.gameObject);
+            }
+        }
+    }
+}
 ```
 
 ### WebGL(JavaScript)のSFUにアプリケーション固有の処理を追加する
@@ -300,11 +381,67 @@ PeerConnectionのCreate/Close時にエラーが発生した場合でも、処理
 WebGL(JavaScript)の場合はC#とJavaScriptの連携が必要になるため、Native(C#)に比べると少し大掛かりなものになります。
 仕組みはNative(C#)と同じでフックを使ってアプリケーション固有の処理をP2Pに追加します。
 
-データチャンネルを作成する場合の実装例は次の通りです。
+オーディオストリームを追加する場合の実装例は次の通りです。
 OmeClientProviderという関数からOmeClientを取得する部分が大きく異なります。
 
 ```typescript
-// TODO: Bring codes from MVS
+import { OmeClientProvider } from "@extreal-dev/Extreal.Integration.SFU.OME";
+
+class InResource {
+    public inStream: MediaStream | undefined;
+    public inTrack: MediaStreamTrack | undefined;
+}
+
+class AudioStreamClient {
+    private readonly label: string = "sample";
+    private readonly isDebug: boolean;
+    private readonly getOmeClient: OmeClientProvider;
+
+    private inResource: InResource | undefined;
+
+    constructor(getOmeClient: OmeClientProvider) {
+        this.isDebug = true;
+        this.getOmeClient = getOmeClient;
+        this.getOmeClient().addPublishPcCreateHook(this.createPublishPc);
+        this.getOmeClient().addSubscribePcCreateHook(this.createSubscribePc);
+        this.getOmeClient().addPublishPcCloseHook(this.closePublishPc);
+        this.getOmeClient().addSubscribePcCloseHook(this.closeSubscribePc);
+    }
+
+    private createPublishPc = (clientId: string, pc: RTCPeerConnection) => {
+        this.inResource = new InResource();
+
+        const audioContext = new AudioContext();
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+
+        const destination = audioContext.createMediaStreamDestination();
+        gainNode.connect(destination);
+
+        const inStream = destination.stream;
+        const inTrack = inStream.getAudioTracks()[0];
+        this.inResource.inStream = inStream;
+        this.inResource.inTrack = inTrack;
+
+        pc.addTrack(this.inResource.inTrack, this.inResource.inStream);
+    };
+
+    private createSubscribePc = (clientId: string, pc: RTCPeerConnection) => {
+        pc.addEventListener("track", (event) => {
+            if (this.isDebug) {
+                console.log(`OnTrack: Kind=${event.track.kind}`);
+            }
+        });
+    };
+
+    private closePublishPc = (clientId: string) => {
+        this.inResource = undefined;
+    };
+
+    private closeSubscribePc = (clientId: string) => {};
+}
+
+export { AudioStreamClient };
 ```
 
 OmeClientProviderは[Settings](#settings)で登場したOmeAdapterが提供します。
@@ -320,12 +457,31 @@ C#のOmeClientはOmeClientProviderのProvideメソッドを呼び出したタイ
 [Web.Common](./web.common.md)を使ってC#からの呼び出しタイミングを制御します。
 
 ```typescript
-// TODO: Bring codes from MVS
+import { addAction } from "@extreal-dev/extreal.integration.web.common";
+import { OmeAdapter } from "@extreal-dev/Extreal.Integration.SFU.OME";
+import { AudioStreamClient } from "./AudioStreamClient";
+import { DummyClient } from "./DummyClient";
+
+
+const omeAdapter = new OmeAdapter();
+omeAdapter.adapt();
+
+let audioStreamClient: AudioStreamClient;
+addAction("start", () => audioStreamClient = new AudioStreamClient(omeAdapter.getOmeClient));
+addAction("dummyhook", () => DummyClient.dummyHook(omeAdapter.getOmeClient));
 ```
 
 C#の呼び出し側を作成します。
 [Web.Common](./web.common.md)のWebGLHelperを使います。
 
 ```csharp
-// TODO: Bring codes from MVS
+using Extreal.Integration.Web.Common;
+
+namespace Extreal.Integration.SFU.OME.MVS.ClientControl
+{
+    public class WebGLAudioStreamClient : AudioStreamClient
+    {
+        public WebGLAudioStreamClient() => WebGLHelper.CallAction("start");
+    }
+}
 ```
