@@ -317,14 +317,14 @@ WebGLでSFUを行う場合はまずOmeAdapterを作成してadapt関数を呼び
 C#のOmeClientより先にアプリケーションで追加した処理（今回であればDataChannelClient）が初期化されないように注意してください。
 C#のOmeClientはOmeClientProviderのProvideメソッドを呼び出したタイミングで初期化されます。
 
-[Web.Common](web.common.md)を使ってC#からの呼び出しタイミングを制御します。
+[Web.Common](./web.common.md)を使ってC#からの呼び出しタイミングを制御します。
 
 ```typescript
 // TODO: Bring codes from MVS
 ```
 
 C#の呼び出し側を作成します。
-[Web.Common](web.common.md)のWebGLHelperを使います。
+[Web.Common](./web.common.md)のWebGLHelperを使います。
 
 ```csharp
 // TODO: Bring codes from MVS
