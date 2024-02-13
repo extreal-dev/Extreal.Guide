@@ -23,13 +23,6 @@ If you do not know Vivox, please refer to [Learning](../learning/intro.md#chat) 
 This guide assumes you know Vivox.
 :::
 
-:::caution
-Vivox is available on the originally existing [Vivox Developer Portal](https://developer.vivox.com/) and [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services), which appeared in October 2021.
-The current Vivox wrapper is compatible with the [Vivox Developer Portal](https://developer.vivox.com/).
-It is not compatible with [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services).
-We will consider supporting [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services) in the future.
-:::
-
 ## Specification
 
 The specifications of the Vivox wrapper are as follows.
@@ -147,7 +140,7 @@ Please refer to [Release](../category/release) for the correspondence between mo
 
 VivoxClient is initialized.
 
-It is assumed that the application to which the client will connect has been created in [Vivox Developer Portal](https://developer.vivox.com/).
+It is assumed that the application to which the client will connect has been created in [Unity Dashboard](https://dashboard.unity3d.com/vivox).
 
 To initialize VivoxClient, VivoxAppConfig, which holds the connection information to Vivox, is required.
 As an example, we will show how to set the connection information to Vivox with a ScriptableObject.

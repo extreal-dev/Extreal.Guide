@@ -17,8 +17,8 @@ Coreの学習を実施していない方はこの学習より先に[Coreの学�
 
 Vivoxラッパーがセットアップされた学習用のプロジェクトを使って、バーチャル空間でテキストチャットとボイスチャットをできるようにアプリケーションの実装を追加していきます。
 
-この学習を行うにはクライアントからの接続先となる[Vivox Developer Portal](https://developer.vivox.com/)のアプリケーションが必要です。
-以降のハンズオンを始める前に[Vivox Developer Portal](https://developer.vivox.com/)でアプリケーションを作成しておいてください。
+この学習を行うにはクライアントからの接続先となる[Unity Dashboard](https://dashboard.unity3d.com/vivox)のアプリケーションが必要です。
+以降のハンズオンを始める前に[Unity Dashboard](https://dashboard.unity3d.com/vivox)でアプリケーションを作成しておいてください。
 
 ## Prepare project
 
