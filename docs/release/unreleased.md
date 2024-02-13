@@ -106,6 +106,7 @@ sidebar_position: 1
 #### Changed
 - スペースごとにマルチプレイをするように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 - テキストチャット、マルチプレイを[Messaging](../integration/messaging.md)で実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- ボイスチャットをOMEで実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/26))
 
 ## Upgrade guide {#upgrade-guide}
 モジュールバージョンを更新してください。
