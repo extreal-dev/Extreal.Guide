@@ -180,7 +180,7 @@ voiceChatClient.OnMuted
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialMute: false);
-var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+var voiceChatClient = VoiceChatClientProvider.Provide(omeClient, voiceChatConfig);
 ```
 
 入力音量調整にはSetInVolumeメソッドを使います。
@@ -194,7 +194,7 @@ voiceChatClient.SetInVolume(volume);
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialInVolume: 0.8f);
-var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+var voiceChatClient = VoiceChatClientProvider.Provide(omeClient, voiceChatConfig);
 ```
 
 出力音量調整にはSetOutVolumeメソッドを使います。
@@ -208,7 +208,7 @@ voiceChatClient.SetOutVolume(volume);
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
-var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+var voiceChatClient = VoiceChatClientProvider.Provide(omeClient, voiceChatConfig);
 ```
 
 ### ボイスチャットのクライアントの状態をトリガーに処理を追加する
@@ -224,5 +224,5 @@ VoiceChatClientは次のイベント通知を設けています。
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
-var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+var voiceChatClient = VoiceChatClientProvider.Provide(omeClient, voiceChatConfig);
 ```
