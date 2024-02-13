@@ -230,7 +230,7 @@ var groups = await omeClient.ListGroupsAsync();
 
 ### SFUの状態をトリガーに処理を追加する
 
-PeerClientは次のイベント通知を設けています。
+OmeClientは次のイベント通知を設けています。
 
 - OnJoined
   - タイミング：グループに参加した直後
