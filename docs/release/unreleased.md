@@ -96,11 +96,11 @@ sidebar_position: 1
 
 ### Extreal.Integration.SFU.OME
 #### Added
-- OMEを活用したSFUの作成を容易にするベース機能を追加しました。([Doc](../integration/sfu.ome.md))
+- OMEを活用したSFUの作成を容易にするベース機能を追加しました。([Doc](../integration/sfu.ome.md), [PR](https://github.com/extreal-dev/Extreal.Integration.SFU.OME/pull/1))
 
 ### Extreal.Integration.Chat.OME
 #### Added
-- SFUによるボイスチャットができる機能を追加しました。([Doc](../integration/chat.ome.md))
+- SFUによるボイスチャットができる機能を追加しました。([Doc](../integration/chat.ome.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.OME/pull/1))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
