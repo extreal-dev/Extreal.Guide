@@ -72,7 +72,7 @@ The following Unity versions have been tested.
 - Add the ability to adjust speaker volume in voice chat. ([Doc](../integration/chat.webrtc.md))
 - Add the ability to get the speaking volume in voice chat. ([Doc](../integration/chat.webrtc.md))
 #### Changed
-- Changed voice chat to listen-only when microphone is unavailable. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+- Changed so that if the microphone cannot be used in voice chat, only the speaker is enabled. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
 ## Upgrade guide {#upgrade-guide}
 

@@ -72,7 +72,7 @@ sidebar_position: 1
 - ボイスチャットでスピーカー音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
 - ボイスチャットで発話音量を取得する機能を追加しました。([Doc](../integration/chat.webrtc.md))
 #### Changed
-- マイクが使用できない場合、ボイスチャットで聞くのみになるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+- ボイスチャットでマイクが使用できない場合はスピーカーのみ有効となるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
 ## Upgrade guide {#upgrade-guide}
 
