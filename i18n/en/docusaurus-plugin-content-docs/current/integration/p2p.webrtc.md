@@ -529,7 +529,3 @@ public class ClientControlScope : LifetimeScope
 :::info
 When using with C#, no settings are necessary.
 :::
-
-:::caution
-Please refer to [Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/) for server-side configuration.
-:::
