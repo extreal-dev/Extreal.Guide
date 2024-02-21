@@ -508,6 +508,10 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 
 ### シグナリングサーバーを冗長化する
 
+シグナリングサーバーには[Socket.IO](https://socket.io/)を利用しています。
+Socket.IOサーバーを複数にして冗長化する場合はスティッキーセッションが推奨されています。
+詳細は[Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/)を参照してください。
+
 WebGLで使う場合にスティッキーセッションを有効にするには、PeerClientの作成時に追加の設定が必要です。
 WebGLSocketOptionsを指定したWebGLPeerConfigを使用することで、スティッキーセッションを有効にすることが可能です。
 
