@@ -19,6 +19,7 @@ This module provides base P2P features for Native(C#) and WebGL(JavaScript).
 - You can add processing to trigger P2P state.
 - You can add application-specific processing to Native(C#) P2P.
 - You can add application-specific processing to WebGL(JavaScript) P2P
+- You can make signaling servers redundant.
 
 ## Architecture
 
@@ -505,7 +506,7 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 }
 ```
 
-### Enable sticky session
+### Make the signaling server redundant
 
 To enable sticky sessions when used with WebGL, additional configuration is required when creating the PeerClient.
 It is possible to enable sticky sessions using WebGLSocketOptions.

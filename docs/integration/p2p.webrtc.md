@@ -19,6 +19,7 @@ WebRTCを活用すると比較的容易にP2Pを実現できますが、P2Pの�
 - P2Pの状態をトリガーに処理を追加できます。
 - Native(C#)のP2Pにアプリケーション固有の処理を追加できます。
 - WebGL(JavaScript)のP2Pにアプリケーション固有の処理を追加できます。
+- シグナリングサーバーを冗長化できます。
 
 ## Architecture
 
@@ -505,7 +506,7 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 }
 ```
 
-### スティッキーセッションの有効化
+### シグナリングサーバーを冗長化する
 
 WebGLで使う場合にスティッキーセッションを有効にするには、PeerClientの作成時に追加の設定が必要です。
 WebGLSocketOptionsを指定したWebGLPeerConfigを使用することで、スティッキーセッションを有効にすることが可能です。
