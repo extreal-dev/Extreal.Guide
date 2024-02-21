@@ -55,7 +55,11 @@ classDiagram
 
     class VoiceChatClient {
         +OnMuted IObservable
+        +OnAudioLevelChanged IObservable
+        +HasMicrophone() bool
         +ToggleMute() void
+        +SetInVolume(volume) void
+        +SetOutVolume(volume) void
         +Clear() void
     }
     
@@ -248,5 +252,47 @@ If you want to specify the default value for mute, specify it in VoiceChatConfig
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialMute: false);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+Use the SetInVolume method to adjust the input volume.
+
+```csharp
+voiceChatClient.SetInVolume(volume);
+```
+
+If you want to specify the default value for the input volume, specify it in VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialInVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+Use the SetOutVolume method to adjust the output volume.
+
+```csharp
+voiceChatClient.SetOutVolume(volume);
+```
+
+If you want to specify the default value for the output volume, specify it in VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+### Add a processing triggered by VoiceChat Client state
+
+VoiceChatClient has the following event notifications.
+
+- OnAudioLevelChanged
+  - Timing: When there is a change in audio level at each specified frequency
+  - Type: IObservable
+  - Parameters: ID and audio level pairs
+
+If you want to specify how often the speech volume is acquired, specify it in VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```

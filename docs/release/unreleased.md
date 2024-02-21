@@ -75,6 +75,14 @@ sidebar_position: 1
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
+### Extreal.Integration.Chat.WebRTC
+#### Added
+- ボイスチャットでマイク音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
+- ボイスチャットでスピーカー音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
+- ボイスチャットで発話音量を取得する機能を追加しました。([Doc](../integration/chat.webrtc.md))
+#### Changed
+- ボイスチャットでマイクが使用できない場合はスピーカーのみ有効となるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+
 ## Upgrade guide {#upgrade-guide}
 
 モジュールバージョンを更新してください。
