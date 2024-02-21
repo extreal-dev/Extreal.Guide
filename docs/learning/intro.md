@@ -122,7 +122,7 @@ Extrealを活用したアプリケーション開発を行うためには次の�
 #### Resources
 
 - Vivox Unity SDK
-  - [Vivox Developer Portal](https://developer.vivox.com/)
+  - [Vivox Unity SDK documentation](https://docs.vivox.com/v5/general/unity/15_1_220000/en-us/Default.htm)
 
 ### Asset Workflow {#asset-workflow}
 
