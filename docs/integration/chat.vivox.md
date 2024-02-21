@@ -140,7 +140,7 @@ Vivoxラッパーは次のパッケージを使います。
 
 VivoxClientを初期化します。
 
-[Unity Dashboard](https://dashboard.unity3d.com/vivox)でクライアントからの接続先となるアプリケーションが作成されているものとします。
+クライアントからの接続先となる、Vivoxがセットアップされたプロジェクトが[Unity Cloud](https://cloud.unity.com)で作成されているものとします。
 
 VivoxClientの初期化にはVivoxへの接続情報を保持するVivoxAppConfigが必要です。
 今回は一例としてScriptableObjectでVivoxへの接続情報を設定する方法を紹介します。

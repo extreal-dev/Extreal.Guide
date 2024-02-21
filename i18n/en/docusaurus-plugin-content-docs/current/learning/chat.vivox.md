@@ -17,8 +17,8 @@ If you have not learned Core, it is recommended that you learn [Learning Core](.
 
 Using the learning project with the Vivox wrapper set up, we will add an implementation of the application to allow text and voice chat in virtual space.
 
-You will need to have an application on the [Unity Dashboard](https://dashboard.unity3d.com/vivox) to connect to from the client to do this learning.
-Please create an application on the [Unity Dashboard](https://dashboard.unity3d.com/vivox) before starting the following hands-on activities.
+You will need to have a project in [Unity Cloud](https://cloud.unity.com) to connect to from the client.
+Please create a project with Vivox set up on [Unity Cloud](https://cloud.unity.com) before starting the following hands-on activities.
 
 ## Prepare project
 

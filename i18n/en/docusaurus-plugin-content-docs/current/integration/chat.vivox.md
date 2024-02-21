@@ -140,7 +140,7 @@ Please refer to [Release](../category/release) for the correspondence between mo
 
 VivoxClient is initialized.
 
-It is assumed that the application to which the client will connect has been created in [Unity Dashboard](https://dashboard.unity3d.com/vivox).
+It is assumed that you have created a project with Vivox set up in [Unity Cloud](https://cloud.unity.com) to which the client will connect.
 
 To initialize VivoxClient, VivoxAppConfig, which holds the connection information to Vivox, is required.
 As an example, we will show how to set the connection information to Vivox with a ScriptableObject.
