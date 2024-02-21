@@ -62,10 +62,11 @@ sidebar_position: 1
 
 ## Changes
 ### Extreal.Integration.P2P.WebRTC
+#### Added
+- シグナリングサーバーを冗長化できるようにスティッキーセッションを有効化する設定を追加しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
-- WebGLでスティッキーセッションを使用する設定ができるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
 
 ## Upgrade guide {#upgrade-guide}
 

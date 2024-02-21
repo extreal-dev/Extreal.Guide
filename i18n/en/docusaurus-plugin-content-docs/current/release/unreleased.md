@@ -62,10 +62,11 @@ The following Unity versions have been tested.
 
 ## Changes
 ### Extreal.Integration.P2P.WebRTC
+#### Added
+- Added setting to enable sticky sessions to make signaling servers redundant. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
 #### Changed
 - Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - Changed so that the ID of your own client and connected or disconnected clients can be obtained, so that each P2P client can be identified. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
-- Changed so that it can be configured to use sticky sessions when used with WebGL. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
 
 ## Upgrade guide {#upgrade-guide}
 
