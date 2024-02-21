@@ -508,9 +508,9 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 
 ### Make the signaling server redundant
 
-Socket.IO is used for the signaling server.
+[Socket.IO](https://socket.io/) is used for the signaling server.
 Sticky sessions are recommended when using multiple Socket.IO servers for redundancy.
-See Using multiple nodes for details.
+See [Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/) for details.
 
 To enable sticky sessions when used with WebGL, additional configuration is required when creating the PeerClient.
 It is possible to enable sticky sessions using WebGLSocketOptions.
