@@ -49,7 +49,7 @@ classDiagram
     }
 ```
 
-### Video
+### VideoPlayer
 
 #### Unity
 
