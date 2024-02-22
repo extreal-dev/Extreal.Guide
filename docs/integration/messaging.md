@@ -204,12 +204,6 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 ### Settings
 
-アプリ要件に合わせてRedisやLiveKitなどのメッセージングの通信側の実装を準備します。
-ここではExtrealでデフォルトで提供しているRedisについて記載します。
-通信側の実装をカスタマイズしたい場合はRedisの実装を参考にして下さい。
-
-メッセージングに使用するサーバをメッセージングサーバと呼ぶことにします。
-
 #### メッセージングサーバ
 
 メッセージングサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
