@@ -70,7 +70,7 @@ The following Unity versions have been tested.
 
 #### Added
 
-- Added the ability to delegate video playback on WebGL to JavaScript. ([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
+- Added the ability to play videos according to the platform. ([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ## Upgrade guide {#upgrade-guide}
 

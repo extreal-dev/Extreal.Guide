@@ -70,7 +70,7 @@ sidebar_position: 1
 
 #### Added
 
-- WebGLでのビデオ再生をJavaScriptに委譲する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
+- プラットフォームに応じたビデオ再生を行う機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ## Upgrade guide {#upgrade-guide}
 
