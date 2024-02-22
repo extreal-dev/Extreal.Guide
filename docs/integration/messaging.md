@@ -209,8 +209,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 メッセージングサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
 
 実装としてはHTTPサーバを立てており、サーバ・クライアント間はSocket.IOで接続しています。
-グループでのメッセージングはSocket.IOの内部でRedisのPub/Subを使用することで実現しています。
-詳細は[Redis adapter](https://socket.io/docs/v4/redis-adapter/)および[Rooms](https://socket.io/docs/v4/rooms/)を参照してください。
+詳細は[Rooms](https://socket.io/docs/v4/rooms/)を参照してください。
 
 メッセージングサーバを立ち上げる際に1グループあたりの最大人数を設定します。
 最大人数を超えてクライアントがグループに参加しようとした場合はそのクライアントの参加を拒否します。
@@ -227,6 +226,10 @@ environment:
 ```
 
 メッセージングサーバの立ち上げ方は[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~)を参照してください。
+
+:::tip
+メッセージングサーバーを増やしてスケールアウトしたい場合はSocket.IOが提供するRedis Adapterを使うことで実現できます。詳細は[Redis Adapter](https://socket.io/docs/v4/redis-adapter/)を参照してください。
+:::
 
 #### アプリケーション
 
