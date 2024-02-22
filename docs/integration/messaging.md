@@ -265,36 +265,37 @@ messagingAdapter.adapt();
 
 グループでメッセージをやりとりする機能はMessagingClientが提供します。
 
-現在存在するグループ一覧を取得するためにはListGroupsAsyncを使います。
+既存のグループに参加したい場合は、グループ一覧をListGroupsAsyncで取得します。
 
 ```csharp
 var groups = await messagingClient.ListGroupsAsync();
 ```
 
 Nameを持ったGroupのリストが返るので、ここで取得したGroupのNameを使ってグループに参加します。
-取得したGroupのNameに含まれないグループ名を使用した場合は新たにグループが作成されます。
 
 ```csharp
 var joiningConfig = new MessagingJoiningConfig("groupName");
 await messagingClient.JoinAsync(joiningConfig);
 ```
 
+新しくグループを作成したい場合は、既存のグループに含まれないグループ名を指定して参加します。
+
 メッセージを送信するためにはSendMessageAsyncを使います。
-引数にクライアントIDを渡すことで送信先を指定することができます。
-クライアントIDはJoinedClientsプロパティから取得できます。
-
-```csharp
-var toClientId = messageClient.JoinedClients.First();
-await messagingClient.SendMessageAsync("message", toClientId);
-```
-
-クライアントIDを省略した場合はグループ全体にメッセージを送信できます。
+グループのメンバーにメッセージを送信したい場合はメッセージのみ指定します。
 
 ```csharp
 await messagingClient.SendMessageAsync("message");
 ```
 
-受信したメッセージはOnMessageReceivedイベントから受け取れます。
+グループの特定メンバーにメッセージを送信したい場合はメッセージに加えてクライアントIDを指定します。
+
+```csharp
+await messagingClient.SendMessageAsync("message", toClientId);
+```
+
+グループに参加しているクライアントIDはJoinedClientsプロパティから取得できます。
+
+メッセージ受信にはOnMessageReceivedイベントを使います。
 
 ```csharp
 messagingClient.OnMessageReceived
@@ -307,7 +308,7 @@ private void HandleReceivedMessage((string clientId, string message) tuple)
 }
 ```
 
-グループから抜けるためにはLeaveAsyncを使います。
+グループから出る場合はLeaveAsyncを使います。
 
 ```csharp
 await messagingClient.LeaveAsync();
