@@ -6,7 +6,7 @@
 <title data-rh="true">Chat using Vivox | Extreal</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://extreal-dev.github.io/Extreal.Guide/next/integration/chat.vivox"><meta data-rh="true" property="og:locale" content="ja"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="ja"><meta data-rh="true" name="docsearch:language" content="ja"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Chat using Vivox | Extreal"><meta data-rh="true" name="description" content="What for?"><meta data-rh="true" property="og:description" content="What for?"><link data-rh="true" rel="icon" href="/Extreal.Guide/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/chat.vivox"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/chat.vivox" hreflang="ja"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/en/next/integration/chat.vivox" hreflang="en"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/chat.vivox" hreflang="x-default"><script src="https://plausible.io/js/script.js" defer="defer" data-domain="extreal-dev.github.io,all.fintan"></script>
 <script src="/Extreal.Guide/js/custom.js"></script>
 <script src="/Extreal.Guide/en/js/custom.js"></script><link rel="stylesheet" href="/Extreal.Guide/assets/css/styles.bb6e314e.css">
-<script src="/Extreal.Guide/assets/js/runtime~main.ce3d1b17.js" defer="defer"></script>
+<script src="/Extreal.Guide/assets/js/runtime~main.af6a6550.js" defer="defer"></script>
 <script src="/Extreal.Guide/assets/js/main.33273d04.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -22,10 +22,6 @@ VivoxラッパーはVivoxをそのまま使う場合に使いにくい点や足�
 そのため、Vivoxラッパーを使うにはVivoxを知っていることが前提です。
 Vivoxを知らない場合は<a href="/Extreal.Guide/next/learning/intro#chat">Learning</a>を参照してVivoxについて学習してください。
 このガイドはVivoxを知っている前提で説明しています。</p></admonition>
-<admonition type="caution"><p>Vivoxは元々存在していた<a href="https://developer.vivox.com/">Vivox Developer Portal</a>と2021年10月に登場した<a href="https://unity.com/ja/solutions/gaming-services">Unity Gaming Services</a>で使用できます。
-現時点のVivoxラッパーは<a href="https://developer.vivox.com/">Vivox Developer Portal</a>に対応しています。
-<a href="https://unity.com/ja/solutions/gaming-services">Unity Gaming Services</a>には対応していません。
-今後<a href="https://unity.com/ja/solutions/gaming-services">Unity Gaming Services</a>への対応を検討します。</p></admonition>
 <h2 id="specification">Specification</h2>
 <p>Vivoxラッパーの仕様は次の通りです。</p>
 <ul>
@@ -130,7 +126,7 @@ Vivoxを知らない場合は<a href="/Extreal.Guide/next/learning/intro#chat">L
 <p>モジュールバージョンと各パッケージバージョンの対応は<a href="../category/release">Release</a>を参照ください。</p>
 <h3 id="settings">Settings</h3>
 <p>VivoxClientを初期化します。</p>
-<p><a href="https://developer.vivox.com/">Vivox Developer Portal</a>でクライアントからの接続先となるアプリケーションが作成されているものとします。</p>
+<p>クライアントからの接続先となる、Vivoxがセットアップされたプロジェクトが<a href="https://cloud.unity.com">Unity Cloud</a>で作成されているものとします。</p>
 <p>VivoxClientの初期化にはVivoxへの接続情報を保持するVivoxAppConfigが必要です。
 今回は一例としてScriptableObjectでVivoxへの接続情報を設定する方法を紹介します。
 VivoxAppConfigを生成するScriptableObjectを作成し、インスペクタでVivoxへの接続情報を設定します。</p>
@@ -148,7 +144,7 @@ public class ChatConfig : ScriptableObject
         =&gt; new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey);
 }
 </code></pre>
-<admonition type="info"><p>VivoxAppConfigには接続情報の他に次の設定を行えます。</p><ul>
+<admonition type="info"><p>VivoxAppConfigには接続情報  の他に次の設定を行えます。</p><ul>
 <li><a href="https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/class_vivox_unity_1_1_vivox_config.html?TocPath=Vivox%2520Unity%2520SDK%2520documentation%257CUnity%2520API%2520Reference%2520Manual%257CClass%2520List%257C_____15">VivoxConfig</a></li>
 <li>通信切断時の再接続で使うリトライ戦略<!-- -->
 <ul>
@@ -184,7 +180,7 @@ vivoxClient.LoginAsync(vivoxAuthConfig).Forget();
 <p>ログアウトはVivoxClientのLogoutを使います。</p>
 <pre><code class="language-csharp">vivoxClient.Logout();
 </code></pre>
-<p>チャンネルへの入室はVivoxClientのConnectAsyncを使います。</p>
+<p>チャンネルへの入室はVivoxClientのConnectAsyncを使  います。</p>
 <pre><code class="language-csharp">var vivoxChannelConfig = new VivoxChannelConfig(&quot;GuestChannel&quot;);
 vivoxClient.ConnectAsync(vivoxChannelConfig).Forget();
 </code></pre>
@@ -209,7 +205,7 @@ vivoxClient.ConnectAsync(vivoxChannelConfig).Forget();
 </code></pre>
 <h3 id="chat-vivox-retry">通信が切断されたときに再接続する</h3>
 <p>VivoxClientは<a href="/Extreal.Guide/next/core/common">Common</a>が提供するリトライ処理を使って通信切断時の再接続を実現しています。
-リトライ処理を知っている前提で以降の 説明をするため、リトライ処理を確認していない方は先に<a href="/Extreal.Guide/next/core/common#core-common-retry">リトライ処理</a>を確認してください。</p>
+リトライ処理を知ってい  る前提で以降の説明をするため、リトライ処理を確認していない方は先に<a href="/Extreal.Guide/next/core/common#core-common-retry">リトライ処理</a>を確認してください。</p>
 <p>VivoxClientはデフォルトで再接続を行いません。
 VivoxAppConfigにリトライ戦略を指定すると再接続を行います。</p>
 <pre><code class="language-csharp">new VivoxAppConfig(apiEndPoint, domain, issuer, secretKey, loginRetryStrategy: new CountingRetryStrategy());
@@ -243,7 +239,7 @@ VivoxAppConfigにリトライ戦略を指定すると再接続を行います。
 </ul>
 </li>
 </ul>
-<p>自動接続回復が失敗した場合はログアウト状態となり、ログインからやり直す必要があるため、VivoxClientの再接続はログイン処理のみを対象としていま  す。</p>
+<p>自動接続回復が失敗した場合はログアウト状態となり、ログインからやり直す必要があるため、VivoxClientの再接続はログイン処理のみを  対象としています。</p>
 <p>リトライ処理の状況に応じて処理を実行したい場合は<a href="#chat-vivox-event">イベント通知</a>を使用してください。</p>
 <h3 id="chat-vivox-event">Vivoxのクライアント状態をトリガーに処理を追加する</h3>
 <p>VivoxClientは次のイベント通知を設けています。</p>
@@ -331,7 +327,7 @@ VivoxAppConfigにリトライ戦略を指定すると再接続を行います。
 <ul>
 <li>タイミング：チャンネルにメッセージが着信した直後</li>
 <li>タイプ：IObservable</li>
-<li>パラメータ：着信したメッ セージ<!-- -->
+<li>パラメータ ：着信したメッセージ<!-- -->
 <ul>
 <li><a href="https://docs.vivox.com/v5/general/unity/15_1_210000/en-us/Default.htm#ReferenceManual/Unity/interface_vivox_unity_1_1_i_channel_text_message.html%3FTocPath%3DCore%7CUnity%2520API%2520Reference%2520Manual%7CClass%2520List%7CUnity%20API%20Reference%20Manual%7CClass%20List%7C_____33">IChannelTextMessage</a></li>
 </ul>
@@ -373,7 +369,7 @@ VivoxAppConfigにリトライ戦略を指定すると再接続を行います。
 <li>パラメータ：リトライ結果<!-- -->
 <ul>
 <li>true：リトライ戦略を実行してリトライが成功した場合</li>
-<li>false：リトライ  戦略を実行して最終的にリトライが成功しなかった場合</li>
+<li>false：リトライ戦略を実行して最終的にリトライが成功しなかった場合</li>
 </ul>
 </li>
 </ul>
