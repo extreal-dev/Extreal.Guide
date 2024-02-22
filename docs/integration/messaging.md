@@ -316,9 +316,9 @@ await messagingClient.LeaveAsync();
 
 ### メッセージを送受信するタイミングを制御（キューイング）する
 
-キューイングの機能はQueuingMessagingClientが提供します。
+キューイング機能はQueuingMessagingClientが提供します。
 QueuingMessagingClientはMessagingClientのラッパークラスです。
-キューイング機能を使用したい場合はQueuingMessagingClientを初期化します。
+キューイング機能を使用する場合はQueuingMessagingClientを初期化します。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
