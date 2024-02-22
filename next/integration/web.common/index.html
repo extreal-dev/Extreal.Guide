@@ -6,7 +6,7 @@
 <title data-rh="true">Common for Web | Extreal</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://extreal-dev.github.io/Extreal.Guide/next/integration/web.common"><meta data-rh="true" property="og:locale" content="ja"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="ja"><meta data-rh="true" name="docsearch:language" content="ja"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Common for Web | Extreal"><meta data-rh="true" name="description" content="What for?"><meta data-rh="true" property="og:description" content="What for?"><link data-rh="true" rel="icon" href="/Extreal.Guide/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/web.common"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/web.common" hreflang="ja"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/en/next/integration/web.common" hreflang="en"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/web.common" hreflang="x-default"><script src="https://plausible.io/js/script.js" defer="defer" data-domain="extreal-dev.github.io,all.fintan"></script>
 <script src="/Extreal.Guide/js/custom.js"></script>
 <script src="/Extreal.Guide/en/js/custom.js"></script><link rel="stylesheet" href="/Extreal.Guide/assets/css/styles.bb6e314e.css">
-<script src="/Extreal.Guide/assets/js/runtime~main.af6a6550.js" defer="defer"></script>
+<script src="/Extreal.Guide/assets/js/runtime~main.d45043b5.js" defer="defer"></script>
 <script src="/Extreal.Guide/assets/js/main.33273d04.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -19,6 +19,7 @@
 <ul>
 <li>C#からJavaScriptを呼び出せます。</li>
 <li>JavaScriptからC#にコールバックできます。</li>
+<li>プラットフォームに応じたビデオ再生ができます。</li>
 </ul>
 <h2 id="architecture">Architecture</h2>
 <mermaid chart="classDiagram
@@ -48,9 +49,63 @@
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
     }"></mermaid>
+<h3 id="videoplayer">VideoPlayer</h3>
+<h4 id="unity">Unity</h4>
+<mermaid chart="classDiagram
+
+    EVideoPlayerProvider ..&gt; EVideoPlayer
+    EVideoPlayer &lt;|-- NativeEVideoPlayer
+    EVideoPlayer &lt;|-- WebGLEVideoPlayer
+
+    class EVideoPlayerProvider {
+        +Provide(videoPlayer, targetRenderTexture)$ EVideoPlayer
+    }
+
+    class EVideoPlayer {
+        &lt;&lt;abstract&gt;&gt;
+        +OnPrepareCompleted IObservable
+        +OnErrorReceived IObservable
+        +Length double
+        +SetUrl(url) void
+        +SetTime(time) void
+        +Prepare() void
+        +Play() void
+        +Pause() void
+        +Stop() void
+        +SetAudioVolume(volume, trackIndex) void
+    }
+    
+    class NativeEVideoPlayer {
+    }
+
+    class WebGLEVideoPlayer {
+    }"></mermaid>
+<h4 id="javascript">JavaScript</h4>
+<mermaid chart="classDiagram
+
+    WebGLEVideoPlayer ..&gt; WebGLHelper  
+    VideoPlayer &lt;.. WebGLHelper  
+    VideoPlayerAdapter ..&gt; VideoPlayer
+
+    class WebGLEVideoPlayer {
+        &lt;&lt;C#&gt;&gt;
+    }
+    
+    class WebGLHelper {
+        &lt;&lt;C#&gt;&gt;
+    }
+
+    class VideoPlayerAdapter {
+        &lt;&lt;TypeScript&gt;&gt;
+        +adapt() void
+    }
+    
+    class VideoPlayer {
+        &lt;&lt;TypeScript&gt;&gt;
+    }"></mermaid>
 <h2 id="installation">Installation</h2>
 <h3 id="package">Package</h3>
-<h4 id="unity">Unity</h4>
+<h4 id="unity-1">Unity</h4>
 <pre><code class="language-text">https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 </code></pre>
 <h4 id="npm">npm</h4>
@@ -58,8 +113,12 @@
 </code></pre>
 <h3 id="dependencies">Dependencies</h3>
 <p>このモジュールは次のパッケージを使います。</p>
-<h4 id="unity-1">Unity</h4>
+<h4 id="unity-2">Unity</h4>
 <ul>
+<li><a href="/Extreal.Guide/next/core/logging">Extreal.Core.Logging</a></li>
+<li><a href="/Extreal.Guide/next/core/common">Extreal.Core.Common</a></li>
+<li><a href="https://github.com/Cysharp/UniTask">UniTask</a></li>
+<li><a href="https://github.com/neuecc/UniRx">UniRx</a></li>
 <li><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json">System.Text.Json</a></li>
 </ul>
 <h4 id="npm-1">npm</h4>
@@ -74,6 +133,20 @@
 <p>ブラウザ側でJavaScriptの呼び出し状況をログに出力できます。
 デフォルトはログを出力しないので、ログを出力したい場合はWebGLHelperConfigで指定します。</p>
 <pre><code class="language-csharp">WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
+</code></pre>
+<h4 id="videoplayer-1">VideoPlayer</h4>
+<p>EVideoPlayerProviderを使ってEVideoPlayerを作成します。
+WebGLで使う場合はtargetRenderTextureに使用したいRenderTextureを設定します。
+WebGL以外で使う場合はvideoPlayerに使用したいVideoPlayerを設定します。</p>
+<pre><code class="language-csharp">var eVideoPlayer = EVideoPlayerProvider.Provide(videoPlayer, renderTexture);
+</code></pre>
+<admonition type="info"><p>TargetRenderTextureとVideoPlayerをどちらも設定するとプラットフォームを切り替えるだけでWebGL向けの機能もWebGL以外の機能も使用できます。</p></admonition>
+<p>WebGLで使う場合はさらにJavaScriptで初期化を行います。
+VideoPlayerAdapterを作成してadapt関数を呼び出します。</p>
+<pre><code class="language-typescript">import { VideoPlayerAdapter } from &quot;@extreal-dev/extreal.integration.web.common&quot;;
+
+const videoPlayerAdapter = new VideoPlayerAdapter();
+videoPlayerAdapter.adapt();
 </code></pre>
 <h2 id="usage">Usage</h2>
 <h3 id="cからjavascriptを呼び出す">C#からJavaScriptを呼び出す</h3>
@@ -105,7 +178,7 @@
 </li>
 </ul>
 <admonition type="info"><p>引数と戻り値は文字列にしているので、複雑なデータ構造を扱いたい場合はJSONを使用してください。</p></admonition>
-<p>C#側はWebGLHelperのCallAction/CallFunctionを使ってJavaScriptを呼び出します。
+<p>C#側はWebGLHelperのCallAction/CallFunctionを使ってJavaScriptを呼び 出します。
 Actionが戻り値なし、Functionが戻り値ありの関数に対応します。
 C#とJavaScriptの対応付けは文字列のターゲット名で行います。</p>
 <pre><code class="language-csharp">public class Sample : DisposableBase
@@ -141,7 +214,7 @@ JavaScriptとC#の対応付けは文字列のターゲット名で行います�
 callback(&quot;HandleOnCallback&quot;, &quot;param1&quot;, &quot;param2&quot;);
 </code></pre>
 <p>C#側はWebGLHelperのAddCallbackを使います。
-この実装例ではコールバ ックを受けてイベント通知を送信しています。</p>
+この実装例ではコールバックを受けてイベント通知を送信しています。</p>
 <pre><code class="language-csharp">public class Sample : DisposableBase
 {
     public IObservable&lt;string&gt; OnCallback =&gt; onCallback;
@@ -160,7 +233,44 @@ callback(&quot;HandleOnCallback&quot;, &quot;param1&quot;, &quot;param2&quot;);
 
     protected override void ReleaseManagedResources() =&gt; onCallback.Dispose();
 }
-</code></pre></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="ドキュメントページ"><a class="pagination-nav__link pagination-nav__link--prev" href="/Extreal.Guide/next/integration/asset-workflow.addressables"><div class="pagination-nav__sublabel">前へ</div><div class="pagination-nav__label">Asset Workflow using Addressables</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Extreal.Guide/next/integration/p2p.webrtc"><div class="pagination-nav__sublabel">次へ</div><div class="pagination-nav__label">P2P using WebRTC</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#what-for" class="table-of-contents__link toc-highlight">What for?</a></li><li><a href="#specification" class="table-of-contents__link toc-highlight">Specification</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a></li><li><a href="#installation" class="table-of-contents__link toc-highlight">Installation</a><ul><li><a href="#package" class="table-of-contents__link toc-highlight">Package</a></li><li><a href="#dependencies" class="table-of-contents__link toc-highlight">Dependencies</a></li><li><a href="#settings" class="table-of-contents__link toc-highlight">Settings</a></li></ul></li><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a><ul><li><a href="#cからjavascriptを呼び出す" class="table-of-contents__link toc-highlight">C#からJavaScriptを呼び出す</a></li><li><a href="#javascriptからcにコールバックする" class="table-of-contents__link toc-highlight">JavaScriptからC#にコールバックする</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">License</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache License 2.0<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Feedback</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/extreal-dev" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Issues<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Used by</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.buralit.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">BURALIT<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Legal</div><ul class="footer__items clean-list"><li class="footer__item">
+</code></pre>
+<h3 id="プラットフォームに応じたビデオ再生を行う">プラットフォームに応じたビデオ再生を行う</h3>
+<p>WebGLでのビデオ再生をJavaScriptに委譲する機能はEVideoPlayerが提供します。</p>
+<admonition type="info"><p>WebGL以外でビデオ再生する場合も同様のAPIを使用できます。</p></admonition>
+<p>使用したい動画が存在するURLを設定して動画再生の準備をします。</p>
+<pre><code class="language-csharp">videoPlayer.SetUrl(&quot;URL&quot;);
+videoPlayer.Prepare();
+</code></pre>
+<p>動画再生をする準備ができたらOnPrepareCompletedイベントが発火します。</p>
+<pre><code class="language-csharp">videoPlayer.OnPrepareCompleted
+    .Subscribe(_ =&gt;
+    {
+        // Handle processing when preparation is completed here.
+    })
+    .AddTo(disposables);
+</code></pre>
+<p>動画を再生/一時停止/停止したい場合はそれぞれPlay/Pause/Stopメソッドを使用します。</p>
+<pre><code class="language-csharp">videoPlayer.Play();
+videoPlayer.Pause();
+videoPlayer.Stop();
+</code></pre>
+<p>動画の準備時や再生時にエラーが生じた場合はOnErrorReceivedイベントが発火します。</p>
+<pre><code class="language-csharp">videoPlayer.OnErrorReceived
+    .Subscribe(appState.Notify)
+    .AddTo(disposables);
+</code></pre>
+<p>動画の音量を調節したい場合はSetAudioVolumeメソッドを使用します。
+引数のvolumeには0～1のfloat値を入力してください。</p>
+<pre><code class="language-csharp">videoPlayer.SetAudioVolume(volume);
+</code></pre>
+<p>動画の長さを取得したい場合はLengthプロパティを使用します。
+戻り値の単位は秒です。</p>
+<pre><code class="language-csharp">var videoLength = videoPlayer.Length;
+</code></pre>
+<p>動画の再生位置を指定したい場合はSetTimeメソッドを使用します。
+引数の単位は秒です。</p>
+<pre><code class="language-csharp">videoPlayer.SetTime(time);
+</code></pre></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="ドキュメントページ"><a class="pagination-nav__link pagination-nav__link--prev" href="/Extreal.Guide/next/integration/asset-workflow.addressables"><div class="pagination-nav__sublabel">前へ</div><div class="pagination-nav__label">Asset Workflow using Addressables</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Extreal.Guide/next/integration/p2p.webrtc"><div class="pagination-nav__sublabel">次へ</div><div class="pagination-nav__label">P2P using WebRTC</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#what-for" class="table-of-contents__link toc-highlight">What for?</a></li><li><a href="#specification" class="table-of-contents__link toc-highlight">Specification</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a><ul><li><a href="#videoplayer" class="table-of-contents__link toc-highlight">VideoPlayer</a></li></ul></li><li><a href="#installation" class="table-of-contents__link toc-highlight">Installation</a><ul><li><a href="#package" class="table-of-contents__link toc-highlight">Package</a></li><li><a href="#dependencies" class="table-of-contents__link toc-highlight">Dependencies</a></li><li><a href="#settings" class="table-of-contents__link toc-highlight">Settings</a></li></ul></li><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a><ul><li><a href="#cからjavascriptを呼び出す" class="table-of-contents__link toc-highlight">C#からJavaScriptを呼び出す</a></li><li><a href="#javascriptからcにコールバックする" class="table-of-contents__link toc-highlight">JavaScriptからC#にコールバックする</a></li><li><a href="#プラットフォームに応じたビデオ再生を行う" class="table-of-contents__link toc-highlight">プラットフォームに応じたビデオ再生を行う</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">License</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache License 2.0<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Feedback</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/extreal-dev" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Issues<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Used by</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.buralit.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">BURALIT<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Legal</div><ul class="footer__items clean-list"><li class="footer__item">
                     <a class="footer__link-item" href="javascript:void(0);" onclick="goTermsOfUse()">Terms of Use</a>
                 </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 TIS, Inc. Built with Docusaurus.<br><small>本サイトに掲載されている商品またはサービスなどの名称は各社の商標または登録商標です。</small></div></div></div></footer></div>
 </body>

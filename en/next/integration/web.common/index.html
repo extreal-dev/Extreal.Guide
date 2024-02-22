@@ -6,7 +6,7 @@
 <title data-rh="true">Common for Web | Extreal</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://extreal-dev.github.io/Extreal.Guide/en/next/integration/web.common"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" property="og:locale:alternate" content="ja"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Common for Web | Extreal"><meta data-rh="true" name="description" content="What for?"><meta data-rh="true" property="og:description" content="What for?"><link data-rh="true" rel="icon" href="/Extreal.Guide/en/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://extreal-dev.github.io/Extreal.Guide/en/next/integration/web.common"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/web.common" hreflang="ja"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/en/next/integration/web.common" hreflang="en"><link data-rh="true" rel="alternate" href="https://extreal-dev.github.io/Extreal.Guide/next/integration/web.common" hreflang="x-default"><script src="https://plausible.io/js/script.js" defer="defer" data-domain="extreal-dev.github.io,all.fintan"></script>
 <script src="/Extreal.Guide/js/custom.js"></script>
 <script src="/Extreal.Guide/en/js/custom.js"></script><link rel="stylesheet" href="/Extreal.Guide/en/assets/css/styles.bb6e314e.css">
-<script src="/Extreal.Guide/en/assets/js/runtime~main.0567f7e3.js" defer="defer"></script>
+<script src="/Extreal.Guide/en/assets/js/runtime~main.67bdbb91.js" defer="defer"></script>
 <script src="/Extreal.Guide/en/assets/js/main.204b57dc.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -19,6 +19,7 @@ Browser-oriented applications require calling processing and passing data betwee
 <ul>
 <li>You can call JavaScript from C#.</li>
 <li>You can do callbacks from JavaScript to C#.</li>
+<li>You can play videos according to the platform.</li>
 </ul>
 <h2 id="architecture">Architecture</h2>
 <mermaid chart="classDiagram
@@ -48,9 +49,63 @@ Browser-oriented applications require calling processing and passing data betwee
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
     }"></mermaid>
+<h3 id="videoplayer">VideoPlayer</h3>
+<h4 id="unity">Unity</h4>
+<mermaid chart="classDiagram
+
+    EVideoPlayerProvider ..&gt; EVideoPlayer
+    EVideoPlayer &lt;|-- NativeEVideoPlayer
+    EVideoPlayer &lt;|-- WebGLEVideoPlayer
+
+    class EVideoPlayerProvider {
+        +Provide(videoPlayer, targetRenderTexture)$ EVideoPlayer
+    }
+
+    class EVideoPlayer {
+        &lt;&lt;abstract&gt;&gt;
+        +OnPrepareCompleted IObservable
+        +OnErrorReceived IObservable
+        +Length double
+        +SetUrl(url) void
+        +SetTime(time) void
+        +Prepare() void
+        +Play() void
+        +Pause() void
+        +Stop() void
+        +SetAudioVolume(volume, trackIndex) void
+    }
+    
+    class NativeEVideoPlayer {
+    }
+
+    class WebGLEVideoPlayer {
+    }"></mermaid>
+<h4 id="javascript">JavaScript</h4>
+<mermaid chart="classDiagram
+
+    WebGLEVideoPlayer ..&gt; WebGLHelper  
+    VideoPlayer &lt;.. WebGLHelper  
+    VideoPlayerAdapter ..&gt; VideoPlayer
+
+    class WebGLEVideoPlayer {
+        &lt;&lt;C#&gt;&gt;
+    }
+    
+    class WebGLHelper {
+        &lt;&lt;C#&gt;&gt;
+    }
+
+    class VideoPlayerAdapter {
+        &lt;&lt;TypeScript&gt;&gt;
+        +adapt() void
+    }
+    
+    class VideoPlayer {
+        &lt;&lt;TypeScript&gt;&gt;
+    }"></mermaid>
 <h2 id="installation">Installation</h2>
 <h3 id="package">Package</h3>
-<h4 id="unity">Unity</h4>
+<h4 id="unity-1">Unity</h4>
 <pre><code class="language-text">https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 </code></pre>
 <h4 id="npm">npm</h4>
@@ -58,8 +113,12 @@ Browser-oriented applications require calling processing and passing data betwee
 </code></pre>
 <h3 id="dependencies">Dependencies</h3>
 <p>This module uses the following packages.</p>
-<h4 id="unity-1">Unity</h4>
+<h4 id="unity-2">Unity</h4>
 <ul>
+<li><a href="/Extreal.Guide/en/next/core/logging">Extreal.Core.Logging</a></li>
+<li><a href="/Extreal.Guide/en/next/core/common">Extreal.Core.Common</a></li>
+<li><a href="https://github.com/Cysharp/UniTask">UniTask</a></li>
+<li><a href="https://github.com/neuecc/UniRx">UniRx</a></li>
 <li><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json">System.Text.Json</a></li>
 </ul>
 <h4 id="npm-1">npm</h4>
@@ -74,6 +133,20 @@ Please initialize the WebGL helper when you start the application.</p>
 <p>The browser can log the status of JavaScript calls.
 The default is to not output logs, so if you want to output logs, specify them in WebGLHelperConfig.</p>
 <pre><code class="language-csharp">WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
+</code></pre>
+<h4 id="videoplayer-1">VideoPlayer</h4>
+<p>Create an EVideoPlayer using EVideoPlayerProvider.
+If using WebGL, set the RenderTexture you want to use to targetRenderTexture.
+For non-WebGL, set the VideoPlayer component you want to use to videoPlayer.</p>
+<pre><code class="language-csharp">var eVideoPlayer = EVideoPlayerProvider.Provide(videoPlayer, renderTexture);
+</code></pre>
+<admonition type="info"><p>If you set both TargetRenderTexture and VideoPlayer, you can use both WebGL-oriented and non-WebGL features simply by switching platforms.</p></admonition>
+<p>If you want to use on WebGL, initialize it further in JavaScript.
+Create a VideoPlayerAdapter and call the adapt function.</p>
+<pre><code class="language-typescript">import { VideoPlayerAdapter } from &quot;@extreal-dev/extreal.integration.web.common&quot;;
+
+const videoPlayerAdapter = new VideoPlayerAdapter();
+videoPlayerAdapter.adapt();
 </code></pre>
 <h2 id="usage">Usage</h2>
 <h3 id="call-javascript-from-c">Call JavaScript from C#</h3>
@@ -160,7 +233,44 @@ In this example implementation, the callback is received and event notification 
 
     protected override void ReleaseManagedResources() =&gt; onCallback.Dispose();
 }
-</code></pre></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/Extreal.Guide/en/next/integration/asset-workflow.addressables"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Asset Workflow using Addressables</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Extreal.Guide/en/next/integration/p2p.webrtc"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">P2P using WebRTC</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#what-for" class="table-of-contents__link toc-highlight">What for?</a></li><li><a href="#specification" class="table-of-contents__link toc-highlight">Specification</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a></li><li><a href="#installation" class="table-of-contents__link toc-highlight">Installation</a><ul><li><a href="#package" class="table-of-contents__link toc-highlight">Package</a></li><li><a href="#dependencies" class="table-of-contents__link toc-highlight">Dependencies</a></li><li><a href="#settings" class="table-of-contents__link toc-highlight">Settings</a></li></ul></li><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a><ul><li><a href="#call-javascript-from-c" class="table-of-contents__link toc-highlight">Call JavaScript from C#</a></li><li><a href="#callback-from-javascript-to-c" class="table-of-contents__link toc-highlight">Callback from JavaScript to C#</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">License</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache License 2.0<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Feedback</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/extreal-dev" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Issues<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Used by</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.buralit.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">BURALIT<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Legal</div><ul class="footer__items clean-list"><li class="footer__item">
+</code></pre>
+<h3 id="play-videos-according-to-platform">Play videos according to platform</h3>
+<p>The ability to delegate video playback on WebGL to JavaScript is provided by EVideoPlayer.</p>
+<admonition type="info"><p>The same API can be used for video playback on the platforms other than WebGL.</p></admonition>
+<p>Set the URL where the video you wish to use is located and prepare for video playback.</p>
+<pre><code class="language-csharp">videoPlayer.SetUrl(&quot;URL&quot;);
+videoPlayer.Prepare();
+</code></pre>
+<p>The OnPrepareCompleted event fires when the video is ready to play.</p>
+<pre><code class="language-csharp">videoPlayer.OnPrepareCompleted
+    .Subscribe(_ =&gt;
+    {
+        // Handle processing when preparation is completed here.
+    })
+    .AddTo(disposables);
+</code></pre>
+<p>Use the Play/Pause/Stop methods to play/pause/stop video, respectively.</p>
+<pre><code class="language-csharp">videoPlayer.Play();
+videoPlayer.Pause();
+videoPlayer.Stop();
+</code></pre>
+<p>If an error occurs during video preparation or playback, the OnErrorReceived event is fired.</p>
+<pre><code class="language-csharp">videoPlayer.OnErrorReceived
+    .Subscribe(appState.Notify)
+    .AddTo(disposables);
+</code></pre>
+<p>To adjust the volume of the video, use the SetAudioVolume method.
+Enter a float value between 0 and 1 for the argument volume.</p>
+<pre><code class="language-csharp">videoPlayer.SetAudioVolume(volume);
+</code></pre>
+<p>Use the Length property to obtain the length of the video.
+The unit of the return value is seconds.</p>
+<pre><code class="language-csharp">var videoLength = videoPlayer.Length;
+</code></pre>
+<p>Use the SetTime method to specify the playback position of the video.
+The unit of argument is seconds.</p>
+<pre><code class="language-csharp">videoPlayer.SetTime(time);
+</code></pre></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/Extreal.Guide/en/next/integration/asset-workflow.addressables"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Asset Workflow using Addressables</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Extreal.Guide/en/next/integration/p2p.webrtc"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">P2P using WebRTC</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#what-for" class="table-of-contents__link toc-highlight">What for?</a></li><li><a href="#specification" class="table-of-contents__link toc-highlight">Specification</a></li><li><a href="#architecture" class="table-of-contents__link toc-highlight">Architecture</a><ul><li><a href="#videoplayer" class="table-of-contents__link toc-highlight">VideoPlayer</a></li></ul></li><li><a href="#installation" class="table-of-contents__link toc-highlight">Installation</a><ul><li><a href="#package" class="table-of-contents__link toc-highlight">Package</a></li><li><a href="#dependencies" class="table-of-contents__link toc-highlight">Dependencies</a></li><li><a href="#settings" class="table-of-contents__link toc-highlight">Settings</a></li></ul></li><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a><ul><li><a href="#call-javascript-from-c" class="table-of-contents__link toc-highlight">Call JavaScript from C#</a></li><li><a href="#callback-from-javascript-to-c" class="table-of-contents__link toc-highlight">Callback from JavaScript to C#</a></li><li><a href="#play-videos-according-to-platform" class="table-of-contents__link toc-highlight">Play videos according to platform</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">License</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache License 2.0<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Feedback</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/extreal-dev" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Issues<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Used by</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.buralit.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">BURALIT<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">Legal</div><ul class="footer__items clean-list"><li class="footer__item">
                     <a class="footer__link-item" href="javascript:void(0);" onclick="goTermsOfUse()">Terms of Use</a>
                 </li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 TIS, Inc. Built with Docusaurus.<br><small>The names of products or services appearing on this site are trademarks or registered trademarks of the respective companies.</small></div></div></div></footer></div>
 </body>
