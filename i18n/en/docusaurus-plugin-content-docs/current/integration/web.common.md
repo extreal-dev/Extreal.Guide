@@ -15,6 +15,7 @@ This module hides the slightly more complex mechanism of C# and JavaScript integ
 
 - You can call JavaScript from C#.
 - You can do callbacks from JavaScript to C#.
+- You can play videos according to the platform.
 
 ## Architecture
 
@@ -48,6 +49,69 @@ classDiagram
     }
 ```
 
+### VideoPlayer
+
+#### Unity
+
+```mermaid
+classDiagram
+
+    EVideoPlayerProvider ..> EVideoPlayer
+    EVideoPlayer <|-- NativeEVideoPlayer
+    EVideoPlayer <|-- WebGLEVideoPlayer
+
+    class EVideoPlayerProvider {
+        +Provide(videoPlayer, targetRenderTexture)$ EVideoPlayer
+    }
+
+    class EVideoPlayer {
+        <<abstract>>
+        +OnPrepareCompleted IObservable
+        +OnErrorReceived IObservable
+        +Length double
+        +SetUrl(url) void
+        +SetTime(time) void
+        +Prepare() void
+        +Play() void
+        +Pause() void
+        +Stop() void
+        +SetAudioVolume(volume, trackIndex) void
+    }
+    
+    class NativeEVideoPlayer {
+    }
+
+    class WebGLEVideoPlayer {
+    }
+```
+
+#### JavaScript
+
+```mermaid
+classDiagram
+
+    WebGLEVideoPlayer ..> WebGLHelper  
+    VideoPlayer <.. WebGLHelper  
+    VideoPlayerAdapter ..> VideoPlayer
+
+    class WebGLEVideoPlayer {
+        <<C#>>
+    }
+    
+    class WebGLHelper {
+        <<C#>>
+    }
+
+    class VideoPlayerAdapter {
+        <<TypeScript>>
+        +adapt() void
+    }
+    
+    class VideoPlayer {
+        <<TypeScript>>
+    }
+```
+
 ## Installation
 
 ### Package
@@ -67,6 +131,10 @@ https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 This module uses the following packages.
 
 #### Unity
+- [Extreal.Core.Logging](../core/logging.md)
+- [Extreal.Core.Common](../core/common.md)
+- [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
 - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)
 
 #### npm
@@ -86,6 +154,30 @@ The default is to not output logs, so if you want to output logs, specify them i
 
 ```csharp
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
+```
+
+#### VideoPlayer
+
+Create an EVideoPlayer using EVideoPlayerProvider.
+If using WebGL, set the RenderTexture you want to use to targetRenderTexture.
+For non-WebGL, set the VideoPlayer component you want to use to videoPlayer.
+
+```csharp
+var eVideoPlayer = EVideoPlayerProvider.Provide(videoPlayer, renderTexture);
+```
+
+:::info
+If you set both TargetRenderTexture and VideoPlayer, you can use both WebGL-oriented and non-WebGL features simply by switching platforms.
+:::
+
+If you want to use on WebGL, initialize it further in JavaScript.
+Create a VideoPlayerAdapter and call the adapt function.
+
+```typescript
+import { VideoPlayerAdapter } from "@extreal-dev/extreal.integration.web.common";
+
+const videoPlayerAdapter = new VideoPlayerAdapter();
+videoPlayerAdapter.adapt();
 ```
 
 ## Usage
@@ -187,4 +279,67 @@ public class Sample : DisposableBase
 
     protected override void ReleaseManagedResources() => onCallback.Dispose();
 }
+```
+
+### Play videos according to platform
+
+The ability to delegate video playback on WebGL to JavaScript is provided by EVideoPlayer.
+
+:::info
+The same API can be used for video playback on the platforms other than WebGL.
+:::
+
+Set the URL where the video you wish to use is located and prepare for video playback.
+
+```csharp
+videoPlayer.SetUrl("URL");
+videoPlayer.Prepare();
+```
+
+The OnPrepareCompleted event fires when the video is ready to play.
+
+```csharp
+videoPlayer.OnPrepareCompleted
+    .Subscribe(_ =>
+    {
+        // Handle processing when preparation is completed here.
+    })
+    .AddTo(disposables);
+```
+
+Use the Play/Pause/Stop methods to play/pause/stop video, respectively.
+
+```csharp
+videoPlayer.Play();
+videoPlayer.Pause();
+videoPlayer.Stop();
+```
+
+If an error occurs during video preparation or playback, the OnErrorReceived event is fired.
+
+```csharp
+videoPlayer.OnErrorReceived
+    .Subscribe(appState.Notify)
+    .AddTo(disposables);
+```
+
+To adjust the volume of the video, use the SetAudioVolume method.
+Enter a float value between 0 and 1 for the argument volume.
+
+```csharp
+videoPlayer.SetAudioVolume(volume);
+```
+
+Use the Length property to obtain the length of the video.
+The unit of the return value is seconds.
+
+```csharp
+var videoLength = videoPlayer.Length;
+```
+
+Use the SetTime method to specify the playback position of the video.
+The unit of argument is seconds.
+
+```csharp
+videoPlayer.SetTime(time);
 ```
