@@ -15,7 +15,7 @@ This module hides the slightly more complex mechanism of C# and JavaScript integ
 
 - You can call JavaScript from C#.
 - You can do callbacks from JavaScript to C#.
-- You can delegate Video playback on WebGL to JavaScript.
+- You can play videos according to the platform.
 
 ## Architecture
 
