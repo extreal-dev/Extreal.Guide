@@ -169,7 +169,7 @@ The default is to not output logs, so if you want to output logs, specify them i
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
 ```
 
-#### Video
+#### VideoPlayer
 
 Create a GameObject in the scene and attach an EVideoPlayer component to it.
 If using WebGL, set the RenderTexture you want to use to TargetRenderTexture.
@@ -290,7 +290,7 @@ public class Sample : DisposableBase
 }
 ```
 
-### Delegate Video playback on WebGL to JavaScript
+### Play videos according to platform
 
 The ability to delegate video playback on WebGL to JavaScript is provided by EVideoPlayer.
 

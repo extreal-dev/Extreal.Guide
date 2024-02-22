@@ -169,7 +169,7 @@ WebGLHelper.Initialize();
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
 ```
 
-#### Video
+#### VideoPlayer
 
 シーン上にGameObjectを作成し、EVideoPlayerコンポーネントをアタッチします。
 WebGLで使う場合はTargetRenderTextureに使用したいRenderTextureを設定します。
@@ -290,7 +290,7 @@ public class Sample : DisposableBase
 }
 ```
 
-### WebGLでのビデオ再生をJavaScriptに委譲する
+### プラットフォームに応じたビデオ再生を行う
 
 WebGLでのビデオ再生をJavaScriptに委譲する機能はEVideoPlayerが提供します。
 
