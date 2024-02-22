@@ -56,17 +56,19 @@ classDiagram
 ```mermaid
 classDiagram
 
-    MonoBehaviour <|-- EVideoPlayer
-    EVideoPlayer --> IVideoPlayer
-    IDisposable <|-- IVideoPlayer
-    IVideoPlayer <|.. NativeVideoPlayer
-    IVideoPlayer <|.. WebGLVideoPlayer
+    EVideoPlayerProvider ..> EVideoPlayer
+    EVideoPlayer <|-- NativeEVideoPlayer
+    EVideoPlayer <|-- WebGLEVideoPlayer
+
+    class EVideoPlayerProvider {
+        +Provide(videoPlayer, targetRenderTexture)$ EVideoPlayer
+    }
 
     class EVideoPlayer {
+        <<abstract>>
         +OnPrepareCompleted IObservable
         +OnErrorReceived IObservable
         +Length double
-        +Initialize() void
         +SetUrl(url) void
         +SetTime(time) void
         +Prepare() void
@@ -76,25 +78,10 @@ classDiagram
         +SetAudioVolume(volume, trackIndex) void
     }
     
-    class IVideoPlayer {
-        +OnPrepareCompleted IObservable
-        +OnErrorReceived IObservable
-        +Length double
-        +SetUrl(url) void
-        +SetTime(time) void
-        +Prepare() void
-        +Play() void
-        +Pause() void
-        +Stop() void
-        +SetAudioVolume(trackIndex, volume) void
+    class NativeEVideoPlayer {
     }
 
-    class MonoBehaviour {
-        <<Unity>>
-    }
-
-    class IDisposable {
-        <<System>>
+    class WebGLEVideoPlayer {
     }
 ```
 
@@ -103,11 +90,11 @@ classDiagram
 ```mermaid
 classDiagram
 
-    WebGLVideoPlayer ..> WebGLHelper  
+    WebGLEVideoPlayer ..> WebGLHelper  
     VideoPlayer <.. WebGLHelper  
     VideoPlayerAdapter ..> VideoPlayer
 
-    class WebGLVideoPlayer {
+    class WebGLEVideoPlayer {
         <<C#>>
     }
     
@@ -171,9 +158,13 @@ WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
 
 #### VideoPlayer
 
-シーン上にGameObjectを作成し、EVideoPlayerコンポーネントをアタッチします。
-WebGLで使う場合はTargetRenderTextureに使用したいRenderTextureを設定します。
-WebGL以外で使う場合はVideoPlayerに使用したいVideoPlayerを設定します。
+EVideoPlayerProviderを使ってEVideoPlayerを作成します。
+WebGLで使う場合はtargetRenderTextureに使用したいRenderTextureを設定します。
+WebGL以外で使う場合はvideoPlayerに使用したいVideoPlayerを設定します。
+
+```csharp
+var eVideoPlayer = EVideoPlayerProvider.Provide(videoPlayer, renderTexture);
+```
 
 :::info
 TargetRenderTextureとVideoPlayerをどちらも設定するとプラットフォームを切り替えるだけでWebGL向けの機能もWebGL以外の機能も使用できます。
@@ -297,12 +288,6 @@ WebGLでのビデオ再生をJavaScriptに委譲する機能はEVideoPlayerが�
 :::info
 WebGL以外でビデオ再生する場合も同様のAPIを使用できます。
 :::
-
-まずEVideoPlayerを初期化します。
-
-```csharp
-videoPlayer.Initialize();
-```
 
 使用したい動画が存在するURLを設定して動画再生の準備をします。
 

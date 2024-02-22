@@ -56,17 +56,19 @@ classDiagram
 ```mermaid
 classDiagram
 
-    MonoBehaviour <|-- EVideoPlayer
-    EVideoPlayer --> IVideoPlayer
-    IDisposable <|-- IVideoPlayer
-    IVideoPlayer <|.. NativeVideoPlayer
-    IVideoPlayer <|.. WebGLVideoPlayer
+    EVideoPlayerProvider ..> EVideoPlayer
+    EVideoPlayer <|-- NativeEVideoPlayer
+    EVideoPlayer <|-- WebGLEVideoPlayer
+
+    class EVideoPlayerProvider {
+        +Provide(videoPlayer, targetRenderTexture)$ EVideoPlayer
+    }
 
     class EVideoPlayer {
+        <<abstract>>
         +OnPrepareCompleted IObservable
         +OnErrorReceived IObservable
         +Length double
-        +Initialize() void
         +SetUrl(url) void
         +SetTime(time) void
         +Prepare() void
@@ -76,25 +78,10 @@ classDiagram
         +SetAudioVolume(volume, trackIndex) void
     }
     
-    class IVideoPlayer {
-        +OnPrepareCompleted IObservable
-        +OnErrorReceived IObservable
-        +Length double
-        +SetUrl(url) void
-        +SetTime(time) void
-        +Prepare() void
-        +Play() void
-        +Pause() void
-        +Stop() void
-        +SetAudioVolume(trackIndex, volume) void
+    class NativeEVideoPlayer {
     }
 
-    class MonoBehaviour {
-        <<Unity>>
-    }
-
-    class IDisposable {
-        <<System>>
+    class WebGLEVideoPlayer {
     }
 ```
 
@@ -103,11 +90,11 @@ classDiagram
 ```mermaid
 classDiagram
 
-    WebGLVideoPlayer ..> WebGLHelper  
+    WebGLEVideoPlayer ..> WebGLHelper  
     VideoPlayer <.. WebGLHelper  
     VideoPlayerAdapter ..> VideoPlayer
 
-    class WebGLVideoPlayer {
+    class WebGLEVideoPlayer {
         <<C#>>
     }
     
@@ -171,9 +158,13 @@ WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
 
 #### VideoPlayer
 
-Create a GameObject in the scene and attach an EVideoPlayer component to it.
-If using WebGL, set the RenderTexture you want to use to TargetRenderTexture.
-For non-WebGL, set the VideoPlayer component you want to use to VideoPlayer.
+Create an EVideoPlayer using EVideoPlayerProvider.
+If using WebGL, set the RenderTexture you want to use to targetRenderTexture.
+For non-WebGL, set the VideoPlayer component you want to use to videoPlayer.
+
+```csharp
+var eVideoPlayer = EVideoPlayerProvider.Provide(videoPlayer, renderTexture);
+```
 
 :::info
 If you set both TargetRenderTexture and VideoPlayer, you can use both WebGL-oriented and non-WebGL features simply by switching platforms.
@@ -297,12 +288,6 @@ The ability to delegate video playback on WebGL to JavaScript is provided by EVi
 :::info
 The same API can be used for video playback on the platforms other than WebGL.
 :::
-
-First, initialize EVideoPlayer.
-
-```csharp
-videoPlayer.Initialize();
-```
 
 Set the URL where the video you wish to use is located and prepare for video playback.
 
