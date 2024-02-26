@@ -104,7 +104,7 @@ sidebar_position: 1
 #### Added
 - [Messaging](../integration/messaging.md)によるマルチプレイができる機能を追加しました。([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
 
-### Extreal.Integration.Messaging.SocketIO
+### Extreal.Integration.Messaging.Socket.IO
 #### Added
 - Socket.IOによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/pull/1))
 
