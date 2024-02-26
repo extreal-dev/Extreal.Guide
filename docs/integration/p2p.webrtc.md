@@ -19,6 +19,7 @@ WebRTCを活用すると比較的容易にP2Pを実現できますが、P2Pの�
 - P2Pの状態をトリガーに処理を追加できます。
 - Native(C#)のP2Pにアプリケーション固有の処理を追加できます。
 - WebGL(JavaScript)のP2Pにアプリケーション固有の処理を追加できます。
+- シグナリングサーバーを冗長化できます。
 
 ## Architecture
 
@@ -31,6 +32,7 @@ classDiagram
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig
+    PeerConfig <|-- WebGLPeerConfig
 
     class PeerClientProvider {
         +Provide(peerConfig)$ PeerClient
@@ -60,6 +62,10 @@ classDiagram
     }
     
     class WebGLPeerClient {
+    }
+
+    class WebGLPeerConfig {
+        +WebGLSocketOptions WebGLSocketOptions
     }
 ```
 
@@ -499,3 +505,32 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
     }
 }
 ```
+
+### シグナリングサーバーを冗長化する
+
+シグナリングサーバーには[Socket.IO](https://socket.io/)を利用しています。
+Socket.IOサーバーを複数にして冗長化する場合はスティッキーセッションが推奨されています。
+詳細は[Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/)を参照してください。
+
+WebGLで使う場合にスティッキーセッションを有効にするには、PeerClientの作成時に追加の設定が必要です。
+WebGLSocketOptionsを指定したWebGLPeerConfigを使用することで、スティッキーセッションを有効にすることが可能です。
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var webGLPeerConfig = new WebGLPeerConfig(
+            peerConfig,
+            new WebGLSocketOptions(withCredentials: true)
+        );
+        var peerClient = PeerClientProvider.Provide(webGLPeerConfig);
+        builder.RegisterComponent(peerClient);
+    }
+}
+```
+
+:::info
+C#で使う場合は設定の必要はありません。
+:::
