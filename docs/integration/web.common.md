@@ -15,6 +15,7 @@ UnityではWebGLプラットフォームを使用してブラウザ向けのア�
 
 - C#からJavaScriptを呼び出せます。
 - JavaScriptからC#にコールバックできます。
+- プラットフォームに応じたビデオ再生ができます。
 
 ## Architecture
 
@@ -48,6 +49,69 @@ classDiagram
     }
 ```
 
+### VideoPlayer
+
+#### Unity
+
+```mermaid
+classDiagram
+
+    EVideoPlayerProvider ..> EVideoPlayer
+    EVideoPlayer <|-- NativeEVideoPlayer
+    EVideoPlayer <|-- WebGLEVideoPlayer
+
+    class EVideoPlayerProvider {
+        +Provide(videoPlayer, targetRenderTexture)$ EVideoPlayer
+    }
+
+    class EVideoPlayer {
+        <<abstract>>
+        +OnPrepareCompleted IObservable
+        +OnErrorReceived IObservable
+        +Length double
+        +SetUrl(url) void
+        +SetTime(time) void
+        +Prepare() void
+        +Play() void
+        +Pause() void
+        +Stop() void
+        +SetAudioVolume(volume, trackIndex) void
+    }
+    
+    class NativeEVideoPlayer {
+    }
+
+    class WebGLEVideoPlayer {
+    }
+```
+
+#### JavaScript
+
+```mermaid
+classDiagram
+
+    WebGLEVideoPlayer ..> WebGLHelper  
+    VideoPlayer <.. WebGLHelper  
+    VideoPlayerAdapter ..> VideoPlayer
+
+    class WebGLEVideoPlayer {
+        <<C#>>
+    }
+    
+    class WebGLHelper {
+        <<C#>>
+    }
+
+    class VideoPlayerAdapter {
+        <<TypeScript>>
+        +adapt() void
+    }
+    
+    class VideoPlayer {
+        <<TypeScript>>
+    }
+```
+
 ## Installation
 
 ### Package
@@ -67,6 +131,10 @@ https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 このモジュールは次のパッケージを使います。
 
 #### Unity
+- [Extreal.Core.Logging](../core/logging.md)
+- [Extreal.Core.Common](../core/common.md)
+- [UniTask](https://github.com/Cysharp/UniTask)
+- [UniRx](https://github.com/neuecc/UniRx)
 - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json)
 
 #### npm
@@ -86,6 +154,30 @@ WebGLHelper.Initialize();
 
 ```csharp
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
+```
+
+#### VideoPlayer
+
+EVideoPlayerProviderを使ってEVideoPlayerを作成します。
+WebGLで使う場合はtargetRenderTextureに使用したいRenderTextureを設定します。
+WebGL以外で使う場合はvideoPlayerに使用したいVideoPlayerを設定します。
+
+```csharp
+var eVideoPlayer = EVideoPlayerProvider.Provide(videoPlayer, renderTexture);
+```
+
+:::info
+TargetRenderTextureとVideoPlayerをどちらも設定するとプラットフォームを切り替えるだけでWebGL向けの機能もWebGL以外の機能も使用できます。
+:::
+
+WebGLで使う場合はさらにJavaScriptで初期化を行います。
+VideoPlayerAdapterを作成してadapt関数を呼び出します。
+
+```typescript
+import { VideoPlayerAdapter } from "@extreal-dev/extreal.integration.web.common";
+
+const videoPlayerAdapter = new VideoPlayerAdapter();
+videoPlayerAdapter.adapt();
 ```
 
 ## Usage
@@ -150,7 +242,7 @@ addFunction("DoFunction", (str1, str2) => {
 
 JavaScriptからC#へのコールバックは次のシグネチャのみ提供しています。
 
-- Action<string, string>
+- Action\<string, string\>
 
 :::info
 引数は文字列にしているので、複雑なデータ構造を扱いたい場合はJSONを使用してください。
@@ -187,4 +279,67 @@ public class Sample : DisposableBase
 
     protected override void ReleaseManagedResources() => onCallback.Dispose();
 }
+```
+
+### プラットフォームに応じたビデオ再生を行う
+
+WebGLでのビデオ再生をJavaScriptに委譲する機能はEVideoPlayerが提供します。
+
+:::info
+WebGL以外でビデオ再生する場合も同様のAPIを使用できます。
+:::
+
+使用したい動画が存在するURLを設定して動画再生の準備をします。
+
+```csharp
+videoPlayer.SetUrl("URL");
+videoPlayer.Prepare();
+```
+
+動画再生をする準備ができたらOnPrepareCompletedイベントが発火します。
+
+```csharp
+videoPlayer.OnPrepareCompleted
+    .Subscribe(_ =>
+    {
+        // Handle processing when preparation is completed here.
+    })
+    .AddTo(disposables);
+```
+
+動画を再生/一時停止/停止したい場合はそれぞれPlay/Pause/Stopメソッドを使用します。
+
+```csharp
+videoPlayer.Play();
+videoPlayer.Pause();
+videoPlayer.Stop();
+```
+
+動画の準備時や再生時にエラーが生じた場合はOnErrorReceivedイベントが発火します。
+
+```csharp
+videoPlayer.OnErrorReceived
+    .Subscribe(appState.Notify)
+    .AddTo(disposables);
+```
+
+動画の音量を調節したい場合はSetAudioVolumeメソッドを使用します。
+引数のvolumeには0～1のfloat値を入力してください。
+
+```csharp
+videoPlayer.SetAudioVolume(volume);
+```
+
+動画の長さを取得したい場合はLengthプロパティを使用します。
+戻り値の単位は秒です。
+
+```csharp
+var videoLength = videoPlayer.Length;
+```
+
+動画の再生位置を指定したい場合はSetTimeメソッドを使用します。
+引数の単位は秒です。
+
+```csharp
+videoPlayer.SetTime(time);
 ```
