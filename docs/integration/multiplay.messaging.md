@@ -139,15 +139,10 @@ public class ClientControlScope : LifetimeScope
 
 グループでマルチプレイを行う機能はMultiplayClientが提供します。
 
-グループでマルチプレイをするにはグループに参加したりグループから抜けたりする必要がありますが、このモジュールではこれらの機能は[Messaging](./messaging.md)に委譲しています。
-これらの機能の詳細はMessagingの[グループでメッセージをやりとりする方法](./messaging.md#messaging-among-group)を参照してください。
-
-このモジュールではこれらの機能は次のようにして使用します。
+グループへの参加/退室は[Messaging](./messaging.md)と同じ使い方になります。
+[グループでメッセージをやりとりする](./messaging.md#messaging-among-group)を参照してください。
 
 ```csharp
-// List groups
-var groups = await multiplayClient.ListGroupsAsync();
-
 // Join a group
 var messagingJoiningConfig = new MessagingJoiningConfig("groupName");
 var multiplayJoiningConfig = new MultiplayJoiningConfig(messagingJoiningConfig);
@@ -157,8 +152,7 @@ await multiplayClient.JoinAsync(multiplayJoiningConfig);
 multiplayClient.LeaveAsync();
 ```
 
-グループに参加したらプレイヤーをスポーンしてマルチプレイを行います。
-SpawnObjectメソッドを使ってプレイヤーをスポーンします。
+グループに参加したらプレイヤーをスポーンしてマルチプレイに参加します。
 
 ```csharp
 multiplayClient.SpawnObject(playerObjectToBeSpawned)
