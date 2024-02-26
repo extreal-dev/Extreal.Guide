@@ -76,42 +76,42 @@ classDiagram
         <<extreal>>
     }
 ```
-### Redis
+### Socket.IO
 
 #### Unity
 
 ```mermaid
 classDiagram
-    RedisMessagingClientProvider ..> RedisMessagingClient
-    RedisMessagingClient <|-- NativeRedisMessagingClient
-    RedisMessagingClient <|-- WebGLRedisMessagingClient
-    NativeRedisMessagingClient ..> RedisMessagingConfig
-    WebGLRedisMessagingClient ..> RedisMessagingConfig
-    MessagingClient <|-- RedisMessagingClient
-    DisposableBase <|-- RedisMessagingClient
+    SocketIOMessagingClientProvider ..> SocketIOMessagingClient
+    SocketIOMessagingClient <|-- NativeSocketIOMessagingClient
+    SocketIOMessagingClient <|-- WebGLSocketIOMessagingClient
+    NativeSocketIOMessagingClient ..> SocketIOMessagingConfig
+    WebGLSocketIOMessagingClient ..> SocketIOMessagingConfig
+    MessagingClient <|-- SocketIOMessagingClient
+    DisposableBase <|-- SocketIOMessagingClient
 
-    class RedisMessagingClientProvider {
-        +Provide(messagingConfig)$ RedisMessagingClient
+    class SocketIOMessagingClientProvider {
+        +Provide(messagingConfig)$ SocketIOMessagingClient
     }
     
-    class RedisMessagingClient {
+    class SocketIOMessagingClient {
         <<abstract>>
-        +RedisMessagingClient()
+        +SocketIOMessagingClient()
     }
     
-    class RedisMessagingConfig {
+    class SocketIOMessagingConfig {
         +Url string
         +SocketIOOptions SocketIOOptions
         
-        +RedisMessagingConfig(url, socketIOOptions)
+        +SocketIOMessagingConfig(url, socketIOOptions)
     }
     
-    class NativeRedisMessagingClient {
-        +NativeRedisMessagingClient(messagingConfig) 
+    class NativeSocketIOMessagingClient {
+        +NativeSocketIOMessagingClient(messagingConfig) 
     }
     
-    class WebGLRedisMessagingClient {
-        +WebGLRedisMessagingClient(messagingConfig)
+    class WebGLSocketIOMessagingClient {
+        +WebGLSocketIOMessagingClient(messagingConfig)
     }
 
     class MessagingClient {
@@ -128,23 +128,23 @@ classDiagram
 ```mermaid
 classDiagram
 
-    WebGLRedisMessagingClient ..> WebGLHelper
-    WebGLHelper ..> RedisMessagingClient
-    RedisMessagingClientAdapter ..> RedisMessagingClient
+    WebGLSocketIOMessagingClient ..> WebGLHelper
+    WebGLHelper ..> SocketIOMessagingClient
+    SocketIOMessagingClientAdapter ..> SocketIOMessagingClient
     
     class WebGLHelper {
         <<C#>>
     }
 
-    class WebGLRedisMessagingClient {
+    class WebGLSocketIOMessagingClient {
         <<C#>>
     }
 
-    class RedisMessagingClientAdapter {
+    class SocketIOMessagingClientAdapter {
         <<TypeScript>>
     }
     
-    class RedisMessagingClient {
+    class SocketIOMessagingClient {
         <<TypeScript>>
     }
 ```
@@ -157,18 +157,18 @@ classDiagram
 ```text
 https://github.com/extreal-dev/Extreal.Integration.Messaging.git
 ```
-#### Redis
+#### Socket.IO
 
 ##### Unity
 
 ```text
-https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
+https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO.git
 ```
 
 ##### npm
 
 ```text
-@extreal-dev/extreal.integration.messaging.redis
+@extreal-dev/extreal.integration.messaging.socket.io
 ```
 
 ### Dependencies
@@ -182,7 +182,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-#### Redis
+#### Socket.IO
 
 ##### Unity
 
@@ -213,7 +213,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis.git
 
 メッセージングサーバを立ち上げる際に1グループあたりの最大人数を設定します。
 最大人数を超えてクライアントがグループに参加しようとした場合はそのクライアントの参加を拒否します。
-1グループあたりの最大人数は[compose.yaml](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~/compose.yaml)ファイル内のMESSAGING_MAX_CAPACITYで指定します。
+1グループあたりの最大人数は[compose.yaml](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/tree/main/MessagingServer~/compose.yaml)ファイル内のMESSAGING_MAX_CAPACITYで指定します。
 
 ```yaml
 environment:
@@ -225,7 +225,7 @@ environment:
     MESSAGING_CORS_ORIGIN: ${MESSAGING_CORS_ORIGIN:-*}
 ```
 
-メッセージングサーバの立ち上げ方は[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/tree/main/MessagingServer~)を参照してください。
+メッセージングサーバの立ち上げ方は[README](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/tree/main/MessagingServer~)を参照してください。
 
 :::tip
 メッセージングサーバーを増やしてスケールアウトしたい場合はSocket.IOが提供するRedis Adapterを使うことで実現できます。詳細は[Redis Adapter](https://socket.io/docs/v4/redis-adapter/)を参照してください。
@@ -233,15 +233,15 @@ environment:
 
 #### アプリケーション
 
-RedisMessagingClientProviderを使ってRedisMessagingClientを作成します。
+SocketIOMessagingClientProviderを使ってSocketIOMessagingClientを作成します。
 
 ```csharp
 public class ClientControlScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
-        var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+        var messagingConfig = new SocketIOMessagingConfig("url", socketIOOptions);
+        var messagingClient = SocketIOMessagingClientProvider.Provide(messagingConfig);
         builder.RegisterComponent<MessagingClient>(messagingClient);
 
         builder.RegisterEntryPoint<ClientControlPresenter>();
@@ -250,12 +250,12 @@ public class ClientControlScope : LifetimeScope
 ```
 
 WebGLで使う場合、JavaScriptの初期化が必要になります。
-RedisMessagingAdapterを作成してadapt関数を呼び出します。
+SocketIOMessagingAdapterを作成してadapt関数を呼び出します。
 
 ```typescript
-import { RedisMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.redis";
+import { SocketIOMessagingAdapter } from "@extreal-dev/extreal.integration.messaging.socket.io";
 
-const messagingAdapter = new RedisMessagingAdapter();
+const messagingAdapter = new SocketIOMessagingAdapter();
 messagingAdapter.adapt();
 ```
 
@@ -325,8 +325,8 @@ public class ClientControlScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        var messagingConfig = new RedisMessagingConfig("url", socketIOOptions);
-        var messagingClient = RedisMessagingClientProvider.Provide(messagingConfig);
+        var messagingConfig = new SocketIOMessagingConfig("url", socketIOOptions);
+        var messagingClient = SocketIOMessagingClientProvider.Provide(messagingConfig);
         var queuingMessagingClient = new QueuingMessagingClient(messagingClient);
         builder.RegisterComponent(queuingMessagingClient);
 
