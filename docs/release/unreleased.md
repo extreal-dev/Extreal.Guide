@@ -73,17 +73,17 @@ sidebar_position: 1
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
+### Extreal.Integration.Messaging
+#### Added
+- グループでメッセージをやりとりできるメッセージング機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
+
 ### Extreal.Integration.Multiplay.Messaging
 #### Added
 - [Messaging](../integration/messaging.md)によるマルチプレイができる機能を追加しました。([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
 
-### Extreal.Integration.Messaging
+### Extreal.Integration.Messaging.SocketIO
 #### Added
-- メッセージをグループでやりとりするベース機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
-
-### Extreal.Integration.Messaging.Redis
-#### Added
-- RedisのPub/Subによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/pull/1))
+- Socket.IOによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis/pull/1))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
