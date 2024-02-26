@@ -25,7 +25,6 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - Armature of [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
 - Group selection screen
-  - Allows users to select Massively or Light
   - Allows users to select Host or Client
   - For host, groups can be created by specifying a group name
   - For client, you can select a group and join the group
@@ -43,9 +42,9 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Each event will be held for one hour, with a set schedule and event announcement
   - The server is started/stopped each time the event is held
 - Number of users
-  - Massively
-    - 100 users per group
-  - Light
+  - Multiplayer
+    - 70 users per space
+  - Text/Voice chat
     - 10 users per group
   - If the maximum number of users is exceeded, users are notified on the group selection screen.
   - No limit on number of groups
@@ -53,6 +52,11 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - PC Browser
     - Windows 10
     - Chrome
+  - PC application
+    - Windows 10
+  - Mobile application
+    - iOS 16（TODO: 性能テストの実態に合わせてバージョン修正）
+    - Android 11（TODO: 性能テストの実態に合わせてバージョン修正）
   - Internet connection
     - Up/Down stream: 40 Mbps or higher
 - Assets
@@ -73,14 +77,13 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - When the network is disconnected, reconnect.
       - The reconnection status is notified to the user.
       - If reconnection fails, further reconnection is done by user operation (screen transition).
-  - Multiplayer (Redis Pub/Sub)
+  - Multiplayer, text chat (Messaging)
     - When the network is disconnected, the user is notified.
-    - All features are available except for multiplayer.
+    - All features are available except for multiplayer and text chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
-  - Multiplayer, text/voice chat (P2P)
+  - Voice chat (P2P)
     - When the network is disconnected, the user is notified.
-    - All features are available except for text/voice chat.
-      - If Light is selected, all features are unavailable.
+    - All features are available except for voice chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
   - Application usage visualization (Grafana/Loki)
     - No reconnection or user notification will be made because user play will not be affected.

@@ -28,7 +28,7 @@ The following Unity versions have been tested.
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.1.0-next.2
 - [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.4
 - [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.3
-- [Extreal.Integration.Messaging.Redis](https://github.com/extreal-dev/Extreal.Integration.Messaging.Redis) 1.0.0-next.4
+- [Extreal.Integration.Messaging.Socket.IO](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO) 1.0.0-next.5
 
 ### npm
 
@@ -36,7 +36,7 @@ The following Unity versions have been tested.
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.1.0-next.3
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.1.0-next.2
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.1.0-next.2
-- [@extreal-dev/extreal.integration.messaging.redis](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.redis) 1.0.0-next.1
+- [@extreal-dev/extreal.integration.messaging.socket.io](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.socket.io) 1.0.0-next.1
 
 ## Dependencies
 
@@ -63,11 +63,12 @@ The following Unity versions have been tested.
     - [socket.io-client](https://www.npmjs.com/package/socket.io-client) 4.7.4 ([MIT License](https://github.com/socketio/socket.io-client/blob/main/LICENSE))
 - Extreal.Integration.Chat.WebRTC
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.7 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
-- Extreal.Integration.Messaging.Redis
+- Extreal.Integration.Messaging.Socket.IO
   - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
   - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 
 ## Changes
+
 ### Extreal.Integration.Multiplay.NGO
 #### Changed
 - Upgraded NGO to 1.7.1.
@@ -94,6 +95,23 @@ The following Unity versions have been tested.
 - Add the ability to get the speaking volume in voice chat. ([Doc](../integration/chat.webrtc.md))
 #### Changed
 - Changed so that if the microphone cannot be used in voice chat, only the speaker is enabled. ([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+
+### Extreal.Integration.Messaging
+#### Added
+- Add messaging feature that allows groups to exchange messages. ([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
+
+### Extreal.Integration.Multiplay.Messaging
+#### Added
+- Add the ability to play multiplayer by [Messaging](../integration/messaging.md). ([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
+
+### Extreal.Integration.Messaging.Socket.IO
+#### Added
+- Add the ability to send and receive messages via Socket.IO. ([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/pull/1))
+
+### Extreal.SampleApp.Holiday
+#### Changed
+- Change to multiplayer per space. ([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- Change text chat and multiplayer to be realized in [Messaging](../integration/messaging.md). ([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 
 ## Upgrade guide {#upgrade-guide}
 

@@ -58,11 +58,14 @@ This will be done in conjunction with functional test.
 ## Performance test
 
 - Test Method
-  - Select Massively and run for 1.5 hours with Massively selected and 100 people accessing the virtual space
-  - Select Light and run for 1.5 hours with Massively selected and 10 people accessing the virtual space
+  - Runs for 1 hour with the following conditions
+    - Multiplayer
+      - With 70 people accessing the virtual space.
+    - Text/Voice Chat
+      - With 10 people accessing the group.
   - The number of accesses will be secured by a test application
     - The test application will have no UI and only player operation will be performed
-  - Visually determine the application's acceptance criteria using PC at hand
+  - Visually determine the application's acceptance criteria using PC, Android, iPhone at hand
   - Application CPU usage/memory usage is monitored and data is used to determine acceptance criteria
 - Pass criteria
   - No frame dropping or stoppage of the application
