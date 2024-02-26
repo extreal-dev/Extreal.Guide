@@ -338,18 +338,17 @@ public class ClientControlScope : LifetimeScope
 QueuingMessagingClientでは送信するメッセージと受信したメッセージをそれぞれリクエストキューとレスポンスキューに保持することで送受信のタイミングを制御しています。
 
 メッセージを送信したい場合はメッセージをリクエストキューに追加します。
-引数にクライアントIDを渡すことで送信先を指定することができます。
-クライアントIDはJoinedClientsプロパティから取得できます。
 
-```csharp
-var toClientId = messageClient.JoinedClients.First();
-await queuingMessagingClient.EnqueueRequest("message", toClientId);
-```
-
-クライアントIDを省略した場合はグループ全体にメッセージを送信できます。
+グループのメンバーにメッセージを送信したい場合はメッセージのみ指定します。
 
 ```csharp
 await queuingMessagingClient.EnqueueRequest("message");
+```
+
+グループの特定メンバーにメッセージを送信したい場合はメッセージに加えてクライアントIDを指定します。
+
+```csharp
+await queuingMessagingClient.EnqueueRequest("message", toClientId);
 ```
 
 受信したメッセージはレスポンスキューから受け取ります。
