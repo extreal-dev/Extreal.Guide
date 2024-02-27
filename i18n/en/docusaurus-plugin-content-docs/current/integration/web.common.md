@@ -242,7 +242,7 @@ addFunction("DoFunction", (str1, str2) => {
 
 Only the following signatures are provided for JavaScript to C# callback.
 
-- Action\<string, string\>
+- Action<string, string>
 
 :::info
 Arguments and return value are strings, so use JSON if you want to handle complex data structures.

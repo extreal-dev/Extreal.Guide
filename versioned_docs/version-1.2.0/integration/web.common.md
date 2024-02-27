@@ -150,7 +150,7 @@ addFunction("DoFunction", (str1, str2) => {
 
 JavaScriptからC#へのコールバックは次のシグネチャのみ提供しています。
 
-- Action\<string, string\>
+- Action<string, string>
 
 :::info
 引数は文字列にしているので、複雑なデータ構造を扱いたい場合はJSONを使用してください。
