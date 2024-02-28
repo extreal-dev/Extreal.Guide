@@ -37,7 +37,6 @@ classDiagram
     
     class MessagingClient {
         <<abstract>>
-        +JoinedClients IReadOnlyList
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
@@ -53,7 +52,6 @@ classDiagram
     }
 
     class QueuingMessagingClient {
-        +JoinedClients IReadOnlyList
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
@@ -293,7 +291,13 @@ await messagingClient.SendMessageAsync("message");
 await messagingClient.SendMessageAsync("message", toClientId);
 ```
 
-グループに参加しているクライアントIDはJoinedClientsプロパティから取得できます。
+グループに参加しているクライアントIDはOnClientJoinedのイベントパラメータから作成できます。
+
+```csharp
+private readonly List<string> joinedClients = new List<string>();
+messagingClient.OnClientJoined
+    .Subscribe(joinedClients.Add)
+```
 
 メッセージ受信にはOnMessageReceivedイベントを使います。
 
@@ -362,14 +366,14 @@ while (queuingMessagingClient.ResponseQueueCount() > 0)
 }
 ```
 
-### クライアントの状態をトリガーに処理を追加する
+### クライアントの状態をトリガーに処理を追加する {#client-event}
 
 MessagingClient/QueuingMessagingClientは次のイベント通知を設けています。
 
 - OnJoined
   - タイミング：グループに参加した直後
   - タイプ：IObservable
-  - パラメータ：自分のユーザID
+  - パラメータ：自分のクライアントID
 - OnLeaving
   - タイミング：グループから抜ける直前
   - タイプ：IObservable
@@ -382,15 +386,15 @@ MessagingClient/QueuingMessagingClientは次のイベント通知を設けてい
   - タイミング：参加が拒否された直後
   - タイプ：IObservable
   - パラメータ：なし
-- OnUserJoined
-  - タイミング：ユーザが参加した直後
+- OnClientJoined
+  - タイミング：クライアントが参加した直後
   - タイプ：IObservable
-  - パラメータ：参加したユーザID
-- OnUserLeaving
-  - タイミング：ユーザが抜ける直前
+  - パラメータ：参加したクライアントID
+- OnClientLeaving
+  - タイミング：クライアントが抜ける直前
   - タイプ：IObservable
-  - パラメータ：切断するユーザID
+  - パラメータ：切断するクライアントID
 - OnMessageReceived
   - タイミング：メッセージを受信した直後
   - タイプ：IObservable
-  - パラメータ：メッセージを送信したユーザのIDおよびメッセージ
+  - パラメータ：メッセージを送信したクライアントのIDおよびメッセージ
