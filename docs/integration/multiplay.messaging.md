@@ -8,7 +8,7 @@ sidebar_position: 5
 
 マルチプレイ機能を実現する際には、プレイヤー状態（位置情報や動きなど）を同期させる必要があります。
 
-[NGOラッパー](multiplay.ngo.md)のベースとなるNetcode for GameObjectsは単一のサーバプロセス内でプレイヤー状態を集中管理しています。
+[NGOラッパー](multiplay.ngo.md)のベースとなるNetcode for GameObjectsは単一のサーバープロセス内でプレイヤー状態を集中管理しています。
 このような設計は、スケールアウトを難しくしています。
 
 そこで、このモジュールでは[Messaging](./messaging.md)を利用することで、単一サーバーで複数グループのマルチプレイを実現、または複数サーバーにスケールアウトしマルチプレイの人数を増やすことを実現します。
@@ -255,11 +255,6 @@ public class HolidayPlayerInputValues : PlayerInputValues
     }
 }
 ```
-
-:::caution
-最後にアプリ使用者からの入力を同期した時から一定時間が経過したら自動でまた入力を同期するようになっています。
-CheckWhetherToSendDataメソッドの戻り値を常にfalseにしていても一定時間ごとには入力は同期されます。
-:::
 
 ### クライアントの状態をトリガーに処理を追加する
 
