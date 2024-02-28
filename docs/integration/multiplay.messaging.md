@@ -218,7 +218,7 @@ public class HolidayPlayerInputValues : PlayerInputValues
 ```
 
 プレイヤーの入力は一定時間ごとに同期されます。
-入力が変わるごとに同期したい場合など、同期するタイミングを制御したい場合はCheckWhetherToSendDataメソッドを使用します。
+入力が変わるごとに同期したい場合など、同期する条件を追加したい場合はCheckWhetherToSendDataメソッドを使用します。
 
 MoveかJumpのいずれかが変化した場合に同期する例を示します。
 
