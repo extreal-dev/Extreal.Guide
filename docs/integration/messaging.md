@@ -377,7 +377,7 @@ MessagingClient/QueuingMessagingClientは次のイベント通知を設けてい
 - OnLeaving
   - タイミング：グループから抜ける直前
   - タイプ：IObservable
-  - パラメータ：切断する理由
+  - パラメータ：なし
 - OnUnexpectedLeft
   - タイミング：予期していないサーバー切断が発生した直後
   - タイプ：IObservable
