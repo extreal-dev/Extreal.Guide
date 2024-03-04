@@ -379,7 +379,7 @@ PeerConnectionのCreate/Close時にエラーが発生した場合でも、処理
 :::
 
 WebGL(JavaScript)の場合はC#とJavaScriptの連携が必要になるため、Native(C#)に比べると少し大掛かりなものになります。
-仕組みはNative(C#)と同じでフックを使ってアプリケーション固有の処理をP2Pに追加します。
+仕組みはNative(C#)と同じでフックを使ってアプリケーション固有の処理をSFUに追加します。
 
 オーディオストリームを追加する場合の実装例は次の通りです。
 OmeClientProviderという関数からOmeClientを取得する部分が大きく異なります。
