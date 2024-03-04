@@ -206,8 +206,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO.git
 
 メッセージングサーバは[Docker Compose](https://docs.docker.com/compose/)で提供しています。
 
-実装としてはHTTPサーバを立てており、サーバ・クライアント間はSocket.IOで接続しています。
-グループでのメッセージングはSocket.IOの[Rooms](https://socket.io/docs/v4/rooms/)を使用しています。
+グループでのメッセージングにはSocket.IOの[Rooms](https://socket.io/docs/v4/rooms/)を使用しています。
 
 メッセージングサーバを立ち上げる際に1グループあたりの最大人数を設定します。
 最大人数を超えてクライアントがグループに参加しようとした場合はそのクライアントの参加を拒否します。
