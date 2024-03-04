@@ -199,11 +199,6 @@ omeAdapter.adapt();
 
 ## Usage
 
-- SFU接続を確立できます。
-- SFUの状態をトリガーに処理を追加できます。
-- Native(C#)のSFUにアプリケーション固有の処理を追加できます。
-- WebGL(JavaScript)のSFUにアプリケーション固有の処理を追加できます。
-
 ### SFU接続を確立する {#sfu-ome-establish-connection}
 
 このモジュールはSFU接続を確立する機能を提供します。
