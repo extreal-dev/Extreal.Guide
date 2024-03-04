@@ -268,16 +268,20 @@ messagingAdapter.adapt();
 var groups = await messagingClient.ListGroupsAsync();
 ```
 
-Nameを持ったGroupのリストが返るので、ここで取得したGroupのNameを使ってグループに参加します。
+Groupのリストが返るので、ここで取得したGroupを使ってグループに参加します。
 
 ```csharp
 var group = /* Select group from groups */;
-var groupName = group.Name;
-var joiningConfig = new MessagingJoiningConfig(groupName);
+var joiningConfig = new MessagingJoiningConfig(group.Name);
 await messagingClient.JoinAsync(joiningConfig);
 ```
 
 新しくグループを作成したい場合は、既存のグループに含まれないグループ名を指定して参加します。
+
+```csharp
+var joiningConfig = new MessagingJoiningConfig("NewGroupName");
+await messagingClient.JoinAsync(joiningConfig);
+```
 
 メッセージを送信するためにはSendMessageAsyncを使います。
 グループのメンバーにメッセージを送信したい場合はメッセージのみ指定します。
