@@ -448,10 +448,10 @@ OmeClientProviderは[Settings](#settings)で登場したOmeAdapterが提供し�
 OmeAdapterは内部でOmeClientを保持し、C#とJavaScriptの相互作用を定義しています。
 
 WebGLでSFUを行う場合はまずOmeAdapterを作成してadapt関数を呼び出します。
-そしてOmeAdapterのgetOmeClient関数を使って先ほどのDataChannelClientのようにアプリケーション固有の処理を追加します。
+そしてOmeAdapterのgetOmeClient関数を使って先ほどのAudioStreamClientのようにアプリケーション固有の処理を追加します。
 
 ここではアプリケーション固有の処理を呼び出すタイミングが重要になります。
-C#のOmeClientより先にアプリケーションで追加した処理（今回であればDataChannelClient）が初期化されないように注意してください。
+C#のOmeClientより先にアプリケーションで追加した処理（今回であればAudioStreamClient）が初期化されないように注意してください。
 C#のOmeClientはOmeClientProviderのProvideメソッドを呼び出したタイミングで初期化されます。
 
 [Web.Common](./web.common.md)を使ってC#からの呼び出しタイミングを制御します。
