@@ -218,7 +218,7 @@ public class HolidayPlayerInputValues : PlayerInputValues
 ```
 
 Player inputs are synchronized at regular intervals.
-If you want to control the timing of synchronization, for example, if you want to synchronize every time the input changes, use the CheckWhetherToSendData method.
+If you want to control the conditions of synchronization, for example, if you want to synchronize every time the input changes, use the CheckWhetherToSendData method.
 
 Here is an example of synchronizing when either Move or Jump changes.
 
@@ -256,11 +256,6 @@ public class HolidayPlayerInputValues : PlayerInputValues
 }
 ```
 
-:::caution
-The input is automatically synchronized again after a certain amount of time has passed since the last time the input from the application user was synchronized.
-Even if the return value of the CheckWhetherToSendData method is always false, the input will be synchronized at regular intervals.
-:::
-
 ### Add processing triggered by client state
 
 You can use the same event notification as in [Messaging](./messaging.md). See [Adding Processes Triggered by Client State](./messaging.md#クライアントの状態をトリガーに処理を追加する) in Messaging for details.
@@ -270,4 +265,4 @@ In addition to the above, MultiplayClient has the following event notifications
 - OnObjectSpawned
   - Timing: Immediately after spawning the object to be synchronized
   - Type: IObservable
-  - Parameters: Participating user ID, spawned object, message sent
+  - Parameters: Participating client ID, spawned object, message sent

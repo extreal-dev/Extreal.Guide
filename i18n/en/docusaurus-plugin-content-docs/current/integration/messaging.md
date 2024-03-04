@@ -37,7 +37,6 @@ classDiagram
     
     class MessagingClient {
         <<abstract>>
-        +JoinedClients IReadOnlyList
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
@@ -53,7 +52,6 @@ classDiagram
     }
 
     class QueuingMessagingClient {
-        +JoinedClients IReadOnlyList
         +OnJoined IObservable
         +OnLeaving IObservable
         +OnUnexpectedLeft IObservable
@@ -208,8 +206,7 @@ Please refer to [Release](../category/release) for the correspondence between mo
 
 Messaging servers are provided by [Docker Compose](https://docs.docker.com/compose/).
 
-As an implementation, an HTTP server is set up, and the server and client are connected via Socket.IO.
-See [Rooms](https://socket.io/docs/v4/rooms/) for details.
+[Rooms](https://socket.io/docs/v4/rooms/) of Socket.IO are used for group messaging.
 
 Sets the maximum number of people per group when starting up the messaging server.
 If more than the maximum number of clients attempt to join a group, the client will be denied participation.
@@ -271,14 +268,20 @@ To join an existing group, use ListGroupsAsync to get a list of groups.
 var groups = await messagingClient.ListGroupsAsync();
 ```
 
-A list of Groups with Name will be returned, so join the group using the Group Name obtained here.
+A list of Groups will be returned, so join the group using the Group obtained here.
 
 ```csharp
-var joiningConfig = new MessagingJoiningConfig("groupName");
+var group = /* Select group from groups */;
+var joiningConfig = new MessagingJoiningConfig(group.Name);
 await messagingClient.JoinAsync(joiningConfig);
 ```
 
 If you want to create a new group, join it by specifying a group name that is not part of existing groups.
+
+```csharp
+var joiningConfig = new MessagingJoiningConfig("NewGroupName");
+await messagingClient.JoinAsync(joiningConfig);
+```
 
 To send a message, use SendMessageAsync.
 If you want to send a message to the members of a group, specify only the message.
@@ -293,7 +296,13 @@ If you want to send a message to a specific member of a group, specify the clien
 await messagingClient.SendMessageAsync("message", toClientId);
 ```
 
-The client IDs participating in the group can be obtained from the JoinedClients property.
+The client IDs participating in the group can be created from the OnClientJoined event parameter.
+
+```csharp
+private readonly List<string> joinedClients = new List<string>();
+messagingClient.OnClientJoined
+    .Subscribe(joinedClients.Add)
+```
 
 The OnMessageReceived event is used to receive messages.
 
@@ -362,18 +371,18 @@ while (queuingMessagingClient.ResponseQueueCount() > 0)
 }
 ```
 
-### Add processing triggered by client state
+### Add processing triggered by client state {#client-event}
 
 MessagingClient/QueuingMessagingClient has the following event notifications.
 
 - OnJoined
   - Timing: Immediately after joining a group
   - Type: IObservable
-  - Parameters: Own user ID
+  - Parameters: Own client ID
 - OnLeaving
   - Timing: Just before leaving the group
   - Type: IObservable
-  - Parameters: Reason for disconnection
+  - Parameters: None
 - OnUnexpectedLeft
   - Timing: Immediately after an unexpected server disconnection occurs
   - Type: IObservable
@@ -382,15 +391,15 @@ MessagingClient/QueuingMessagingClient has the following event notifications.
   - Timing: Immediately after a joining was rejected
   - Type: IObservable
   - Parameters: None
-- OnUserJoined
-  - Timing: Immediately after a user joins
+- OnClientJoined
+  - Timing: Immediately after a client joins
   - Type: IObservable
-  - Parameters: Joined user ID
-- OnUserLeaving
-  - Timing: Just before a user leaves
+  - Parameters: Joined client ID
+- OnClientLeaving
+  - Timing: Just before a client leaves
   - Type: IObservable
-  - Parameter: User ID to be disconnected
+  - Parameter: Client ID to be disconnected
 - OnMessageReceived
   - Timing: Immediately after a message is received
   - Type: IObservable
-  - Parameters: ID of the user who sent the message and the message
+  - Parameters: ID of the client who sent the message and the message
