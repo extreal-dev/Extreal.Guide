@@ -272,7 +272,9 @@ var groups = await messagingClient.ListGroupsAsync();
 Nameを持ったGroupのリストが返るので、ここで取得したGroupのNameを使ってグループに参加します。
 
 ```csharp
-var joiningConfig = new MessagingJoiningConfig("groupName");
+var group = /* Select group from groups */;
+var groupName = group.Name;
+var joiningConfig = new MessagingJoiningConfig(groupName);
 await messagingClient.JoinAsync(joiningConfig);
 ```
 
