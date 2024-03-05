@@ -25,6 +25,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - Armature of [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
 - Group selection screen
+  - Allows users to select Massively or Light
   - Allows users to select Host or Client
   - For host, groups can be created by specifying a group name
   - For client, you can select a group and join the group

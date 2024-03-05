@@ -28,6 +28,7 @@ The first time the asset is downloaded, it is cached, so the download is immedia
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
   - Ability to transition to the group selection screen by pressing the Go button
 - Group selection screen
+  - Ability to select Massively or Light
   - Ability to select host or client
   - If host is selected
     - Ability to enter a group name
