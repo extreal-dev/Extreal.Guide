@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkextreal=self.webpackChunkextreal||[]).push([[6305],{1421:e=>{e.exports=JSON.parse('{"title":"Core","slug":"/category/core","permalink":"/Extreal.Guide/next/category/core","navigation":{"previous":{"title":"1.0.0","permalink":"/Extreal.Guide/next/release/1.0.0"},"next":{"title":"Logging","permalink":"/Extreal.Guide/next/core/logging"}}}')}}]);
