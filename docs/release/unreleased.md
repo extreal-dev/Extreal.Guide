@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-02-22
+2024-02-26
 
 ## Unity version
 
@@ -26,6 +26,9 @@ sidebar_position: 1
 - [Extreal.Integration.Web.Common](https://github.com/extreal-dev/Extreal.Integration.Web.Common) 1.1.0-next.2
 - [Extreal.Integration.P2P.WebRTC](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC) 1.1.0-next.3
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.1.0-next.2
+- [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.4
+- [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.3
+- [Extreal.Integration.Messaging.Socket.IO](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO) 1.0.0-next.5
 
 ### npm
 
@@ -33,6 +36,7 @@ sidebar_position: 1
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.1.0-next.3
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.1.0-next.2
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.1.0-next.2
+- [@extreal-dev/extreal.integration.messaging.socket.io](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.socket.io) 1.0.0-next.1
 
 ## Dependencies
 
@@ -59,6 +63,9 @@ sidebar_position: 1
     - [socket.io-client](https://www.npmjs.com/package/socket.io-client) 4.7.4 ([MIT License](https://github.com/socketio/socket.io-client/blob/main/LICENSE))
 - Extreal.Integration.Chat.WebRTC
   - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.7 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
+- Extreal.Integration.Messaging.Socket.IO
+  - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
+  - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
 
 ## Changes
 
@@ -90,6 +97,23 @@ sidebar_position: 1
 - ボイスチャットで発話音量を取得する機能を追加しました。([Doc](../integration/chat.webrtc.md))
 #### Changed
 - ボイスチャットでマイクが使用できない場合はスピーカーのみ有効となるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+
+### Extreal.Integration.Messaging
+#### Added
+- グループでメッセージをやりとりできるメッセージング機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
+
+### Extreal.Integration.Multiplay.Messaging
+#### Added
+- [Messaging](../integration/messaging.md)によるマルチプレイができる機能を追加しました。([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
+
+### Extreal.Integration.Messaging.Socket.IO
+#### Added
+- Socket.IOによるメッセージ送受信ができる機能を追加しました。([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/pull/1))
+
+### Extreal.SampleApp.Holiday
+#### Changed
+- スペースごとにマルチプレイをするように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- テキストチャット、マルチプレイを[Messaging](../integration/messaging.md)で実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 
 ## Upgrade guide {#upgrade-guide}
 
