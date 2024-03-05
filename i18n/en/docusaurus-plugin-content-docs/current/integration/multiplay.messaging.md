@@ -4,6 +4,8 @@ sidebar_position: 5
 
 # Multiplay using Messaging
 
+ToDo
+
 ## What for?
 
 When implementing multiplayer feature, it is necessary to synchronize player states (e.g., location and movement).
