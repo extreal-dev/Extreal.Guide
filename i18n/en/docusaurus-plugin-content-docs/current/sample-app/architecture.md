@@ -9,7 +9,8 @@ sidebar_position: 3
 Users use the application from a browser.
 Assets such as 3D models and connection information to the server are not included in the application, but are downloaded from S3 when the application is run.
 The application connects directly to the server for processing.
-Multiplayer uses Redis Pub/Sub and text/voice chat uses P2P to exchange data between applications.
+Text chat and multiplayer exchange data through the Messaging server.
+Voice chat uses P2P to exchange data between applications.
 
 ![system structure](../img/holiday-sys-structure.png)
 

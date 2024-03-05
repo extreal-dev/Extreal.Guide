@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 5
 ---
 
 # Multiplay using Messaging
@@ -8,14 +8,11 @@ sidebar_position: 6
 
 マルチプレイ機能を実現する際には、プレイヤー状態（位置情報や動きなど）を同期させる必要があります。
 
-[NGOラッパー](multiplay.ngo.md)のベースとなるNetcode for GameObjectsは単一のサーバプロセス内でプレイヤー状態を集中管理しています。
-このような設計は、スケールアウト（サーバの能力を拡張して処理能力を増やすこと）を難しくしています。
+[NGOラッパー](multiplay.ngo.md)のベースとなるNetcode for GameObjectsは単一のサーバープロセス内でプレイヤー状態を集中管理しています。
+このような設計は、スケールアウトを難しくしています。
 
-RedisのPub/Subのようなメッセージングを採用することで、複数のチャンネルをプロセス内で管理できる構造を実現し、分散処理が容易になります。
+そこで、このモジュールでは[Messaging](./messaging.md)を利用することで、単一サーバーで複数グループのマルチプレイを実現、または複数サーバーにスケールアウトしマルチプレイの人数を増やすことを実現します。
 これにより、スケールアウトがより簡単に行えるようになり、結果として運用コストの削減が可能になります。
-
-このモジュールではプレイヤーが集まってマルチプレイを行うセッションをグループと呼ぶことにします。
-このライブラリでは[Messaging](./messaging.md)を使ってグループでマルチプレイできるようにします。
 
 ## Specification
 
@@ -142,15 +139,10 @@ public class ClientControlScope : LifetimeScope
 
 グループでマルチプレイを行う機能はMultiplayClientが提供します。
 
-グループでマルチプレイをするにはグループに参加したりグループから抜けたりする必要がありますが、このモジュールではこれらの機能は[Messaging](./messaging.md)に委譲しています。
-これらの機能の詳細はMessagingの[グループでメッセージをやりとりする方法](./messaging.md#messaging-among-group)を参照してください。
-
-このモジュールではこれらの機能は次のようにして使用します。
+グループへの参加/退室は[Messaging](./messaging.md)と同じ使い方になります。
+[グループでメッセージをやりとりする](./messaging.md#messaging-among-group)を参照してください。
 
 ```csharp
-// List groups
-var groups = await multiplayClient.ListGroupsAsync();
-
 // Join a group
 var messagingJoiningConfig = new MessagingJoiningConfig("groupName");
 var multiplayJoiningConfig = new MultiplayJoiningConfig(messagingJoiningConfig);
@@ -160,8 +152,7 @@ await multiplayClient.JoinAsync(multiplayJoiningConfig);
 multiplayClient.LeaveAsync();
 ```
 
-グループに参加したらプレイヤーをスポーンしてマルチプレイを行います。
-SpawnObjectメソッドを使ってプレイヤーをスポーンします。
+グループに参加したらプレイヤーをスポーンしてマルチプレイに参加します。
 
 ```csharp
 multiplayClient.SpawnObject(playerObjectToBeSpawned)
@@ -174,41 +165,26 @@ multiplayClient.SpawnObject(objectToBeSpawned)
 
 ### グループ内でメッセージを送受信する
 
-リアクションの同期など、マルチプレイしているグループ内でメッセージを送受信したい場合がありますが、このモジュールではこの機能は[Messaging](./messaging.md)に委譲しています。
-この機能の詳細はMessagingの[グループでメッセージをやりとりする方法](./messaging.md#messaging-among-group)を参照してください。
-
-このモジュールではこの機能は次のようにして使用します。
+リアクションの同期など、グループ内でメッセージを送受信したい場合があります。
+メッセージの送受信は[Messaging](./messaging.md)と同じ使い方になります。
+[グループでメッセージをやりとりする](./messaging.md#messaging-among-group)を参照してください。
 
 ```csharp
-// Send message to a specified destination
-var toClientId = messageClient.JoinedClients.First();
-await messagingClient.SendMessageAsync("message", toClientId);
-
 // Send message to entire group
 await messagingClient.SendMessageAsync("message");
-
-// Receive message
-multiplayClient.OnMessageReceived.Subscribe(HandleReceivedMessage);
-
-private void HandleReceivedMessage((string userId, string message) tuple)
-{
-  // Handle message
-}
 ```
 
 ### 同期するオブジェクトの動きを追加する
 
-:::info
-オブジェクトをスポーンさせると位置(Position)と回転(Rotation)は自動で同期されます。
-:::
+SpawnObjectメソッドでスポーンしたオブジェクトの位置と回転はデフォルト実装で同期します。
 
-マルチプレイする際にはアニメーションなど、オブジェクトの位置と回転以外の動きも同期したい場合が多くあります。
-このモジュールではアプリ使用者からの入力を同期することでこれを実現しています。
+要件によっては、アニメーションなど、オブジェクトの位置と回転以外の動きも同期したい場合があります。
+このモジュールでは実装を追加することで、要件に合わせて同期するオブジェクトの動きを追加できます。
 
-アプリ使用者からの入力はPlayerInputのValuesで同期しています。
-デフォルトでは水平方向の入力(Move)のみ同期します。
+このモジュールではプレイヤーの入力を他のプレイヤーに送信することで、オブジェクトの動きを同期しています。
+どのプレイヤーの入力を同期に使うかはPlayerInputとPlayerInputValuesで示します。
 
-Move以外に他の入力も同期したい場合、PlayerInputとPlayerInputValuesを継承したクラスを作成してValuesにセットします。
+位置と回転以外の動きを同期したい場合は、PlayerInputとPlayerInputValuesを継承したクラスを作成します。
 
 例えばJumpという入力を同期する場合を示します。
 
@@ -241,8 +217,8 @@ public class HolidayPlayerInputValues : PlayerInputValues
 }
 ```
 
-アプリ使用者からの入力は一定時間ごとに同期されます。
-入力が変わるごとに同期したい場合など、同期するタイミングを制御したい場合はCheckWhetherToSendDataメソッドを使用することで実現できます。
+プレイヤーの入力は一定時間ごとに同期されます。
+入力が変わるごとに同期したい場合など、同期する条件を追加したい場合はCheckWhetherToSendDataメソッドを使用します。
 
 MoveかJumpのいずれかが変化した場合に同期する例を示します。
 
@@ -280,19 +256,13 @@ public class HolidayPlayerInputValues : PlayerInputValues
 }
 ```
 
-:::caution
-最後にアプリ使用者からの入力を同期した時から一定時間が経過したら自動でまた入力を同期するようになっています。
-CheckWhetherToSendDataメソッドの戻り値を常にfalseにしていても一定時間ごとには入力は同期されます。
-:::
+### クライアントの状態をトリガーに処理を追加する
 
-### クライアントの状態をトリガーに処理を追加できます
-
-[Messaging](messaging.md)を利用してイベント通知しています。
-詳細は[MessagingClientのイベント通知](messaging.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
+[Messaging](messaging.md)と同じイベント通知を使えます。詳細はMessagingの[クライアントの状態をトリガーに処理を追加する](messaging.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
 
 MultiplayClientは上記に加えて次のイベント通知を設けています。
 
 - OnObjectSpawned
   - タイミング：同期するオブジェクトをスポーンした直後
   - タイプ：IObservable
-  - パラメータ：参加したユーザID、スポーンしたオブジェクト、送信されたメッセージ
+  - パラメータ：参加したクライアントID、スポーンしたオブジェクト、送信されたメッセージ

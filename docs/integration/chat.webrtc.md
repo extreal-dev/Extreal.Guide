@@ -55,7 +55,11 @@ classDiagram
 
     class VoiceChatClient {
         +OnMuted IObservable
+        +OnAudioLevelChanged IObservable
+        +HasMicrophone() bool
         +ToggleMute() void
+        +SetInVolume(volume) void
+        +SetOutVolume(volume) void
         +Clear() void
     }
     
@@ -248,5 +252,47 @@ voiceChatClient.OnMuted
 
 ```csharp
 var voiceChatConfig = new VoiceChatConfig(initialMute: false);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+入力音量調整にはSetInVolumeメソッドを使います。
+
+```csharp
+voiceChatClient.SetInVolume(volume);
+```
+
+入力音量の初期値を指定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialInVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+出力音量調整にはSetOutVolumeメソッドを使います。
+
+```csharp
+voiceChatClient.SetOutVolume(volume);
+```
+
+出力音量の初期値を指定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
+var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
+```
+
+### ボイスチャットのクライアントの状態をトリガーに処理を追加する
+
+VoiceChatClientは次のイベント通知を設けています。
+
+- OnAudioLevelChanged
+  - タイミング：指定した頻度ごとに、発話音量の変化があったとき
+  - タイプ：IObservable
+  - パラメータ：IDと発話音量のペア
+
+発話音量の取得頻度を指定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(InitialAudioLevelCheckIntervalSeconds: 0.5f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```

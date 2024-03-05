@@ -19,6 +19,7 @@ This module provides base P2P features for Native(C#) and WebGL(JavaScript).
 - You can add processing to trigger P2P state.
 - You can add application-specific processing to Native(C#) P2P.
 - You can add application-specific processing to WebGL(JavaScript) P2P
+- You can make signaling servers redundant.
 
 ## Architecture
 
@@ -31,6 +32,7 @@ classDiagram
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig
+    PeerConfig <|-- WebGLPeerConfig
 
     class PeerClientProvider {
         +Provide(peerConfig)$ PeerClient
@@ -61,6 +63,10 @@ classDiagram
     }
     
     class WebGLPeerClient {
+    }
+
+    class WebGLPeerConfig {
+        +WebGLSocketOptions WebGLSocketOptions
     }
 ```
 
@@ -499,3 +505,32 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
     }
 }
 ```
+
+### Make the signaling server redundant
+
+[Socket.IO](https://socket.io/) is used for the signaling server.
+Sticky sessions are recommended when using multiple Socket.IO servers for redundancy.
+See [Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/) for details.
+
+To enable sticky sessions when used with WebGL, additional configuration is required when creating the PeerClient.
+It is possible to enable sticky sessions using WebGLSocketOptions.
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var webGLPeerConfig = new WebGLPeerConfig(
+            peerConfig,
+            new WebGLSocketOptions(withCredentials: true)
+        );
+        var peerClient = PeerClientProvider.Provide(webGLPeerConfig);
+        builder.RegisterComponent(peerClient);
+    }
+}
+```
+
+:::info
+When using with C#, no settings are necessary.
+:::
