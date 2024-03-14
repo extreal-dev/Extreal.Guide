@@ -211,6 +211,13 @@ omeAdapter.adapt();
 await omeClient.JoinAsync("group name");
 ```
 
+:::caution
+グループに大人数が参加している場合、新しい人が参加するときに失敗する可能性があります。
+参加に失敗したときには自動でリトライします。
+このときのタイムアウト時間は30秒で3回までリトライします。
+リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#sfu-event)を使用してください。
+:::
+
 グループから退出する場合はLeaveAsyncメソッドを使用します。
 
 ```csharp
@@ -223,7 +230,7 @@ await omeClient.LeaveAsync();
 var groups = await omeClient.ListGroupsAsync();
 ```
 
-### SFUの状態をトリガーに処理を追加する
+### SFUの状態をトリガーに処理を追加する {#sfu-event}
 
 OmeClientは次のイベント通知を設けています。
 
