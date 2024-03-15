@@ -39,13 +39,12 @@ classDiagram
 
     class helper {
         <<TypeScript>>
-        +addAction(name, action) void
-        +addFunction(name, func) void
-        +callback(name, strParam1, strParam2) void
+        +addAction(name, action, isSuppressTraceLog) void
+        +addFunction(name, func, isSuppressTraceLog) void
+        +callback(name, strParam1, strParam2, isSuppressTraceLog) void
         +isDebug boolean
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
-        +suppressTraceLog(name) void
     }
 ```
 
@@ -194,11 +193,24 @@ public class Sample : DisposableBase
 
 If you specify to output logs when [initializing the WebGL helper](#settings), it will print a log every time [JavaScript is called from C#](#call-javascript-from-csharp) and every time [JavaScript calls back to C#](#callback-from-javascript-to-csharp).
 
-By using suppressTraceLog, you can suppress log output for specific function calls or callbacks.
-If the argument string matches the target name specified in addAction/addFunction/callback, log output for that function call or callback will be suppressed.
+Log output can be suppressed when registering a function or calling back.
+By setting isSuppressTraceLog of addAction/addFunction/callback to true, log output for that function call or callback will be suppressed.
 
 ```typescript
-import { suppressTraceLog } from "@extreal-dev/extreal.integration.web.common";
+import { addAction, addFunction } from "@extreal-dev/extreal.integration.web.common";
 
-suppressTraceLog("ActionOrFunctionOrCallbackNameToSuppressLog");
+addAction("DoTraceLogSuppressedAction",
+    (str1, str2) => {
+        // do something
+    },
+    isSuppressTraceLog = true);
+
+addFunction(
+    "DoTraceLogSuppressedFunction",
+    (str1, str2) => {
+        return "do something";
+    },
+    isSuppressTraceLog = true);
+
+callback("DoTraceLogSuppressedCallback", "param1", "param2", isSuppressTraceLog = true);
 ```
