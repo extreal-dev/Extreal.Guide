@@ -15,6 +15,7 @@ UnityではWebGLプラットフォームを使用してブラウザ向けのア�
 
 - C#からJavaScriptを呼び出せます。
 - JavaScriptからC#にコールバックできます。
+- JavaScriptの呼び出し状況のトレースログを抑制できます。
 
 ## Architecture
 

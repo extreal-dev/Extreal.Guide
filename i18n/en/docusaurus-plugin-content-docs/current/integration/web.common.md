@@ -15,6 +15,7 @@ This module hides the slightly more complex mechanism of C# and JavaScript integ
 
 - You can call JavaScript from C#.
 - You can do callbacks from JavaScript to C#.
+- You can suppress trace logs of JavaScript call.
 
 ## Architecture
 
