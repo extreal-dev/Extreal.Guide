@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 # Chat using Vivox
@@ -21,13 +21,6 @@ The Vivox wrapper compensates for the difficulties and lack of features when usi
 Therefore, to use the Vivox wrapper, it is assumed that you know Vivox.
 If you do not know Vivox, please refer to [Learning](../learning/intro.md#chat) to learn about Vivox.
 This guide assumes you know Vivox.
-:::
-
-:::caution
-Vivox is available on the originally existing [Vivox Developer Portal](https://developer.vivox.com/) and [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services), which appeared in October 2021.
-The current Vivox wrapper is compatible with the [Vivox Developer Portal](https://developer.vivox.com/).
-It is not compatible with [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services).
-We will consider supporting [Unity Gaming Services](https://unity.com/ja/solutions/gaming-services) in the future.
 :::
 
 ## Specification
@@ -147,7 +140,7 @@ Please refer to [Release](../category/release) for the correspondence between mo
 
 VivoxClient is initialized.
 
-It is assumed that the application to which the client will connect has been created in [Vivox Developer Portal](https://developer.vivox.com/).
+It is assumed that you have created a project with Vivox set up in [Unity Cloud](https://cloud.unity.com) to which the client will connect.
 
 To initialize VivoxClient, VivoxAppConfig, which holds the connection information to Vivox, is required.
 As an example, we will show how to set the connection information to Vivox with a ScriptableObject.

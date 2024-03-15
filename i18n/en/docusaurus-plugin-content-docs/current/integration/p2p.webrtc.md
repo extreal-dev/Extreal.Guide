@@ -1,5 +1,5 @@
 ﻿---
-sidebar_position: 5
+sidebar_position: 9
 ---
 
 # P2P using WebRTC
@@ -19,6 +19,7 @@ This module provides base P2P features for Native(C#) and WebGL(JavaScript).
 - You can add processing to trigger P2P state.
 - You can add application-specific processing to Native(C#) P2P.
 - You can add application-specific processing to WebGL(JavaScript) P2P
+- You can make signaling servers redundant.
 
 ## Architecture
 
@@ -31,6 +32,7 @@ classDiagram
     PeerClient <|-- NativePeerClient
     PeerClient <|-- WebGLPeerClient
     PeerClient ..> PeerConfig
+    PeerConfig <|-- WebGLPeerConfig
 
     class PeerClientProvider {
         +Provide(peerConfig)$ PeerClient
@@ -41,11 +43,14 @@ classDiagram
         +OnStarted IObservable
         +OnConnectFailed IObservable
         +OnDisconnected IObservable
+        +OnUserConnected IObservable
+        +OnUserDisconnected IObservable
         +IsRunning bool
         +StartHostAsync(name) void
         +ListHostsAsync() List
         +StartClientAsync(hostId) void
         +Stop() void
+        +getSocketId() string
     }
     
     class PeerConfig {
@@ -58,6 +63,10 @@ classDiagram
     }
     
     class WebGLPeerClient {
+    }
+
+    class WebGLPeerConfig {
+        +WebGLSocketOptions WebGLSocketOptions
     }
 ```
 
@@ -248,29 +257,38 @@ peerClient.Stop();
 PeerClient has the following event notifications
 
 - OnStarted
-    - Timing: Immediately after the host or client starts
-        - Host
-            - Immediately after the host is created
-        - Client
-            - Immediately after all of the following conditions are met
-                - Receives "done" from the host
-                - IceConnectionState becomes Connected or Completed
-    - Type: IObservable
-    - Parameters: None
+  - Timing: Immediately after the host or client starts
+    - Host
+      - Immediately after the host is created
+    - Client
+      - Immediately after all of the following conditions are met
+        - Receives "done" from the host
+        - IceConnectionState becomes Connected or Completed
+  - Type: IObservable
+  - Parameters: User's own Client ID
 - OnStartFailed
-    - Timing: Immediately after host or client failed to start
-        - If the start processing times out, the start is assumed to have failed.
-        - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
-    - Type: IObservable
-    - Parameters: None
+  - Timing: Immediately after host or client failed to start
+    - If the start processing times out, the start is assumed to have failed.
+    - The default timeout is 15 seconds. The timeout can be changed using PeerConfig.
+  - Type: IObservable
+  - Parameters: None
 - OnConnectFailed
-    - Timing: Immediately after the host or client has failed to connect to the signaling server
-    - Type: IObservable
-    - Parameters: Reason for connection failure
+  - Timing: Immediately after the host or client has failed to connect to the signaling server
+  - Type: IObservable
+  - Parameters: Reason for connection failure
 - OnDisconnected
-    - Timing: Immediately after a host or client connected to the signaling server is disconnected
-    - Type: IObservable
-    - Parameters: Reason for disconnection
+  - Timing: Immediately after a host or client connected to the signaling server is disconnected
+  - Type: IObservable
+  - Parameters: Reason for disconnection
+- OnUserConnecting
+  - Timing: Immediately before another user connects
+    - Connected users receive events from each other. Therefore, newly connected users will receive as many events as all users already connected.
+  - Type: IObservable
+  - Parameters: Client ID of the user to connect
+- OnUserDisconnecting
+  - Timing: Immediately before another user disconnects
+  - Type: IObservable
+  - Parameters: Client ID of the user to disconnect
 
 ### Add application-specific processing to Native(C#) P2P
 
@@ -487,3 +505,32 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
     }
 }
 ```
+
+### Make the signaling server redundant
+
+[Socket.IO](https://socket.io/) is used for the signaling server.
+Sticky sessions are recommended when using multiple Socket.IO servers for redundancy.
+See [Using multiple nodes](https://socket.io/docs/v4/using-multiple-nodes/) for details.
+
+To enable sticky sessions when used with WebGL, additional configuration is required when creating the PeerClient.
+It is possible to enable sticky sessions using WebGLSocketOptions.
+
+```csharp
+public class ClientControlScope : LifetimeScope
+{
+    protected override void Configure(IContainerBuilder builder)
+    {
+        var peerConfig = new PeerConfig("http://127.0.0.1:3010");
+        var webGLPeerConfig = new WebGLPeerConfig(
+            peerConfig,
+            new WebGLSocketOptions(withCredentials: true)
+        );
+        var peerClient = PeerClientProvider.Provide(webGLPeerConfig);
+        builder.RegisterComponent(peerClient);
+    }
+}
+```
+
+:::info
+When using with C#, no settings are necessary.
+:::

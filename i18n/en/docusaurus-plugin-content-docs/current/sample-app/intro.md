@@ -12,7 +12,12 @@ We provide "Holiday" as a sample application equipped with the multiplayer and v
 ![holiday](../img/holiday.png)
 
 Holiday has a simple stage structure: title screen → avatar selection screen → group selection screen → virtual space.
-Holiday is a P2P(Peer to Peer), and players play as a group by selecting a host or a client on the group selection screen.
+Multiplayer and text chat are handled by [Messaging](../integration/messaging.md), voice chat is P2P (Peer to Peer), and you play in groups by selecting a host or client on the group selection screen.
+
+:::info
+Holiday, which employs P2P (Peer to Peer) for multiplayer/text chat/voice chat, can be found in the following repository
+https://github.com/extreal-dev/Extreal.SampleApp.Holiday.P2P
+:::
 
 Holiday will provide the following contents
 

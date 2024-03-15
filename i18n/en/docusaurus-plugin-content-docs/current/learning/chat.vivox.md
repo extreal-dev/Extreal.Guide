@@ -9,7 +9,7 @@ In this section, you will learn about the [Vivox wrapper](../integration/chat.vi
 - Approximate learning time
   - 60 min.
 - Unity Version
-  - 2022.3.2f1
+  - 2022.3.17f1
 
 The Vivox wrapper learning process uses a project prepared for learning.
 This learning project is based on the application architecture built in the Core learning.
@@ -17,8 +17,8 @@ If you have not learned Core, it is recommended that you learn [Learning Core](.
 
 Using the learning project with the Vivox wrapper set up, we will add an implementation of the application to allow text and voice chat in virtual space.
 
-You will need to have an application on the [Vivox Developer Portal](https://developer.vivox.com/) to connect to from the client to do this learning.
-Please create an application on the [Vivox Developer Portal](https://developer.vivox.com/) before starting the following hands-on activities.
+You will need to have a project in [Unity Cloud](https://cloud.unity.com) to connect to from the client.
+Please create a project with Vivox set up on [Unity Cloud](https://cloud.unity.com) before starting the following hands-on activities.
 
 ## Prepare project
 

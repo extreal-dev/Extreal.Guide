@@ -9,7 +9,7 @@ sidebar_position: 3
 - 学習時間の目安
   - 60分
 - Unityバージョン
-  - 2022.3.2f1
+  - 2022.3.17f1
 
 Vivoxラッパーの学習では学習用に用意したプロジェクトを使います。
 この学習用のプロジェクトはCoreの学習で構築したアプリケーションアーキテクチャをベースに作成しています。
@@ -17,8 +17,8 @@ Coreの学習を実施していない方はこの学習より先に[Coreの学�
 
 Vivoxラッパーがセットアップされた学習用のプロジェクトを使って、バーチャル空間でテキストチャットとボイスチャットをできるようにアプリケーションの実装を追加していきます。
 
-この学習を行うにはクライアントからの接続先となる[Vivox Developer Portal](https://developer.vivox.com/)のアプリケーションが必要です。
-以降のハンズオンを始める前に[Vivox Developer Portal](https://developer.vivox.com/)でアプリケーションを作成しておいてください。
+この学習を行うにはクライアントからの接続先となるプロジェクトが[Unity Cloud](https://cloud.unity.com)に必要です。
+以降のハンズオンを始める前に[Unity Cloud](https://cloud.unity.com)でVivoxがセットアップされたプロジェクトを作成しておいてください。
 
 ## Prepare project
 

@@ -12,7 +12,12 @@ Extrealが目指していることの1つに人々が集まってコミュニケ
 ![holiday](../img/holiday.png)
 
 Holidayはタイトル画面→アバター選択画面→グループ選択画面→バーチャル空間というシンプルなステージ構成になっています。
-HolidayはP2P(Peer to Peer)を採用しており、グループ選択画面でホストまたはクライアントを選んでグループでプレイします。
+マルチプレイとテキストチャットは[Messaging](../integration/messaging.md)、ボイスチャットはSFU(Selected Forwarding Unit)を採用しており、グループ選択画面でホストまたはクライアントを選んでグループでプレイします。
+
+:::info
+P2P(Peer to Peer)を採用してマルチプレイ/テキストチャット/ボイスチャットを実現したHolidayは次のリポジトリを参照してください。
+https://github.com/extreal-dev/Extreal.SampleApp.Holiday.P2P
+:::
 
 Holidayでは次のコンテンツを提供します。
 

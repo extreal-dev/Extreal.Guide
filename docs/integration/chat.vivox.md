@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 # Chat using Vivox
@@ -21,13 +21,6 @@ VivoxラッパーはVivoxをそのまま使う場合に使いにくい点や足�
 そのため、Vivoxラッパーを使うにはVivoxを知っていることが前提です。
 Vivoxを知らない場合は[Learning](../learning/intro.md#chat)を参照してVivoxについて学習してください。
 このガイドはVivoxを知っている前提で説明しています。
-:::
-
-:::caution
-Vivoxは元々存在していた[Vivox Developer Portal](https://developer.vivox.com/)と2021年10月に登場した[Unity Gaming Services](https://unity.com/ja/solutions/gaming-services)で使用できます。
-現時点のVivoxラッパーは[Vivox Developer Portal](https://developer.vivox.com/)に対応しています。
-[Unity Gaming Services](https://unity.com/ja/solutions/gaming-services)には対応していません。
-今後[Unity Gaming Services](https://unity.com/ja/solutions/gaming-services)への対応を検討します。
 :::
 
 ## Specification
@@ -147,7 +140,7 @@ Vivoxラッパーは次のパッケージを使います。
 
 VivoxClientを初期化します。
 
-[Vivox Developer Portal](https://developer.vivox.com/)でクライアントからの接続先となるアプリケーションが作成されているものとします。
+クライアントからの接続先となる、Vivoxがセットアップされたプロジェクトが[Unity Cloud](https://cloud.unity.com)で作成されているものとします。
 
 VivoxClientの初期化にはVivoxへの接続情報を保持するVivoxAppConfigが必要です。
 今回は一例としてScriptableObjectでVivoxへの接続情報を設定する方法を紹介します。
