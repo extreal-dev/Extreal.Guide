@@ -199,11 +199,6 @@ omeAdapter.adapt();
 
 ## Usage
 
-- SFU connections can be established.
-- You can add processing triggered by SFU status.
-- You can add application-specific processing to Native (C#) SFU.
-- You can add application-specific processing to WebGL (JavaScript) SFU.
-
 ### Establish SFU connection {#sfu-ome-establish-connection}
 
 This module provides the ability to establish SFU connections.
@@ -379,7 +374,7 @@ Processing continues even if errors occur during Create/Close of PeerConnection.
 :::
 
 WebGL (JavaScript) is a bit more extensive than Native (C#) because it requires C# and JavaScript to work together.
-The mechanism is the same as Native (C#), using hooks to add application-specific processing to P2P.
+The mechanism is the same as Native (C#), using hooks to add application-specific processing to SFU.
 
 An example implementation of adding an audio stream is shown below.
 The major difference is that OmeClient is obtained from OmeClientProvider function.
@@ -448,10 +443,10 @@ OmeClientProvider is provided by OmeAdapter, which appeared in [Settings](#setti
 OmeAdapter holds OmeClient internally and defines the interaction between C# and JavaScript.
 
 To do SFU with WebGL, first create OmeAdapter and call adapt function.
-Then, use OmeAdapter's getOmeClient function to add application-specific processing like the DataChannelClient described earlier.
+Then, use OmeAdapter's getOmeClient function to add application-specific processing like the AudioStreamClient described earlier.
 
 The timing of calling application-specific processing is important here.
-Be careful not to initialize the processing added by the application (in this case, DataChannelClient) before C#'s OmeClient.
+Be careful not to initialize the processing added by the application (in this case, AudioStreamClient) before C#'s OmeClient.
 C#'s OmeClient is initialized at the timing when the Provide method of OmeClientProvider is called.
 
 Use [Web.Common](./web.common.md) to control the timing of the call from C#.

@@ -29,6 +29,8 @@ The following Unity versions have been tested.
 - [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.4
 - [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.3
 - [Extreal.Integration.Messaging.Socket.IO](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO) 1.0.0-next.5
+- [Extreal.Integration.SFU.OME](https://github.com/extreal-dev/Extreal.Integration.SFU.OME) 1.0.0-next.1
+- [Extreal.Integration.Chat.OME](https://github.com/extreal-dev/Extreal.Integration.Chat.OME) 1.0.0-next.1
 
 ### npm
 
@@ -37,6 +39,8 @@ The following Unity versions have been tested.
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.1.0-next.2
 - [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.1.0-next.2
 - [@extreal-dev/extreal.integration.messaging.socket.io](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.socket.io) 1.0.0-next.1
+- [@extreal-dev/extreal.integration.sfu.ome](https://www.npmjs.com/package/@extreal-dev/extreal.integration.sfu.ome) 1.0.0-next.1
+- [@extreal-dev/extreal.integration.chat.ome](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.ome) 1.0.0-next.1
 
 ## Dependencies
 
@@ -66,6 +70,11 @@ The following Unity versions have been tested.
 - Extreal.Integration.Messaging.Socket.IO
   - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 7.0.3 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
   - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
+- Extreal.Integration.SFU.OME
+  - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.7 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
+  - [NativeWebSocket](https://github.com/endel/NativeWebSocket) 1.1.4 ([Apache License 2.0](https://github.com/endel/NativeWebSocket/blob/master/LICENSE))
+- Extreal.Integration.Chat.OME
+  - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.7 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
 
 ## Changes
 
@@ -110,10 +119,19 @@ The following Unity versions have been tested.
 #### Added
 - Add the ability to send and receive messages via Socket.IO. ([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/pull/1))
 
+### Extreal.Integration.SFU.OME
+#### Added
+- Add base functionality to facilitate the creation of SFU using OME. ([Doc](../integration/sfu.ome.md), [PR](https://github.com/extreal-dev/Extreal.Integration.SFU.OME/pull/1))
+
+### Extreal.Integration.Chat.OME
+#### Added
+- Add the ability to do voice chat using SFU. ([Doc](../integration/chat.ome.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.OME/pull/1))
+
 ### Extreal.SampleApp.Holiday
 #### Changed
 - Change to multiplayer per space. ([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 - Change text chat and multiplayer to be realized in [Messaging](../integration/messaging.md). ([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- Change so that voice chat is realized by OME.([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/26))
 
 ## Upgrade guide {#upgrade-guide}
 
