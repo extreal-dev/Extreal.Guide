@@ -6,7 +6,7 @@ sidebar_position: 10
 
 ## What for?
 
-SFU (Selected Forwarding Units) is a means of large-scale communication in virtual spaces, etc., with the lowest possible cost.
+SFU (Selective Forwarding Unit) is a means of large-scale communication in virtual spaces, etc., with the lowest possible cost.
 
 Although it is relatively easy to implement SFU by using [OME (OvenMediaEngine)](https://airensoft.gitbook.io/ovenmediaengine/), the SFU connection establishment is a similar processing, so it is provided as a common feature.
 By using this common feature, an application-specific SFU can be realized by simply adding media stream processing.

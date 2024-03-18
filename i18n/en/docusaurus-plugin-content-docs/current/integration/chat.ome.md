@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## What for?
 
-SFU (Selected Forwarding Unit) is a means to communicate on a large scale in the virtual space, etc. with the lowest cost possible.
+SFU (Selective Forwarding Unit) is a means to communicate on a large scale in the virtual space, etc. with the lowest cost possible.
 
 This module provides voice chat with SFU for Native (C#) and WebGL (JavaScript).
 
