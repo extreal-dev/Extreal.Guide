@@ -168,7 +168,7 @@ Please refer to [README](https://github.com/extreal-dev/Extreal.Integration.SFU.
 #### Signaling server
 
 Signaling server is provided by [Docker Compose](https://docs.docker.com/compose/).
-Please refer to [README](https://github.com/extreal-dev/Extreal.Integration.SFU.OME/tree/main/SignalingServer~) to prepare your signaling server.
+Please refer to [README](https://github.com/extreal-dev/Extreal.Integration.SFU.OME/tree/main/SignalingServer~) to prepare the signaling server.
 
 #### Application
 
