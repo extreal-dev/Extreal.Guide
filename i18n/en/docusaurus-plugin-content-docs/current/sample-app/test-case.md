@@ -28,11 +28,10 @@ The first time the asset is downloaded, it is cached, so the download is immedia
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
   - Ability to transition to the group selection screen by pressing the Go button
 - Group selection screen
-  - Ability to select Massively or Light
   - Ability to select host or client
   - If host is selected
     - Ability to enter a group name
-    - Error message should appear if the group name already exists
+    - Error message will be displayed if the group name already exists
   - When client is selected
     - Ability to select a group
   - Ability to transition to the virtual space by pressing the Go button
@@ -76,11 +75,11 @@ The first time the asset is downloaded, it is cached, so the download is immedia
   - If the signaling server fails and cannot respond to clients
     - User is notified that access is not available
     - All features are available except for voice chat
-- If the host is not accessible
+- If the OME server is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
     - All features are available except for voice chat
-  - If the host side fails and cannot respond to clients
+  - If the OME server fails and cannot respond to clients
     - User is notified that access is not available
     - All features are available except for voice chat
 - If the application usage visualization server cannot be accessed

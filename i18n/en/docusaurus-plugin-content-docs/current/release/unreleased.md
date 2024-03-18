@@ -59,7 +59,7 @@ The following Unity versions have been tested.
   - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 8.0.1 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
 - Extreal.Integration.P2P.WebRTC
   - Unity
-    - [Collections](https://docs.unity3d.com/Packages/com.unity.collections@1.2/manual/index.html) 2.2.1 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
+    - [Collections](https://docs.unity3d.com/Packages/com.unity.collections@2.1/manual/index.html) 2.2.1 ([Unity Companion License](https://unity.com/legal/licenses/unity-companion-license))
     - [WebRTC](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/manual/index.html) 3.0.0-pre.7 ([BSD](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0/license/Third%20Party%20Notices.html))
     - [System.Text.Json](https://learn.microsoft.com/ja-jp/dotnet/api/system.text.json) 8.0.1 ([MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT))
     - [SocketIOClient](https://github.com/doghappy/socket.io-client-csharp) 3.0.8 ([MIT License](https://github.com/doghappy/socket.io-client-csharp/blob/master/LICENSE))
