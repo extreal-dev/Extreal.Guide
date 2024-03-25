@@ -58,7 +58,7 @@ This will be done in conjunction with functional test.
 ## Performance test
 
 - Test Method
-  - Runs for 1 hour with the following conditions
+  - Runs for 30 minutes with the following conditions
     - Multiplayer
       - With 70 people accessing the virtual space.
     - Text/Voice Chat

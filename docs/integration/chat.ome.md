@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## What for?
 
-コストをできるだけ抑えてバーチャル空間等で大規模なコミュニケーションを取る手段としてSFU(Selected Forwarding Unit)があります。
+コストをできるだけ抑えてバーチャル空間等で大規模なコミュニケーションを取る手段としてSFU(Selective Forwarding Unit)があります。
 
 このモジュールはNative(C#)とWebGL(JavaScript)向けのSFUによるボイスチャットを提供します。
 
