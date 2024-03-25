@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-02-26
+2024-03-15
 
 ## Unity version
 
@@ -94,9 +94,8 @@ sidebar_position: 1
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ### Extreal.Integration.Web.Common
-
 #### Added
-
+- 指定した関数呼び出しとコールバックのログを抑制する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
 - プラットフォームに応じたビデオ再生を行う機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ### Extreal.Integration.Chat.WebRTC

@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-02-26
+2024-03-15
 
 ## Unity version
 
@@ -85,9 +85,8 @@ The following Unity versions have been tested.
 - Changed so that the ID of your own client and connected or disconnected clients can be obtained, so that each P2P client can be identified. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
 
 ### Extreal.Integration.Web.Common
-
 #### Added
-
+- Added the ability to suppress logs for specified function calls and callbacks.([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
 - Added the ability to play videos according to the platform. ([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ### Extreal.Integration.Chat.WebRTC
