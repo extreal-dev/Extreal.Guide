@@ -51,6 +51,8 @@ classDiagram
     class OmeConfig {
         +ServerUrl string
         +IceServerConfigs List
+        +MaxJoinRetryCount int
+        +JoinRetryInterval TimeSpan
     }
 
     class NativeOmeClient {
@@ -214,7 +216,13 @@ await omeClient.JoinAsync("group name");
 :::caution
 グループに大人数が参加している場合、新しい人が参加するときに失敗する可能性があります。
 参加に失敗したときには自動でリトライします。
-このときのタイムアウト時間は30秒で3回までリトライします。
+このときのタイムアウト時間およびリトライ回数はVoiceChatConfigで指定します。
+
+```csharp
+var omeConfig = new OmeConfig("http://localhost:3040", maxJoinRetryCount: 5, joinRetryInterval: TimeSpan.FromSeconds(10));
+var omeClient = OmeClientProvider.Provide(omeConfig);
+```
+
 リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#sfu-event)を使用してください。
 :::
 
