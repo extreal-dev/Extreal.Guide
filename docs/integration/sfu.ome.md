@@ -51,6 +51,8 @@ classDiagram
     class OmeConfig {
         +ServerUrl string
         +IceServerConfigs List
+        +MaxJoinRetryCount int
+        +JoinRetryInterval TimeSpan
     }
 
     class NativeOmeClient {
@@ -211,6 +213,19 @@ omeAdapter.adapt();
 await omeClient.JoinAsync("group name");
 ```
 
+:::caution
+グループに大人数が参加している場合、新しい人が参加するときに失敗する可能性があります。
+参加に失敗したときには自動でリトライします。
+このときのタイムアウト時間およびリトライ回数はVoiceChatConfigで指定します。
+
+```csharp
+var omeConfig = new OmeConfig("http://localhost:3040", maxJoinRetryCount: 5, joinRetryInterval: TimeSpan.FromSeconds(10));
+var omeClient = OmeClientProvider.Provide(omeConfig);
+```
+
+リトライ処理の状況に応じて処理を実行したい場合は[イベント通知](#sfu-event)を使用してください。
+:::
+
 グループから退出する場合はLeaveAsyncメソッドを使用します。
 
 ```csharp
@@ -223,7 +238,7 @@ await omeClient.LeaveAsync();
 var groups = await omeClient.ListGroupsAsync();
 ```
 
-### SFUの状態をトリガーに処理を追加する
+### SFUの状態をトリガーに処理を追加する {#sfu-event}
 
 OmeClientは次のイベント通知を設けています。
 
@@ -248,6 +263,18 @@ OmeClientは次のイベント通知を設けています。
   - タイミング：他のユーザーと切断した直後
   - タイプ：IObservable
   - パラメータ：切断したユーザーのクライアントID
+- OnJoinRetrying
+  - タイミング：グループ参加をリトライする直前
+  - タイプ：IObservable
+  - パラメータ：リトライ回数
+    - 1回目は`1`、2回目は`2`となります。
+    - `1`はリトライ開始を意味します。
+- OnJoinRetried
+  - タイミング：グループ参加のリトライが終了した直後
+  - タイプ：IObservable
+  - パラメータ：リトライ結果
+    - true：リトライが成功した場合
+    - false：最終的にリトライが成功しなかった場合
 
 ### Native(C#)のSFUにアプリケーション固有の処理を追加する
 
