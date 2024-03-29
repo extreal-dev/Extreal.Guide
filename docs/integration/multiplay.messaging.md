@@ -258,7 +258,7 @@ public class HolidayPlayerInputValues : PlayerInputValues
 
 ### クライアントの状態をトリガーに処理を追加する
 
-[Messaging](messaging.md)と同じイベント通知を使えます。詳細はMessagingの[クライアントの状態をトリガーに処理を追加する](messaging.md#クライアントの状態をトリガーに処理を追加する)を参照してください。
+[Messaging](messaging.md)と同じイベント通知を使えます。詳細はMessagingの[クライアントの状態をトリガーに処理を追加する](messaging.md#client-event)を参照してください。
 
 MultiplayClientは上記に加えて次のイベント通知を設けています。
 

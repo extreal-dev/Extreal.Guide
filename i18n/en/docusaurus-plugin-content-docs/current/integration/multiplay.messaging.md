@@ -139,7 +139,7 @@ public class ClientControlScope : LifetimeScope
 
 MultiplayClient provides the feature to play multiplayer in a group.
 
-Joining/leaving a group is used in the same way as in [Messaging](./messaging.md).
+Joining/Leaving a group is used in the same way as in [Messaging](./messaging.md).
 See [Exchanging messages in a group](./messaging.md#messaging-among-group).
 
 ```csharp
@@ -258,7 +258,7 @@ public class HolidayPlayerInputValues : PlayerInputValues
 
 ### Add processing triggered by client state
 
-You can use the same event notification as in [Messaging](./messaging.md). See [Adding Processes Triggered by Client State](./messaging.md#クライアントの状態をトリガーに処理を追加する) in Messaging for details.
+You can use the same event notification as in [Messaging](./messaging.md). See [Adding Processes Triggered by Client State](./messaging.md#client-event) in Messaging for details.
 
 In addition to the above, MultiplayClient has the following event notifications
 
