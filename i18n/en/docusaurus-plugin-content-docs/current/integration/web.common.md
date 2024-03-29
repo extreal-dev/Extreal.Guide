@@ -291,7 +291,7 @@ In such cases, you can suppress this log output at function registration or call
 By setting isSuppressTraceLog of addAction/addFunction/callback to true, log output for that function call or callback will be suppressed.
 
 ```typescript
-import { addAction, addFunction } from "@extreal-dev/extreal.integration.web.common";
+import { addAction, addFunction, callback } from "@extreal-dev/extreal.integration.web.common";
 
 addAction("DoTraceLogSuppressedAction",
     (str1, str2) => {

@@ -291,7 +291,7 @@ public class Sample : DisposableBase
 addAction/addFunction/callbackのisSuppressTraceLogをtrueにすることで、その関数呼び出しまたはコールバックのログ出力が抑制されます。
 
 ```typescript
-import { addAction, addFunction } from "@extreal-dev/extreal.integration.web.common";
+import { addAction, addFunction, callback } from "@extreal-dev/extreal.integration.web.common";
 
 addAction("DoTraceLogSuppressedAction",
     (str1, str2) => {
