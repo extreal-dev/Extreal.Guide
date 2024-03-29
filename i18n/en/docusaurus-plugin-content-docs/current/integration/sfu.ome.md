@@ -201,7 +201,7 @@ omeAdapter.adapt();
 
 ### Establish SFU connection {#sfu-ome-establish-connection}
 
-This module provides the ability to establish SFU connections.
+This module provides the feature to establish SFU connections.
 These features are provided by OmeClient.
 
 First, join the group by specifying a name.
@@ -279,7 +279,7 @@ omeClient.AddSubscribePcCloseHook((id) =>
 });
 ```
 
-These hooks are used to manipulate media streams and add application-specific features to the SFU.
+These hooks are used to add application-specific features to SFU by manipulating media streams.
 An example implementation for adding an audio stream is as follows.
 
 ```csharp
