@@ -296,7 +296,7 @@ await messagingClient.SendMessageAsync("message");
 await messagingClient.SendMessageAsync("message", toClientId);
 ```
 
-グループに参加しているクライアントのIDはOnClientJoinedのイベントパラメータから作成できます。
+グループに参加しているクライアントのIDはOnClientJoinedのイベントパラメータから取得できます。
 
 ```csharp
 private readonly List<string> joinedClients = new List<string>();
