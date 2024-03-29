@@ -286,7 +286,8 @@ public class Sample : DisposableBase
 
 If you specify to output logs when [initializing the WebGL helper](#settings), it will print a log every time [JavaScript is called from C#](#call-javascript-from-csharp) and every time [JavaScript calls back to C#](#callback-from-javascript-to-csharp).
 
-Log output can be suppressed when registering a function or calling back.
+There are times when you want to suppress this log output, such as when there are functions or callbacks that are called frequently.
+In such cases, you can suppress this log output at function registration or callback.
 By setting isSuppressTraceLog of addAction/addFunction/callback to true, log output for that function call or callback will be suppressed.
 
 ```typescript

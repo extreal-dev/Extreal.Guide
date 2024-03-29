@@ -286,7 +286,8 @@ public class Sample : DisposableBase
 
 [WebGLヘルパーの初期化](#settings)でログを出力するように指定した場合、すべての[C#からのJavaScriptの呼び出し時](#call-javascript-from-csharp)と[JavaScriptからのC#へのコールバック時](#callback-from-javascript-to-csharp)にログが出力されます。
 
-関数登録時またはコールバック時に、ログ出力を抑制することができます。
+高頻度で呼ばれる関数やコールバックが存在する場合など、このログ出力を抑制したいときがあります。
+そのような場合は関数登録時またはコールバック時にこのログ出力を抑制することができます。
 addAction/addFunction/callbackのisSuppressTraceLogをtrueにすることで、その関数呼び出しまたはコールバックのログ出力が抑制されます。
 
 ```typescript
