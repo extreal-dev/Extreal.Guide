@@ -16,7 +16,7 @@ Voice chat exchanges data through the [OME(OvenMediaEngine)](https://airensoft.g
 
 ## Application Structure
 
-Holiday's application architecture is based on Extreal's assumed [architecture](../intro.md#application) assumed by Extreal.
+The application architecture of Holiday will be the [architecture](../intro.md#application) assumed by Extreal.
 The stages and scenes of Holiday are as follows.
 
 ![application structure](../img/holiday-app-structure.png)
@@ -24,4 +24,4 @@ The stages and scenes of Holiday are as follows.
 The App scene is explained here because it is a special scene, not a separate feature offering.
 
 The App scene is the entry point for the application.
-The App scene handles the application initialization process, stage configuration, application state provision, and other processing related to the whole application.
+The App scene handles the application initialization process, stage configuration, application state provision, and other processing related to the application as a whole.

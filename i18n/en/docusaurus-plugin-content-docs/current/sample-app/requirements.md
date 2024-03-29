@@ -25,7 +25,6 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - Armature of [Starter Assets - Third Person Character Controller](https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526?locale=en-JP)
     - Michelle and Amy from [Mixamo](https://www.mixamo.com)
 - Group selection screen
-  - Allows users to select Massively or Light
   - Allows users to select Host or Client
   - For host, groups can be created by specifying a group name
   - For client, you can select a group and join the group
@@ -40,7 +39,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
 ## Non-functional requirements
 
 - Method of holding the event
-  - Each event will be held for one hour, with a set schedule and event announcement
+  - Each event will be held for 30 minutes, with a set schedule and event announcement
   - The server is started/stopped each time the event is held
 - Number of users
   - Multiplayer
