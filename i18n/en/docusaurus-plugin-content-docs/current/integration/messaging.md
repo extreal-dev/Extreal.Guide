@@ -260,7 +260,7 @@ messagingAdapter.adapt();
 
 ### Exchange messages in groups {#messaging-among-group}
 
-The ability to exchange messages in groups is provided by MessagingClient.
+The feature to exchange messages in groups is provided by MessagingClient.
 
 To join an existing group, use ListGroupsAsync to get a list of groups.
 
@@ -296,7 +296,7 @@ If you want to send a message to a specific member of a group, specify the clien
 await messagingClient.SendMessageAsync("message", toClientId);
 ```
 
-The client IDs participating in the group can be created from the OnClientJoined event parameter.
+The IDs of the clients participating in the group can be obtained from the OnClientJoined event parameter.
 
 ```csharp
 private readonly List<string> joinedClients = new List<string>();
