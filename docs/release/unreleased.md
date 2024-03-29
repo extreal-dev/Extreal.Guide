@@ -23,7 +23,7 @@ sidebar_position: 1
 - [Extreal.Integration.Chat.OME](https://github.com/extreal-dev/Extreal.Integration.Chat.OME) 1.0.0-next.1
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.3.0-next.1
 - [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.1.0-next.2
-- [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.3
+- [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Messaging) 1.0.0-next.3
 - [Extreal.Integration.Messaging.Socket.IO](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO) 1.0.0-next.5
 - [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0-next.4
 - [Extreal.Integration.Multiplay.NGO](https://github.com/extreal-dev/Extreal.Integration.Multiplay.NGO) 1.3.0-next.2
