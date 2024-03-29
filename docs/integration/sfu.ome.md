@@ -41,6 +41,7 @@ classDiagram
         +OnJoined IObservable
         +OnLeft IObservable
         +OnUnexpectedLeft IObservable
+        +OnUnexpectedSubscribeFailed IObservable
         +OnUserJoined IObservable
         +OnUserLeft IObservable
         +ListGroupsAsync() List
@@ -254,6 +255,10 @@ OmeClientは次のイベント通知を設けています。
   - タイミング：シグナリングサーバとの接続が切断された直後
   - タイプ：IObservable
   - パラメータ：切断された理由
+- OnUnexpectedSubscribeFailed
+  - タイミング：Subscribeの接続に失敗した直後
+  - タイプ：IObservable
+  - パラメータ：Subscribeの接続に失敗した理由
 - OnUserJoined
   - タイミング：他のユーザーと接続した直後
     - 接続するユーザー同士がお互いにイベントを受け取ります。そのため新たに接続するユーザーは、既に接続している全てのユーザー数のイベントを受け取ります。
