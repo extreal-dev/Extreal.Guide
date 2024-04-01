@@ -297,20 +297,20 @@ addAction("DoTraceLogSuppressedAction",
     (str1, str2) => {
         // do something
     },
-    true);  // <- isSuppressTraceLog
+    true);  // isSuppressTraceLog
 
 addFunction(
     "DoTraceLogSuppressedFunction",
     (str1, str2) => {
         return "do something";
     },
-    true);  // <- isSuppressTraceLog
+    true);  // isSuppressTraceLog
 
 callback(
     "DoTraceLogSuppressedCallback",
     "param1",
     "param2",
-    true);  // <- isSuppressTraceLog
+    true);  // isSuppressTraceLog
 ```
 
 ### Play videos according to platform
