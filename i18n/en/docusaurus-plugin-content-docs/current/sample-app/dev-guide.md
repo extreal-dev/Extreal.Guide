@@ -58,8 +58,8 @@ We have set up directories for applications, so all other directories have been 
     - Avatar prefabs
   - Config
     - Application settings
-  - Group
-    - Processing common to group chat
+  - P2P
+    - Processing common to P2P
   - Stages
     - Processing common to the stages
 - Controls

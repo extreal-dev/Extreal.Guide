@@ -81,7 +81,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - When the network is disconnected, the user is notified.
     - All features are available except for multiplayer and text chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
-  - Voice chat (SFU)
+  - Voice chat (P2P)
     - When the network is disconnected, the user is notified.
     - All features are available except for voice chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
