@@ -198,7 +198,7 @@ https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO.git
 - [socket.io-client](https://www.npmjs.com/package/socket.io-client)
 
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../../category/release)を参照ください。
 
 ### Settings
 

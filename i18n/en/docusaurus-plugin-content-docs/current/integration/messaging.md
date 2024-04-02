@@ -198,7 +198,7 @@ Messaging uses the following packages.
 - [socket.io-client](https://www.npmjs.com/package/socket.io-client)
 
 
-Please refer to [Release](../category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 

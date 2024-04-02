@@ -134,7 +134,7 @@ The Vivox wrapper uses the following packages.
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-Please refer to [Release](../category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 

@@ -702,5 +702,5 @@ Thank you for your time.
 
 Through this hands-on, you have experienced how to create text and voice chats using the [Vivox wrapper](../integration/chat.vivox.md).
 As a next step, you might be interested in how the Vivox wrapper can be used in a more serious application.
-To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](../category/sample-application).
+To meet your expectations, we provide [Sample Application](../../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../../category/sample-application).

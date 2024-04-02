@@ -586,7 +586,7 @@ MessageHandlerを登録してアプリケーションからのメッセージに
 ExtrealCoreLearning/MultiplayControlディレクトリの`NetworkPlayer`を選択してインスペクタを開くと、`PlayerPrefab`という名前でAddressablesに登録されていることが確認できます。
 
 今回はアプリケーションからメッセージの内容を何も送っていませんが、メッセージの内容でアバター名を送りユーザーごとに選択したアバターをプレイヤーとしてスポーンするといったこともできます。
-サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Application](../category/sample-application)をご覧ください。
+サンプルアプリケーションでユーザーが選択したアバターのスポーンを実現しているので興味がある方は[Sample Application](../../category/sample-application)をご覧ください。
 
 ```csharp
 using Cysharp.Threading.Tasks;
@@ -705,5 +705,5 @@ ParrelSyncでUnityエディタを開いてプレイしている様子です。
 
 このハンズオンを通じて[NGOラッパー](../integration/multiplay.ngo.md)を使ったマルチプレイサーバーとアプリケーションの作り方を体験しました。
 次のステップとしてNGOラッパーがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](../category/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](../../category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。

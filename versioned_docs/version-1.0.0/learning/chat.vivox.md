@@ -716,5 +716,5 @@ Appシーンを実行します。
 
 このハンズオンを通じて[Vivoxラッパー](../integration/chat.vivox.md)を使ったテキストチャットとボイスチャットの作り方を体験しました。
 次のステップとしてVivoxラッパーがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](../category/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](../../category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。

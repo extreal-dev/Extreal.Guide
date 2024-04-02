@@ -253,7 +253,7 @@ WebRtcTransportを使う場合
 - [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common)
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../../category/release)を参照ください。
 
 ### Settings
 

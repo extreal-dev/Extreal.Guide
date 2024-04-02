@@ -98,7 +98,7 @@ For external products, services, OSS, etc., please check the license of the prov
 Extreal leverages Unity and third-party packages to achieve its features.
 Because there are many elements of Extreal over which we have no control, we cannot promise to maintain backward compatibility.
 We will do our best to maintain backward compatibility of Extreal, but there may be cases where backward compatibility cannot be maintained.
-If backward compatibility cannot be maintained, [Release](./category/release) will guide you on how to upgrade.
+If backward compatibility cannot be maintained, [Release](./../category/release) will guide you on how to upgrade.
 
 ## Versioning
 
@@ -134,7 +134,7 @@ Extreal.Core.Logging 1.1.0 -> added feature
 Extreal.Core.StageNavigation 1.0.1
 ```
 
-Please refer to [Release](./category/release) for the correspondence between Extreal version and module version.
+Please refer to [Release](./../category/release) for the correspondence between Extreal version and module version.
 
 ## Unity version
 
@@ -151,8 +151,8 @@ Use Package Manager to install it from the Git URL.
 
 Please refer to each feature page for the Git URL.
 
-- [Core](./category/core)
-- [Integration](./category/integration)
+- [Core](./../category/core)
+- [Integration](./../category/integration)
 
 ## Feedback or Contribution
 

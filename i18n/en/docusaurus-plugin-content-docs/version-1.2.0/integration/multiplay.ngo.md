@@ -253,7 +253,7 @@ Using WebRtcTransport
 - [@extreal-dev/extreal.integration.web.common](https://www.npmjs.com/package/@extreal-dev/extreal.integration.web.common)
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc)
 
-Please refer to [Release](../category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 
