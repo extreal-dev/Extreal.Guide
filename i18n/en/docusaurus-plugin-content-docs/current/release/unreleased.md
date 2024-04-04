@@ -146,4 +146,4 @@ Applications that combine PeerClient.OnStarted streams using methods such as Mer
 #### Change impact and how to respond
 - The type of PeerClient.OnStarted has been changed from `IObservable<Unit>` to `IObservable<string>`.
   - If you combine PeerClient.OnStarted streams using a method such as Merge, the types will no longer match and a compilation error will occur.
-    Please modify the implementation to resolve the compilation error, such as by not combining streams.
+    Please do not combine streams and use the Subject method to process streams individually.

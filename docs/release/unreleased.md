@@ -146,4 +146,4 @@ PeerClient.OnStartedのストリームを、Mergeなどのメソッドで結合�
 #### 変更影響と対応方法
 - PeerClient.OnStartedの型が`IObservable<Unit>`から`IObservable<string>`に変更になりました。
   - MergeなどのメソッドでPeerClient.OnStartedのストリームを結合している場合、型が合わなくなるためコンパイルエラーになります。
-    ストリームを結合しないようにするなど、コンパイルエラーが解消するように実装を修正してください。
+    ストリームを結合せず、Subjectメソッドを使って個別にストリームを処理してください。
