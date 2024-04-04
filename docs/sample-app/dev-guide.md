@@ -614,17 +614,20 @@ sequenceDiagram
 
 participant FEATURE
 participant AppState
-participant GroupControlPresenter
+participant ClientControlPresenter
+participant GroupManager
 participant OtherClients
 
 opt Notify user operation to other clients
   FEATURE ->> AppState : Notify user operation
-  AppState ->> GroupControlPresenter : Transmit user operation
-  GroupControlPresenter ->> OtherClients : textChatClient.Send()
+  AppState ->> ClientControlPresenter : Transmit user operation
+  ClientControlPresenter ->> GroupManager : Transmit user operation
+  GroupManager ->> OtherClients : textChatClient.Send()
 end
 opt Receive user operation from other clients
-  OtherClients ->> GroupControlPresenter : Receive user operation
-  GroupControlPresenter ->> AppState : Transmit receipt of user operation
+  OtherClients ->> GroupManager : Receive user operation
+  GroupManager ->> ClientControlPresenter : Transmit receipt of user operation
+  ClientControlPresenter ->> AppState : Transmit receipt of user operation
   AppState ->> FEATURE : Execute transmitted user operation
 end
 ```
