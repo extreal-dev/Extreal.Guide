@@ -540,6 +540,185 @@ Assets/Holiday/Controls/Common
 
 バックグラウンド画面やローディング画面のように画面や空間に重ねて使用する共通画面のCanvasにはSortOrderを指定して前面に表示されるようにしてください。
 
+## Communication
+
+### Per Space
+
+マルチプレイとテキストチャットはメッセージングを使用します。
+入室するスペース名を指定して参加することでスペースごとのマルチプレイ/テキストチャットを実現します。
+ただし同じメッセージングサーバを使用することがあるためプレフィックスを使用することで識別します。
+
+```csharp title="Multiplayer"
+var groupName = $"Multiplay#{appState.Space.SpaceName}";
+var messagingJoinConfig = new MessagingJoiningConfig(groupName);
+var multiplayJoiningConfig = new MultiplayJoiningConfig(messagingJoinConfig);
+try
+{
+    await multiplayClient.JoinAsync(multiplayJoiningConfig);
+}
+catch (ConnectionException)
+{
+    appState.Notify(assetHelper.MessageConfig.MultiplayUnexpectedDisconnectedMessage);
+}
+```
+
+```csharp title="Text chat"
+var groupName = $"TextChat#{appState.Space.SpaceName}";
+var joiningConfig = new MessagingJoiningConfig(groupName);
+try
+{
+    await messagingClient.JoinAsync(joiningConfig);
+}
+catch (ConnectionException)
+{
+    appState.Notify(assetHelper.MessageConfig.TextChatUnexpectedDisconnectedMessage);
+}
+```
+
+### Per Group
+
+#### Voice chat
+
+P2Pを使用します。
+ホストはユーザが入力したグループ名を使用してグループを作成し、クライアントはユーザが指定したグループ名に紐づくグループIDを使用してグループに参加します。
+
+```csharp
+try
+{
+    if (appState.IsHost)
+    {
+        await peerClient.StartHostAsync(appState.GroupName);
+    }
+    else
+    {
+        await peerClient.StartClientAsync(appState.GroupId);
+    }
+}
+catch (HostNameAlreadyExistsException e)
+{
+    if (Logger.IsDebug())
+    {
+        Logger.LogDebug(e.Message);
+    }
+    handleOnHostNameAlreadyExists.Invoke();
+}
+```
+
+#### ユーザ操作（スペース移動やリアクションなど）の同期
+
+ユーザ操作の同期はP2Pのテキストチャットを使用します。
+ユーザ操作を同期するときの処理の流れを示します。
+
+```mermaid
+sequenceDiagram
+
+participant FEATURE
+participant AppState
+participant ClientControlPresenter
+participant GroupManager
+participant OtherClients
+
+opt Notify user operation to other clients
+  FEATURE ->> AppState : Notify user operation
+  AppState ->> ClientControlPresenter : Transmit user operation
+  ClientControlPresenter ->> GroupManager : Transmit user operation
+  GroupManager ->> OtherClients : textChatClient.Send()
+end
+opt Receive user operation from other clients
+  OtherClients ->> GroupManager : Receive user operation
+  GroupManager ->> ClientControlPresenter : Transmit receipt of user operation
+  ClientControlPresenter ->> AppState : Transmit receipt of user operation
+  AppState ->> FEATURE : Execute transmitted user operation
+end
+```
+
+参考として以下に新しくユーザ操作の同期の処理を追加する手順を示します。
+
+1. 伝達したい情報を格納するクラスを作成します。
+    - 参考： `SpaceTransitionMessageContent.cs`
+
+        ```csharp
+        public struct SpaceTransitionMessageContent : IMessageContent
+        {
+            public readonly StageName StageName => stageName;
+            [SerializeField, SuppressMessage("Usage", "CC0052")] private StageName stageName;
+        
+            public SpaceTransitionMessageContent(StageName stageName)
+                => this.stageName = stageName;
+        }
+        ```
+
+1. ユーザ操作を検知したときに情報が `AppState` に送られるように処理を追加します。
+    - 参考： `SpaceControlPresenter.cs`
+
+        ```csharp
+        protected override void Initialize
+        (
+            StageNavigator<StageName, SceneName> stageNavigator,
+            AppState appState,
+            CompositeDisposable sceneDisposables
+        )
+        {
+            // omit
+
+            spaceControlView.OnGoButtonClicked
+                .Subscribe(_ =>
+                    appState.SendMessage(
+                        new Message(
+                            MessageId.SpaceTransition,
+                            new SpaceTransitionMessageContent(appState.Space.StageName))))
+                .AddTo(sceneDisposables);
+
+            // omit
+        }
+        ```
+
+1. 他のクライアントから同期する情報が送られてきたときに実行する処理を記述します。
+    - 参考： `SpaceControlPresenter.cs`
+
+        ```csharp
+        protected override void Initialize
+        (
+            StageNavigator<StageName, SceneName> stageNavigator,
+            AppState appState,
+            CompositeDisposable sceneDisposables
+        )
+        {
+            // omit
+
+            appState.OnMessageReceived
+                .Where(message => message.MessageId == MessageId.SpaceTransition)
+                .Subscribe(message => ChangeSpace(message, appState, stageNavigator))
+                .AddTo(sceneDisposables);
+
+            // omit
+        }
+
+        private void ChangeSpace(Message message, AppState appState, StageNavigator<StageName, SceneName> stageNavigator)
+        {
+            var content = (SpaceTransitionMessageContent)message.Content;
+            var nextSpace = assetHelper.SpaceConfig.Spaces.First(space => space.StageName == content.StageName);
+            appState.SetSpace(nextSpace);
+
+            spaceControlView.SetSpaceDropdownValue(appState.Space.SpaceName);
+            SwitchSpace(appState, stageNavigator);
+        }
+
+        private void SwitchSpace(AppState appState, StageNavigator<StageName, SceneName> stageNavigator)
+        {
+            var landscapeType = appState.Space.LandscapeType;
+            if (landscapeType == LandscapeType.None)
+            {
+                assetHelper.DownloadSpaceAsset(appState.SpaceName, appState.Space.StageName);
+            }
+            else
+            {
+                appState.SetSpace(appState.Space);
+                stageNavigator.ReplaceAsync(appState.Space.StageName).Forget();
+            }
+        }
+        ```
+
 ## Build
 
 ビルド設定をリポジトリに含めているので次の設定のみ変更して本番向けのビルドを行います。
