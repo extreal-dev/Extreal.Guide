@@ -108,7 +108,7 @@ The following Unity versions have been tested.
 ### Extreal.Integration.Web.Common
 
 #### Added
-
+- Added the ability to suppress trace logs of JavaScript call.([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
 - Added the ability to play videos according to the platform. ([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ### Extreal.SampleApp.Holiday

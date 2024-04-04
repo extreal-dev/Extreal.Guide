@@ -15,6 +15,7 @@ This module hides the slightly more complex mechanism of C# and JavaScript integ
 
 - You can call JavaScript from C#.
 - You can do callbacks from JavaScript to C#.
+- You can suppress trace logs of JavaScript call.
 - You can play videos according to the platform.
 
 ## Architecture
@@ -40,9 +41,9 @@ classDiagram
 
     class helper {
         <<TypeScript>>
-        +addAction(name, action) void
-        +addFunction(name, func) void
-        +callback(name, strParam1, strParam2) void
+        +addAction(name, action, isSuppressTraceLog) void
+        +addFunction(name, func, isSuppressTraceLog) void
+        +callback(name, strParam1, strParam2, isSuppressTraceLog) void
         +isDebug boolean
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
@@ -140,7 +141,7 @@ This module uses the following packages.
 #### npm
 - There are no dependencies.
 
-### Settings
+### Settings {#settings}
 
 The WebGL helper needs to be initialized.
 Please initialize the WebGL helper when you start the application.
@@ -149,8 +150,8 @@ Please initialize the WebGL helper when you start the application.
 WebGLHelper.Initialize();
 ```
 
-The browser can log the status of JavaScript calls.
-The default is to not output logs, so if you want to output logs, specify them in WebGLHelperConfig.
+The browser can output debug logs of the status of JavaScript calls.
+The default is to not output debug logs, so if you want to output debug logs, specify them in WebGLHelperConfig.
 
 ```csharp
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
@@ -182,7 +183,7 @@ videoPlayerAdapter.adapt();
 
 ## Usage
 
-### Call JavaScript from C#
+### Call JavaScript from C# {#call-javascript-from-csharp}
 
 C# to JavaScript calls provide only the following signatures.
 
@@ -238,7 +239,7 @@ addFunction("DoFunction", (str1, str2) => {
 });
 ```
 
-### Callback from JavaScript to C#
+### Callback from JavaScript to C# {#callback-from-javascript-to-csharp}
 
 Only the following signatures are provided for JavaScript to C# callback.
 
@@ -279,6 +280,37 @@ public class Sample : DisposableBase
 
     protected override void ReleaseManagedResources() => onCallback.Dispose();
 }
+```
+
+### Suppress trace logs of JavaScript call
+
+If you specify to output logs when [initializing the WebGL helper](#settings), it will print a log every time [JavaScript is called from C#](#call-javascript-from-csharp) and every time [JavaScript calls back to C#](#callback-from-javascript-to-csharp).
+
+Sometimes you may want to suppress this log output, such as when functions or callbacks are called at a high frequency.
+In such cases, you can suppress this log output at function registration or callback.
+By setting isSuppressTraceLog of addAction/addFunction/callback to true, log output for that function call or callback will be suppressed.
+
+```typescript
+import { addAction, addFunction, callback } from "@extreal-dev/extreal.integration.web.common";
+
+addAction("DoTraceLogSuppressedAction",
+    (str1, str2) => {
+        // do something
+    },
+    true);  // isSuppressTraceLog
+
+addFunction(
+    "DoTraceLogSuppressedFunction",
+    (str1, str2) => {
+        return "do something";
+    },
+    true);  // isSuppressTraceLog
+
+callback(
+    "DoTraceLogSuppressedCallback",
+    "param1",
+    "param2",
+    true);  // isSuppressTraceLog
 ```
 
 ### Play videos according to platform

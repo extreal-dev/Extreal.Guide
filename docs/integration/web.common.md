@@ -15,6 +15,7 @@ UnityではWebGLプラットフォームを使用してブラウザ向けのア�
 
 - C#からJavaScriptを呼び出せます。
 - JavaScriptからC#にコールバックできます。
+- JavaScriptの呼び出し状況のトレースログを抑制できます。
 - プラットフォームに応じたビデオ再生ができます。
 
 ## Architecture
@@ -40,9 +41,9 @@ classDiagram
 
     class helper {
         <<TypeScript>>
-        +addAction(name, action) void
-        +addFunction(name, func) void
-        +callback(name, strParam1, strParam2) void
+        +addAction(name, action, isSuppressTraceLog) void
+        +addFunction(name, func, isSuppressTraceLog) void
+        +callback(name, strParam1, strParam2, isSuppressTraceLog) void
         +isDebug boolean
         +waitUntil(condition, cancel, interval) void
         +isAsync(func) boolean
@@ -140,7 +141,7 @@ https://github.com/extreal-dev/Extreal.Integration.Web.Common.git
 #### npm
 - 依存するものはありません。
 
-### Settings
+### Settings {#settings}
 
 WebGLヘルパーの初期化が必要です。
 アプリケーションの起動時にWebGLヘルパーの初期化を行ってください。
@@ -149,8 +150,8 @@ WebGLヘルパーの初期化が必要です。
 WebGLHelper.Initialize();
 ```
 
-ブラウザ側でJavaScriptの呼び出し状況をログに出力できます。
-デフォルトはログを出力しないので、ログを出力したい場合はWebGLHelperConfigで指定します。
+ブラウザ側でJavaScriptの呼び出し状況のデバッグログを出力できます。
+デフォルトはデバッグログを出力しないので、デバッグログを出力したい場合はWebGLHelperConfigで指定します。
 
 ```csharp
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
@@ -182,7 +183,7 @@ videoPlayerAdapter.adapt();
 
 ## Usage
 
-### C#からJavaScriptを呼び出す
+### C#からJavaScriptを呼び出す {#call-javascript-from-csharp}
 
 C#からJavaScriptの呼び出しは次のシグネチャのみ提供しています。
 
@@ -238,7 +239,7 @@ addFunction("DoFunction", (str1, str2) => {
 });
 ```
 
-### JavaScriptからC#にコールバックする
+### JavaScriptからC#にコールバックする {#callback-from-javascript-to-csharp}
 
 JavaScriptからC#へのコールバックは次のシグネチャのみ提供しています。
 
@@ -279,6 +280,37 @@ public class Sample : DisposableBase
 
     protected override void ReleaseManagedResources() => onCallback.Dispose();
 }
+```
+
+### JavaScriptの呼び出し状況のトレースログを抑制する
+
+[WebGLヘルパーの初期化](#settings)でログを出力するように指定した場合、すべての[C#からのJavaScriptの呼び出し時](#call-javascript-from-csharp)と[JavaScriptからのC#へのコールバック時](#callback-from-javascript-to-csharp)にログが出力されます。
+
+高頻度で呼ばれる関数やコールバックが存在する場合など、このログ出力を抑制したいときがあります。
+そのような場合は関数登録時またはコールバック時にこのログ出力を抑制することができます。
+addAction/addFunction/callbackのisSuppressTraceLogをtrueにすることで、その関数呼び出しまたはコールバックのログ出力が抑制されます。
+
+```typescript
+import { addAction, addFunction, callback } from "@extreal-dev/extreal.integration.web.common";
+
+addAction("DoTraceLogSuppressedAction",
+    (str1, str2) => {
+        // do something
+    },
+    true);  // isSuppressTraceLog
+
+addFunction(
+    "DoTraceLogSuppressedFunction",
+    (str1, str2) => {
+        return "do something";
+    },
+    true);  // isSuppressTraceLog
+
+callback(
+    "DoTraceLogSuppressedCallback",
+    "param1",
+    "param2",
+    true);  // isSuppressTraceLog
 ```
 
 ### プラットフォームに応じたビデオ再生を行う
