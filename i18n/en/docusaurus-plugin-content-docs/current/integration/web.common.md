@@ -150,7 +150,7 @@ Please initialize the WebGL helper when you start the application.
 WebGLHelper.Initialize();
 ```
 
-The browser can output debug logs the status of JavaScript calls.
+The browser can output debug logs of the status of JavaScript calls.
 The default is to not output debug logs, so if you want to output debug logs, specify them in WebGLHelperConfig.
 
 ```csharp
