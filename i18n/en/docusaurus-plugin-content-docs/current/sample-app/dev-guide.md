@@ -662,12 +662,12 @@ For reference, here are the steps for adding a new user operation synchronizatio
             // omit
 
             spaceControlView.OnGoButtonClicked
-              .Subscribe(_ =>
-                  appState.SendMessage(
-                      new Message(
-                          MessageId.SpaceTransition,
-                          new SpaceTransitionMessageContent(appState.Space.StageName))))
-              .AddTo(sceneDisposables);
+                .Subscribe(_ =>
+                    appState.SendMessage(
+                        new Message(
+                            MessageId.SpaceTransition,
+                            new SpaceTransitionMessageContent(appState.Space.StageName))))
+                .AddTo(sceneDisposables);
 
             // omit
         }
