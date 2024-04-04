@@ -53,7 +53,6 @@ Frameworkは次の機能を提供しています。
   - [Stage Navigation](./core/stage-navigation.md)
 - Integration
   - [Asset Workflow using Addressables](./integration/asset-workflow.addressables.md)
-  - [Chat using OME](./integration/chat.ome.md)
   - [Chat using Vivox](./integration/chat.vivox.md)
   - [Chat using WebRTC](./integration/chat.webrtc.md)
   - [Common for Web](./integration/web.common.md)
@@ -61,7 +60,6 @@ Frameworkは次の機能を提供しています。
   - [Multiplay using Messaging](./integration/multiplay.messaging.md)
   - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
   - [P2P using WebRTC](./integration/p2p.webrtc.md)
-  - [SFU using OME](./integration/sfu.ome.md)
 
 全てのモジュールはログ出力を統一するためLoggingに依存しています。
 

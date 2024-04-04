@@ -30,10 +30,12 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - For client, you can select a group and join the group
   - Can return to avatar selection screen
 - Virtual Space
-  - Voice chat is available
-  - Text chat is available
-  - Multiplayer is available
-  - Can switch space
+  - Per group:
+    - Voice chat is available
+    - Can switch space
+  - Per space:
+    - Multiplayer is available
+    - Text chat is available
   - Can return to group selection screen
 
 ## Non-functional requirements
@@ -42,9 +44,9 @@ Holiday is an application aimed at gathering with friends and family to spend ti
   - Each event will be held for 30 minutes, with a set schedule and event announcement
   - The server is started/stopped each time the event is held
 - Number of users
-  - Multiplayer
+  - Multiplayer/Text chat
     - 70 users per space
-  - Text/Voice chat
+  - Voice chat
     - 10 users per group
   - If the maximum number of users is exceeded, users are notified on the group selection screen.
   - No limit on number of groups
@@ -81,7 +83,7 @@ Holiday is an application aimed at gathering with friends and family to spend ti
     - When the network is disconnected, the user is notified.
     - All features are available except for multiplayer and text chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
-  - Voice chat (SFU)
+  - Voice chat (P2P)
     - When the network is disconnected, the user is notified.
     - All features are available except for voice chat.
     - Reconnection processing is not necessary because the user can reconnect when re-entering the virtual space.
