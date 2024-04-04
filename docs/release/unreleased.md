@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-04-02
+2024-04-04
 
 ## Unity version
 
@@ -103,6 +103,7 @@ sidebar_position: 1
 #### Changed
 - PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
+  - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
 
 ### Extreal.Integration.Web.Common
 
@@ -118,3 +119,13 @@ sidebar_position: 1
 ## Upgrade guide {#upgrade-guide}
 
 モジュールバージョンを更新してください。
+
+後方互換に影響がある変更があるため、下記を確認して該当するアプリケーションは対応してください。
+
+### Extreal.Integration.P2P.WebRTC
+#### 変更影響があるアプリケーション
+PeerClient.OnStartedのストリームを、Mergeなどのメソッドで結合しているアプリケーションに影響があります。
+#### 変更影響と対応方法
+- PeerClient.OnStartedの型が`IObservable<Unit>`から`IObservable<string>`に変更になりました。
+  - MergeなどのメソッドでPeerClient.OnStartedのストリームを結合している場合、型が合わなくなるためコンパイルエラーになります。
+    ストリームを結合せず、Subjectメソッドを使って個別にストリームを処理してください。
