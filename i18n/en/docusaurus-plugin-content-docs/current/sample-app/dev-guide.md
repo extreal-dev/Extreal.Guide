@@ -540,6 +540,185 @@ Assets/Holiday/Controls/Common
 
 Specify SortOrder for the Canvas of common screens that are superimposed on a screen or space, such as background screens and loading screens, so that they are displayed in the front.
 
+## Communication
+
+### Per Space
+
+Multiplayer and text chat use messaging.
+Multiplayer/text chat per space is realized by joining with the name of the space to be entered.
+However, since the same messaging server may be used, a prefix is used to identify them.
+
+```csharp title="Multiplayer"
+var groupName = $"Multiplay#{appState.Space.SpaceName}";
+var messagingJoinConfig = new MessagingJoiningConfig(groupName);
+var multiplayJoiningConfig = new MultiplayJoiningConfig(messagingJoinConfig);
+try
+{
+    await multiplayClient.JoinAsync(multiplayJoiningConfig);
+}
+catch (ConnectionException)
+{
+    appState.Notify(assetHelper.MessageConfig.MultiplayUnexpectedDisconnectedMessage);
+}
+```
+
+```csharp title="Text chat"
+var groupName = $"TextChat#{appState.Space.SpaceName}";
+var joiningConfig = new MessagingJoiningConfig(groupName);
+try
+{
+    await messagingClient.JoinAsync(joiningConfig);
+}
+catch (ConnectionException)
+{
+    appState.Notify(assetHelper.MessageConfig.TextChatUnexpectedDisconnectedMessage);
+}
+```
+
+### Per Group
+
+#### Voice chat
+
+P2P is used.
+The host creates a group using the group name the user enters, and the client joins the group using the group ID associated with the group name the user specifies.
+
+```csharp
+try
+{
+    if (appState.IsHost)
+    {
+        await peerClient.StartHostAsync(appState.GroupName);
+    }
+    else
+    {
+        await peerClient.StartClientAsync(appState.GroupId);
+    }
+}
+catch (HostNameAlreadyExistsException e)
+{
+    if (Logger.IsDebug())
+    {
+        Logger.LogDebug(e.Message);
+    }
+    handleOnHostNameAlreadyExists.Invoke();
+}
+```
+
+#### Synchronization of user operations (space transitions, reactions, etc.)
+
+Synchronization of user operations uses P2P text chat.
+The following is the process flow when synchronizing user operations.
+
+```mermaid
+sequenceDiagram
+
+participant FEATURE
+participant AppState
+participant ClientControlPresenter
+participant GroupManager
+participant OtherClients
+
+opt Notify user operation to other clients
+  FEATURE ->> AppState : Notify user operation
+  AppState ->> ClientControlPresenter : Transmit user operation
+  ClientControlPresenter ->> GroupManager : Transmit user operation
+  GroupManager ->> OtherClients : textChatClient.Send()
+end
+opt Receive user operation from other clients
+  OtherClients ->> GroupManager : Receive user operation
+  GroupManager ->> ClientControlPresenter : Transmit receipt of user operation
+  ClientControlPresenter ->> AppState : Transmit receipt of user operation
+  AppState ->> FEATURE : Execute transmitted user operation
+end
+```
+
+For reference, here are the steps for adding a new user operation synchronization processing.
+
+1. Create a class to store the information to be transmitted.
+    - cf: `SpaceTransitionMessageContent.cs`
+
+        ```csharp
+        public struct SpaceTransitionMessageContent : IMessageContent
+        {
+            public readonly StageName StageName => stageName;
+            [SerializeField, SuppressMessage("Usage", "CC0052")] private StageName stageName;
+        
+            public SpaceTransitionMessageContent(StageName stageName)
+                => this.stageName = stageName;
+        }
+        ```
+
+1. Add processing so that information is sent to `AppState` when user operation is detected.
+    - cf: `SpaceControlPresenter.cs`
+
+        ```csharp
+        protected override void Initialize
+        (
+            StageNavigator<StageName, SceneName> stageNavigator,
+            AppState appState,
+            CompositeDisposable sceneDisposables
+        )
+        {
+            // omit
+
+            spaceControlView.OnGoButtonClicked
+              .Subscribe(_ =>
+                  appState.SendMessage(
+                      new Message(
+                          MessageId.SpaceTransition,
+                          new SpaceTransitionMessageContent(appState.Space.StageName))))
+              .AddTo(sceneDisposables);
+
+            // omit
+        }
+        ```
+
+1. Write the processing to be executed when receiving information to be synchronized from other clients.
+    - cf: `SpaceControlPresenter.cs`
+
+        ```csharp
+        protected override void Initialize
+        (
+            StageNavigator<StageName, SceneName> stageNavigator,
+            AppState appState,
+            CompositeDisposable sceneDisposables
+        )
+        {
+            // omit
+
+            appState.OnMessageReceived
+                .Where(message => message.MessageId == MessageId.SpaceTransition)
+                .Subscribe(message => ChangeSpace(message, appState, stageNavigator))
+                .AddTo(sceneDisposables);
+
+            // omit
+        }
+
+        private void ChangeSpace(Message message, AppState appState, StageNavigator<StageName, SceneName> stageNavigator)
+        {
+            var content = (SpaceTransitionMessageContent)message.Content;
+            var nextSpace = assetHelper.SpaceConfig.Spaces.First(space => space.StageName == content.StageName);
+            appState.SetSpace(nextSpace);
+
+            spaceControlView.SetSpaceDropdownValue(appState.Space.SpaceName);
+            SwitchSpace(appState, stageNavigator);
+        }
+
+        private void SwitchSpace(AppState appState, StageNavigator<StageName, SceneName> stageNavigator)
+        {
+            var landscapeType = appState.Space.LandscapeType;
+            if (landscapeType == LandscapeType.None)
+            {
+                assetHelper.DownloadSpaceAsset(appState.SpaceName, appState.Space.StageName);
+            }
+            else
+            {
+                appState.SetSpace(appState.Space);
+                stageNavigator.ReplaceAsync(appState.Space.StageName).Forget();
+            }
+        }
+        ```
+
 ## Build
 
 Since the build configuration is included in the repository, only the following settings need to be changed to build for production.
