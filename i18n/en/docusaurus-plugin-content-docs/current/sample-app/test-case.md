@@ -75,11 +75,11 @@ The first time the asset is downloaded, it is cached, so the download is immedia
   - If the signaling server fails and cannot respond to clients
     - User is notified that access is not available
     - All features are available except for voice chat
-- If the OME server is not accessible
+- If the host is not accessible
   - If the client is not connected to the network
     - User is notified that access is not available
     - All features are available except for voice chat
-  - If the OME server fails and cannot respond to clients
+  - If the host side fails and cannot respond to clients
     - User is notified that access is not available
     - All features are available except for voice chat
 - If the application usage visualization server cannot be accessed

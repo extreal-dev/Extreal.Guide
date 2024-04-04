@@ -53,7 +53,6 @@ Framework provides the following features.
   - [Stage Navigation](./core/stage-navigation.md)
 - Integration
   - [Asset Workflow using Addressables](./integration/asset-workflow.addressables.md)
-  - [Chat using OME](./integration/chat.ome.md)
   - [Chat using Vivox](./integration/chat.vivox.md)
   - [Chat using WebRTC](./integration/chat.webrtc.md)
   - [Common for Web](./integration/web.common.md)
@@ -61,7 +60,6 @@ Framework provides the following features.
   - [Multiplay using Messaging](./integration/multiplay.messaging.md)
   - [Multiplay using Netcode for GameObjects](./integration/multiplay.ngo.md)
   - [P2P using WebRTC](./integration/p2p.webrtc.md)
-  - [SFU using OME](./integration/sfu.ome.md)
 
 All modules depend on Logging to unify log output.
 

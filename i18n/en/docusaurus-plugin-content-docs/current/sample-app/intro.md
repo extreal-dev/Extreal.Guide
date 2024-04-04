@@ -12,7 +12,7 @@ We provide "Holiday" as a sample application equipped with the multiplayer and v
 ![holiday](../img/holiday.png)
 
 Holiday has a simple stage structure: title screen → avatar selection screen → group selection screen → virtual space.
-Multiplayer and text chat are handled by [Messaging](../integration/messaging.md), voice chat by SFU (Selective Forwarding Unit), and you can play in groups by selecting a host or client on the group selection screen.
+You can choose a host or a client on the group selection screen and play while conversing in a group.
 
 :::info
 Holiday, which employs P2P (Peer to Peer) for multiplayer/text chat/voice chat, can be found in the following repository.

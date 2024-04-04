@@ -59,9 +59,9 @@ This will be done in conjunction with functional test.
 
 - Test Method
   - Runs for 30 minutes with the following conditions
-    - Multiplayer
+    - Multiplayer/Text chat
       - With 70 people accessing the virtual space.
-    - Text/Voice Chat
+    - Voice Chat
       - With 10 people accessing the group.
   - The number of accesses will be secured by a test application
     - The test application will have no UI and only player operation will be performed
