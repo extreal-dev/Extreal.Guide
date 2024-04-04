@@ -109,7 +109,7 @@ sidebar_position: 1
 
 #### Added
 
-- 指定した関数呼び出しとコールバックのログを抑制する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
+- JavaScriptの呼び出し状況のトレースログを抑制する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
 - プラットフォームに応じたビデオ再生を行う機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ### Extreal.SampleApp.Holiday
