@@ -150,8 +150,8 @@ WebGLヘルパーの初期化が必要です。
 WebGLHelper.Initialize();
 ```
 
-ブラウザ側でJavaScriptの呼び出し状況をログに出力できます。
-デフォルトはログを出力しないので、ログを出力したい場合はWebGLHelperConfigで指定します。
+ブラウザ側でJavaScriptの呼び出し状況のデバッグログを出力できます。
+デフォルトはデバッグログを出力しないので、デバッグログを出力したい場合はWebGLHelperConfigで指定します。
 
 ```csharp
 WebGLHelper.Initialize(new WebGLHelperConfig { IsDebug = true });
