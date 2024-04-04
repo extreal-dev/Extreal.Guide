@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-03-29
+2024-04-04
 
 ## Unity version
 
@@ -116,6 +116,7 @@ The following Unity versions have been tested.
 #### Changed
 - Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
 - Changed so that the ID of your own client and connected or disconnected clients can be obtained, so that each P2P client can be identified. ([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
+  - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
 
 ### Extreal.Integration.SFU.OME
 #### Added
@@ -136,3 +137,13 @@ The following Unity versions have been tested.
 ## Upgrade guide {#upgrade-guide}
 
 Please update the module versions.
+
+Since there are changes that affect backward compatibility, please check the following and respond to the applicable applications.
+
+### Extreal.Integration.P2P.WebRTC
+#### Applications affected by the change
+Applications that combine PeerClient.OnStarted streams using methods such as Merge are affected.
+#### Change impact and how to respond
+- The type of PeerClient.OnStarted has been changed from `IObservable<Unit>` to `IObservable<string>`.
+  - If you combine PeerClient.OnStarted streams using a method such as Merge, the types will no longer match and a compilation error will occur.
+    Please do not combine streams and use the Subject method to process streams individually.
