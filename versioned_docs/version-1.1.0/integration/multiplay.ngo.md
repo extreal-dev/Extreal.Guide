@@ -24,7 +24,7 @@ NGOを知らない場合は[Learning](../learning/intro.md#multiplayer)を参照
 :::
 
 :::info
-よくあるマルチプレイのアプリケーション要件に対するNGOラッパーの実装例は[サンプルアプリケーション](../category/sample-application)で提供します。
+よくあるマルチプレイのアプリケーション要件に対するNGOラッパーの実装例は[サンプルアプリケーション](../../category/sample-application)で提供します。
 
 現時点では次の要件を提供済みです。
 
@@ -163,7 +163,7 @@ NGOラッパーは次のパッケージを使います。
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../../category/release)を参照ください。
 
 ### Settings
 

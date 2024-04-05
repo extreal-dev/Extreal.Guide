@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Core
 
-In this section, you will learn about [Core](../category/core).
+In this section, you will learn about [Core](../../category/core).
 
 - Approximate learning time
   - 60 min
@@ -598,5 +598,5 @@ Thank you for your time.
 
 Through this hands-on, you have already built the features required for [the application architecture assumed by Extreal](../intro.md#application).
 As a next step, you might be interested in how the architecture you built in this hands-on will be used in a more serious application.
-To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](../category/sample-application).
+To meet your expectations, we provide [Sample Application](../../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../../category/sample-application).

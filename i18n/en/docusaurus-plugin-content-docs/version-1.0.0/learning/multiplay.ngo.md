@@ -582,7 +582,7 @@ Player prefabs are loaded using Addressables.
 If you select `NetworkPlayer` in the ExtrealCoreLearning/MultiplayControl directory and open the inspector, you will see that it is registered in Addressables under the name `PlayerPrefab`.
 
 In this case, the application does not send any message content, but it is possible to send an avatar name in the message content and spawn an avatar selected by each user as a player.
-Please refer to [Sample Application](../category/sample-application) if you are interested in the sample application that realizes spawning avatars selected by the user.
+Please refer to [Sample Application](../../category/sample-application) if you are interested in the sample application that realizes spawning avatars selected by the user.
 
 ```csharp
 // highlight-start
@@ -703,5 +703,5 @@ Thank you for your time.
 
 Through this hands-on, you have experienced how to create a multiplayer server and application using the [NGO Wrapper](../integration/multiplay.ngo.md).
 As a next step, you might be interested in how the NGO wrapper can be used in a more serious application.
-To meet your expectations, we provide [Sample Application](../category/sample-application) as an example of a full-scale implementation.
-Please take a look at [Sample Application](../category/sample-application).
+To meet your expectations, we provide [Sample Application](../../category/sample-application) as an example of a full-scale implementation.
+Please take a look at [Sample Application](../../category/sample-application).

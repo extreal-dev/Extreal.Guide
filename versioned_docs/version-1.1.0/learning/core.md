@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Core
 
-ここでは[Core](../category/core)について学習します。
+ここでは[Core](../../category/core)について学習します。
 
 - 学習時間の目安
   - 60分
@@ -604,5 +604,5 @@ TitleScreenScopeのインスペクタでParentにAppScopeを指定するとこ�
 
 このハンズオンを通じて[Extrealが想定するアプリケーションアーキテクチャ](../intro.md#application)に必要な機能を構築済みです。
 次のステップとしてハンズオンで構築したアーキテクチャがより本格的なアプリケーションでどのように使われるのか関心があると思います。
-その期待に応えるため、より本格的な実装例として[Sample Application](../category/sample-application)を提供しています。
+その期待に応えるため、より本格的な実装例として[Sample Application](../../category/sample-application)を提供しています。
 ぜひSample Applicationをご覧ください。

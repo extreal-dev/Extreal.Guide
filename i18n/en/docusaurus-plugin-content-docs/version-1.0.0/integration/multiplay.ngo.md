@@ -24,7 +24,7 @@ This guide assumes you know NGO.
 :::
 
 :::info
-Example implementations of NGO wrappers for common multiplayer application requirements are provided in [sample applications](../category/sample-application).
+Example implementations of NGO wrappers for common multiplayer application requirements are provided in [sample applications](../../category/sample-application).
 
 At this time, the following requirements have been provided.
 
@@ -160,7 +160,7 @@ The NGO wrapper uses the following packages.
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-Please refer to [Release](../category/release) for the correspondence between module version and each package version.
+Please refer to [Release](../../category/release) for the correspondence between module version and each package version.
 
 ### Settings
 

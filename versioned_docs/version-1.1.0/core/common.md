@@ -97,7 +97,7 @@ Commonは次のパッケージを使います。
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
 
-モジュールバージョンと各パッケージバージョンの対応は[Release](../category/release)を参照ください。
+モジュールバージョンと各パッケージバージョンの対応は[Release](../../category/release)を参照ください。
 
 ### Settings
 
