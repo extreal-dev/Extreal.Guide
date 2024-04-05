@@ -7,5 +7,6 @@
 - [ ] リンクや画像のファイルパスは拡張子付きの相対パスになっていることを確認しました
   - [Link docs by file paths](https://docusaurus.io/docs/next/versioning#link-docs-by-file-paths)
   - [Global or versioned collocated assets](https://docusaurus.io/docs/next/versioning#global-or-versioned-collocated-assets)(using per-version)
+- [ ] categoryページ(category/release等)への相対リンクが現在のバージョンのページに遷移することを確認しました
 
 # レビュアーへのメッセージ
