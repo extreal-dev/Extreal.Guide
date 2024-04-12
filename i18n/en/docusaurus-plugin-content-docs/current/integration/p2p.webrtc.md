@@ -252,7 +252,7 @@ If the host is shut down or the client leaves the host, the P2P connection is st
 peerClient.Stop();
 ```
 
-### Add processing to trigger P2P state
+### Add processing to trigger P2P state {#p2p-event}
 
 PeerClient has the following event notifications
 
@@ -290,7 +290,7 @@ PeerClient has the following event notifications
   - Type: IObservable
   - Parameters: Client ID of the user to disconnect
 
-### Add application-specific processing to Native(C#) P2P
+### Add application-specific processing to Native(C#) P2P {#add-app-processing-on-native}
 
 :::caution
 Processing continues even if errors occur during Create/Close of PeerConnection.
@@ -506,7 +506,7 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 }
 ```
 
-### Make the signaling server redundant
+### Make the signaling server redundant {#signaling-server-redundancy}
 
 [Socket.IO](https://socket.io/) is used for the signaling server.
 Sticky sessions are recommended when using multiple Socket.IO servers for redundancy.

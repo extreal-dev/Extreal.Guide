@@ -224,7 +224,11 @@ textChatClient.OnMessageReceived
 textChatClient.Clear();
 ```
 
-### P2Pによるボイスチャットを行う
+### P2Pによるボイスチャットを行う {#voice-chat-via-p2p}
+
+:::info
+マイクが使用できない場合はスピーカーのみ有効となります。
+:::
 
 ボイスチャットは[P2P.WebRTC](p2p.webrtc.md)を使ってP2Pを実現しています。
 P2Pの接続確立は[P2P.WebRTCのAPI](p2p.webrtc.md#p2p-webrtc-host-client)を使ってください。
@@ -281,7 +285,7 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
-### ボイスチャットのクライアントの状態をトリガーに処理を追加する
+### ボイスチャットのクライアントの状態をトリガーに処理を追加する {#voice-chat-p2p-event}
 
 VoiceChatClientは次のイベント通知を設けています。
 

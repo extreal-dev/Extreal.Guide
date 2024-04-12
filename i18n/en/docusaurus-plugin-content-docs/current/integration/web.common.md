@@ -282,7 +282,7 @@ public class Sample : DisposableBase
 }
 ```
 
-### Suppress trace logs of JavaScript call
+### Suppress trace logs of JavaScript call {#suppress-call-status-trace-log}
 
 If you specify to output logs when [initializing the WebGL helper](#settings), it will print a log every time [JavaScript is called from C#](#call-javascript-from-csharp) and every time [JavaScript calls back to C#](#callback-from-javascript-to-csharp).
 
@@ -313,13 +313,13 @@ callback(
     true);  // isSuppressTraceLog
 ```
 
-### Play videos according to platform
+### Play videos according to platform {#platform-specific-video-playback}
 
-The ability to delegate video playback on WebGL to JavaScript is provided by EVideoPlayer.
+On WebGL, if a video is played back for a long period of time while using the VideoPlayer, the audio may not play properly or the video playback speed may slow down drastically.
+This problem can be solved by delegating the video playback processing to JavaScript on WebGL.
 
-:::info
-The same API can be used for video playback on the platforms other than WebGL.
-:::
+Here, we provide a feature that delegates video playback on WebGL to JavaScript and uses VideoPlayer on other platforms.
+This feature is provided by EVideoPlayer.
 
 Set the URL where the video you wish to use is located and prepare for video playback.
 
