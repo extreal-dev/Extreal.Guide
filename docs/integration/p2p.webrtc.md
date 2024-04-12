@@ -252,7 +252,7 @@ await peerClient.StartClientAsync(hostId);
 peerClient.Stop();
 ```
 
-### P2Pの状態をトリガーに処理を追加する
+### P2Pの状態をトリガーに処理を追加する {#p2p-event}
 
 PeerClientは次のイベント通知を設けています。
 
@@ -290,7 +290,7 @@ PeerClientは次のイベント通知を設けています。
   - タイプ：IObservable
   - パラメータ：切断するユーザーのクライアントID
 
-### Native(C#)のP2Pにアプリケーション固有の処理を追加する
+### Native(C#)のP2Pにアプリケーション固有の処理を追加する {#add-app-processing-on-native}
 
 :::caution
 PeerConnectionのCreate/Close時にエラーが発生した場合でも、処理が継続されます。
@@ -506,7 +506,7 @@ namespace Extreal.Integration.P2P.WebRTC.MVS.ClientControl
 }
 ```
 
-### シグナリングサーバーを冗長化する
+### シグナリングサーバーを冗長化する {#signaling-server-redundancy}
 
 シグナリングサーバーには[Socket.IO](https://socket.io/)を利用しています。
 Socket.IOサーバーを複数にして冗長化する場合はスティッキーセッションが推奨されています。

@@ -282,7 +282,7 @@ public class Sample : DisposableBase
 }
 ```
 
-### JavaScriptの呼び出し状況のトレースログを抑制する
+### JavaScriptの呼び出し状況のトレースログを抑制する {#suppress-call-status-trace-log}
 
 [WebGLヘルパーの初期化](#settings)でログを出力するように指定した場合、すべての[C#からのJavaScriptの呼び出し時](#call-javascript-from-csharp)と[JavaScriptからのC#へのコールバック時](#callback-from-javascript-to-csharp)にログが出力されます。
 
@@ -313,13 +313,13 @@ callback(
     true);  // isSuppressTraceLog
 ```
 
-### プラットフォームに応じたビデオ再生を行う
+### プラットフォームに応じたビデオ再生を行う {#platform-specific-video-playback}
 
-WebGLでのビデオ再生をJavaScriptに委譲する機能はEVideoPlayerが提供します。
+WebGLではVideoPlayerを使用した状態で動画を長時間再生すると音声が正常に流れなくなったり動画再生速度が極端に遅くなったりする問題が生じることがあります。
+この問題はWebGLでビデオ再生するときはその処理をJavaScriptに委譲することで解決できます。
 
-:::info
-WebGL以外でビデオ再生する場合も同様のAPIを使用できます。
-:::
+ここではWebGLでのビデオ再生をJavaScriptに委譲し、それ以外のプラットフォームではVideoPlayerを使用する機能を提供します。
+この機能はEVideoPlayerが提供します。
 
 使用したい動画が存在するURLを設定して動画再生の準備をします。
 

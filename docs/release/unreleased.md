@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Unreleased
 
-2024-04-04
+2024-04-12
 
 ## Unity version
 
@@ -75,11 +75,11 @@ sidebar_position: 1
 
 ### Extreal.Integration.Chat.WebRTC
 #### Added
-- ボイスチャットでマイク音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
-- ボイスチャットでスピーカー音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md))
-- ボイスチャットで発話音量を取得する機能を追加しました。([Doc](../integration/chat.webrtc.md))
+- ボイスチャットでマイク音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+- ボイスチャットでスピーカー音量を調節できる機能を追加しました。([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+- ボイスチャットで発話音量を取得する機能を追加しました。([Doc](../integration/chat.webrtc.md#voice-chat-p2p-event), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 #### Changed
-- ボイスチャットでマイクが使用できない場合はスピーカーのみ有効となるように変更しました。([Doc](../integration/chat.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
+- ボイスチャットでマイクが使用できない場合はスピーカーのみ有効となるように変更しました。([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
 
 ### Extreal.Integration.Messaging
 #### Added
@@ -99,23 +99,23 @@ sidebar_position: 1
 
 ### Extreal.Integration.P2P.WebRTC
 #### Added
-- シグナリングサーバーを冗長化できるようにスティッキーセッションを有効化する設定を追加しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
+- シグナリングサーバーを冗長化できるようにスティッキーセッションを有効化する設定を追加しました。([Doc](../integration/p2p.webrtc.md#signaling-server-redundancy), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
 #### Changed
-- PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
-- P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
+- PeerConnectionのCreate/Closeでエラーが発生しても処理を継続するように変更しました。([Doc](../integration/p2p.webrtc.md#add-app-processing-on-native), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
+- P2Pの各クライアントを識別できるように、自身及び接続または切断したクライアントのIDを取得できるように変更しました。([Doc](../integration/p2p.webrtc.md#p2p-event), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
   - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
 
 ### Extreal.Integration.Web.Common
 
 #### Added
 
-- JavaScriptの呼び出し状況のトレースログを抑制する機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
-- プラットフォームに応じたビデオ再生を行う機能を追加しました。([Doc](../integration/web.common.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
+- JavaScriptの呼び出し状況のトレースログを抑制する機能を追加しました。([Doc](../integration/web.common.md#suppress-call-status-trace-log), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
+- プラットフォームに応じたビデオ再生を行う機能を追加しました。([Doc](../integration/web.common.md#platform-specific-video-playback), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
 
 ### Extreal.SampleApp.Holiday
 #### Changed
-- スペースごとにマルチプレイをするように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
-- テキストチャット、マルチプレイを[Messaging](../integration/messaging.md)で実現するように変更しました。([Doc](../sample-app/intro.md), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- スペースごとにマルチプレイ、テキストチャットをするように変更しました。([Doc](../sample-app/requirements.md#functional-requirements), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
+- マルチプレイ、テキストチャットを[Messaging](../integration/messaging.md)で実現するように変更しました。([Doc](../sample-app/architecture.md#system-structure), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
 
 ## Upgrade guide {#upgrade-guide}
 

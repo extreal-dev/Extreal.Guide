@@ -224,7 +224,11 @@ To end the text chat, use the Clear method.
 textChatClient.Clear();
 ```
 
-### Perform P2P voice chat
+### Perform P2P voice chat {#voice-chat-via-p2p}
+
+:::info
+If the microphone is not available, only the speaker is enabled.
+:::
 
 Voice chat uses [P2P.WebRTC](p2p.webrtc.md) to realize P2P.
 Please use [P2P.WebRTC's API](p2p.webrtc.md#p2p-webrtc-host-client) to establish P2P connections.
@@ -281,7 +285,7 @@ var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
 
-### Add a processing triggered by VoiceChat Client state
+### Add a processing triggered by VoiceChat Client state {#voice-chat-p2p-event}
 
 VoiceChatClient has the following event notifications.
 
