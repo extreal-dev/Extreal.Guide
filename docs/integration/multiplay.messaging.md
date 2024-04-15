@@ -112,6 +112,7 @@ https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging.git
 - [Extreal.Integration.Messaging](messaging.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
+- [Newtonsoft Json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2/manual/index.html)
 
 モジュールバージョンと各パッケージバージョンの対応は[Release](../../category/release)を参照ください。
 

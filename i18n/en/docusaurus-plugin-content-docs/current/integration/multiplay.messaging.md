@@ -112,6 +112,7 @@ This module uses the following packages.
 - [Extreal.Integration.Messaging](./messaging.md)
 - [UniTask](https://github.com/Cysharp/UniTask)
 - [UniRx](https://github.com/neuecc/UniRx)
+- [Newtonsoft Json](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2/manual/index.html)
 
 Please refer to [Release](../../category/release) for the correspondence between module version and each package version.
 
