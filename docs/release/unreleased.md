@@ -21,7 +21,7 @@ sidebar_position: 1
 - [Extreal.Core.StageNavigation](https://github.com/extreal-dev/Extreal.Core.StageNavigation) 1.3.0
 - [Extreal.Integration.AssetWorkflow.Addressables](https://github.com/extreal-dev/Extreal.Integration.AssetWorkflow.Addressables) 1.2.0
 - [Extreal.Integration.Chat.Vivox](https://github.com/extreal-dev/Extreal.Integration.Chat.Vivox) 1.3.0
-- [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.1.0
+- [Extreal.Integration.Chat.WebRTC](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC) 1.2.0-next.1
 - [Extreal.Integration.Messaging](https://github.com/extreal-dev/Extreal.Integration.Messaging) 1.0.0
 - [Extreal.Integration.Messaging.Socket.IO](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO) 1.0.0
 - [Extreal.Integration.Multiplay.Messaging](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging) 1.0.0
@@ -32,7 +32,7 @@ sidebar_position: 1
 
 ### npm
 
-- [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.1.0
+- [@extreal-dev/extreal.integration.chat.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.chat.webrtc) 1.2.0-next.1
 - [@extreal-dev/extreal.integration.messaging.socket.io](https://www.npmjs.com/package/@extreal-dev/extreal.integration.messaging.socket.io) 1.0.0
 - [@extreal-dev/extreal.integration.multiplay.ngo.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.multiplay.ngo.webrtc) 1.1.0
 - [@extreal-dev/extreal.integration.p2p.webrtc](https://www.npmjs.com/package/@extreal-dev/extreal.integration.p2p.webrtc) 1.1.0
@@ -71,6 +71,22 @@ sidebar_position: 1
 
 ## Changes
 
+### Extreal.Integration.Chat.WebRTC
+#### Added
+- モバイルでのボイスチャット開始時にマイクの使用権限確認を行うかどうかを設定できる機能を追加しました。([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/18))
+#### Changed
+- HasMicrophoneメソッドをHasMicrophoneAsyncメソッドに変更しました。([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/18))
+  - この変更は後方互換に影響があるため[Upgrade guide](#upgrade-guide)を参照してください。
+
 ## Upgrade guide {#upgrade-guide}
 
 モジュールバージョンを更新してください。
+
+後方互換に影響がある変更があるため、下記を確認して該当するアプリケーションは対応してください。
+
+### Extreal.Integration.Chat.WebRTC
+#### 変更影響があるアプリケーション
+HasMicrophoneメソッドを使用していたアプリケーションに影響があります。
+#### 変更影響と対応方法
+- HasMicrophoneメソッドがHasMicrophoneAsyncメソッドに変更になりました。
+  - 戻り値が`bool`から`UniTask<bool>`に変更になったため、awaitするように変更してください。
