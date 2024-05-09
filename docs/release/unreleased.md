@@ -1,14 +1,14 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# 1.3.0
+# Unreleased
 
-2024-04-16
+2024-05-09
 
 ## Unity version
 
-The following Unity versions have been tested.
+次のUnityバージョンで動作確認しています。
 
 2022.3.17f1
 
@@ -71,64 +71,6 @@ The following Unity versions have been tested.
 
 ## Changes
 
-### Extreal.Integration.AssetWorkflow.Addressables
-#### Changed
-- Upgraded Addressables to 1.21.19.
-
-### Extreal.Integration.Chat.WebRTC
-#### Added
-- Add the ability to adjust the microphone volume in voice chat. ([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
-- Add the ability to adjust speaker volume in voice chat. ([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
-- Add the ability to get the speaking volume in voice chat. ([Doc](../integration/chat.webrtc.md#voice-chat-p2p-event), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
-#### Changed
-- Changed so that if the microphone cannot be used in voice chat, only the speaker is enabled. ([Doc](../integration/chat.webrtc.md#voice-chat-via-p2p), [PR](https://github.com/extreal-dev/Extreal.Integration.Chat.WebRTC/pull/8))
-
-### Extreal.Integration.Messaging
-#### Added
-- Add messaging feature that allows groups to exchange messages. ([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging/pull/1))
-
-### Extreal.Integration.Messaging.Socket.IO
-#### Added
-- Add the ability to send and receive messages via Socket.IO. ([Doc](../integration/messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Messaging.Socket.IO/pull/1))
-
-### Extreal.Integration.Multiplay.Messaging
-#### Added
-- Add the ability to play multiplayer by [Messaging](../integration/messaging.md). ([Doc](../integration/multiplay.messaging.md), [PR](https://github.com/extreal-dev/Extreal.Integration.Multiplay.Messaging/pull/2))
-
-### Extreal.Integration.Multiplay.NGO
-#### Changed
-- Upgraded NGO to 1.7.1.
-
-### Extreal.Integration.P2P.WebRTC
-#### Added
-- Added setting to enable sticky sessions to make signaling servers redundant. ([Doc](../integration/p2p.webrtc.md#signaling-server-redundancy), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/13))
-#### Changed
-- Changed to continue processing even if errors occur in Create/Close of PeerConnection. ([Doc](../integration/p2p.webrtc.md#add-app-processing-on-native), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/9))
-- Changed so that the ID of your own client and connected or disconnected clients can be obtained, so that each P2P client can be identified. ([Doc](../integration/p2p.webrtc.md#p2p-event), [PR](https://github.com/extreal-dev/Extreal.Integration.P2P.WebRTC/pull/10))
-  - Please refer to the [Upgrade guide](#upgrade-guide) as this change affects backward compatibility.
-
-### Extreal.Integration.Web.Common
-
-#### Added
-
-- Added the ability to suppress trace logs of JavaScript call. ([Doc](../integration/web.common.md#suppress-call-status-trace-log), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/7))
-- Added the ability to play videos according to the platform. ([Doc](../integration/web.common.md#platform-specific-video-playback), [PR](https://github.com/extreal-dev/Extreal.Integration.Web.Common/pull/9))
-
-### Extreal.SampleApp.Holiday
-#### Changed
-- Change to multiplayer and text chat per space. ([Doc](../sample-app/requirements.md#functional-requirements), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
-- Change multiplayer and text chat to be realized by [Messaging](../integration/messaging.md). ([Doc](../sample-app/architecture.md#system-structure), [PR](https://github.com/extreal-dev/Extreal.SampleApp.Holiday/pull/23))
-
 ## Upgrade guide {#upgrade-guide}
 
-Please update the module versions.
-
-Since there are changes that affect backward compatibility, please check the following and respond to the applicable applications.
-
-### Extreal.Integration.P2P.WebRTC
-#### Applications affected by the change
-Applications that combine PeerClient.OnStarted streams using methods such as Merge are affected.
-#### Change impact and how to respond
-- The type of PeerClient.OnStarted has been changed from `IObservable<Unit>` to `IObservable<string>`.
-  - If you combine PeerClient.OnStarted streams using a method such as Merge, the types will no longer match and a compilation error will occur.
-    Please do not combine streams and use the Subject method to process streams individually.
+モジュールバージョンを更新してください。
