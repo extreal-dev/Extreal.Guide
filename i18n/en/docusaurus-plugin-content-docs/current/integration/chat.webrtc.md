@@ -56,7 +56,7 @@ classDiagram
     class VoiceChatClient {
         +OnMuted IObservable
         +OnAudioLevelChanged IObservable
-        +HasMicrophone() bool
+        +HasMicrophoneAsync() bool
         +ToggleMute() void
         +SetInVolume(volume) void
         +SetOutVolume(volume) void
@@ -284,6 +284,18 @@ If you want to specify the default value for the output volume, specify it in Vo
 var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
+
+If you want to set whether to check permission to use the microphone when starting a voice chat on mobile, specify it with VoiceChatConfig.
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(isMicrophonePermissionCheckRequired: false);
+```
+
+:::info
+If you have already checked permission to use the microphone elsewhere in the app, you can prevent it from being checked again by setting `isMicrophonePermissionCheckRequired` to false.
+
+If `isMicrophonePermissionCheckRequired` is false and the permission to use the microphone has not been checked elsewhere, the microphone cannot be used.
+:::
 
 ### Add a processing triggered by VoiceChat Client state {#voice-chat-p2p-event}
 

@@ -56,7 +56,7 @@ classDiagram
     class VoiceChatClient {
         +OnMuted IObservable
         +OnAudioLevelChanged IObservable
-        +HasMicrophone() bool
+        +HasMicrophoneAsync() bool
         +ToggleMute() void
         +SetInVolume(volume) void
         +SetOutVolume(volume) void
@@ -284,6 +284,18 @@ voiceChatClient.SetOutVolume(volume);
 var voiceChatConfig = new VoiceChatConfig(initialOutVolume: 0.8f);
 var voiceChatClient = VoiceChatClientProvider.Provide(peerClient, voiceChatConfig);
 ```
+
+モバイルでのボイスチャット開始時にマイクの使用権限確認を行うかどうかを設定したい場合はVoiceChatConfigで指定します。
+
+```csharp
+var voiceChatConfig = new VoiceChatConfig(isMicrophonePermissionCheckRequired: false);
+```
+
+:::info
+アプリの他の箇所で既にマイクの使用権限確認を行っている場合は、`isMicrophonePermissionCheckRequired`をfalseにすることで再び確認が行われないようにできます。
+
+`isMicrophonePermissionCheckRequired`がfalseで、他の場所でマイクの使用権限確認を行っていない場合は、マイクが使用できません。
+:::
 
 ### ボイスチャットのクライアントの状態をトリガーに処理を追加する {#voice-chat-p2p-event}
 
