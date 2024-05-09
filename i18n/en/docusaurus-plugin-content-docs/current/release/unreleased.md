@@ -85,8 +85,8 @@ Please update the module versions.
 Since there are changes that affect backward compatibility, please check the following and respond to the applicable applications.
 
 ### Extreal.Integration.Chat.WebRTC
-#### 変更影響があるアプリケーション
+#### Applications affected by the change
 Applications that used the HasMicrophone method are affected.
-#### 変更影響と対応方法
+#### Change impact and how to respond
 - HasMicrophone method has been changed to HasMicrophoneAsync method.
   - The return value has changed from `bool` to `UniTask<bool>`, so please change it to await.
